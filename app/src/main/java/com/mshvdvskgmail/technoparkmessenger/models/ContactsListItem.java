@@ -4,7 +4,7 @@ package com.mshvdvskgmail.technoparkmessenger.models;
  * Created by mshvdvsk on 19/03/2017.
  */
 
-public class ModelContactsListItem {
+public class ContactsListItem {
 
     private String name;
     private String officePosition;

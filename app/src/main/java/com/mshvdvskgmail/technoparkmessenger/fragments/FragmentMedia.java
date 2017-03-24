@@ -9,18 +9,13 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.adapters.MainScreenTabAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.MediaTabAdapter;
-import com.mshvdvskgmail.technoparkmessenger.models.MessageEvent;
+import com.mshvdvskgmail.technoparkmessenger.events.MessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,11 +25,11 @@ import org.greenrobot.eventbus.EventBus;
 
 public class FragmentMedia extends Fragment {
     private View mRootView;
-    private ImageView trashIcon;
-    private ImageView shareIcon;
-    private LinearLayout bottomBar;
+    private ImageView imageTrashIcon;
+    private ImageView imageShareIcon;
+    private LinearLayout linearBottomBar;
     private TabLayout tabLayout;
-    private TextView btSelect;
+    private TextView tvSelectButton;
     private AlertDialog alert;
     private boolean isSelected;
 
@@ -52,7 +47,7 @@ public class FragmentMedia extends Fragment {
         mRootView = inflater.inflate(R.layout.fragment_media, container, false);
 
         tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
-        bottomBar = (LinearLayout) mRootView.findViewById(R.id.bottom_bar);
+        linearBottomBar = (LinearLayout) mRootView.findViewById(R.id.bottom_bar);
 
 
 
@@ -95,24 +90,27 @@ public class FragmentMedia extends Fragment {
     }
 
     private void addListeners() {
-        btSelect = (TextView) mRootView.findViewById(R.id.button_select);
-        btSelect.setOnClickListener(new View.OnClickListener(){
+
+        tvSelectButton = (TextView) mRootView.findViewById(R.id.button_select);
+        tvSelectButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 if (!isSelected){
-                    EventBus.getDefault().post(new MessageEvent("Hello everyone!"));
-                    bottomBar.setVisibility(View.VISIBLE);
+                    EventBus.getDefault().post(new MessageEvent(true));
+                    linearBottomBar.setVisibility(View.VISIBLE);
+                    tvSelectButton.setText("Отменить");
                     isSelected = true;
                 } else {
-                    EventBus.getDefault().post(new MessageEvent("Hello everyone!"));
-                    bottomBar.setVisibility(View.GONE);
+                    EventBus.getDefault().post(new MessageEvent(false));
+                    linearBottomBar.setVisibility(View.GONE);
+                    tvSelectButton.setText("Выбрать");
                     isSelected = false;
                 }
             }
         });
 
-        trashIcon = (ImageView) mRootView.findViewById(R.id.ic_trash);
-        trashIcon.setOnClickListener(new View.OnClickListener(){
+        imageTrashIcon = (ImageView) mRootView.findViewById(R.id.ic_trash);
+        imageTrashIcon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
@@ -135,8 +133,8 @@ public class FragmentMedia extends Fragment {
             }
         });
 
-        shareIcon = (ImageView) mRootView.findViewById(R.id.ic_forward);
-        shareIcon.setOnClickListener(new View.OnClickListener(){
+        imageShareIcon = (ImageView) mRootView.findViewById(R.id.ic_forward);
+        imageShareIcon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());

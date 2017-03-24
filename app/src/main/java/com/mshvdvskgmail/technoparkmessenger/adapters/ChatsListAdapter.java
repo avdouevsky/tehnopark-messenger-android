@@ -1,9 +1,6 @@
 package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelChatsListItem;
+import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,10 +22,10 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  */
 
 public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.ViewHolder> {
-    private ArrayList<ModelChatsListItem> chatsList;
+    private ArrayList<ChatsListItem> chatsList;
     private View rowView;
     private Context context;
-    private ModelChatsListItem currentItem;
+    private ChatsListItem currentItem;
     private int count;
 
     private String name;
@@ -47,7 +44,7 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
     private TextView itemNotifiCount;
 
 
-    public ChatsListAdapter(ArrayList <ModelChatsListItem> chatsList, Context context) {
+    public ChatsListAdapter(ArrayList <ChatsListItem> chatsList, Context context) {
         this.chatsList = chatsList;
         this.context = context;
         count = 0;

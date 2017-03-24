@@ -1,7 +1,6 @@
 package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelCallsList;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelChatsListItem;
+import com.mshvdvskgmail.technoparkmessenger.models.CallsList;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,10 +22,10 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  */
 
 public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.ViewHolder> {
-    private ArrayList<ModelCallsList> callsList;
+    private ArrayList<CallsList> callsList;
     private View rowView;
     private Context context;
-    private ModelCallsList currentItem;
+    private CallsList currentItem;
     private int count;
 
     private String name;
@@ -42,7 +40,7 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
     private ImageView itemIncomingStatus;
 
 
-    public CallsListAdapter(ArrayList <ModelCallsList> callsList, Context context) {
+    public CallsListAdapter(ArrayList <CallsList> callsList, Context context) {
         this.callsList = callsList;
         this.context = context;
         count = 0;

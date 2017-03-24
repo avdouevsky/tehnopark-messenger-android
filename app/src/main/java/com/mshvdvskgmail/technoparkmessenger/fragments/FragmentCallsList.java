@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.CallsListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelCallsList;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelChatsListItem;
+import com.mshvdvskgmail.technoparkmessenger.models.CallsList;
 
 import java.util.ArrayList;
 
@@ -24,7 +22,7 @@ public class FragmentCallsList extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<ModelCallsList> calls;
+    private ArrayList<CallsList> calls;
     private CallsListAdapter mAdapter;
 
     @Override
@@ -38,21 +36,21 @@ public class FragmentCallsList extends Fragment {
 
         calls = new ArrayList<>();
 
-        ModelCallsList dummyObject1 = new ModelCallsList();
+        CallsList dummyObject1 = new CallsList();
         dummyObject1.setName("Пушкин");
         dummyObject1.setTime("10:20");
         dummyObject1.setOnline(true);
         dummyObject1.setMissed(false);
         dummyObject1.setIncoming(true);
 
-        ModelCallsList dummyObject2 = new ModelCallsList();
+        CallsList dummyObject2 = new CallsList();
         dummyObject2.setName("Пушкин");
         dummyObject2.setTime("10:20");
         dummyObject2.setOnline(false);
         dummyObject2.setMissed(true);
         dummyObject2.setIncoming(true);
 
-        ModelCallsList dummyObject3 = new ModelCallsList();
+        CallsList dummyObject3 = new CallsList();
         dummyObject3.setName("Авдуевский Михаил");
         dummyObject3.setTime("Вчера");
         dummyObject3.setOnline(false);

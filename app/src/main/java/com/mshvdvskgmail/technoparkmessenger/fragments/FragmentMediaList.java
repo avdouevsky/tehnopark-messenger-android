@@ -10,10 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.adapters.CallsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.MediaListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelCallsList;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelMediaList;
+import com.mshvdvskgmail.technoparkmessenger.models.MediaList;
 
 import java.util.ArrayList;
 
@@ -27,7 +25,7 @@ public class FragmentMediaList extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<ModelMediaList> media;
+    private ArrayList<MediaList> media;
     private MediaListAdapter mAdapter;
     private StickyHeaderDecoration decor;
 
@@ -43,37 +41,37 @@ public class FragmentMediaList extends Fragment {
 
         media = new ArrayList<>();
 
-        ModelMediaList a = new ModelMediaList();
+        MediaList a = new MediaList();
         a.setDate("ЯНВАРЬ");
         media.add(a);
         media.add(a);
         media.add(a);
 
-        ModelMediaList b = new ModelMediaList();
+        MediaList b = new MediaList();
         b.setDate("ФЕВРАЛЬ");
         media.add(b);
 
-        ModelMediaList c = new ModelMediaList();
+        MediaList c = new MediaList();
         c.setDate("МАРТ");
         media.add(c);
 
-        ModelMediaList d = new ModelMediaList();
+        MediaList d = new MediaList();
         d.setDate("АПРЕЛЬ");
         media.add(d);
 
-        ModelMediaList e = new ModelMediaList();
+        MediaList e = new MediaList();
         e.setDate("ЯНВАРЬ");
         media.add(e);
 
-        ModelMediaList f = new ModelMediaList();
+        MediaList f = new MediaList();
         f.setDate("ИЮНЬ");
         media.add(f);
 
-        ModelMediaList g = new ModelMediaList();
+        MediaList g = new MediaList();
         g.setDate("АВГУСТ");
         media.add(g);
 
-        ModelMediaList h = new ModelMediaList();
+        MediaList h = new MediaList();
         h.setDate("СЕНТЯБРЬ");
         media.add(h);
 

@@ -4,7 +4,7 @@ package com.mshvdvskgmail.technoparkmessenger.models;
  * Created by mshvdvsk on 16/03/2017.
  */
 
-public class ModelChatsListItem {
+public class ChatsListItem {
 
     private String name;
     private String lastLine;

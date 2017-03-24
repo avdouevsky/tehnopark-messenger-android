@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelMediaList;
+import com.mshvdvskgmail.technoparkmessenger.models.MediaList;
 
 import java.util.ArrayList;
 
@@ -22,12 +22,12 @@ import ca.barrenechea.widget.recyclerview.decoration.*;
 public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.ViewHolder>
         implements StickyHeaderAdapter<MediaListAdapter.HeaderHolder> {
 
-    private ArrayList<ModelMediaList> media;
+    private ArrayList<MediaList> media;
     private Context context;
     private FrameLayout mFrame;
     private LayoutInflater mInflater;
 
-    public MediaListAdapter(ArrayList <ModelMediaList> media, Context context) {
+    public MediaListAdapter(ArrayList <MediaList> media, Context context) {
         this.media = media;
         this.context = context;
         mInflater = LayoutInflater.from(context);

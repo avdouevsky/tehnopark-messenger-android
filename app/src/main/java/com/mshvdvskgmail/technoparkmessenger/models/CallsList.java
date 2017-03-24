@@ -4,7 +4,7 @@ package com.mshvdvskgmail.technoparkmessenger.models;
  * Created by mshvdvsk on 20/03/2017.
  */
 
-public class ModelCallsList {
+public class CallsList {
     private String name;
     private String time;
     private boolean isMissed;

@@ -4,7 +4,7 @@ package com.mshvdvskgmail.technoparkmessenger.models;
  * Created by mshvdvsk on 23/03/2017.
  */
 
-public class ModelLinksItem {
+public class LinksItem {
     private String linkSent;
     private String linkTitle;
     private String linkAdress;

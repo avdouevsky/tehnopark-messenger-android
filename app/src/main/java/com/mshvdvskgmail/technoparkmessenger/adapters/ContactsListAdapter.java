@@ -12,14 +12,12 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelChatsListItem;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelContactsListItem;
+import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
-import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
@@ -29,25 +27,25 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapter.ViewHolder> implements SectionIndexer,
         StickyHeaderAdapter<ContactsListAdapter.HeaderHolder> {
 
-    private ArrayList<ModelContactsListItem> contactsList;
+    private ArrayList<ContactsListItem> contactsList;
     private View rowView;
     private Context context;
-    private ModelContactsListItem currentItem;
+    private ContactsListItem currentItem;
 
     private String name;
     private String officePosition;
     private boolean isOnline;
 
-    private TextView itemName;
-    private TextView itemPosition;
-    private ImageView itemOnline;
-    private FrameLayout mFrameLayout;
+    private TextView tvItemName;
+    private TextView tvItemPosition;
+    private ImageView imageItemOnline;
+    private FrameLayout frameSeparator;
     private LayoutInflater mInflater;
 
     public static final String TAG = ContactsListAdapter.class.getCanonicalName();
 
 
-    public ContactsListAdapter(ArrayList <ModelContactsListItem> contactsList, Context context) {
+    public ContactsListAdapter(ArrayList <ContactsListItem> contactsList, Context context) {
         this.contactsList = contactsList;
         this.context = context;
         mInflater = LayoutInflater.from(context);
@@ -65,11 +63,11 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
     public void onBindViewHolder(ContactsListAdapter.ViewHolder holder, int position) {
         if (position+1 == contactsList.size() || contactsList.get(position).getName().charAt(0) !=
                 contactsList.get(position+1).getName().charAt(0)){
-            mFrameLayout = holder.mFrameLayout;
-            mFrameLayout.setVisibility(View.GONE);
+            frameSeparator = holder.mFrameLayout;
+            frameSeparator.setVisibility(View.GONE);
         } else {
-            mFrameLayout = holder.mFrameLayout;
-            mFrameLayout.setVisibility(View.VISIBLE);
+            frameSeparator = holder.mFrameLayout;
+            frameSeparator.setVisibility(View.VISIBLE);
         }
 
         ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.profile_icon);
@@ -81,16 +79,16 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         officePosition = currentItem.getOfficePosition();
         isOnline = currentItem.isOnline();
 
-        itemName = (TextView) holder.mView.findViewById(R.id.name);
-        itemPosition = (TextView) holder.mView.findViewById(R.id.office_position);
-        itemOnline = (ImageView) holder.mView.findViewById(R.id.online_dot);
+        tvItemName = (TextView) holder.mView.findViewById(R.id.name);
+        tvItemPosition = (TextView) holder.mView.findViewById(R.id.office_position);
+        imageItemOnline = (ImageView) holder.mView.findViewById(R.id.online_dot);
 
-        itemName.setText(name);
-        itemPosition.setText(officePosition);
+        tvItemName.setText(name);
+        tvItemPosition.setText(officePosition);
 
         if (isOnline) {
-            itemOnline.setVisibility(View.VISIBLE);
-        } else itemOnline.setVisibility(View.GONE);
+            imageItemOnline.setVisibility(View.VISIBLE);
+        } else imageItemOnline.setVisibility(View.GONE);
     }
 
     @Override

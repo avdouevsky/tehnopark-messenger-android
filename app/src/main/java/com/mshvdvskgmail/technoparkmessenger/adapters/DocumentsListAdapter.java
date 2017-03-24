@@ -2,6 +2,7 @@ package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +13,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.models.MessageEvent;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelDocumentsItem;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelMediaList;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.mshvdvskgmail.technoparkmessenger.models.DocumentsListItem;
 
 import java.util.ArrayList;
 
@@ -34,20 +28,24 @@ import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
 public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdapter.ViewHolder>
         implements StickyHeaderAdapter<DocumentsListAdapter.HeaderHolder> {
 
-    private ArrayList<ModelDocumentsItem> documents;
+    private final static String TAG = DocumentsListAdapter.class.toString();
+
+    private ArrayList<DocumentsListItem> documents = new ArrayList<>();
     private Context context;
-    private FrameLayout mFrame;
-    private FrameLayout bottomItemSeparator;
-    private LinearLayout mLinear;
-    private ImageView mImage;
-    private LayoutInflater mInflater;
+    private FrameLayout frameDocType;
+    private FrameLayout frameBottom;
+    private LinearLayout linearDocInfo;
+    private ImageView imageSelectIcon;
+    private LayoutInflater inflater;
     public boolean isAnimated;
     public boolean isPressed;
+    private boolean isSelectorPressed;
 
-    public DocumentsListAdapter(ArrayList <ModelDocumentsItem> documents, Context context) {
+
+    public DocumentsListAdapter(ArrayList <DocumentsListItem> documents, Context context) {
         this.documents = documents;
         this.context = context;
-        mInflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -60,25 +58,25 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
     @Override
     public void onBindViewHolder(DocumentsListAdapter.ViewHolder holder, int position) {
+        Log.d(TAG, "onBindViewHolder");
 
-        bottomItemSeparator = holder.mBottom;
-        mFrame = holder.mImage;
-        mLinear = holder.mLinear;
-        mImage = holder.selectIcon;
+        frameBottom = holder.frameBottom;
+        frameDocType = holder.frameDocType;
+        linearDocInfo = holder.linearDocInfo;
+        imageSelectIcon = holder.imageSelectIcon;
 
         float d = context.getResources().getDisplayMetrics().density;
         final ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
-        final ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) mFrame.getLayoutParams();
+        final ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) frameDocType.getLayoutParams();
 
 
         int topMargin = (int)(-10 * d);
         int bottomMargin = (int)(40 * d);
-        int rightMargin = (int)(37 * d);
         int leftMarginBasic = (int)(-30 * d);
         int leftMarginChanged = (int)(12.5 * d);
 
 
-        if (position==0){
+        if (position == 0){
             params.topMargin = topMargin;
             params.bottomMargin = 0;
         } else if (position == documents.size()-1){
@@ -89,42 +87,34 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
             params.bottomMargin = 0;
         }
 
-//        isPressed = true;
-
-//        params2.leftMargin = leftMarginBasic;
-//        params2.leftMargin = leftMarginChanged;
-
-
-
         if (isPressed){
             params2.leftMargin = leftMarginChanged;
+            imageSelectIcon.setVisibility(View.VISIBLE);
         } else {
             params2.leftMargin = leftMarginBasic;
+            imageSelectIcon.setVisibility(View.INVISIBLE);
         }
 
+        //mFrame.setLayoutParams(params2);
+        frameDocType.requestLayout();
 
         if (position < documents.size()-1){
             if (documents.get(position).getDataSent().charAt(0) ==
                     documents.get(position+1).getDataSent().charAt(0)) {
-                bottomItemSeparator.setVisibility(View.VISIBLE);
+                frameBottom.setVisibility(View.VISIBLE);
             } else {
-                bottomItemSeparator.setVisibility(View.INVISIBLE);
+                frameBottom.setVisibility(View.INVISIBLE);
             }
         } else if (position == documents.size()-1){
-            bottomItemSeparator.setVisibility(View.INVISIBLE);
+            frameBottom.setVisibility(View.INVISIBLE);
         }
 
-
-//        setFadeAnimation(holder.itemView);
-
-//        isAnimated = true;
-//
         if(isAnimated){
             final Animation slideToRight = AnimationUtils.loadAnimation(context, R.anim.icon_slide_to_right);
             final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
 
             slideToRight.setStartOffset(0);
-            final ViewGroup.MarginLayoutParams iconParams = (ViewGroup.MarginLayoutParams) mFrame.getLayoutParams();
+            final ViewGroup.MarginLayoutParams iconParams = (ViewGroup.MarginLayoutParams) frameDocType.getLayoutParams();
             slideToRight.setAnimationListener(new Animation.AnimationListener() {
 
 
@@ -136,7 +126,8 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     isPressed = true;
-//                    notifyDataSetChanged();
+//                    frameDocType.requestLayout();
+                    notifyDataSetChanged();
                 }
 
                 @Override
@@ -144,45 +135,27 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
                 }
             });
-            mFrame.startAnimation(slideToRight);
-            mImage.startAnimation(fadeIn);
-            mLinear.startAnimation(slideToRight);
+            frameDocType.startAnimation(slideToRight);
+            imageSelectIcon.startAnimation(fadeIn);
+            linearDocInfo.startAnimation(slideToRight);
         }
 
 
-        mImage = holder.selectIcon;
-        mImage.setOnClickListener(new View.OnClickListener() {
+        imageSelectIcon = holder.imageSelectIcon;
+        imageSelectIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (isSelectorPressed){
+                    imageSelectIcon.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_checked));
+                    notifyDataSetChanged();
+//                    imageSelectIcon.setImageResource(R.drawable.icon_select_checked);
+                } else {
+                    imageSelectIcon.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_unchecked));
+                    notifyDataSetChanged();
+                }
+                isSelectorPressed = !isSelectorPressed;
             }
         });
-
-
-
-
-
-//        mFrame.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                mFrame.startAnimation(slideToRight);
-//                mFrame.startAnimation(slideToRight);
-//            }
-//        });
-
-        // old animation version via .post
-//        if (isAnimated) {
-//            final Animation slideToRight = AnimationUtils.loadAnimation(context, R.anim.icon_slide_to_right);
-//            slideToRight.setStartOffset(100);
-//            mFrame = holder.mImage;
-//            mFrame.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mFrame.startAnimation(slideToRight);
-//                    mFrame.startAnimation(slideToRight);
-//                }
-//            });
-//        }
     }
 
     @Override
@@ -197,30 +170,29 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
     @Override
     public DocumentsListAdapter.HeaderHolder onCreateHeaderViewHolder(ViewGroup parent) {
-        final View view = mInflater.inflate(R.layout.header_media, parent, false);
+        final View view = inflater.inflate(R.layout.header_media, parent, false);
         return new DocumentsListAdapter.HeaderHolder(view);
     }
 
     @Override
     public void onBindHeaderViewHolder(DocumentsListAdapter.HeaderHolder viewHolder, int position) {
-//        viewHolder.header.setText(""+media.get(position).getDate());
         viewHolder.header.setText(""+documents.get(position).getDataSent());
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        FrameLayout mBottom;
-        FrameLayout mImage;
-        LinearLayout mLinear;
-        ImageView selectIcon;
+        FrameLayout frameBottom;
+        FrameLayout frameDocType;
+        LinearLayout linearDocInfo;
+        ImageView imageSelectIcon;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mBottom = (FrameLayout) itemView.findViewById(R.id.bottom_line);
-            mImage = (FrameLayout) itemView.findViewById(R.id.image_frame);
-            mLinear = (LinearLayout) itemView.findViewById(R.id.doc_info);
-            selectIcon = (ImageView) itemView.findViewById(R.id.select_item);
+            frameBottom = (FrameLayout) itemView.findViewById(R.id.bottom_line);
+            frameDocType = (FrameLayout) itemView.findViewById(R.id.doc_type_frame);
+            linearDocInfo = (LinearLayout) itemView.findViewById(R.id.doc_info);
+            imageSelectIcon = (ImageView) itemView.findViewById(R.id.select_item);
         }
     }
 
@@ -232,11 +204,4 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
             header = (TextView) itemView.findViewById(R.id.text_item);
         }
     }
-
-    private void setFadeAnimation(View view) {
-        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
-        anim.setDuration(10000);
-        view.startAnimation(anim);
-    }
-
 }

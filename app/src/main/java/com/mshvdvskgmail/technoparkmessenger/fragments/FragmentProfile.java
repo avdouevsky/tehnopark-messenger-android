@@ -17,10 +17,8 @@ import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ProfileFilesAdapter;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelProfileAttachment;
+import com.mshvdvskgmail.technoparkmessenger.models.ProfileAttachment;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -34,7 +32,7 @@ public class FragmentProfile extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<ModelProfileAttachment> files;
+    private ArrayList<ProfileAttachment> files;
     private ProfileFilesAdapter mAdapter;
     private AlertDialog alert;
 
@@ -63,7 +61,7 @@ public class FragmentProfile extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         files = new ArrayList<>();
-        ModelProfileAttachment dummyObject = new ModelProfileAttachment();
+        ProfileAttachment dummyObject = new ProfileAttachment();
         for (int i = 0; i < 10; i++){
             files.add(dummyObject);
         }

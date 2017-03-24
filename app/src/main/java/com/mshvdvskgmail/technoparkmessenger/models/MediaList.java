@@ -4,7 +4,7 @@ package com.mshvdvskgmail.technoparkmessenger.models;
  * Created by mshvdvsk on 21/03/2017.
  */
 
-public class ModelMediaList {
+public class MediaList {
     private boolean isBottom;
     private String date;
 

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelChatsListItem;
+import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class FragmentChatsList extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<ModelChatsListItem> contacts;
+    private ArrayList<ChatsListItem> contacts;
     private ChatsListAdapter mAdapter;
 
     @Override
@@ -36,7 +36,7 @@ public class FragmentChatsList extends Fragment {
 
         contacts = new ArrayList<>();
 
-        ModelChatsListItem dummyObject1 = new ModelChatsListItem();
+        ChatsListItem dummyObject1 = new ChatsListItem();
         dummyObject1.setName("Пушкин");
         dummyObject1.setLastLine("you, fat fuck");
         dummyObject1.setTime("вчера");
@@ -44,7 +44,7 @@ public class FragmentChatsList extends Fragment {
         dummyObject1.setHasNew(true);
         dummyObject1.setNewCount(5);
 
-        ModelChatsListItem dummyObject2 = new ModelChatsListItem();
+        ChatsListItem dummyObject2 = new ChatsListItem();
         dummyObject2.setName("Кукушкин");
         dummyObject2.setLastLine("I am a poet!");
         dummyObject2.setTime("17:00");
@@ -52,7 +52,7 @@ public class FragmentChatsList extends Fragment {
         dummyObject2.setHasNew(false);
         dummyObject2.setNewCount(0);
 
-        ModelChatsListItem dummyObject3 = new ModelChatsListItem();
+        ChatsListItem dummyObject3 = new ChatsListItem();
         dummyObject3.setName("Птушкин");
         dummyObject3.setLastLine("I am your friend friend friend friend friend friend friend friend !");
         dummyObject3.setTime("03.03.1836");

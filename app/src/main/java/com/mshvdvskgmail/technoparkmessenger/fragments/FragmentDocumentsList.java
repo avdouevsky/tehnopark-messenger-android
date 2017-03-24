@@ -2,19 +2,17 @@ package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.DocumentsListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.adapters.MediaListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.models.MessageEvent;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelDocumentsItem;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelMediaList;
+import com.mshvdvskgmail.technoparkmessenger.events.MessageEvent;
+import com.mshvdvskgmail.technoparkmessenger.models.DocumentsListItem;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,13 +27,15 @@ import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
  */
 
 public class FragmentDocumentsList extends Fragment {
+    private final static String TAG = FragmentDocumentsList.class.toString();
+
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<ModelDocumentsItem> documents;
+    private ArrayList<DocumentsListItem> documents;
     private DocumentsListAdapter mAdapter;
     private StickyHeaderDecoration decor;
-    private boolean isPressed;
+//    private boolean isPressed;
 
 
     @Override
@@ -50,21 +50,21 @@ public class FragmentDocumentsList extends Fragment {
 
         documents = new ArrayList<>();
 
-        ModelDocumentsItem a = new ModelDocumentsItem();
+        DocumentsListItem a = new DocumentsListItem();
         a.setDataSent("ЯНВАРЬ");
         documents.add(a);
         documents.add(a);
         documents.add(a);
 
-        ModelDocumentsItem b = new ModelDocumentsItem();
+        DocumentsListItem b = new DocumentsListItem();
         b.setDataSent("Февраль");
         documents.add(b);
 
-        ModelDocumentsItem c = new ModelDocumentsItem();
+        DocumentsListItem c = new DocumentsListItem();
         c.setDataSent("Август");
         documents.add(c);
 
-        ModelDocumentsItem d = new ModelDocumentsItem();
+        DocumentsListItem d = new DocumentsListItem();
         d.setDataSent("Жопка");
         documents.add(d);
         documents.add(d);
@@ -83,17 +83,21 @@ public class FragmentDocumentsList extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
-//        Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show();
-        if (!isPressed) {
-//            mAdapter.isAnimated = true;
-            mAdapter.isPressed = true;
+
+//        mAdapter.isPressed = !mAdapter.isPressed;
+//        mAdapter.notifyDataSetChanged();
+
+
+        if (event.state){
+            Log.d(TAG, "onMessageEvent: " + mAdapter.isPressed);
+//        mAdapter.isPressed = !mAdapter.isPressed;
+            mAdapter.isAnimated = true;
             mAdapter.notifyDataSetChanged();
-            isPressed = true;
+//            mAdapter.isPressed = true;
+//            mAdapter.notifyDataSetChanged();
         } else {
-//            mAdapter.isAnimated = true;
             mAdapter.isPressed = false;
             mAdapter.notifyDataSetChanged();
-            isPressed = false;
         }
 
     }

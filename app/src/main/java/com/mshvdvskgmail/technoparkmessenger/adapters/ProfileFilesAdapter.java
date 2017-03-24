@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelProfileAttachment;
+import com.mshvdvskgmail.technoparkmessenger.models.ProfileAttachment;
 
 import java.util.ArrayList;
 
@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 public class ProfileFilesAdapter extends RecyclerView.Adapter<ProfileFilesAdapter.ViewHolder> {
 
-    private ArrayList<ModelProfileAttachment> files;
+    private ArrayList<ProfileAttachment> files;
     private Context context;
 
-    public ProfileFilesAdapter(ArrayList <ModelProfileAttachment> files, Context context) {
+    public ProfileFilesAdapter(ArrayList <ProfileAttachment> files, Context context) {
         this.files = files;
         this.context = context;
     }

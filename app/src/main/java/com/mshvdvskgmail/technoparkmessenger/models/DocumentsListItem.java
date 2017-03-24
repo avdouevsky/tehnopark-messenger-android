@@ -4,7 +4,7 @@ package com.mshvdvskgmail.technoparkmessenger.models;
  * Created by mshvdvsk on 22/03/2017.
  */
 
-public class ModelDocumentsItem {
+public class DocumentsListItem {
     private String fileType;
     private String fileName;
     private String fileSize;

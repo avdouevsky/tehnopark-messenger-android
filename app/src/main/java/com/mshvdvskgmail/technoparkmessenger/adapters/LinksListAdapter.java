@@ -9,8 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelDocumentsItem;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelLinksItem;
+import com.mshvdvskgmail.technoparkmessenger.models.LinksItem;
 
 import java.util.ArrayList;
 
@@ -23,12 +22,12 @@ import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
 public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.ViewHolder>
         implements StickyHeaderAdapter<LinksListAdapter.HeaderHolder> {
 
-    private ArrayList<ModelLinksItem> links;
+    private ArrayList<LinksItem> links;
     private Context context;
     private FrameLayout mFrame;
     private LayoutInflater mInflater;
 
-    public LinksListAdapter(ArrayList <ModelLinksItem> links, Context context) {
+    public LinksListAdapter(ArrayList <LinksItem> links, Context context) {
         this.links = links;
         this.context = context;
         mInflater = LayoutInflater.from(context);

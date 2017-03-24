@@ -9,15 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.adapters.DocumentsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.LinksListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.models.MessageEvent;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelDocumentsItem;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelLinksItem;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.mshvdvskgmail.technoparkmessenger.models.LinksItem;
 
 import java.util.ArrayList;
 
@@ -31,7 +24,7 @@ public class FragmentLinksList extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<ModelLinksItem> links;
+    private ArrayList<LinksItem> links;
     private LinksListAdapter mAdapter;
     private StickyHeaderDecoration decor;
 
@@ -48,21 +41,21 @@ public class FragmentLinksList extends Fragment {
 
         links = new ArrayList<>();
 
-        ModelLinksItem a = new ModelLinksItem();
+        LinksItem a = new LinksItem();
         a.setLinkSent("ЯНВАРЬ");
         links.add(a);
         links.add(a);
         links.add(a);
 
-        ModelLinksItem b = new ModelLinksItem();
+        LinksItem b = new LinksItem();
         b.setLinkSent("Февраль");
         links.add(b);
 
-        ModelLinksItem c = new ModelLinksItem();
+        LinksItem c = new LinksItem();
         c.setLinkSent("Август");
         links.add(c);
 
-        ModelLinksItem d = new ModelLinksItem();
+        LinksItem d = new LinksItem();
         d.setLinkSent("Жопка");
         links.add(d);
         links.add(d);

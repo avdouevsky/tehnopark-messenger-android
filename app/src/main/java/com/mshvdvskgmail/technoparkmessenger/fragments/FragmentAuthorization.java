@@ -23,7 +23,7 @@ import com.mshvdvskgmail.technoparkmessenger.R;
 
 public class FragmentAuthorization extends Fragment{
 
-    private View mRootView;
+   // private View mRootView;
     private AlertDialog alert;
     private EditText emailField;
     private EditText passwordField;
@@ -45,7 +45,7 @@ public class FragmentAuthorization extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mRootView = inflater.inflate(R.layout.fragment_athorization, container, false);
+        View mRootView = inflater.inflate(R.layout.fragment_athorization, container, false);
 
         setButtonListeners(mRootView);
 

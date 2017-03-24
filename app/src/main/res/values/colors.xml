@@ -8,6 +8,10 @@
     <color name="rippleEffect">#45ffffff</color>
     <color name="colorBlueTextPrimary">#0193c6</color>
     <color name="colorBlueLightText">#10b4fa</color>
+    <color name="colorBlueSelected">#22A4E0</color>
+
+
+
     <color name="colorBlueLightButDarkerText">#0e9fdd</color>
     <color name="colorBlueTextTransparent">#8710b4fa</color>
     <color name="colorBlueTextTransparent30">#4410b4fa</color>

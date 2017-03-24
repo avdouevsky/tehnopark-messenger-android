@@ -9,11 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ContactsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.SideSelector;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelChatsListItem;
-import com.mshvdvskgmail.technoparkmessenger.models.ModelContactsListItem;
+import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 
 import java.util.ArrayList;
 
@@ -28,7 +26,7 @@ public class FragmentContactsList  extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<ModelContactsListItem> contacts;
+    private ArrayList<ContactsListItem> contacts;
     private ContactsListAdapter mAdapter;
     private StickyHeaderDecoration decor;
 
@@ -43,17 +41,17 @@ public class FragmentContactsList  extends Fragment {
 
         contacts = new ArrayList<>();
 
-//        ModelContactsListItem dummyObject1 = new ModelContactsListItem();
+//        ContactsListItem dummyObject1 = new ContactsListItem();
 //        dummyObject1.setName("Пушкин1");
 //        dummyObject1.setOfficePosition("fucker1");
 //        dummyObject1.setOnline(true);
 //
-//        ModelContactsListItem dummyObject2 = new ModelContactsListItem();
+//        ContactsListItem dummyObject2 = new ContactsListItem();
 //        dummyObject2.setName("Пушкин2");
 //        dummyObject2.setOfficePosition("fucker2");
 //        dummyObject2.setOnline(true);
 //
-//        ModelContactsListItem dummyObject3 = new ModelContactsListItem();
+//        ContactsListItem dummyObject3 = new ContactsListItem();
 //        dummyObject3.setName("Пушкин3");
 //        dummyObject3.setOfficePosition("fucker3");
 //        dummyObject3.setOnline(true);
@@ -74,7 +72,7 @@ public class FragmentContactsList  extends Fragment {
             counter++;
             if ((counter % 2)==0){
                 for (int i = 1; i <= 2; i++) {
-                    ModelContactsListItem dummyObject = new ModelContactsListItem();
+                    ContactsListItem dummyObject = new ContactsListItem();
                     dummyObject.setName(String.valueOf(ch) + "-" + i);
                     dummyObject.setOfficePosition("CEO");
                     dummyObject.setOnline(true);

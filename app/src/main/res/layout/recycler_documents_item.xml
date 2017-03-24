@@ -16,7 +16,7 @@
             android:layout_width="27dp"
             android:layout_height="27dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_select_dot"
+            android:background="@drawable/ic_select_dot_unchecked"
             android:layout_marginStart="30dp"
             android:layout_marginLeft="30dp"
             android:visibility="invisible"
@@ -27,7 +27,7 @@
             android:layout_height="85dp"
             android:background="#C6CAD0"
             android:layout_gravity="center_vertical"
-            android:id="@+id/image_frame"
+            android:id="@+id/doc_type_frame"
             android:layout_marginStart="-30dp"
             android:layout_marginLeft="-30dp">
 
