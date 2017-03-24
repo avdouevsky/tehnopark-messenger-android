@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="10dp"
+        android:background="@color/backGroundDarkBlue">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="left">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_logo"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="right"
+            android:id="@+id/frame_with_icon_search">
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:id="@+id/ic_write_new"
+                android:src="@drawable/ic_write_new"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backGroundDarkBlue"
+            app:tabTextAppearance="@style/TabTextStyle"
+            app:tabIndicatorColor="#10b4fa"
+            app:tabIndicatorHeight="3dp"
+            app:tabSelectedTextColor="#10b4fa"
+            app:tabTextColor="@color/colorWhiteText"
+            app:tabPaddingBottom="-3dp"
+            app:tabPaddingEnd="-3dp"
+            app:tabPaddingStart="-3dp"
+            app:tabPaddingTop="-3dp"
+            app:tabMode="scrollable"
+            app:tabMinWidth="50dp">
+
+
+            <android.support.design.widget.TabItem
+                android:text="ЧАТЫ"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent" />
+            <android.support.design.widget.TabItem
+                android:text="ГРУППЫ"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent" />
+            <android.support.design.widget.TabItem
+                android:text="КОНТАКТЫ"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent" />
+            <android.support.design.widget.TabItem
+                android:text="ВЫЗОВЫ"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </android.support.design.widget.TabLayout>
+
+
+    </FrameLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+    </android.support.v4.view.ViewPager>
+
+
+</LinearLayout>

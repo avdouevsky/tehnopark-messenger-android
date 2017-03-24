@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F2F2F2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="113dp"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:layout_width="27dp"
+            android:layout_height="27dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_select_dot"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:visibility="invisible"
+            android:id="@+id/select_item"></ImageView>
+
+        <FrameLayout
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="#C6CAD0"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/image_frame"
+            android:layout_marginStart="-30dp"
+            android:layout_marginLeft="-30dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_document_pdf"
+
+                />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="37dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginLeft="19dp"
+            android:layout_marginEnd="30dp"
+            android:id="@+id/doc_info"
+            android:layout_marginRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ДокументДокументДокументДокументДокументДокумент.pdf"
+                android:maxLines="1"
+                android:textColor="#0f2745"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4 КБ • pdf"
+                android:textColor="#999999"
+                android:ellipsize="end"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@color/transparentBlack20"
+        android:id="@+id/bottom_line"
+        ></FrameLayout>
+
+</LinearLayout>

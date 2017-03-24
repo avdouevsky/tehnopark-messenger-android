@@ -1,0 +1,107 @@
+package com.mshvdvskgmail.technoparkmessenger.fragments;
+
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.adapters.MainScreenTabAdapter;
+
+/**
+ * Created by mshvdvsk on 16/03/2017.
+ */
+
+public class FragmentMainFourTabScreen extends Fragment{
+    private View mRootView;
+    private ImageView writeNewIcon;
+    private AlertDialog alert;
+
+    public FragmentMainFourTabScreen() {}
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        mRootView = inflater.inflate(R.layout.fragment_main_four_tab_screen, container, false);
+
+        TabLayout tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
+//
+        final ViewPager viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
+        final MainScreenTabAdapter adapter = new MainScreenTabAdapter
+                (getChildFragmentManager(), tabLayout.getTabCount(), getContext());
+        viewPager.setAdapter(adapter);
+//
+//        tabLayout.setupWithViewPager(viewPager);
+//
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(adapter.getTabView(i));
+        }
+
+        /* setting tab pager listener */
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        writeNewIcon = (ImageView) mRootView.findViewById(R.id.ic_write_new);
+
+        writeNewIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                alertDialog.setTitle("ОК, СПАСИБО");
+                alertDialog.setMessage("Все работает ок, не так ли?");
+                alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.setNegativeButton("Не знаю", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alert = alertDialog.create();
+                alert.show();
+            }
+        });
+
+
+        return mRootView;
+    }
+
+    private void addListeners() {
+
+    }
+
+}

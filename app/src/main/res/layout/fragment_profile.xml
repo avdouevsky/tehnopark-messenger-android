@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_dark_blue_to_blue"
+    tools:ignore="MissingPrefix">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="13dp"
+        app:contentInsetStart="13dp"
+        android:id="@+id/fragment_profile_toolbar">
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/ripple_effect_transparent"
+            android:id="@+id/frame_with_icon_back_carete">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_arrow"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:focusableInTouchMode="true">
+
+            <ImageView
+                android:layout_width="133dp"
+                android:layout_height="133dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/fragment_profile_picture"
+                android:layout_gravity="center"
+                android:transitionName="profile"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_green_dot"
+                android:layout_marginTop="-5dp"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginTop="33dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Александр"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorWhiteText"
+                    android:id="@+id/fragment_profile_name"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    fontPath="fonts/GothamProRegular.ttf"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Пушкин"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorWhiteText"
+                    android:layout_marginTop="0dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/fragment_profile_surname"
+                    fontPath="fonts/GothamProRegular.ttf"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="отдел продаж / Руководитель"
+                android:textColor="@color/colorWhiteText"
+                android:textSize="12sp"
+                android:letterSpacing="0.08"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:textAllCaps="true"
+                fontPath="fonts/GothamProRegular.ttf"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginTop="34dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/btn_message"
+                    android:id="@+id/button_message"
+                    android:layout_marginRight="42dp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/btn_phone"
+                    android:id="@+id/button_call"/>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="285dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorWhiteTransparent20"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8(800)100-88-99"
+                android:textSize="13sp"
+                android:textColor="@color/colorBlueLightText"
+                android:layout_gravity="center"
+                android:layout_marginTop="22dp"
+                android:letterSpacing="0.09"
+                fontPath="fonts/GothamProBold.ttf"/>
+
+            <FrameLayout
+                android:layout_width="285dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorWhiteTransparent20"
+                android:layout_marginTop="18dp"/>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="МЕДИА"
+                    android:letterSpacing="0.07"
+                    android:textSize="10sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="37dp"
+                    android:textColor="@color/colorBlueLightButDarkerText"
+                    fontPath="fonts/GothamProBold.ttf"
+                    />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textSize="10sp"
+                    android:textColor="@color/colorWhiteTransparent40"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/number_of_items"
+                    fontPath="fonts/GothamProBold.ttf"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_chevron_right"
+                    android:layout_marginRight="37dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="1dp"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/attached_files_recycler_view"
+                android:layout_marginTop="23dp"
+                android:layout_marginBottom="22dp"
+                fontPath="fonts/GothamProBold.ttf"
+                >
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout >

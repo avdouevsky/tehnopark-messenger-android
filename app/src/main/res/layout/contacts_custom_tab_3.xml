@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    tools:ignore="MissingPrefix">
+
+    <TextView
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:id="@+id/custom_tab_view"
+        android:maxLines="1"
+        android:textColor="@color/colorWhiteText"
+        android:text="КОНТАКТЫ"
+        fontPath="fonts/GothamProBold.ttf"
+        android:background="@color/backgroundGrey"
+        android:gravity="center"
+        android:layout_marginTop="4dp"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/notification_background_dot"
+        android:layout_marginLeft="92dp"
+        android:layout_marginTop="1dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textSize="7dp"
+            android:textColor="@color/colorWhiteText"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+
+</RelativeLayout>

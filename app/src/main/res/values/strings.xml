@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">TechnoParkMessenger</string>
+    <string name="corporate_email_hint"><font size="13">КОРПОРАТИВНЫЙ EMAIL</font></string>
+    <string name="corporate_email_password_hint"><font size="13">ПАРОЛЬ</font></string>
+    edittext_hint
+    <string name="edittext_hint"><font size="13">Напишите сообщение...</font></string>
+
+    <string name="restore_password">ВОССТАНОВЛЕНИЕ ПАРОЛЯ<u></u></string>
+    <string name="reset_password">Восстановление пароля</string>
+    <string name="reset_password_tip">Для восстановления пароля обратитесь к техническому специалисту</string>
+    <string name="reset_password_ok">ОК, СПАСИБО</string>
+    <string name="reset_password_back">НАЗАД</string>
+    <string name="incoming_call_title">ТЕХНОПАРК АУДИОЗВОНОК</string>
+    <string name="incoming_call_title_call_type">ВХОДЯЩИЙ</string>
+    <string name="outgoing_call_title_call_type">ИСХОДЯЩИЙ</string>
+    <string name="denied_call_title_call_type">ЗВОНОК ОТКОЛНЕН</string>
+    <string name="incoming_call_profile_name">Александр\nРуднев</string>
+    <string name="incoming_call_department">ОТДЕЛ ПРОДАЖ</string>
+    <string name="incoming_call_position">РУКОВОДИТЕЛЬ</string>
+
+    <string name="incoming_call_first_icon">ДИНАМИК</string>
+    <string name="incoming_call_second_icon">СООБЩЕНИЕ</string>
+    <string name="incoming_call_third_icon">ВЫКЛ. ЗВУК</string>
+    <string name="incoming_call_third_icon_on">ВКЛ. ЗВУК</string>
+    <string name="incoming_call_end_icon">ЗАВЕРШИТЬ</string>
+
+    <string name="outgoing_call_first_icon">ОТКЛОНИТЬ</string>
+    <string name="outgoing_call_second_icon">СООБЩЕНИЕ</string>
+    <string name="outgoing_call_third_icon">ОТВЕТИТЬ</string>
+
+    <string name="denied_call_first_icon">ОТМЕНИТЬ</string>
+    <string name="denied_call_second_icon">ПЕРЕЗВОНИТЬ</string>
+    <string name="denied_call_third_icon">СООБЩЕНИЕ</string>
+
+    <string name="textLink"><u>https://ru.wikipedia.org/wiki/%D0%</u></string>
+
+
+</resources>
