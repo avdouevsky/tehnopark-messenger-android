@@ -9,6 +9,7 @@ public class DocumentsListItem {
     private String fileName;
     private String fileSize;
     private String dataSent;
+    private boolean isPressed;
 
     public String getFileType() {
         return fileType;
@@ -40,5 +41,13 @@ public class DocumentsListItem {
 
     public void setDataSent(String dataSent) {
         this.dataSent = dataSent;
+    }
+
+    public boolean isPressed() {
+        return isPressed;
+    }
+
+    public void setPressed(boolean pressed) {
+        isPressed = pressed;
     }
 }

@@ -41,20 +41,28 @@ public class FragmentDocumentsList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
-        EventBus.getDefault().register(this);
+
+        try{
+            EventBus.getDefault().register(this);
+        } catch (Exception e){}
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.pager_recycler);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         documents = new ArrayList<>();
 
         DocumentsListItem a = new DocumentsListItem();
         a.setDataSent("ЯНВАРЬ");
         documents.add(a);
-        documents.add(a);
-        documents.add(a);
+
+        DocumentsListItem z = new DocumentsListItem();
+        z.setDataSent("ЯНВАРЬ");
+        documents.add(z);
+
+        DocumentsListItem x = new DocumentsListItem();
+        x.setDataSent("ЯНВАРЬ");
+        documents.add(x);
 
         DocumentsListItem b = new DocumentsListItem();
         b.setDataSent("Февраль");
@@ -67,39 +75,31 @@ public class FragmentDocumentsList extends Fragment {
         DocumentsListItem d = new DocumentsListItem();
         d.setDataSent("Жопка");
         documents.add(d);
-        documents.add(d);
-        documents.add(d);
 
+        DocumentsListItem f = new DocumentsListItem();
+        f.setDataSent("Жопка");
+        documents.add(f);
 
-
+        DocumentsListItem g = new DocumentsListItem();
+        g.setDataSent("Жопка");
+        documents.add(g);
 
         mAdapter = new DocumentsListAdapter(documents, getContext());
         decor = new StickyHeaderDecoration(mAdapter);
         mRecyclerView.addItemDecoration(decor, 0);
         mRecyclerView.setAdapter(mAdapter);
-
         return mRootView;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
-
-//        mAdapter.isPressed = !mAdapter.isPressed;
-//        mAdapter.notifyDataSetChanged();
-
-
         if (event.state){
-            Log.d(TAG, "onMessageEvent: " + mAdapter.isPressed);
-//        mAdapter.isPressed = !mAdapter.isPressed;
             mAdapter.isAnimated = true;
             mAdapter.notifyDataSetChanged();
-//            mAdapter.isPressed = true;
-//            mAdapter.notifyDataSetChanged();
         } else {
-            mAdapter.isPressed = false;
+            mAdapter.isAnimated = true;
             mAdapter.notifyDataSetChanged();
         }
-
     }
 
 }
