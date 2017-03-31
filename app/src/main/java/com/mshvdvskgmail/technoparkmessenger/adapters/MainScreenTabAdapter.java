@@ -11,6 +11,7 @@ import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentCallsList;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChatsList;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentContactsList;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentContactsTabFiller;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentGroupsList;
 
 /**
  * Created by mshvdvsk on 13/03/2017.
@@ -34,7 +35,7 @@ public class MainScreenTabAdapter extends FragmentPagerAdapter {
                 FragmentChatsList tab0 = new FragmentChatsList();
                 return tab0;
             case 1:
-                FragmentContactsTabFiller tab1 = new FragmentContactsTabFiller();
+                FragmentGroupsList tab1 = new FragmentGroupsList();
                 return tab1;
             case 2:
                 FragmentContactsList tab2 = new FragmentContactsList();

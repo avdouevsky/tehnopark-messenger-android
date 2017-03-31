@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingPrefix">
+
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginTop="23dp">
+
+        <TextView
+            android:maxWidth="240dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Привет! Много дел? Давай сходим на обед, мне кажется сейчас самое время!"
+            android:textColor="#0f2745"
+            android:background="@drawable/message_incoming_background"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingStart="22dp"
+            android:paddingEnd="22dp"
+            android:id="@+id/text"
+            fontPath="fonts/GothamPro.ttf"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15:00"
+                android:textColor="#0f2745"
+                android:textSize="10sp"
+                android:layout_marginBottom="2.5dp"
+                android:layout_marginRight="3dp"
+                android:layout_gravity="bottom"
+                android:id="@+id/time"
+                fontPath="fonts/GothamProLight.ttf"/>
+
+            <FrameLayout
+                android:layout_width="17dp"
+                android:layout_height="15dp"
+                ></FrameLayout>
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_message_tail_incoming"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="-18dp"
+        android:layout_marginStart="16dp"
+        android:paddingBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/corner"/>
+</LinearLayout>

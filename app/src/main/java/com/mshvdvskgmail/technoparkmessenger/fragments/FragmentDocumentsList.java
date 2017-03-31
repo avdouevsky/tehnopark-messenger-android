@@ -29,27 +29,26 @@ import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
 public class FragmentDocumentsList extends Fragment {
     private final static String TAG = FragmentDocumentsList.class.toString();
 
-    private View mRootView;
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
+    private View rootView;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
     private ArrayList<DocumentsListItem> documents;
-    private DocumentsListAdapter mAdapter;
+    private DocumentsListAdapter adapter;
     private StickyHeaderDecoration decor;
-//    private boolean isPressed;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
+        rootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
 
         try{
             EventBus.getDefault().register(this);
         } catch (Exception e){}
 
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.pager_recycler);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.pager_recycler);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
         documents = new ArrayList<>();
 
         DocumentsListItem a = new DocumentsListItem();
@@ -84,21 +83,22 @@ public class FragmentDocumentsList extends Fragment {
         g.setDataSent("Жопка");
         documents.add(g);
 
-        mAdapter = new DocumentsListAdapter(documents, getContext());
-        decor = new StickyHeaderDecoration(mAdapter);
-        mRecyclerView.addItemDecoration(decor, 0);
-        mRecyclerView.setAdapter(mAdapter);
-        return mRootView;
+        adapter = new DocumentsListAdapter(documents, getContext());
+        decor = new StickyHeaderDecoration(adapter);
+        recyclerView.addItemDecoration(decor, 0);
+        recyclerView.setAdapter(adapter);
+        return rootView;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
+//        Log.d(TAG, "onMessageEvent");
         if (event.state){
-            mAdapter.isAnimated = true;
-            mAdapter.notifyDataSetChanged();
+            adapter.isAnimated = true;
+            adapter.notifyDataSetChanged();
         } else {
-            mAdapter.isAnimated = true;
-            mAdapter.notifyDataSetChanged();
+            adapter.isAnimated = true;
+            adapter.notifyDataSetChanged();
         }
     }
 

@@ -4,13 +4,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.adapters.DocumentsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.LinksListAdapter;
+import com.mshvdvskgmail.technoparkmessenger.events.MessageEvent;
 import com.mshvdvskgmail.technoparkmessenger.models.LinksItem;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -21,60 +28,84 @@ import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
  */
 
 public class FragmentLinksList extends Fragment {
-    private View mRootView;
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
+
+    private final static String TAG = FragmentLinksList.class.toString();
+
+
+    private View rootView;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
     private ArrayList<LinksItem> links;
-    private LinksListAdapter mAdapter;
+    private LinksListAdapter adapter;
     private StickyHeaderDecoration decor;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
-//        EventBus.getDefault().register(this);
+        rootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
 
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.pager_recycler);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        try{
+            EventBus.getDefault().register(this);
+        } catch (Exception e){}
+
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.pager_recycler);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
 
         links = new ArrayList<>();
 
         LinksItem a = new LinksItem();
         a.setLinkSent("ЯНВАРЬ");
         links.add(a);
-        links.add(a);
-        links.add(a);
 
         LinksItem b = new LinksItem();
-        b.setLinkSent("Февраль");
+        b.setLinkSent("ЯНВАРЬ");
         links.add(b);
 
         LinksItem c = new LinksItem();
-        c.setLinkSent("Август");
+        c.setLinkSent("ЯНВАРЬ");
         links.add(c);
 
         LinksItem d = new LinksItem();
-        d.setLinkSent("Жопка");
-        links.add(d);
-        links.add(d);
+        d.setLinkSent("Февраль");
         links.add(d);
 
-        mAdapter = new LinksListAdapter(links, getContext());
-        decor = new StickyHeaderDecoration(mAdapter);
-        mRecyclerView.addItemDecoration(decor, 0);
-        mRecyclerView.setAdapter(mAdapter);
+        LinksItem e = new LinksItem();
+        e.setLinkSent("Август");
+        links.add(e);
 
-        return mRootView;
+        LinksItem f = new LinksItem();
+        f.setLinkSent("Жопка");
+        links.add(f);
+
+        LinksItem g = new LinksItem();
+        g.setLinkSent("Жопка");
+        links.add(g);
+
+        LinksItem h = new LinksItem();
+        h.setLinkSent("Жопка");
+        links.add(h);
+
+
+        adapter = new LinksListAdapter(links, getContext());
+        decor = new StickyHeaderDecoration(adapter);
+        recyclerView.addItemDecoration(decor, 0);
+        recyclerView.setAdapter(adapter);
+
+        return rootView;
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onMessageEvent(MessageEvent event) {
-////        Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show();
-//
-//        mAdapter.
-//
-//    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+//        Log.d(TAG, "onMessageEvent");
+        if (event.state){
+            adapter.isAnimated = true;
+            adapter.notifyDataSetChanged();
+        } else {
+            adapter.isAnimated = true;
+            adapter.notifyDataSetChanged();
+        }
+    }
 
 }

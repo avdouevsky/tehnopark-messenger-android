@@ -8,6 +8,8 @@ public class LinksItem {
     private String linkSent;
     private String linkTitle;
     private String linkAdress;
+    private boolean isPressed;
+
 
     public String getLinkSent() {
         return linkSent;
@@ -31,5 +33,13 @@ public class LinksItem {
 
     public void setLinkAdress(String linkAdress) {
         this.linkAdress = linkAdress;
+    }
+
+    public boolean isPressed() {
+        return isPressed;
+    }
+
+    public void setPressed(boolean pressed) {
+        isPressed = pressed;
     }
 }

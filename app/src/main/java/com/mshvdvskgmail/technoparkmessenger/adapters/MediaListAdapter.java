@@ -1,14 +1,17 @@
 package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.models.LinksItem;
 import com.mshvdvskgmail.technoparkmessenger.models.MediaList;
 
 import java.util.ArrayList;
@@ -26,6 +29,20 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
     private Context context;
     private FrameLayout mFrame;
     private LayoutInflater mInflater;
+    private MediaList current;
+
+    private ImageView pictureFirst;
+    private ImageView pictureSecond;
+    private ImageView pictureThird;
+    private ImageView pictureForth;
+
+    private ImageView pictureSelectorFirst;
+    private ImageView pictureSelectorSecond;
+    private ImageView pictureSelectorThird;
+    private ImageView pictureSelectorForth;
+
+    public boolean isSelecting;
+
 
     public MediaListAdapter(ArrayList <MediaList> media, Context context) {
         this.media = media;
@@ -42,7 +59,18 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(MediaListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MediaListAdapter.ViewHolder holder, final int position) {
+
+        pictureFirst = holder.pictureFirst;
+        pictureSecond = holder.pictureSecond;
+        pictureThird = holder.pictureThird;
+        pictureForth = holder.pictureForth;
+
+        pictureSelectorFirst = holder.pictureSelectorFirst;
+        pictureSelectorSecond = holder.pictureSelectorSecond;
+        pictureSelectorThird = holder.pictureSelectorThird;
+        pictureSelectorForth = holder.pictureSelectorForth;
+
 
         if (position < media.size()-1 && media.get(position).getDate().charAt(0) ==
                 media.get(position+1).getDate().charAt(0)){
@@ -56,10 +84,108 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
             mFrame.setVisibility(View.VISIBLE);
         }
 
-//        if(position==2){
-//            mFrame = holder.mBottom;
-//            mFrame.setVisibility(View.VISIBLE);
-//        }
+        /* filling the pictures */
+
+        /* if displayed */
+        if (media.get(position).isEmptyFirst()) {
+            pictureFirst.setVisibility(View.INVISIBLE);
+        } else {
+            pictureFirst.setVisibility(View.VISIBLE);
+            /* if user is selecting items */
+            if (isSelecting) {
+                pictureSelectorFirst.setVisibility(View.VISIBLE);
+                /* if item was marked */
+                if (media.get(position).isPressedFirst()){
+                    pictureSelectorFirst.setImageResource(R.drawable.ic_select_dot_checked_with_check_mark);
+                } else {
+                    pictureSelectorFirst.setImageResource(R.drawable.icon_select_photo);
+                }
+            } else pictureSelectorFirst.setVisibility(View.INVISIBLE);
+            /* adding a listener */
+            pictureFirst.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    media.get(position).setPressedFirst(!media.get(position).isPressedFirst());
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        /* if displayed */
+        if (media.get(position).isEmptySecond()) {
+            pictureSecond.setVisibility(View.INVISIBLE);
+        } else {
+            pictureSecond.setVisibility(View.VISIBLE);
+            /* if user is selecting items */
+            if (isSelecting) {
+                pictureSelectorSecond.setVisibility(View.VISIBLE);
+                /* if item was marked */
+                if (media.get(position).isPressedSecond()){
+                    pictureSelectorSecond.setImageResource(R.drawable.ic_select_dot_checked_with_check_mark);
+                } else {
+                    pictureSelectorSecond.setImageResource(R.drawable.icon_select_photo);
+                }
+            } else pictureSelectorSecond.setVisibility(View.INVISIBLE);
+            /* adding a listener */
+            pictureSecond.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    media.get(position).setPressedSecond(!media.get(position).isPressedSecond());
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        /* if displayed */
+        if (media.get(position).isEmptyThird()) {
+            pictureThird.setVisibility(View.INVISIBLE);
+        } else {
+            pictureThird.setVisibility(View.VISIBLE);
+            /* if user is selecting items */
+            if (isSelecting) {
+                pictureSelectorThird.setVisibility(View.VISIBLE);
+                /* if item was marked */
+                if (media.get(position).isPressedThird()){
+                    pictureSelectorThird.setImageResource(R.drawable.ic_select_dot_checked_with_check_mark);
+                } else {
+                    pictureSelectorThird.setImageResource(R.drawable.icon_select_photo);
+                }
+            } else pictureSelectorThird.setVisibility(View.INVISIBLE);
+            /* adding a listener */
+            pictureThird.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    media.get(position).setPressedThird(!media.get(position).isPressedThird());
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
+        /* if displayed */
+        if (media.get(position).isEmptyForth()) {
+            pictureForth.setVisibility(View.INVISIBLE);
+        } else {
+            pictureForth.setVisibility(View.VISIBLE);
+            /* if user is selecting items */
+            if (isSelecting) {
+                pictureSelectorForth.setVisibility(View.VISIBLE);
+                /* if item was marked */
+                if (media.get(position).isPressedForth()){
+                    pictureSelectorForth.setImageResource(R.drawable.ic_select_dot_checked_with_check_mark);
+                } else {
+                    pictureSelectorForth.setImageResource(R.drawable.icon_select_photo);
+                }
+            } else pictureSelectorForth.setVisibility(View.INVISIBLE);
+            /* adding a listener */
+            pictureForth.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    media.get(position).setPressedForth(!media.get(position).isPressedForth());
+                    notifyDataSetChanged();
+                }
+            });
+        }
+
     }
 
     @Override
@@ -88,11 +214,28 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
 
         View mView;
         FrameLayout mBottom;
+        ImageView pictureFirst;
+        ImageView pictureSecond;
+        ImageView pictureThird;
+        ImageView pictureForth;
+        ImageView pictureSelectorFirst;
+        ImageView pictureSelectorSecond;
+        ImageView pictureSelectorThird;
+        ImageView pictureSelectorForth;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
             mBottom = (FrameLayout) itemView.findViewById(R.id.bottom_line);
+            pictureFirst = (ImageView) itemView.findViewById(R.id.card_first);
+            pictureSecond = (ImageView) itemView.findViewById(R.id.card_second);
+            pictureThird = (ImageView) itemView.findViewById(R.id.card_third);
+            pictureForth = (ImageView) itemView.findViewById(R.id.card_forth);
+            pictureSelectorFirst = (ImageView) itemView.findViewById(R.id.photo_selector_first);
+            pictureSelectorSecond = (ImageView) itemView.findViewById(R.id.photo_selector_second);
+            pictureSelectorThird = (ImageView) itemView.findViewById(R.id.photo_selector_third);
+            pictureSelectorForth = (ImageView) itemView.findViewById(R.id.photo_selector_forth);
         }
     }
 
@@ -102,6 +245,15 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
         public HeaderHolder(View itemView) {
             super(itemView);
             header = (TextView) itemView.findViewById(R.id.text_item);
+        }
+    }
+
+    public void clearSelected(){
+        for (MediaList a : media){
+            a.setPressedFirst(false);
+            a.setPressedSecond(false);
+            a.setPressedThird(false);
+            a.setPressedForth(false);
         }
     }
 

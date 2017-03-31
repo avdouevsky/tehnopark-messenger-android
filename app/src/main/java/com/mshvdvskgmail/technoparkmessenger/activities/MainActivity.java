@@ -8,7 +8,9 @@ import android.widget.ImageView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAuthorization;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChat;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentContactsList;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentGroupsSettings;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMainFourTabScreen;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMedia;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentProfile;
@@ -28,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        ImageView profileIcon = (ImageView) findViewById(R.id.profile_icon);
 //        Picasso.with(this).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
-        FragmentMedia authorization = new FragmentMedia();
+
+        FragmentGroupsSettings authorization = new FragmentGroupsSettings();
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

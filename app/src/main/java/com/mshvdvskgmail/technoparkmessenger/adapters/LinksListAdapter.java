@@ -5,10 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.models.DocumentsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.LinksItem;
 
 import java.util.ArrayList;
@@ -24,13 +29,21 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
 
     private ArrayList<LinksItem> links;
     private Context context;
-    private FrameLayout mFrame;
-    private LayoutInflater mInflater;
+    private FrameLayout frameBottom;
+    private LayoutInflater inflater;
+    private FrameLayout frameLinkPicture;
+    private LinearLayout linearLinkInfo;
+    private FrameLayout frameSelectItem;
+    private ImageView imageSelectIcon;
+    private ImageView imageCheckMarkIcon;
+
+    public boolean isAnimated;
+    public boolean isPressed;
 
     public LinksListAdapter(ArrayList <LinksItem> links, Context context) {
         this.links = links;
         this.context = context;
-        mInflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -42,37 +55,128 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(LinksListAdapter.ViewHolder holder, int position) {
-        mFrame = holder.mBottom;
-        ViewGroup.MarginLayoutParams params;
-        if (position==0){
-            params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
-            int dpValue = -10; // margin in dips
-            float d = context.getResources().getDisplayMetrics().density;
-            int margin = (int)(dpValue * d); // margin in pixels
-            params.topMargin = margin;
-        } else {
-            params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
+    public void onBindViewHolder(LinksListAdapter.ViewHolder holder, final int position) {
+
+        frameBottom = holder.frameBottom;
+        frameLinkPicture = holder.frameLinkPicture;
+        frameSelectItem = holder.frameSelectItem;
+        linearLinkInfo = holder.linearLinkInfo;
+        imageSelectIcon = holder.imageSelectIcon;
+        imageCheckMarkIcon = holder.imageCheckMarkIcon;
+
+        float d = context.getResources().getDisplayMetrics().density;
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
+        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) frameLinkPicture.getLayoutParams();
+
+        int topMargin = (int)(-10 * d);
+        int bottomMargin = (int)(40 * d);
+        int leftMarginBasic = (int)(-37 * d);
+        int leftMarginChanged = (int)(5.5 * d);
+
+        if (position == 0){
+            params.topMargin = topMargin;
+            params.bottomMargin = 0;
+        } else if (position == links.size()-1){
             params.topMargin = 0;
+            params.bottomMargin = bottomMargin;
+        } else {
+            params.topMargin = 0;
+            params.bottomMargin = 0;
         }
 
         if (position < links.size()-1){
             if (links.get(position).getLinkSent().charAt(0) ==
                     links.get(position+1).getLinkSent().charAt(0)) {
-                mFrame.setVisibility(View.VISIBLE);
+                frameBottom.setVisibility(View.VISIBLE);
             } else {
-                mFrame.setVisibility(View.INVISIBLE);
+                frameBottom.setVisibility(View.INVISIBLE);
             }
-        } else if (position == links.size()-1){
-            mFrame.setVisibility(View.INVISIBLE);
-            params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
-            int dpValue = 40; // margin in dips
-            float d = context.getResources().getDisplayMetrics().density;
-            int margin = (int)(dpValue * d); // margin in pixels
-            params.bottomMargin = margin;
+        } else frameBottom.setVisibility(View.INVISIBLE);
+
+        if (isPressed){
+            params2.leftMargin = leftMarginChanged;
+            imageSelectIcon.setVisibility(View.VISIBLE);
+
+            if(isAnimated){
+                final Animation slideToLeft = AnimationUtils.loadAnimation(context, R.anim.icon_slide_to_left);
+                final Animation fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+                slideToLeft.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        isAnimated = false;
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        isPressed = false;
+                        clearSelected();
+                        notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                frameLinkPicture.startAnimation(slideToLeft);
+                imageSelectIcon.startAnimation(fadeOut);
+                linearLinkInfo.startAnimation(slideToLeft);
+            }
+
         } else {
-            mFrame.setVisibility(View.VISIBLE);
+            params2.leftMargin = leftMarginBasic;
+            imageSelectIcon.setVisibility(View.INVISIBLE);
+
+            if(isAnimated){
+                final Animation slideToRight = AnimationUtils.loadAnimation(context, R.anim.icon_slide_to_right);
+                final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+
+                slideToRight.setStartOffset(0);
+                final ViewGroup.MarginLayoutParams iconParams = (ViewGroup.MarginLayoutParams) frameLinkPicture.getLayoutParams();
+                slideToRight.setAnimationListener(new Animation.AnimationListener() {
+
+
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        isAnimated = false;
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        isPressed = true;
+//                    frameDocType.requestLayout();
+                        notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                frameLinkPicture.startAnimation(slideToRight);
+                imageSelectIcon.startAnimation(fadeIn);
+                linearLinkInfo.startAnimation(slideToRight);
+            }
         }
+
+        frameLinkPicture.requestLayout();
+
+        frameSelectItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                links.get(position).setPressed(!links.get(position).isPressed());
+                notifyDataSetChanged();
+            }
+        });
+
+        if (links.get(position).isPressed()){
+            imageSelectIcon.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_checked));
+            imageCheckMarkIcon.setVisibility(View.VISIBLE);
+        } else {
+            imageSelectIcon.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_unchecked));
+            imageCheckMarkIcon.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @Override
@@ -87,7 +191,7 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
 
     @Override
     public LinksListAdapter.HeaderHolder onCreateHeaderViewHolder(ViewGroup parent) {
-        final View view = mInflater.inflate(R.layout.header_media, parent, false);
+        final View view = inflater.inflate(R.layout.header_media, parent, false);
         return new LinksListAdapter.HeaderHolder(view);
     }
 
@@ -99,12 +203,23 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         View mView;
-        FrameLayout mBottom;
+        FrameLayout frameBottom;
+        FrameLayout frameSelectItem;
+        FrameLayout frameLinkPicture;
+        LinearLayout linearLinkInfo;
+        ImageView imageSelectIcon;
+        ImageView imageCheckMarkIcon;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mBottom = (FrameLayout) itemView.findViewById(R.id.bottom_line);
+            frameBottom = (FrameLayout) itemView.findViewById(R.id.bottom_line);
+            imageSelectIcon = (ImageView) itemView.findViewById(R.id.select_item);
+            imageCheckMarkIcon = (ImageView) itemView.findViewById(R.id.icon_checked);
+            frameSelectItem = (FrameLayout) itemView.findViewById(R.id.frame_select_item);
+            frameLinkPicture = (FrameLayout) itemView.findViewById(R.id.link_picture_frame);
+            linearLinkInfo = (LinearLayout) itemView.findViewById(R.id.link_info);
         }
     }
 
@@ -116,4 +231,11 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
             header = (TextView) itemView.findViewById(R.id.text_item);
         }
     }
+
+    public void clearSelected(){
+        for (LinksItem a : links){
+            a.setPressed(false);
+        }
+    }
+
 }

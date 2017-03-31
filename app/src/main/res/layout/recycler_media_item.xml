@@ -20,7 +20,9 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/sky"
                 android:scaleType="centerCrop"
-                android:adjustViewBounds="true">
+                android:adjustViewBounds="true"
+                android:id="@+id/card_first"
+                android:visibility="visible">
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
@@ -45,6 +47,26 @@
                 android:layout_marginBottom="6dp"
                 fontPath="fonts/GothamProBold.ttf"
                 android:visibility="gone"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_select_photo"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="6dp"
+                android:visibility="invisible"
+                android:id="@+id/photo_selector_first"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_select_checked"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="12.5dp"
+                android:visibility="invisible"
+                android:id="@+id/icon_checked_first"/>
         </FrameLayout>
 
         <FrameLayout
@@ -60,7 +82,8 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/sky"
                 android:scaleType="centerCrop"
-                android:adjustViewBounds="true">
+                android:adjustViewBounds="true"
+                android:id="@+id/card_second">
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
@@ -85,6 +108,26 @@
                 android:layout_marginBottom="6dp"
                 fontPath="fonts/GothamProBold.ttf"
                 android:visibility="gone"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_select_photo"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="6dp"
+                android:visibility="invisible"
+                android:id="@+id/photo_selector_second"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_select_checked"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="12.5dp"
+                android:visibility="invisible"
+                android:id="@+id/icon_checked_second"/>
         </FrameLayout>
 
         <FrameLayout
@@ -100,7 +143,8 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/sky"
                 android:scaleType="centerCrop"
-                android:adjustViewBounds="true">
+                android:adjustViewBounds="true"
+                android:id="@+id/card_third">
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
@@ -125,6 +169,26 @@
                 android:layout_marginBottom="6dp"
                 fontPath="fonts/GothamProBold.ttf"
                 android:visibility="gone"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_select_photo"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="6dp"
+                android:visibility="invisible"
+                android:id="@+id/photo_selector_third"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_select_checked"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="12.5dp"
+                android:visibility="invisible"
+                android:id="@+id/icon_checked_third"/>
         </FrameLayout>
 
         <FrameLayout
@@ -140,7 +204,8 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/sky"
                 android:scaleType="centerCrop"
-                android:adjustViewBounds="true">
+                android:adjustViewBounds="true"
+                android:id="@+id/card_forth">
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
@@ -165,7 +230,28 @@
                 android:layout_marginBottom="6dp"
                 fontPath="fonts/GothamProBold.ttf"
                 android:visibility="gone"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_select_photo"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="7dp"
+                android:layout_marginRight="6dp"
+                android:visibility="invisible"
+                android:id="@+id/photo_selector_forth"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_select_checked"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="12.5dp"
+                android:visibility="invisible"
+                android:id="@+id/icon_checked_forth"/>
         </FrameLayout>
+
+
 
     </LinearLayout>
 

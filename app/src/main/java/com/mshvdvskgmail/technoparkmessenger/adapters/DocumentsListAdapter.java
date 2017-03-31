@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
 
 /**
- * Created by mshvdvsk on 22/03/2017.
+ * Created by mshvdvsk on 22/03/2017
  */
 
 public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdapter.ViewHolder>
@@ -67,9 +67,8 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         imageCheckMarkIcon = holder.imageCheckMarkIcon;
 
         float d = context.getResources().getDisplayMetrics().density;
-        final ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
-        final ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) frameDocType.getLayoutParams();
-
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
+        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) frameDocType.getLayoutParams();
 
         int topMargin = (int)(-10 * d);
         int bottomMargin = (int)(40 * d);
@@ -126,11 +125,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
                 final Animation slideToRight = AnimationUtils.loadAnimation(context, R.anim.icon_slide_to_right);
                 final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
 
-                slideToRight.setStartOffset(0);
-                final ViewGroup.MarginLayoutParams iconParams = (ViewGroup.MarginLayoutParams) frameDocType.getLayoutParams();
                 slideToRight.setAnimationListener(new Animation.AnimationListener() {
-
-
                     @Override
                     public void onAnimationStart(Animation animation) {
                         isAnimated = false;
@@ -139,14 +134,11 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         isPressed = true;
-//                    frameDocType.requestLayout();
                         notifyDataSetChanged();
                     }
 
                     @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
+                    public void onAnimationRepeat(Animation animation) {}
                 });
                 frameDocType.startAnimation(slideToRight);
                 imageSelectIcon.startAnimation(fadeIn);
@@ -156,16 +148,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
         frameDocType.requestLayout();
 
-        if (position < documents.size()-1){
-            if (documents.get(position).getDataSent().charAt(0) ==
-                    documents.get(position+1).getDataSent().charAt(0)) {
-                frameBottom.setVisibility(View.VISIBLE);
-            } else {
-                frameBottom.setVisibility(View.INVISIBLE);
-            }
-        } else if (position == documents.size()-1){
-            frameBottom.setVisibility(View.INVISIBLE);
-        }
+
 
 
         frameSelectItem.setOnClickListener(new View.OnClickListener() {
@@ -241,5 +224,4 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
             a.setPressed(false);
         }
     }
-
 }

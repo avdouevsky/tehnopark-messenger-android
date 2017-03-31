@@ -12,4 +12,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Color1SwitchStyle" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/backgroundGrey</item>
+
+    </style>
+
+
+
 </resources>
