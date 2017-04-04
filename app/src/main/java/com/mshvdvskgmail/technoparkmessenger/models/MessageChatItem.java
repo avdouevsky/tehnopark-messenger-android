@@ -6,10 +6,14 @@ package com.mshvdvskgmail.technoparkmessenger.models;
 
 public class MessageChatItem {
     private String text;
-    private int image;
     private String time;
+    private String fileType;
+    private String fileSize;
+    private String fileName;
+    private int image;
     private int status;
     private int type;
+    private boolean isIncoming;
 
     public String getText() {
         return text;
@@ -49,5 +53,37 @@ public class MessageChatItem {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public boolean isIncoming() {
+        return isIncoming;
+    }
+
+    public void setIncoming(boolean incoming) {
+        isIncoming = incoming;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

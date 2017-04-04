@@ -1,11 +1,16 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.content.DialogInterface;
+import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Transition;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionInflater;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -149,6 +154,49 @@ public class FragmentProfile extends Fragment {
 
         TextView mText = (TextView) mRootView.findViewById(R.id.number_of_items);
         mText.setText(""+files.size());
+
+        final FragmentProfile a = this;
+        final FragmentProfilePicture b = new FragmentProfilePicture();
+
+        mImage = (ImageView) mRootView.findViewById(R.id.fragment_profile_picture);
+
+        final ImageView c = mImage;
+
+        mImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+
+
+                    // Inflate transitions to apply
+                    Transition changeTransform = TransitionInflater.from(getContext()).
+                            inflateTransition(R.transition.transition_of_circle_images);
+                    Transition explodeTransform = TransitionInflater.from(getContext()).
+                            inflateTransition(android.R.transition.explode);
+
+                    // Setup exit transition on first fragment
+                    a.setSharedElementReturnTransition(changeTransform);
+//                    a.setExitTransition(explodeTransform);
+
+                    // Setup enter transition on second fragment
+                    b.setSharedElementEnterTransition(changeTransform);
+//                    b.setEnterTransition(explodeTransform);
+
+                    // Add second fragment by replacing first
+                    FragmentTransaction ft = getFragmentManager().beginTransaction()
+                            .replace(R.id.container, b)
+                            .addToBackStack("transaction")
+                            .addSharedElement(c, "profile");
+                    // Apply the transaction
+                    ft.commit();
+                }
+                else {
+                    // Code to run on older devices
+                }
+            }
+        });
 
     }
 

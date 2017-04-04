@@ -2,11 +2,14 @@ package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
@@ -27,7 +30,7 @@ public class FragmentChatsList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
+        mRootView = inflater.inflate(R.layout.pager_item_recycler_view_with_search, container, false);
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.pager_recycler);
         mRecyclerView.setHasFixedSize(true);
@@ -69,7 +72,25 @@ public class FragmentChatsList extends Fragment {
 //        }
         mAdapter = new ChatsListAdapter(contacts, getContext());
         mRecyclerView.setAdapter(mAdapter);
+        setListeners(mRootView);
 
         return mRootView;
+    }
+
+    private void setListeners(View view){
+        LinearLayout llSearch = (LinearLayout) view.findViewById(R.id.search_bar);
+        llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentSearch search = new FragmentSearch();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, search)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
@@ -14,6 +15,7 @@ import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentGroupsSettings;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMainFourTabScreen;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMedia;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentProfile;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentSearch;
 import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 //        ImageView profileIcon = (ImageView) findViewById(R.id.profile_icon);
 //        Picasso.with(this).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
-        FragmentGroupsSettings authorization = new FragmentGroupsSettings();
+        FragmentMainFourTabScreen authorization = new FragmentMainFourTabScreen();
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

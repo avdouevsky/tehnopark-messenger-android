@@ -3,6 +3,7 @@
     <string name="corporate_email_hint"><font size="13">КОРПОРАТИВНЫЙ EMAIL</font></string>
     <string name="corporate_email_password_hint"><font size="13">ПАРОЛЬ</font></string>
     <string name="edittext_hint"><font size="13">Напишите сообщение...</font></string>
+    <string name="searchtext_hint"><font size="11">Поиск</font></string>
 
     <string name="restore_password">ВОССТАНОВЛЕНИЕ ПАРОЛЯ<u></u></string>
     <string name="reset_password">Восстановление пароля</string>

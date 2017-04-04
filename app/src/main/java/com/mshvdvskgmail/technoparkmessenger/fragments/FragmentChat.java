@@ -41,12 +41,14 @@ public class FragmentChat extends Fragment {
         dummyObject1.setTime("15:40");
         dummyObject1.setType(0);
         dummyObject1.setStatus(0);
+        dummyObject1.setIncoming(true);
 
         MessageChatItem dummyObject11 = new MessageChatItem();
         dummyObject11.setText("привет");
         dummyObject11.setTime("15:40");
         dummyObject11.setType(1);
         dummyObject11.setStatus(4);
+        dummyObject11.setIncoming(false);
 
 
         MessageChatItem dummyObject2 = new MessageChatItem();
@@ -54,48 +56,58 @@ public class FragmentChat extends Fragment {
         dummyObject2.setTime("15:40");
         dummyObject2.setType(1);
         dummyObject2.setStatus(4);
+        dummyObject2.setIncoming(false);
 
         MessageChatItem dummyObject21 = new MessageChatItem();
         dummyObject21.setText("привет привет");
         dummyObject21.setTime("15:40");
         dummyObject21.setType(0);
         dummyObject21.setStatus(4);
+        dummyObject21.setIncoming(true);
 
         MessageChatItem dummyObject3 = new MessageChatItem();
         dummyObject3.setText("доброе утро любимый");
         dummyObject3.setTime("15:40");
         dummyObject3.setType(0);
         dummyObject3.setStatus(4);
+        dummyObject3.setIncoming(true);
 
         MessageChatItem dummyObject31 = new MessageChatItem();
         dummyObject31.setText("доброе утро любимый");
         dummyObject31.setTime("15:40");
         dummyObject31.setType(1);
         dummyObject31.setStatus(4);
+        dummyObject31.setIncoming(false);
 
         MessageChatItem dummyObject4 = new MessageChatItem();
         dummyObject4.setText("ты уже умерла или еще нет?");
         dummyObject4.setTime("15:40");
         dummyObject4.setType(1);
         dummyObject4.setStatus(4);
+        dummyObject4.setIncoming(false);
 
         MessageChatItem dummyObject41 = new MessageChatItem();
         dummyObject41.setText("ты уже умерла или еще нет?");
         dummyObject41.setTime("15:40");
         dummyObject41.setType(0);
         dummyObject41.setStatus(4);
+        dummyObject41.setIncoming(true);
 
         MessageChatItem dummyObject5 = new MessageChatItem();
         dummyObject5.setText("еще нет, дорогой, подожди 30 лет");
         dummyObject5.setTime("15:40");
         dummyObject5.setType(0);
         dummyObject5.setStatus(4);
+        dummyObject5.setIncoming(true);
+
 
         MessageChatItem dummyObject51 = new MessageChatItem();
         dummyObject51.setText("еще нет, дорогой, подожди 30 лет");
         dummyObject51.setTime("15:40");
         dummyObject51.setType(1);
         dummyObject51.setStatus(4);
+        dummyObject51.setIncoming(false);
+
 
 
         MessageChatItem dummyObject6 = new MessageChatItem();
@@ -103,12 +115,40 @@ public class FragmentChat extends Fragment {
         dummyObject6.setTime("00:40");
         dummyObject6.setType(1);
         dummyObject6.setStatus(4);
+        dummyObject6.setIncoming(false);
+
 
         MessageChatItem dummyObject61 = new MessageChatItem();
         dummyObject61.setText("ох, ты меня успокоила, а то я думал, ждать 50 придется");
         dummyObject61.setTime("00:40");
         dummyObject61.setType(0);
         dummyObject61.setStatus(4);
+        dummyObject61.setIncoming(true);
+
+        MessageChatItem dummyObject611 = new MessageChatItem();
+        dummyObject611.setTime("00:40");
+        dummyObject611.setType(2);
+        dummyObject611.setStatus(4);
+        dummyObject611.setIncoming(true);
+
+        MessageChatItem dummyObject6111 = new MessageChatItem();
+        dummyObject6111.setTime("00:40");
+        dummyObject6111.setFileName("Документация по проекту...");
+        dummyObject6111.setFileSize("25 КБ");
+        dummyObject6111.setFileType("LSD");
+        dummyObject6111.setType(4);
+        dummyObject6111.setStatus(4);
+        dummyObject6111.setIncoming(true);
+
+        MessageChatItem dummyObject64 = new MessageChatItem();
+        dummyObject64.setTime("00:40");
+        dummyObject64.setFileName("Документация по проекту...");
+        dummyObject64.setFileSize("25 КБ");
+        dummyObject64.setFileType("LSD");
+        dummyObject64.setType(5);
+        dummyObject64.setStatus(4);
+        dummyObject64.setIncoming(false);
+
 
 
 //        MessageChatItem dummyObject1 = new MessageChatItem();
@@ -164,6 +204,13 @@ public class FragmentChat extends Fragment {
 
         messages.add(dummyObject6);
         messages.add(dummyObject61);
+
+        messages.add(dummyObject611);
+        messages.add(dummyObject6111);
+
+        messages.add(dummyObject64);
+
+
 
 
 

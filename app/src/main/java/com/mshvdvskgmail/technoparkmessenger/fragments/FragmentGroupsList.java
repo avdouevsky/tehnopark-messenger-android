@@ -29,7 +29,7 @@ public class FragmentGroupsList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
+        mRootView = inflater.inflate(R.layout.pager_item_recycler_view_with_search, container, false);
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.pager_recycler);
         mRecyclerView.setHasFixedSize(true);

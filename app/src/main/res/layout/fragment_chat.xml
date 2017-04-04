@@ -99,37 +99,55 @@
 
         <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="43dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
-            android:layout_gravity="center"
-            android:background="@drawable/text_enter_frame"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp">
 
             <FrameLayout
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="10dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_attach"
-                    android:layout_gravity="center"
-                    android:paddingTop="3dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+
+                android:background="@drawable/text_enter_frame">
+
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_attach"
+                        android:layout_gravity="center"
+                        android:paddingTop="3dp"/>
+
+                </FrameLayout>
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/edittext_hint"
+                    android:layout_marginStart="40dp"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="false"
+                    android:layout_marginLeft="40dp" />
+
+
+
 
             </FrameLayout>
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_message_input_corner"
+                android:layout_gravity="right"
+                android:paddingRight="2dp"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/edittext_hint"
-                android:layout_marginStart="40dp"
-                android:background="@android:color/transparent"
-                android:cursorVisible="false"
-                android:layout_marginLeft="40dp" />
         </FrameLayout>
 
 
@@ -142,9 +160,10 @@
             android:id="@+id/frame_with_icon_chat_send"
             android:background="@drawable/ripple_effect_send_message">
             <ImageView
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_gravity="center"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_send_message"/>
         </FrameLayout>
 
     </LinearLayout>
