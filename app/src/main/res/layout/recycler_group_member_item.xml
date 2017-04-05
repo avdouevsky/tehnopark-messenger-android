@@ -20,14 +20,14 @@
                 android:layout_width="43dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="18dp"
-                android:id="@+id/profile_icon">
+                android:id="@+id/recycler_item_group_member_image_picture">
 
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_online"
-                android:id="@+id/online_dot"
+                android:id="@+id/recycler_item_group_member_image_online"
                 android:paddingStart="46dp"
                 android:paddingTop="55dp"
                 android:paddingLeft="46dp" />
@@ -52,7 +52,7 @@
                     android:layout_marginStart="13dp"
                     android:textColor="#10b4fa"
                     fontPath="fonts/GothamProBold.ttf"
-                    android:id="@+id/name"
+                    android:id="@+id/recycler_item_group_member_tv_name"
                     android:layout_marginLeft="13dp" />
 
                 <FrameLayout
@@ -63,7 +63,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/admin"
+                    android:id="@+id/recycler_item_group_member_tv_admin"
                     android:text="админ группы"
                     android:textSize="10sp"
                     android:textColor="#f26522"
@@ -83,26 +83,12 @@
                 android:layout_marginStart="13dp"
                 android:maxLines="1"
                 android:letterSpacing="0.03"
-                android:id="@+id/office_position"
+                android:id="@+id/recycler_item_group_member_tv_position"
                 android:textAllCaps="true"
                 fontPath="fonts/GothamProBold.ttf"
                 android:layout_marginLeft="13dp"
                 android:ellipsize="end"
                 android:maxWidth="190dp"/>
-
-
         </LinearLayout>
     </LinearLayout>
-
-    <!--<FrameLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:id="@+id/item_separator"-->
-        <!--android:background="@color/colorBlackTransparentTwenty"-->
-        <!--android:layout_marginBottom="2dp"-->
-        <!--android:layout_marginStart="73dp"-->
-        <!--android:layout_marginEnd="17dp"-->
-        <!--android:layout_marginLeft="73dp"-->
-        <!--android:layout_marginRight="17dp">-->
-    <!--</FrameLayout>-->
 </LinearLayout>

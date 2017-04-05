@@ -23,8 +23,6 @@ import java.util.ArrayList;
 
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
 
-import static com.mshvdvskgmail.technoparkmessenger.adapters.ContactsListAdapter.TAG;
-
 /**
  * Created by mshvdvsk on 21/03/2017.
  */
@@ -43,13 +41,13 @@ public class FragmentMediaList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
+        mRootView = inflater.inflate(R.layout.recycler_view_basic, container, false);
 
         try{
             EventBus.getDefault().register(this);
         } catch (Exception e){}
 
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.pager_recycler);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_all);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new GridLayoutManager(getActivity(), 1);
         mRecyclerView.setLayoutManager(mLayoutManager);

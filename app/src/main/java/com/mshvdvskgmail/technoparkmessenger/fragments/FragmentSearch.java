@@ -63,11 +63,11 @@ public class FragmentSearch extends Fragment {
     }
 
     private void setAdapterContent(View mRootView) {
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_search);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.fragment_search_rv_result);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        final EditText etSearch = (EditText) mRootView.findViewById(R.id.search_field);
+        final EditText etSearch = (EditText) mRootView.findViewById(R.id.fragment_search_et_search_field);
 
         searchResult = new ArrayList<>();
         SearchItem dummyObject = new SearchItem();
@@ -80,7 +80,7 @@ public class FragmentSearch extends Fragment {
         adapter = new SearchItemsAdapter(searchResult, getContext());
         mRecyclerView.setAdapter(adapter);
 
-        TextView txCancel = (TextView)mRootView.findViewById(R.id.cancel);
+        TextView txCancel = (TextView)mRootView.findViewById(R.id.fragment_search_tv_cancel);
         txCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

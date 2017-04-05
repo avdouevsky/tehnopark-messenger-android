@@ -13,14 +13,14 @@
         android:layout_height="wrap_content"
         app:contentInsetLeft="13dp"
         app:contentInsetStart="13dp"
-        android:id="@+id/toolbar"
+        android:id="@+id/fragment_group_settings_tb_toolbar"
         android:background="@color/backGroundDarkBlue">
 
         <FrameLayout
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:background="@drawable/ripple_effect_transparent"
-            android:id="@+id/frame_with_icon_back_carete">
+            android:id="@+id/fragment_group_settings_fl_back">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_marginStart="17dp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="10dp"
-            android:id="@+id/profile_icon"
+            android:id="@+id/fragment_group_settings_image_picture"
             android:src="@drawable/ic_group_icon"/>
 
         <LinearLayout
@@ -68,7 +68,7 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_gravity="right"
-            android:id="@+id/frame_with_icon_settings">
+            android:id="@+id/fragment_group_settings_fl_edit">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/fragment_group_settings_tb_toolbar">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,13 +115,13 @@
                     android:textSize="10sp"
                     android:textColor="#B0B4BA"
                     android:layout_alignParentRight="true"
-                    android:id="@+id/number_of_items"
+                    android:id="@+id/fragment_group_settings_tv_files_count"
                     fontPath="fonts/GothamProBold.ttf"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_chevron_right"
+                    android:src="@drawable/icon_caret_grey"
                     android:layout_marginRight="37dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="1dp"/>
@@ -130,7 +130,7 @@
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/attached_files_recycler_view"
+                android:id="@+id/fragment_group_settings_rv_files"
                 android:layout_marginTop="23dp"
                 android:layout_marginBottom="22dp"
                 fontPath="fonts/GothamProBold.ttf">
@@ -173,7 +173,7 @@
                     android:textSize="10sp"
                     android:textColor="#B0B4BA"
                     android:layout_alignParentRight="true"
-                    android:id="@+id/number_of_members"
+                    android:id="@+id/fragment_group_settings_tv_members_count"
                     android:layout_marginRight="37dp"
                     fontPath="fonts/GothamProBold.ttf"/>
             </LinearLayout>
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="35dp"
-                android:id="@+id/add_members">
+                android:id="@+id/fragment_group_settings_ll_add">
 
                 <FrameLayout
                     android:layout_width="43dp"
@@ -214,7 +214,7 @@
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
                 android:layout_marginTop="18dp"
-                android:id="@+id/members"
+                android:id="@+id/fragment_group_settings_rv_members"
                 fontPath="fonts/GothamProBold.ttf">
             </android.support.v7.widget.RecyclerView>
 
@@ -250,7 +250,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="36dp"
                     android:layout_marginRight="36dp"
-                    android:theme="@style/Color1SwitchStyle"/>
+                    android:theme="@style/Color1SwitchStyle"
+                    android:id="@+id/fragment_group_settings_sc_switch"/>
             </LinearLayout>
 
             <FrameLayout
@@ -270,7 +271,8 @@
                 fontPath="fonts/GothamProBold.ttf"
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="26dp"/>
+                android:layout_marginTop="26dp"
+                android:id="@+id/fragment_group_settings_tv_leave"/>
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -289,7 +291,8 @@
                 android:layout_marginStart="29dp"
                 android:layout_marginLeft="29dp"
                 android:textAllCaps="true"
-                fontPath="fonts/GothamProBold.ttf"/>
+                fontPath="fonts/GothamProBold.ttf"
+                android:id="@+id/fragment_group_settings_creator"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -301,6 +304,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
                 android:textAllCaps="true"
+                android:id="@+id/fragment_group_settings_tv_date"
                 fontPath="fonts/GothamProBold.ttf"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/logo_icon"
+            android:id="@+id/fragment_authorization_logo"
             android:src="@drawable/icon_just_logo"
             android:layout_gravity="center"
             android:layout_marginTop="100dp"/>

@@ -44,7 +44,7 @@ public class FragmentResetPassword extends Fragment{
 
         /* the "ОК, СПАСИБО" button */
 
-        acceptButton = (TextView) mRootView.findViewById(R.id.button_reset_accept);
+        acceptButton = (TextView) mRootView.findViewById(R.id.fragment_reset_password_tv_accept);
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +75,7 @@ public class FragmentResetPassword extends Fragment{
 
         /* the "НАЗАД" button */
 
-        backButton = (TextView) mRootView.findViewById(R.id.button_reset_back);
+        backButton = (TextView) mRootView.findViewById(R.id.fragment_reset_password_tv_back);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -37,10 +37,11 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
     private String officePosition;
     private boolean isOnline;
 
-    private TextView tvItemName;
-    private TextView tvItemPosition;
-    private ImageView imageItemOnline;
+    private TextView tvName;
+    private TextView tvPosition;
+    private ImageView imageOnline;
     private FrameLayout frameSeparator;
+    private ImageView profileIcon;
 
     public static final String TAG = GroupMembersAdapter.class.getCanonicalName();
 
@@ -72,28 +73,28 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
 //            params.topMargin = 0;
 //        }
 
-        ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.profile_icon);
+        profileIcon = holder.imageProfile;
         Picasso.with(context).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
         currentItem = members.get(position);
+
+        tvName = holder.tvName;
+        tvPosition = holder.tvPosition;
+        imageOnline = holder.imageOnline;
 
         name = currentItem.getName();
         officePosition = currentItem.getOfficePosition();
         isOnline = currentItem.isOnline();
 
-        tvItemName = (TextView) holder.mView.findViewById(R.id.name);
-        tvItemPosition = (TextView) holder.mView.findViewById(R.id.office_position);
-        imageItemOnline = (ImageView) holder.mView.findViewById(R.id.online_dot);
-
-        tvItemName.setText(name);
-        tvItemPosition.setText(officePosition);
+        tvName.setText(name);
+        tvPosition.setText(officePosition);
 
         if (isOnline) {
-            imageItemOnline.setVisibility(View.VISIBLE);
-        } else imageItemOnline.setVisibility(View.GONE);
+            imageOnline.setVisibility(View.VISIBLE);
+        } else imageOnline.setVisibility(View.GONE);
 
         if (currentItem.isAdmin()){
-            TextView admin = (TextView) holder.mView.findViewById(R.id.admin);
+            TextView admin = (TextView) holder.mView.findViewById(R.id.recycler_item_group_member_tv_admin);
             admin.setVisibility(View.VISIBLE);
         }
     }
@@ -106,13 +107,18 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-        FrameLayout mFrameLayout;
+        TextView tvName;
+        TextView tvPosition;
+        ImageView imageOnline;
+        ImageView imageProfile;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.item_separator);
+            tvName = (TextView) itemView.findViewById(R.id.recycler_item_group_member_tv_name);
+            tvPosition = (TextView) itemView.findViewById(R.id.recycler_item_group_member_tv_position);
+            imageOnline = (ImageView) itemView.findViewById(R.id.recycler_item_group_member_image_online);
+            imageProfile = (ImageView) itemView.findViewById(R.id.recycler_item_group_member_image_picture);
         }
     }
-
 }

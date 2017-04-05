@@ -32,17 +32,11 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
     private String name;
     private String lastLine;
     private String time;
-    private boolean isOnline;
-    private boolean hasNew;
-    private int newCount;
 
 
-    private TextView itemName;
-    private TextView itemLastMessage;
-    private TextView itemTime;
-    private ImageView itemOnline;
-    private FrameLayout itemNewNotifi;
-    private TextView itemNotifiCount;
+    private TextView tvName;
+    private TextView tvLastMessage;
+    private TextView tvTime;
 
 
     public GroupListAdapter(ArrayList <GroupsListItem> groupsList, Context context) {
@@ -84,13 +78,13 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
         lastLine = currentItem.getLastMessage();
         time = currentItem.getTime();
 
-        itemName = (TextView) holder.mView.findViewById(R.id.name);
-        itemLastMessage = (TextView) holder.mView.findViewById(R.id.last_message);
-        itemTime = (TextView) holder.mView.findViewById(R.id.time);
+        tvName = holder.tvName;
+        tvLastMessage = holder.tvLastMessage;
+        tvTime = holder.tvTime;
 
-        itemName.setText(name);
-        itemLastMessage.setText(lastLine);
-        itemTime.setText(time);
+        tvName.setText(name);
+        tvLastMessage.setText(lastLine);
+        tvName.setText(time);
 
     }
 
@@ -103,12 +97,17 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
 
         View mView;
         FrameLayout mFrameLayout;
+        TextView tvName;
+        TextView tvLastMessage;
+        TextView tvTime;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.item_separator);
-
+            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.recycler_item_groups_fl_item_separator);
+            tvName = (TextView) itemView.findViewById(R.id.recycler_item_groups_tv_name);
+            tvLastMessage = (TextView) itemView.findViewById(R.id.recycler_item_groups_tv_last_message);
+            tvTime = (TextView) itemView.findViewById(R.id.recycler_item_groups_tv_time);
         }
     }
 

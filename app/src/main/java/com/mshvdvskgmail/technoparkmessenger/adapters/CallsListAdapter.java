@@ -34,10 +34,11 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
     private boolean isIncoming;
     private boolean isOnline;
 
-    private TextView itemName;
-    private TextView itemTime;
-    private ImageView itemOnline;
-    private ImageView itemIncomingStatus;
+    private TextView tvName;
+    private TextView tvTime;
+    private ImageView imageOnline;
+    private ImageView imageStatus;
+    private ImageView imagePicture;
 
 
     public CallsListAdapter(ArrayList <CallsList> callsList, Context context) {
@@ -65,12 +66,12 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
         }
 
         if (position==callsList.size()-1){
-            FrameLayout mFrameLayout = holder.mFrameLayout;
+            FrameLayout mFrameLayout = holder.flSeparator;
             mFrameLayout.setVisibility(View.GONE);
         }
 
-        ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.profile_icon);
-        Picasso.with(context).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
+        imagePicture = holder.imagePicture;
+        Picasso.with(context).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(imagePicture);
 
         currentItem = callsList.get(count);
         count++;
@@ -81,26 +82,26 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
         isMissed = currentItem.isMissed();
         isIncoming = currentItem.isIncoming();
 
-        itemName = (TextView) holder.mView.findViewById(R.id.name);
-        itemTime = (TextView) holder.mView.findViewById(R.id.time);
-        itemOnline = (ImageView) holder.mView.findViewById(R.id.online_dot);
-        itemIncomingStatus = (ImageView) holder.mView.findViewById(R.id.call_status);
+        tvName = holder.tvName;
+        tvTime = holder.tvTime;
+        imageOnline = holder.imageOnline;
+        imageStatus = holder.imageStatus;
 
-        itemName.setText(name);
-        itemTime.setText(time);
+        tvName.setText(name);
+        tvTime.setText(time);
 
         if (isOnline) {
-            itemOnline.setVisibility(View.VISIBLE);
-        } else itemOnline.setVisibility(View.GONE);
+            imageOnline.setVisibility(View.VISIBLE);
+        } else imageOnline.setVisibility(View.GONE);
 
         if (isMissed) {
-            itemIncomingStatus.setVisibility(View.GONE);
-            itemName.setTextColor(context.getResources().getColor(R.color.calls_missed));
-            itemTime.setTextColor(context.getResources().getColor(R.color.calls_missed));
+            imageStatus.setVisibility(View.GONE);
+            tvName.setTextColor(context.getResources().getColor(R.color.calls_missed));
+            tvTime.setTextColor(context.getResources().getColor(R.color.calls_missed));
         } else if (isIncoming){
-            itemIncomingStatus.setImageResource(R.drawable.ic_calls_inc);
+            imageStatus.setImageResource(R.drawable.ic_calls_inc);
         } else {
-            itemIncomingStatus.setImageResource(R.drawable.ic_calls_out);
+            imageStatus.setImageResource(R.drawable.ic_calls_out);
         }
 
 
@@ -114,13 +115,22 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
-        FrameLayout mFrameLayout;
+        FrameLayout flSeparator;
+        TextView tvName;
+        TextView tvTime;
+        ImageView imageOnline;
+        ImageView imageStatus;
+        ImageView imagePicture;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.item_separator);
-
+            flSeparator = (FrameLayout) itemView.findViewById(R.id.recycler_item_calls_fl_separator);
+            tvName = (TextView) itemView.findViewById(R.id.recycler_item_calls_tv_name);
+            tvTime = (TextView) itemView.findViewById(R.id.recycler_item_calls_tv_time);
+            imageOnline = (ImageView) itemView.findViewById(R.id.recycler_item_calls_image_online);
+            imageStatus = (ImageView) itemView.findViewById(R.id.recycler_item_calls_image_status);
+            imagePicture = (ImageView) mView.findViewById(R.id.recycler_item_calls_image_picture);
         }
     }
 

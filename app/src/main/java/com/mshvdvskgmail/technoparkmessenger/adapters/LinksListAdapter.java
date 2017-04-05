@@ -214,12 +214,12 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            frameBottom = (FrameLayout) itemView.findViewById(R.id.bottom_line);
-            imageSelectIcon = (ImageView) itemView.findViewById(R.id.select_item);
-            imageCheckMarkIcon = (ImageView) itemView.findViewById(R.id.icon_checked);
-            frameSelectItem = (FrameLayout) itemView.findViewById(R.id.frame_select_item);
-            frameLinkPicture = (FrameLayout) itemView.findViewById(R.id.link_picture_frame);
-            linearLinkInfo = (LinearLayout) itemView.findViewById(R.id.link_info);
+            frameBottom = (FrameLayout) itemView.findViewById(R.id.recycler_item_links_fl_bottom_line);
+            imageSelectIcon = (ImageView) itemView.findViewById(R.id.recycler_item_links_image_selector_unchecked);
+            imageCheckMarkIcon = (ImageView) itemView.findViewById(R.id.recycler_item_links_image_selector_checked);
+            frameSelectItem = (FrameLayout) itemView.findViewById(R.id.recycler_item_links_fl_selector);
+            frameLinkPicture = (FrameLayout) itemView.findViewById(R.id.recycler_item_links_fl_icon);
+            linearLinkInfo = (LinearLayout) itemView.findViewById(R.id.recycler_item_links_ll_link_info);
         }
     }
 
@@ -228,7 +228,7 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
 
         public HeaderHolder(View itemView) {
             super(itemView);
-            header = (TextView) itemView.findViewById(R.id.text_item);
+            header = (TextView) itemView.findViewById(R.id.view_header_media_tx_text);
         }
     }
 

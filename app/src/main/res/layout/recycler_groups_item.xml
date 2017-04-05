@@ -16,7 +16,7 @@
             android:layout_marginLeft="17dp"
             android:layout_marginStart="17dp"
             android:layout_marginTop="18dp"
-            android:id="@+id/profile_icon"
+            android:id="@+id/recycler_item_groups_image_picture"
             android:src="@drawable/ic_group_icon"/>
 
         <LinearLayout
@@ -34,7 +34,7 @@
                 android:layout_marginStart="11dp"
                 android:textColor="@color/colorBlueTextPrimary"
                 fontPath="fonts/GothamProBold.ttf"
-                android:id="@+id/name"
+                android:id="@+id/recycler_item_groups_tv_name"
                 android:layout_marginLeft="13dp" />
 
             <LinearLayout
@@ -52,7 +52,7 @@
                     android:layout_marginStart="13dp"
                     android:maxLines="1"
                     android:letterSpacing="0.03"
-                    android:id="@+id/last_message"
+                    android:id="@+id/recycler_item_groups_tv_last_message"
                     fontPath="fonts/GothamPro.ttf"
                     android:layout_marginLeft="12dp"
                     android:ellipsize="end"
@@ -67,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/backgroundGrey"
-                    android:id="@+id/time"
+                    android:id="@+id/recycler_item_groups_tv_time"
                     android:textAllCaps="true"
                     android:text="13:23"
                     android:textSize="10sp"
@@ -92,7 +92,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/item_separator"
+        android:id="@+id/recycler_item_groups_fl_item_separator"
         android:background="@color/colorBlackTransparentTwenty"
         android:layout_marginBottom="2dp"
         android:layout_marginStart="73dp"

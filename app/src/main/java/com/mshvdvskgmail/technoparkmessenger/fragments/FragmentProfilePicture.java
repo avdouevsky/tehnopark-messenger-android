@@ -34,7 +34,7 @@ public class FragmentProfilePicture extends Fragment {
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_profile_picture, container, false);
 
-        ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.fragment_profile_big_picture);
+        ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.fragment_profile_picture_image_picture);
 //        final ImageView profileIconShadow = (ImageView) mRootView.findViewById(R.id.shadow);
         Picasso.with(getContext()).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 

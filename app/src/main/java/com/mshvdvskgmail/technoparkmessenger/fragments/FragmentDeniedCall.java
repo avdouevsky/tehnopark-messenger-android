@@ -46,12 +46,12 @@ public class FragmentDeniedCall extends Fragment {
     }
 
     private void inflatePicture(View mRootView) {
-        ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.denied_call_profile_icon);
+        ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.fragment_call_denied_image_picture);
         Picasso.with(getContext()).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
     }
 
     private void addListeners(View mRootView) {
-        frameCancel = (FrameLayout) mRootView.findViewById(R.id.button_cancel);
+        frameCancel = (FrameLayout) mRootView.findViewById(R.id.fragment_call_denied_fl_cancel);
         frameCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +80,7 @@ public class FragmentDeniedCall extends Fragment {
             }
         });
 
-        frameCallback = (FrameLayout) mRootView.findViewById(R.id.button_callback);
+        frameCallback = (FrameLayout) mRootView.findViewById(R.id.fragment_call_denied_fl_callback);
         frameCallback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +94,7 @@ public class FragmentDeniedCall extends Fragment {
             }
         });
 
-        frameMessage = (FrameLayout) mRootView.findViewById(R.id.button_message);
+        frameMessage = (FrameLayout) mRootView.findViewById(R.id.fragment_call_denied_fl_message);
         frameMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

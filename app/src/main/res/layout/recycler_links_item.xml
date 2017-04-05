@@ -18,7 +18,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="23dp"
             android:layout_marginLeft="23dp"
-            android:id="@+id/frame_select_item">
+            android:id="@+id/recycler_item_links_fl_selector">
 
             <ImageView
                 android:layout_width="27dp"
@@ -26,17 +26,17 @@
                 android:layout_gravity="center"
                 android:background="@drawable/ic_select_dot_unchecked"
                 android:visibility="invisible"
-                android:id="@+id/select_item">
+                android:id="@+id/recycler_item_links_image_selector_unchecked">
             </ImageView>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/icon_checked"
                 android:layout_gravity="center"
                 android:visibility="invisible"
                 android:layout_marginTop="1dp"
-                android:src="@drawable/icon_select_checked">
+                android:src="@drawable/icon_select_checked"
+                android:id="@+id/recycler_item_links_image_selector_checked">
             </ImageView>
 
         </FrameLayout>
@@ -48,12 +48,12 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="-30dp"
             android:layout_marginLeft="-30dp"
-            android:id="@+id/link_picture_frame">
+            android:id="@+id/recycler_item_links_fl_icon">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:id="@+id/link_icon"
+                android:id="@+id/recycler_item_links_image_icon"
                 android:src="@drawable/google_icon" />
         </FrameLayout>
 
@@ -66,12 +66,13 @@
             android:layout_marginLeft="19dp"
             android:layout_marginEnd="30dp"
             android:layout_marginRight="30dp"
-            android:id="@+id/link_info">
+            android:id="@+id/recycler_item_links_ll_link_info">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="леди годива - Поиск в Google"
+                android:id="@+id/recycler_item_links_tv_title"
                 android:textColor="#0f2745"
                 fontPath="fonts/GothamProBold.ttf"
                 android:maxLines="2"
@@ -82,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/textLink"
                 android:textColor="@color/colorLiLinkText"
+                android:id="@+id/recycler_item_links_tv_link"
                 android:maxLines="3"
                 android:ellipsize="end"/>
         </LinearLayout>
@@ -95,7 +97,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginEnd="30dp"
         android:background="@color/transparentBlack20"
-        android:id="@+id/bottom_line"
+        android:id="@+id/recycler_item_links_fl_bottom_line"
         ></FrameLayout>
 
 </LinearLayout>

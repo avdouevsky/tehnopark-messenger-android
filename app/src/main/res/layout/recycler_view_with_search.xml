@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_gravity="center"
-            android:id="@+id/search_bar"
+            android:id="@+id/ll_all_ll_search_bar"
             android:gravity="center"
             android:background="@drawable/background_search_bar_with_recycler"
             android:layout_marginTop="7dp"
@@ -47,7 +47,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pager_recycler"
+        android:id="@+id/recycler_view_all"
         android:background="@color/media_background_grey"
         xmlns:android="http://schemas.android.com/apk/res/android">
     </android.support.v7.widget.RecyclerView>

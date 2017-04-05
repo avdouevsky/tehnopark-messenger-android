@@ -112,7 +112,7 @@
             android:layout_width="133dp"
             android:layout_height="133dp"
             android:layout_gravity="center"
-            android:id="@+id/denied_call_profile_icon" />
+            android:id="@+id/fragment_call_denied_image_picture" />
     </FrameLayout>
 
     <FrameLayout
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/call_button_background_denied"
                 android:layout_gravity="center"
-                android:id="@+id/button_cancel">
+                android:id="@+id/fragment_call_denied_fl_cancel">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -212,7 +212,7 @@
                 android:background="@drawable/call_button_background_green"
                 android:layout_gravity="center"
                 android:layout_marginTop="38dp"
-                android:id="@+id/button_callback">
+                android:id="@+id/fragment_call_denied_fl_callback">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -247,7 +247,7 @@
                 android:background="@drawable/call_button_background_denied"
                 android:layout_gravity="center"
                 android:layout_marginTop="38dp"
-                android:id="@+id/button_message">
+                android:id="@+id/fragment_call_denied_fl_message">
 
                 <ImageView
                     android:layout_width="wrap_content"

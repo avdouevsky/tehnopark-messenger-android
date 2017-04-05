@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,13 +38,13 @@ public class FragmentDocumentsList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
+        rootView = inflater.inflate(R.layout.recycler_view_basic, container, false);
 
         try{
             EventBus.getDefault().register(this);
         } catch (Exception e){}
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.pager_recycler);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_all);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);

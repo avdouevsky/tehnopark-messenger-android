@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
@@ -30,9 +29,9 @@ public class FragmentChatsList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.pager_item_recycler_view_with_search, container, false);
+        mRootView = inflater.inflate(R.layout.recycler_view_with_search, container, false);
 
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.pager_recycler);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_all);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -78,7 +77,7 @@ public class FragmentChatsList extends Fragment {
     }
 
     private void setListeners(View view){
-        LinearLayout llSearch = (LinearLayout) view.findViewById(R.id.search_bar);
+        LinearLayout llSearch = (LinearLayout) view.findViewById(R.id.ll_all_ll_search_bar);
         llSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

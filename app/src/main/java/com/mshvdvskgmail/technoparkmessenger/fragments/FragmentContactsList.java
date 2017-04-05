@@ -32,9 +32,9 @@ public class FragmentContactsList  extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.pager_item_recycler_view_contacts, container, false);
+        mRootView = inflater.inflate(R.layout.recycler_view_contacts, container, false);
 
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.pager_recycler);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_contacts_rv_contacts);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -87,7 +87,7 @@ public class FragmentContactsList  extends Fragment {
         mRecyclerView.addItemDecoration(decor, 0);
         mRecyclerView.setAdapter(mAdapter);
 
-        SideSelector sideSelector = (SideSelector) mRootView.findViewById(R.id.side_selector);
+        SideSelector sideSelector = (SideSelector) mRootView.findViewById(R.id.recycler_view_contacts_ss_side_selector);
         sideSelector.setRecyclerView(mRecyclerView);
 
         return mRootView;

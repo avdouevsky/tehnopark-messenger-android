@@ -9,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.GroupListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.GroupsListItem;
 
 import java.util.ArrayList;
@@ -29,9 +27,9 @@ public class FragmentGroupsList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.pager_item_recycler_view_with_search, container, false);
+        mRootView = inflater.inflate(R.layout.recycler_view_with_search, container, false);
 
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.pager_recycler);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_all);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);

@@ -227,15 +227,15 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mBottom = (FrameLayout) itemView.findViewById(R.id.bottom_line);
-            pictureFirst = (ImageView) itemView.findViewById(R.id.card_first);
-            pictureSecond = (ImageView) itemView.findViewById(R.id.card_second);
-            pictureThird = (ImageView) itemView.findViewById(R.id.card_third);
-            pictureForth = (ImageView) itemView.findViewById(R.id.card_forth);
-            pictureSelectorFirst = (ImageView) itemView.findViewById(R.id.photo_selector_first);
-            pictureSelectorSecond = (ImageView) itemView.findViewById(R.id.photo_selector_second);
-            pictureSelectorThird = (ImageView) itemView.findViewById(R.id.photo_selector_third);
-            pictureSelectorForth = (ImageView) itemView.findViewById(R.id.photo_selector_forth);
+            mBottom = (FrameLayout) itemView.findViewById(R.id.recycler_item_media_fl_bottom_line);
+            pictureFirst = (ImageView) itemView.findViewById(R.id.recycler_item_media_image_card_first);
+            pictureSecond = (ImageView) itemView.findViewById(R.id.recycler_item_media_image_card_second);
+            pictureThird = (ImageView) itemView.findViewById(R.id.recycler_item_media_image_card_third);
+            pictureForth = (ImageView) itemView.findViewById(R.id.recycler_item_media_image_card_forth);
+            pictureSelectorFirst = (ImageView) itemView.findViewById(R.id.recycler_item_media_image_selector_first);
+            pictureSelectorSecond = (ImageView) itemView.findViewById(R.id.recycler_item_media_image_selector_second);
+            pictureSelectorThird = (ImageView) itemView.findViewById(R.id.recycler_item_media_image_selector_third);
+            pictureSelectorForth = (ImageView) itemView.findViewById(R.id.recycler_item_media_image_selector_forth);
         }
     }
 
@@ -244,7 +244,7 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
 
         public HeaderHolder(View itemView) {
             super(itemView);
-            header = (TextView) itemView.findViewById(R.id.text_item);
+            header = (TextView) itemView.findViewById(R.id.view_header_media_tx_text);
         }
     }
 

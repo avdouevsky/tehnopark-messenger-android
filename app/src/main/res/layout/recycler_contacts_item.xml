@@ -20,14 +20,14 @@
                 android:layout_width="43dp"
                 android:layout_marginLeft="17dp"
                 android:layout_marginTop="18dp"
-                android:id="@+id/profile_icon">
+                android:id="@+id/recycler_item_contacts_image_picture">
 
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_online"
-                android:id="@+id/online_dot"
+                android:id="@+id/recycler_item_contacts_image_online"
                 android:paddingStart="33dp"
                 android:paddingTop="55dp"
                 android:paddingLeft="33dp" />
@@ -48,7 +48,7 @@
                 android:layout_marginStart="13dp"
                 android:textColor="@color/colorBlueTextPrimary"
                 fontPath="fonts/GothamProBold.ttf"
-                android:id="@+id/name"
+                android:id="@+id/recycler_item_contacts_tv_name"
                 android:layout_marginLeft="13dp" />
 
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_marginStart="13dp"
                 android:maxLines="1"
                 android:letterSpacing="0.03"
-                android:id="@+id/office_position"
+                android:id="@+id/recycler_item_contacts_tv_office_position"
                 fontPath="fonts/GothamProBold.ttf"
                 android:layout_marginLeft="13dp"
                 android:ellipsize="end"
@@ -74,7 +74,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/item_separator"
+        android:id="@+id/recycler_item_contacts_fl_separator"
         android:background="@color/colorBlackTransparentTwenty"
         android:layout_marginBottom="2dp"
         android:layout_marginStart="73dp"

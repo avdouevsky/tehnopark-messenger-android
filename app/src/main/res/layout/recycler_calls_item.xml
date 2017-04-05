@@ -18,7 +18,7 @@
             <ImageView
                 android:layout_width="11dp"
                 android:layout_height="11dp"
-                android:id="@+id/call_status"
+                android:id="@+id/recycler_item_calls_image_status"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="19dp"
                 android:layout_marginLeft="19dp"
@@ -31,14 +31,14 @@
                 android:layout_width="43dp"
                 android:layout_marginLeft="37dp"
                 android:layout_marginTop="18dp"
-                android:id="@+id/profile_icon">
+                android:id="@+id/recycler_item_calls_image_picture">
 
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_online"
-                android:id="@+id/online_dot"
+                android:id="@+id/recycler_item_calls_image_online"
                 android:paddingStart="53dp"
                 android:paddingTop="55dp"
                 android:paddingLeft="53dp" />
@@ -59,7 +59,7 @@
                 android:layout_marginStart="13dp"
                 android:textColor="@color/colorBlueTextPrimary"
                 fontPath="fonts/GothamProBold.ttf"
-                android:id="@+id/name"
+                android:id="@+id/recycler_item_calls_tv_name"
                 android:layout_marginLeft="13dp" />
 
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_marginStart="13dp"
                 android:maxLines="1"
                 android:letterSpacing="0.03"
-                android:id="@+id/time"
+                android:id="@+id/recycler_item_calls_tv_time"
                 fontPath="fonts/GothamPro.ttf"
                 android:layout_marginLeft="13dp"
                 android:ellipsize="end"
@@ -92,13 +92,13 @@
             android:src="@drawable/ic_call_mini"
             android:layout_marginTop="22dp"
             android:layout_marginRight="14dp"
-            android:id="@+id/call_mini"/>
+            android:id="@+id/recycler_item_calls_image_call"/>
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/item_separator"
+        android:id="@+id/recycler_item_calls_fl_separator"
         android:background="@color/colorBlackTransparentTwenty"
         android:layout_marginBottom="2dp"
         android:layout_marginStart="95dp"

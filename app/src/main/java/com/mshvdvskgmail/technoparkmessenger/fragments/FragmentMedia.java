@@ -46,13 +46,13 @@ public class FragmentMedia extends Fragment {
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_media, container, false);
 
-        tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
-        linearBottomBar = (LinearLayout) mRootView.findViewById(R.id.bottom_bar);
+        tabLayout = (TabLayout) mRootView.findViewById(R.id.fragment_media_tl_tabs);
+        linearBottomBar = (LinearLayout) mRootView.findViewById(R.id.fragment_media_ll_bottom_bar);
 
 
 
 //
-        final ViewPager viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
+        final ViewPager viewPager = (ViewPager) mRootView.findViewById(R.id.fragment_media_vp_pager);
         final MediaTabAdapter adapter = new MediaTabAdapter
                 (getChildFragmentManager(), tabLayout.getTabCount(), getContext());
         viewPager.setAdapter(adapter);
@@ -91,7 +91,7 @@ public class FragmentMedia extends Fragment {
 
     private void addListeners() {
 
-        tvSelectButton = (TextView) mRootView.findViewById(R.id.button_select);
+        tvSelectButton = (TextView) mRootView.findViewById(R.id.fragment_media_tv_select);
         tvSelectButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -109,7 +109,7 @@ public class FragmentMedia extends Fragment {
             }
         });
 
-        imageTrashIcon = (ImageView) mRootView.findViewById(R.id.ic_trash);
+        imageTrashIcon = (ImageView) mRootView.findViewById(R.id.fragment_media_image_trash);
         imageTrashIcon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -133,7 +133,7 @@ public class FragmentMedia extends Fragment {
             }
         });
 
-        imageShareIcon = (ImageView) mRootView.findViewById(R.id.ic_forward);
+        imageShareIcon = (ImageView) mRootView.findViewById(R.id.fragment_media_image_forward);
         imageShareIcon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bleeping_dot_50"
                 android:layout_marginLeft="10dp"
-                android:id="@+id/dot_one"/>
+                android:id="@+id/fragment_call_outgoing_fl_dot_one"/>
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -35,13 +35,13 @@
                 android:background="@drawable/bleeping_dot_20"
                 android:layout_marginLeft="9dp"
                 android:layout_marginRight="9dp"
-                android:id="@+id/dot_two"/>
+                android:id="@+id/fragment_call_outgoing_fl_dot_two"/>
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bleeping_dot_10"
-                android:id="@+id/dot_three"/>
+                android:id="@+id/fragment_call_outgoing_fl_dot_three"/>
         </LinearLayout>
 
         <TextView
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bleeping_dot_10"
-                android:id="@+id/dot_four"/>
+                android:id="@+id/fragment_call_outgoing_fl_dot_four"/>
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -77,14 +77,14 @@
                 android:background="@drawable/bleeping_dot_20"
                 android:layout_marginLeft="9dp"
                 android:layout_marginRight="9dp"
-                android:id="@+id/dot_five"/>
+                android:id="@+id/fragment_call_outgoing_fl_dot_five"/>
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bleeping_dot_50"
                 android:layout_marginRight="10dp"
-                android:id="@+id/dot_six"/>
+                android:id="@+id/fragment_call_outgoing_fl_dot_six"/>
 
         </LinearLayout>
 
@@ -120,7 +120,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:id="@+id/outgoing_call_profile_icon" />
+            android:id="@+id/fragment_call_outgoing_image_picture" />
     </FrameLayout>
 
     <FrameLayout
@@ -183,13 +183,13 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/call_button_background"
                 android:layout_gravity="center"
-                android:id="@+id/button_loudspeaker">
+                android:id="@+id/fragment_call_outgoing_fl_loudspeaker">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/loudspeaker"
-                    android:id="@+id/icon_loudspeaker"
+                    android:id="@+id/fragment_call_outgoing_image_loudspeaker"
                     android:layout_gravity="center"
                     />
 
@@ -218,7 +218,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/call_button_background"
                 android:layout_gravity="center"
-                android:id="@+id/button_message">
+                android:id="@+id/fragment_call_outgoing_fl_message">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -252,13 +252,13 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/call_button_background"
                 android:layout_gravity="center"
-                android:id="@+id/button_mute">
+                android:id="@+id/fragment_call_outgoing_fl_mute">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/mute"
-                    android:id="@+id/icon_mute"
+                    android:id="@+id/fragment_call_outgoing_image_mute"
                     android:layout_gravity="center"/>
 
             </FrameLayout>
@@ -266,7 +266,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/mute_text"
+                android:id="@+id/fragment_call_outgoing_tv_mute"
                 android:text="@string/incoming_call_third_icon"
                 android:textColor="@color/colorWhiteText"
                 android:textSize="10sp"
@@ -284,7 +284,7 @@
         android:background="@drawable/call_button_background_red"
         android:layout_gravity="center"
         android:layout_marginTop="18dp"
-        android:id="@+id/button_end_call">
+        android:id="@+id/fragment_call_outgoing_fl_call_end">
 
         <ImageView
             android:layout_width="wrap_content"

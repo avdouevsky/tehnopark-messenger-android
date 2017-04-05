@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#F2F2F2">
+    android:background="#F2F2F2"
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="23dp"
             android:layout_marginLeft="23dp"
-            android:id="@+id/frame_select_item">
+            android:id="@+id/recycler_item_documents_fl_selector">
 
             <ImageView
                 android:layout_width="27dp"
@@ -25,13 +26,13 @@
                 android:layout_gravity="center"
                 android:background="@drawable/ic_select_dot_unchecked"
                 android:visibility="invisible"
-                android:id="@+id/select_item">
+                android:id="@+id/recycler_item_documents_image_unchecked">
             </ImageView>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/icon_checked"
+                android:id="@+id/recycler_item_documents_image_checked"
                 android:layout_gravity="center"
                 android:visibility="invisible"
                 android:layout_marginTop="1dp"
@@ -45,15 +46,26 @@
             android:layout_height="85dp"
             android:background="#C6CAD0"
             android:layout_gravity="center_vertical"
-            android:id="@+id/doc_type_frame">
+            android:id="@+id/recycler_item_documents_fl_icon">
 
             <ImageView
+                android:layout_width="30dp"
+                android:layout_height="37dp"
+                android:src="@drawable/ic_message_file"
+                android:layout_gravity="center"
+                android:id="@+id/recycler_item_documents_image_file"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_document_pdf"
+                android:text="LSD"
+                android:id="@+id/recycler_item_documents_tv_type_icon"
+                android:textSize="8sp"
+                android:textColor="#5a9dc8"
+                fontPath="fonts/GothamProBold.ttf"
+                android:layout_marginTop="10dp"/>
 
-                />
 
         </FrameLayout>
 
@@ -65,7 +77,7 @@
             android:layout_marginStart="19dp"
             android:layout_marginLeft="19dp"
             android:layout_marginEnd="30dp"
-            android:id="@+id/doc_info"
+            android:id="@+id/recycler_item_documents_ll_link_info"
             android:layout_marginRight="30dp">
 
             <TextView
@@ -74,14 +86,37 @@
                 android:text="ДокументДокументДокументДокументДокументДокумент.pdf"
                 android:maxLines="1"
                 android:textColor="#0f2745"
-                android:ellipsize="end"/>
+                android:ellipsize="end"
+                android:id="@+id/recycler_item_documents_tv_name"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4 КБ • pdf"
-                android:textColor="#999999"
-                android:ellipsize="end"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4 КБ"
+                    android:textColor="#999999"
+                    android:id="@+id/recycler_item_documents_tv_size"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" • "
+                    android:textColor="#999999"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="pdf"
+                    android:textColor="#999999"
+                    android:id="@+id/recycler_item_documents_tv_type"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -93,7 +128,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginEnd="30dp"
         android:background="@color/transparentBlack20"
-        android:id="@+id/bottom_line"
+        android:id="@+id/recycler_item_documents_fl_bottom_line"
         ></FrameLayout>
 
 </LinearLayout>

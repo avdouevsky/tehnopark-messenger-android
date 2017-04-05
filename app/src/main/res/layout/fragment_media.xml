@@ -20,7 +20,7 @@
             android:textSize="15sp"
             android:text="Медиа"
             android:textColor="@color/colorBlueLightText"
-            android:id="@+id/fragment_media_title"
+            android:id="@+id/fragment_media_tv_title"
             android:layout_marginRight="14dp"
             fontPath="fonts/GothamProBold.ttf"/>
 
@@ -32,7 +32,7 @@
             android:textSize="13sp"
             android:text="Выбрать"
             android:textColor="@color/colorBlueLightText"
-            android:id="@+id/button_select"
+            android:id="@+id/fragment_media_tv_select"
             android:layout_marginRight="9dp"
             fontPath="fonts/GothamPro.ttf"
             android:padding="10dp">
@@ -47,7 +47,7 @@
 
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
+            android:id="@+id/fragment_media_tl_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/backGroundDarkBlue"
@@ -81,7 +81,7 @@
     </FrameLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+        android:id="@+id/fragment_media_vp_pager"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_weight="1">
@@ -92,14 +92,14 @@
         android:layout_height="50dp"
         android:background="#DFE1E5"
         android:visibility="gone"
-        android:id="@+id/bottom_bar">
+        android:id="@+id/fragment_media_ll_bottom_bar">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="14dp"
             android:src="@drawable/ic_trash"
-            android:id="@+id/ic_trash"
+            android:id="@+id/fragment_media_image_trash"
             android:layout_gravity="center"/>
 
         <TextView
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:padding="14dp"
             android:src="@drawable/ic_forward"
-            android:id="@+id/ic_forward"
+            android:id="@+id/fragment_media_image_forward"
             android:layout_gravity="center"/>
 
     </LinearLayout>

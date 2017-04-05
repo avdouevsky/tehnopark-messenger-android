@@ -67,31 +67,31 @@ public class FragmentOutgoingCall extends Fragment {
     }
 
     private void inflatePicture(View mRootView) {
-        ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.outgoing_call_profile_icon);
+        ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_picture);
         Picasso.with(getContext()).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
     }
 
     private void addListeners(final View mRootView) {
 
-        frameLoudspeakers = (FrameLayout) mRootView.findViewById(R.id.button_loudspeaker);
+        frameLoudspeakers = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_loudspeaker);
         frameLoudspeakers.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
             public void onClick(View v) {
                 if(!frameLoudspeakersPressed) {
-                    mIconLoudspeaker = (ImageView) mRootView.findViewById(R.id.icon_loudspeaker);
+                    mIconLoudspeaker = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_loudspeaker);
                     mIconLoudspeaker.setImageResource(R.drawable.loudspeaker_no_sound);
                     frameLoudspeakersPressed = true;
                 } else if (frameLoudspeakersPressed) {
-                    mIconLoudspeaker = (ImageView) mRootView.findViewById(R.id.icon_loudspeaker);
+                    mIconLoudspeaker = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_loudspeaker);
                     mIconLoudspeaker.setImageResource(R.drawable.loudspeaker);
                     frameLoudspeakersPressed = false;
                 }
             }
         });
 
-        frameMessage = (FrameLayout) mRootView.findViewById(R.id.button_message);
+        frameMessage = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_message);
         frameMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,19 +120,19 @@ public class FragmentOutgoingCall extends Fragment {
             }
         });
 
-        frameMute = (FrameLayout) mRootView.findViewById(R.id.button_mute);
+        frameMute = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_mute);
         frameMute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!frameMutePressed) {
-                    mIconMute = (ImageView) mRootView.findViewById(R.id.icon_mute);
-                    mMuteText = (TextView) mRootView.findViewById(R.id.mute_text);
+                    mIconMute = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_mute);
+                    mMuteText = (TextView) mRootView.findViewById(R.id.fragment_call_outgoing_tv_mute);
                     mMuteText.setText(R.string.incoming_call_third_icon_on);
                     mIconMute.setImageResource(R.drawable.unmute);
                     frameMutePressed = true;
                 } else if (frameMutePressed) {
-                    mIconMute = (ImageView) mRootView.findViewById(R.id.icon_mute);
-                    mMuteText = (TextView) mRootView.findViewById(R.id.mute_text);
+                    mIconMute = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_mute);
+                    mMuteText = (TextView) mRootView.findViewById(R.id.fragment_call_outgoing_tv_mute);
                     mMuteText.setText(R.string.incoming_call_third_icon);
                     mIconMute.setImageResource(R.drawable.mute);
                     frameMutePressed = false;
@@ -141,7 +141,7 @@ public class FragmentOutgoingCall extends Fragment {
         });
 
 
-        frameEndCall = (FrameLayout) mRootView.findViewById(R.id.button_end_call);
+        frameEndCall = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_call_end);
         frameEndCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,18 +169,17 @@ public class FragmentOutgoingCall extends Fragment {
 //                startActivity(myIntent);
             }
         });
-
     }
 
     private void animateDots() {
         handler = new Handler();
 
-        dotOne = (FrameLayout) mRootView.findViewById(R.id.dot_one);
-        dotTwo = (FrameLayout) mRootView.findViewById(R.id.dot_two);
-        dotThree = (FrameLayout) mRootView.findViewById(R.id.dot_three);
-        dotFour = (FrameLayout) mRootView.findViewById(R.id.dot_four);
-        dotFive = (FrameLayout) mRootView.findViewById(R.id.dot_five);
-        dotSix = (FrameLayout) mRootView.findViewById(R.id.dot_six);
+        dotOne = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_dot_one);
+        dotTwo = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_dot_two);
+        dotThree = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_dot_three);
+        dotFour = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_dot_four);
+        dotFive = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_dot_five);
+        dotSix = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_dot_six);
 
         handler.postDelayed((new Runnable() {
             @Override

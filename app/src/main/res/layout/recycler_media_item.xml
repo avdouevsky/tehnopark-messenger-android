@@ -21,14 +21,14 @@
                 android:src="@drawable/sky"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
-                android:id="@+id/card_first"
+                android:id="@+id/recycler_item_media_image_card_first"
                 android:visibility="visible">
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_camera"
-                android:id="@+id/ic_camera_1"
+                android:id="@+id/recycler_item_media_image_camera_first"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="6dp"
                 android:layout_marginLeft="6dp"
@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/video_length_1"
+                android:id="@+id/recycler_item_media_tv_duration_first"
                 android:text="10:25"
                 android:textSize="5sp"
                 android:textColor="@color/colorWhiteText"
@@ -56,7 +56,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_marginRight="6dp"
                 android:visibility="invisible"
-                android:id="@+id/photo_selector_first"/>
+                android:id="@+id/recycler_item_media_image_selector_first"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginRight="12.5dp"
                 android:visibility="invisible"
-                android:id="@+id/icon_checked_first"/>
+                android:id="@+id/recycler_item_media_image_checked_first"/>
         </FrameLayout>
 
         <FrameLayout
@@ -83,13 +83,13 @@
                 android:src="@drawable/sky"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
-                android:id="@+id/card_second">
+                android:id="@+id/recycler_item_media_image_card_second">
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_camera"
-                android:id="@+id/ic_camera_2"
+                android:id="@+id/recycler_item_media_image_camera_second"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="6dp"
                 android:layout_marginLeft="6dp"
@@ -98,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/video_length_2"
+                android:id="@+id/recycler_item_media_tv_duration_second"
                 android:text="10:25"
                 android:textSize="5sp"
                 android:textColor="@color/colorWhiteText"
@@ -117,7 +117,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_marginRight="6dp"
                 android:visibility="invisible"
-                android:id="@+id/photo_selector_second"/>
+                android:id="@+id/recycler_item_media_image_selector_second"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -127,7 +127,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginRight="12.5dp"
                 android:visibility="invisible"
-                android:id="@+id/icon_checked_second"/>
+                android:id="@+id/recycler_item_media_image_checked_second"/>
         </FrameLayout>
 
         <FrameLayout
@@ -144,13 +144,13 @@
                 android:src="@drawable/sky"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
-                android:id="@+id/card_third">
+                android:id="@+id/recycler_item_media_image_card_third">
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_camera"
-                android:id="@+id/ic_camera_3"
+                android:id="@+id/recycler_item_media_image_camera_third"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="6dp"
                 android:layout_marginLeft="6dp"
@@ -159,7 +159,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/video_length_3"
+                android:id="@+id/recycler_item_media_tv_duration_third"
                 android:text="10:25"
                 android:textSize="5sp"
                 android:textColor="@color/colorWhiteText"
@@ -178,7 +178,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_marginRight="6dp"
                 android:visibility="invisible"
-                android:id="@+id/photo_selector_third"/>
+                android:id="@+id/recycler_item_media_image_selector_third"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -188,7 +188,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginRight="12.5dp"
                 android:visibility="invisible"
-                android:id="@+id/icon_checked_third"/>
+                android:id="@+id/recycler_item_media_image_checked_third"/>
         </FrameLayout>
 
         <FrameLayout
@@ -205,13 +205,13 @@
                 android:src="@drawable/sky"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
-                android:id="@+id/card_forth">
+                android:id="@+id/recycler_item_media_image_card_forth">
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_camera"
-                android:id="@+id/ic_camera_4"
+                android:id="@+id/recycler_item_media_image_camera_forth"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="6dp"
                 android:layout_marginLeft="6dp"
@@ -220,7 +220,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/video_length_4"
+                android:id="@+id/recycler_item_media_tv_duration_forth"
                 android:text="10:25"
                 android:textSize="5sp"
                 android:textColor="@color/colorWhiteText"
@@ -238,7 +238,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_marginRight="6dp"
                 android:visibility="invisible"
-                android:id="@+id/photo_selector_forth"/>
+                android:id="@+id/recycler_item_media_image_selector_forth"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -248,7 +248,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_marginRight="12.5dp"
                 android:visibility="invisible"
-                android:id="@+id/icon_checked_forth"/>
+                android:id="@+id/recycler_item_media_image_checked_forth"/>
         </FrameLayout>
 
 
@@ -264,7 +264,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginEnd="30dp"
         android:background="@color/transparentBlack20"
-        android:id="@+id/bottom_line"
+        android:id="@+id/recycler_item_media_fl_bottom_line"
         android:visibility="gone"
         ></FrameLayout>
 

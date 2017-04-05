@@ -192,7 +192,7 @@
         android:layout_height="wrap_content"
         app:contentInsetLeft="13dp"
         app:contentInsetStart="13dp"
-        android:id="@+id/fragment_profile_toolbar_toolbar">
+        android:id="@+id/fragment_profile_tb_toolbar">
 
         <FrameLayout
             android:clickable="true"

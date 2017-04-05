@@ -65,7 +65,7 @@ public class FragmentGroupsSettings extends Fragment {
 
     private void setAttachedFilesAdapterContent(View rootView) {
 
-        viewFiles = (RecyclerView) rootView.findViewById(R.id.attached_files_recycler_view);
+        viewFiles = (RecyclerView) rootView.findViewById(R.id.fragment_group_settings_rv_files);
         viewFiles.setHasFixedSize(true);
         lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         viewFiles.setLayoutManager(lm);
@@ -76,7 +76,7 @@ public class FragmentGroupsSettings extends Fragment {
             files.add(dummyObject);
         }
 
-        TextView mText = (TextView) rootView.findViewById(R.id.number_of_items);
+        TextView mText = (TextView) rootView.findViewById(R.id.fragment_group_settings_tv_files_count);
         mText.setText(""+files.size());
 
         adapter = new GroupFilesAdapter(files, getContext());
@@ -87,7 +87,7 @@ public class FragmentGroupsSettings extends Fragment {
 
     private void setMembersAdapterContent(View rootView) {
 
-        viewMembers = (RecyclerView) rootView.findViewById(R.id.members);
+        viewMembers = (RecyclerView) rootView.findViewById(R.id.fragment_group_settings_rv_members);
         viewMembers.setHasFixedSize(true);
 
         lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -127,7 +127,7 @@ public class FragmentGroupsSettings extends Fragment {
         members.add(dummyObject4);
         members.add(dummyObject5);
 
-        TextView totalNumber = (TextView) rootView.findViewById(R.id.number_of_members);
+        TextView totalNumber = (TextView) rootView.findViewById(R.id.fragment_group_settings_tv_members_count);
         totalNumber.setText(""+files.size());
 
         membersAdapter = new GroupMembersAdapter(members, getContext());
@@ -139,7 +139,7 @@ public class FragmentGroupsSettings extends Fragment {
 
 
     private void setIconsTouchListeners(View mRootView) {
-        FrameLayout mFrame = (FrameLayout)mRootView.findViewById(R.id.frame_with_icon_back_carete);
+        FrameLayout mFrame = (FrameLayout)mRootView.findViewById(R.id.fragment_group_settings_fl_back);
         mFrame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

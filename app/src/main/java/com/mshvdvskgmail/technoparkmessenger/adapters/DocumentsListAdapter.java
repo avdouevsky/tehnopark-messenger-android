@@ -201,12 +201,12 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            frameBottom = (FrameLayout) itemView.findViewById(R.id.bottom_line);
-            frameDocType = (FrameLayout) itemView.findViewById(R.id.doc_type_frame);
-            linearDocInfo = (LinearLayout) itemView.findViewById(R.id.doc_info);
-            imageSelectIcon = (ImageView) itemView.findViewById(R.id.select_item);
-            imageCheckMarkIcon = (ImageView) itemView.findViewById(R.id.icon_checked);
-            frameSelectItem = (FrameLayout) itemView.findViewById(R.id.frame_select_item);
+            frameBottom = (FrameLayout) itemView.findViewById(R.id.recycler_item_documents_fl_bottom_line);
+            frameDocType = (FrameLayout) itemView.findViewById(R.id.recycler_item_documents_fl_icon);
+            linearDocInfo = (LinearLayout) itemView.findViewById(R.id.recycler_item_documents_ll_link_info);
+            imageSelectIcon = (ImageView) itemView.findViewById(R.id.recycler_item_documents_image_unchecked);
+            imageCheckMarkIcon = (ImageView) itemView.findViewById(R.id.recycler_item_documents_image_checked);
+            frameSelectItem = (FrameLayout) itemView.findViewById(R.id.recycler_item_documents_fl_selector);
         }
     }
 
@@ -215,7 +215,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
         public HeaderHolder(View itemView) {
             super(itemView);
-            header = (TextView) itemView.findViewById(R.id.text_item);
+            header = (TextView) itemView.findViewById(R.id.view_header_media_tx_text);
         }
     }
 

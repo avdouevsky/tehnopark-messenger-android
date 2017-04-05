@@ -12,13 +12,13 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/pager_recycler"
+        android:id="@+id/recycler_view_contacts_rv_contacts"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
     </android.support.v7.widget.RecyclerView>
 
     <com.mshvdvskgmail.technoparkmessenger.adapters.SideSelector
-        android:id="@+id/side_selector"
+        android:id="@+id/recycler_view_contacts_ss_side_selector"
         android:layout_width="30dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
