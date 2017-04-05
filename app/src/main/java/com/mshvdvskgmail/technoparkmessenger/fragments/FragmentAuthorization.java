@@ -54,8 +54,8 @@ public class FragmentAuthorization extends Fragment{
         setButtonListeners(mRootView);
 
         /* setting the watcher */
-        emailField = (EditText) mRootView.findViewById(R.id.fieldEmail);
-        passwordField = (EditText) mRootView.findViewById(R.id.fieldPassword);
+        emailField = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_email);
+        passwordField = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_password);
         emailField.addTextChangedListener(textWatcher);
         passwordField.addTextChangedListener(textWatcher);
 
@@ -66,7 +66,7 @@ public class FragmentAuthorization extends Fragment{
 
         /* the "ВОЙТИ" button */
 
-        mAuthorizationButton = (TextView) mRootView.findViewById(R.id.button_authorization_enter);
+        mAuthorizationButton = (TextView) mRootView.findViewById(R.id.fragment_authorization_tv_enter);
         mAuthorizationButton.setEnabled(false);
         mAuthorizationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class FragmentAuthorization extends Fragment{
 
         /* the "ВОССТАНОВЛЕНИЕ ПАРОЛЯ" button */
 
-        TextView mResetPassword = (TextView) mRootView.findViewById(R.id.button_reset_password);
+        TextView mResetPassword = (TextView) mRootView.findViewById(R.id.fragment_authorization_tv_reset);
         mResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +99,7 @@ public class FragmentAuthorization extends Fragment{
 
         /* the username input delete button */
 
-        cancelCross1 = (ImageView) mRootView.findViewById(R.id.cancel_cross_one);
+        cancelCross1 = (ImageView) mRootView.findViewById(R.id.fragment_authorization_image_cancel_cross_first);
         cancelCross1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +110,7 @@ public class FragmentAuthorization extends Fragment{
 
         /* the username input delete button */
 
-        cancelCross2 = (ImageView) mRootView.findViewById(R.id.cancel_cross_two);
+        cancelCross2 = (ImageView) mRootView.findViewById(R.id.fragment_authorization_image_cancel_cross_second);
         cancelCross2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,7 +2,6 @@ package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,11 +74,11 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     ChatListAdapter.PicHolder viewHolder3 = new ChatListAdapter.PicHolder(rowView);
                     return viewHolder3;
             case 4: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_incoming_doc, parent, false);
+                    .inflate(R.layout.recycler_message_item_incoming_file, parent, false);
                 ChatListAdapter.FileHolder viewHolder4 = new ChatListAdapter.FileHolder(rowView);
                 return viewHolder4;
             case 5: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_outgoing_doc, parent, false);
+                    .inflate(R.layout.recycler_message_item_outgoing_file, parent, false);
                 ChatListAdapter.FileHolder viewHolder5 = new ChatListAdapter.FileHolder(rowView);
                 return viewHolder5;
             case 6: rowView = LayoutInflater.from(parent.getContext())
@@ -92,6 +91,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+
 
         int dpValue = 7; // margin in dips
         float d = context.getResources().getDisplayMetrics().density;
@@ -384,10 +385,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public MessageViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            text = (TextView) itemView.findViewById(R.id.text);
-            time = (TextView) itemView.findViewById(R.id.time);
-            status = (ImageView) itemView.findViewById(R.id.status);
-            imageBlobCorner= (ImageView) itemView.findViewById(R.id.corner);
+            text = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_text);
+            time = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_time);
+            status = (ImageView) itemView.findViewById(R.id.recycler_item_message_text_image_delivery_status);
+            imageBlobCorner= (ImageView) itemView.findViewById(R.id.recycler_item_message_text_image_corner);
         }
     }
 
@@ -400,7 +401,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             view = itemView;
             text = (TextView) itemView.findViewById(R.id.text);
-            imageBlobCorner= (ImageView) itemView.findViewById(R.id.corner);
+//            imageBlobCorner= (ImageView) itemView.findViewById(R.id.corner);
         }
     }
 
@@ -414,10 +415,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public PicHolder(View itemView) {
             super(itemView);
             view = itemView;
-            pic = (ImageView) itemView.findViewById(R.id.picture);
-            time = (TextView) itemView.findViewById(R.id.time);
-            status = (ImageView) itemView.findViewById(R.id.status);
-            imageBlobCorner= (ImageView) itemView.findViewById(R.id.corner);
+            pic = (ImageView) itemView.findViewById(R.id.recycler_item_message_picture_image_picture);
+            time = (TextView) itemView.findViewById(R.id.recycler_item_message_picture_tv_time);
+            status = (ImageView) itemView.findViewById(R.id.recycler_item_message_picture_image_delivery_status);
+            imageBlobCorner= (ImageView) itemView.findViewById(R.id.recycler_item_message_picture_image_corner);
         }
     }
 
@@ -433,12 +434,12 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public FileHolder(View itemView) {
             super(itemView);
             view = itemView;
-            tvFileType = (TextView) itemView.findViewById(R.id.fileType);
-            tvFileName = (TextView) itemView.findViewById(R.id.fileName);
-            tvFileSize = (TextView) itemView.findViewById(R.id.fileSize);
-            tvTime = (TextView) itemView.findViewById(R.id.time);
-            imageStatus = (ImageView) itemView.findViewById(R.id.status);
-            imageBlobCorner= (ImageView) itemView.findViewById(R.id.corner);
+            tvFileType = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_type);
+            tvFileName = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_name);
+            tvFileSize = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_size);
+            tvTime = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_time);
+            imageStatus = (ImageView) itemView.findViewById(R.id.recycler_item_message_file_image_delivery_status);
+            imageBlobCorner= (ImageView) itemView.findViewById(R.id.recycler_item_message_file_image_corner);
         }
     }
 }

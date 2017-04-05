@@ -40,6 +40,8 @@
                 android:hint="@string/searchtext_hint"
                 android:id="@+id/search_field"
                 android:cursorVisible="false"
+                android:textSize="11sp"
+                android:maxLines="1"
                 android:background="@android:color/transparent" />
         </LinearLayout>
         <TextView

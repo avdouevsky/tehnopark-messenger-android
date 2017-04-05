@@ -25,7 +25,7 @@
             android:paddingBottom="15dp"
             android:paddingStart="22dp"
             android:paddingEnd="22dp"
-            android:id="@+id/text"
+            android:id="@+id/recycler_item_message_text_tv_text"
             fontPath="fonts/GothamPro.ttf"/>
 
         <LinearLayout
@@ -41,7 +41,7 @@
                 android:layout_marginBottom="2.5dp"
                 android:layout_marginRight="3dp"
                 android:layout_gravity="bottom"
-                android:id="@+id/time"
+                android:id="@+id/recycler_item_message_text_tv_time"
                 fontPath="fonts/GothamProLight.ttf"/>
 
             <ImageView
@@ -51,7 +51,7 @@
                 android:visibility="visible"
                 android:layout_marginBottom="8dp"
                 android:layout_gravity="bottom"
-                android:id="@+id/status"/>
+                android:id="@+id/recycler_item_message_text_image_delivery_status"/>
 
             <FrameLayout
                 android:layout_width="17dp"
@@ -68,6 +68,6 @@
         android:layout_marginTop="-18dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="20dp"
-        android:id="@+id/corner"/>
+        android:id="@+id/recycler_item_message_text_image_corner"/>
 
 </LinearLayout>

@@ -12,14 +12,13 @@
         android:layout_height="wrap_content"
         app:contentInsetLeft="3dp"
         app:contentInsetStart="3dp"
-        android:background="@color/backGroundDarkBlue"
-        android:id="@+id/toolBar">
+        android:background="@color/backGroundDarkBlue">
 
         <FrameLayout
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_gravity="left"
-            android:id="@+id/frame_with_icon_arrow_back">
+            android:id="@+id/fragment_chat_fl_back">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,6 +50,7 @@
                 android:textSize="15sp"
                 android:textColor="#0193c6"
                 android:textStyle="bold"
+                android:id="@+id/fragment_chat_tv_name"
                 fontPath="fonts/GothamProBold.ttf"/>
 
             <TextView
@@ -62,6 +62,7 @@
                 android:textStyle="bold"
                 android:letterSpacing="0.09"
                 android:layout_marginTop="8dp"
+                android:id="@+id/fragment_chat_tv_online_status"
                 fontPath="fonts/GothamPro.ttf"/>
 
         </LinearLayout>
@@ -72,7 +73,7 @@
             android:layout_height="44dp"
             android:layout_gravity="right"
             android:layout_marginBottom="10dp"
-            android:id="@+id/frame_with_icon_settings">
+            android:id="@+id/fragment_chat_fl_call">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +86,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/messages"
+        android:id="@+id/fragment_chat_rv_messages"
         fontPath="fonts/GothamProBold.ttf"
         android:layout_weight="1"
         android:background="#F2F2F2">
@@ -110,13 +111,13 @@
                 android:layout_marginStart="14dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginRight="12dp"
-
                 android:background="@drawable/text_enter_frame">
 
                 <FrameLayout
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/fragment_chat_fl_attach_file">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -134,7 +135,8 @@
                     android:layout_marginStart="40dp"
                     android:background="@android:color/transparent"
                     android:cursorVisible="false"
-                    android:layout_marginLeft="40dp" />
+                    android:layout_marginLeft="40dp"
+                    android:id="@+id/fragment_chat_et_write_message"/>
 
 
 
@@ -157,7 +159,7 @@
             android:layout_gravity="center"
             android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
-            android:id="@+id/frame_with_icon_chat_send"
+            android:id="@+id/fragment_chat_fl_send_message"
             android:background="@drawable/ripple_effect_send_message">
             <ImageView
                 android:layout_width="wrap_content"

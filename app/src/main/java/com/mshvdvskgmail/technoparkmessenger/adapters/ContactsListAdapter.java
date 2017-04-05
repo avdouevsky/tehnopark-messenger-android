@@ -1,6 +1,8 @@
 package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,8 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChat;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentProfile;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 import com.squareup.picasso.Picasso;
 
@@ -42,12 +46,16 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
     private FrameLayout frameSeparator;
     private LayoutInflater mInflater;
 
+    private FragmentManager fManager;
+
+
     public static final String TAG = ContactsListAdapter.class.getCanonicalName();
 
 
-    public ContactsListAdapter(ArrayList <ContactsListItem> contactsList, Context context) {
+    public ContactsListAdapter(ArrayList <ContactsListItem> contactsList, Context context, FragmentManager fManager) {
         this.contactsList = contactsList;
         this.context = context;
+        this.fManager = fManager;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -89,6 +97,20 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         if (isOnline) {
             imageItemOnline.setVisibility(View.VISIBLE);
         } else imageItemOnline.setVisibility(View.GONE);
+
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentProfile profile = new FragmentProfile();
+                fManager.beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, profile)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
     }
 
     @Override

@@ -1,15 +1,20 @@
 package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChat;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentSearch;
 import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.squareup.picasso.Picasso;
 
@@ -35,7 +40,6 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
     private boolean hasNew;
     private int newCount;
 
-
     private TextView itemName;
     private TextView itemLastMessage;
     private TextView itemTime;
@@ -43,10 +47,12 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
     private FrameLayout itemNewNotifi;
     private TextView itemNotifiCount;
 
+    private FragmentManager fManager;
 
-    public ChatsListAdapter(ArrayList <ChatsListItem> chatsList, Context context) {
+    public ChatsListAdapter(ArrayList <ChatsListItem> chatsList, Context context, FragmentManager fManager) {
         this.chatsList = chatsList;
         this.context = context;
+        this.fManager = fManager;
         count = 0;
     }
 
@@ -73,7 +79,7 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
             mFrameLayout.setVisibility(View.GONE);
         }
 
-        ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.profile_icon);
+        ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.recycler_item_chatslist_image_profile_pic);
         Picasso.with(context).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
         currentItem = chatsList.get(count);
@@ -86,14 +92,12 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
         hasNew = currentItem.hasNew();
         newCount = currentItem.getNewCount();
 
-        itemName = (TextView) holder.mView.findViewById(R.id.name);
-        itemLastMessage = (TextView) holder.mView.findViewById(R.id.last_message);
-        itemTime = (TextView) holder.mView.findViewById(R.id.time);
-        itemOnline = (ImageView) holder.mView.findViewById(R.id.online_dot);
-        itemNewNotifi = (FrameLayout) holder.mView.findViewById(R.id.notification_new);
-        itemNotifiCount = (TextView) holder.mView.findViewById(R.id.number_of_new_messages);
-        itemNewNotifi = (FrameLayout) holder.mView.findViewById(R.id.notification_new);
-        itemNotifiCount = (TextView) holder.mView.findViewById(R.id.number_of_new_messages);
+        itemName = (TextView) holder.mView.findViewById(R.id.recycler_item_chatslist_tv_name);
+        itemLastMessage = (TextView) holder.mView.findViewById(R.id.recycler_item_chatslist_tv_message);
+        itemTime = (TextView) holder.mView.findViewById(R.id.recycler_item_chatslist_tv_time);
+        itemOnline = (ImageView) holder.mView.findViewById(R.id.recycler_item_chatslist_image_online);
+        itemNewNotifi = (FrameLayout) holder.mView.findViewById(R.id.recycler_item_chatslist_fl_notification);
+        itemNotifiCount = (TextView) holder.mView.findViewById(R.id.recycler_item_chatslist_tv_notification);
 
         itemName.setText(name);
         itemLastMessage.setText(lastLine);
@@ -113,6 +117,17 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
             itemNotifiCount.setVisibility(View.GONE);
         }
 
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentChat chat = new FragmentChat();
+                fManager.beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, chat)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
     }
 
@@ -129,9 +144,12 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.item_separator);
+            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.recycler_item_chatslist_fl_separator);
 
         }
+
     }
+
+
 
 }

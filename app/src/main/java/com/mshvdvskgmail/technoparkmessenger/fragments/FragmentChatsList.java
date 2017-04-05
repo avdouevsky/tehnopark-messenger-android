@@ -70,7 +70,7 @@ public class FragmentChatsList extends Fragment {
 //        for (int i = 0; i < 10; i++){
 //            contacts.add(dummyObject);
 //        }
-        mAdapter = new ChatsListAdapter(contacts, getContext());
+        mAdapter = new ChatsListAdapter(contacts, getContext(), getActivity().getSupportFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
         setListeners(mRootView);
 
@@ -91,6 +91,5 @@ public class FragmentChatsList extends Fragment {
                         .commit();
             }
         });
-
     }
 }

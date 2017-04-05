@@ -2,11 +2,13 @@ package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
@@ -29,11 +31,27 @@ public class FragmentChat extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.messages);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_chat_rv_messages);
         recyclerView.setHasFixedSize(true);
         lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         messages = new ArrayList<>();
+
+        FrameLayout flBackButton = (FrameLayout) rootView.findViewById(R.id.fragment_chat_fl_back);
+        flBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, main)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+
 
 
         MessageChatItem dummyObject1 = new MessageChatItem();
@@ -189,35 +207,20 @@ public class FragmentChat extends Fragment {
 
         messages.add(dummyObject1);
         messages.add(dummyObject11);
-
         messages.add(dummyObject2);
         messages.add(dummyObject21);
-
         messages.add(dummyObject3);
         messages.add(dummyObject31);
-
         messages.add(dummyObject4);
         messages.add(dummyObject41);
-
         messages.add(dummyObject5);
         messages.add(dummyObject51);
-
         messages.add(dummyObject6);
         messages.add(dummyObject61);
-
         messages.add(dummyObject611);
         messages.add(dummyObject6111);
-
         messages.add(dummyObject64);
 
-
-
-
-
-
-//        for (int i = 0; i < 10; i++){
-//            contacts.add(dummyObject);
-//        }
         adapter = new ChatListAdapter(messages, getContext());
         recyclerView.setAdapter(adapter);
 

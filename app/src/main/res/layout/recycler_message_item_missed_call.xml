@@ -29,7 +29,7 @@
                 android:paddingBottom="15dp"
                 android:paddingStart="22dp"
                 android:paddingEnd="22dp"
-                android:id="@+id/text"
+                android:id="@+id/recycler_item_message_missed_call_text"
                 fontPath="fonts/GothamPro.ttf"/>
 
             <FrameLayout

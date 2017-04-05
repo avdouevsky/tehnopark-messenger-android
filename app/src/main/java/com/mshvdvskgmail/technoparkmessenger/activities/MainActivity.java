@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
@@ -47,4 +48,29 @@ public class MainActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
+//    @Override
+//    public void onBackPressed() {
+//
+//        int count = getFragmentManager().getBackStackEntryCount();
+//
+//        if (count == 0) {
+//            super.onBackPressed();
+//            //additional code
+//        } else {
+//            getFragmentManager().popBackStack();
+//        }
+//
+//    }
+
+    public void take_me_back (View v) {
+        FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .replace(R.id.container, main)
+                .addToBackStack(null)
+                .commit();
+    }
+
 }

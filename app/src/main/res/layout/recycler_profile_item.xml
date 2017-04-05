@@ -5,7 +5,8 @@
     android:layout_width="75dp"
     android:layout_height="106dp"
     android:layout_marginRight="23dp"
-    android:layout_marginEnd="23dp">
+    android:layout_marginEnd="23dp"
+    tools:ignore="MissingPrefix">
 
     <FrameLayout
         android:layout_width="66dp"
@@ -15,8 +16,21 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="37dp"
-            android:src="@drawable/ic_doc_white"
-            android:layout_gravity="center"/>
+            android:src="@drawable/ic_message_file"
+            android:layout_gravity="center"
+            android:id="@+id/recycler_item_profile_attached_file_image_file"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="LSD"
+            android:id="@+id/recycler_item_profile_attached_file_tv_type"
+            android:textSize="8sp"
+            android:textColor="#5a9dc8"
+            fontPath="fonts/GothamProBold.ttf"
+            android:layout_marginTop="10dp"/>
+
     </FrameLayout>
 
     <TextView
@@ -30,7 +44,6 @@
         android:layout_marginTop="7dp"
         android:lineSpacingExtra="4dp"
         fontPath="fonts/GothamProRegular.ttf"
-        tools:ignore="MissingPrefix"/>
-
-
+        tools:ignore="MissingPrefix"
+        android:id="@+id/recycler_item_profile_attached_file_tv_name"/>
 </LinearLayout>

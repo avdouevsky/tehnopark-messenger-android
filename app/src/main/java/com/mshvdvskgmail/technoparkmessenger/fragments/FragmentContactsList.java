@@ -82,7 +82,7 @@ public class FragmentContactsList  extends Fragment {
 
         }
 
-        mAdapter = new ContactsListAdapter(contacts, getContext());
+        mAdapter = new ContactsListAdapter(contacts, getContext(), getActivity().getSupportFragmentManager());
         decor = new StickyHeaderDecoration(mAdapter);
         mRecyclerView.addItemDecoration(decor, 0);
         mRecyclerView.setAdapter(mAdapter);

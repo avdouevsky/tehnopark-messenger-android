@@ -30,11 +30,11 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_gravity="right"
-            android:id="@+id/frame_with_icon_search">
+            android:id="@+id/fragment_main_four_tab_fl_new_or_search">
             <ImageView
                 android:layout_width="17dp"
                 android:layout_height="17dp"
-                android:id="@+id/ic_write_new"
+                android:id="@+id/fragment_main_four_tab_image_new_or_search"
                 android:src="@drawable/ic_write_new"
                 android:layout_gravity="center"/>
         </FrameLayout>
@@ -48,7 +48,7 @@
 
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
+            android:id="@+id/fragment_main_four_tab_tl_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/backGroundDarkBlue"
@@ -89,7 +89,7 @@
 
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+        android:id="@+id/fragment_main_four_tab_vp_pager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent">
     </android.support.v4.view.ViewPager>

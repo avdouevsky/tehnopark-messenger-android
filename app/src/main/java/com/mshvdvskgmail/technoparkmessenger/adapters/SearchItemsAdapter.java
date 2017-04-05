@@ -62,9 +62,9 @@ public class SearchItemsAdapter extends RecyclerView.Adapter<SearchItemsAdapter.
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            tvName = (TextView) itemView.findViewById(R.id.name);
-            tvMessage = (TextView) itemView.findViewById(R.id.message);
-            tvTime = (TextView) itemView.findViewById(R.id.time);
+            tvName = (TextView) itemView.findViewById(R.id.recycler_item_search_tv_name);
+            tvMessage = (TextView) itemView.findViewById(R.id.recycler_item_search_tv_message);
+            tvTime = (TextView) itemView.findViewById(R.id.recycler_item_search_tv_time);
         }
     }
 }

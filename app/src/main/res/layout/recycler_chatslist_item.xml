@@ -20,14 +20,14 @@
                 android:layout_width="43dp"
                 android:layout_marginLeft="17dp"
                 android:layout_marginTop="18dp"
-                android:id="@+id/profile_icon">
+                android:id="@+id/recycler_item_chatslist_image_profile_pic">
 
             </ImageView>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_online"
-                android:id="@+id/online_dot"
+                android:id="@+id/recycler_item_chatslist_image_online"
                 android:paddingStart="33dp"
                 android:paddingTop="55dp"
                 android:paddingLeft="33dp" />
@@ -48,7 +48,7 @@
                 android:layout_marginStart="13dp"
                 android:textColor="@color/colorBlueTextPrimary"
                 fontPath="fonts/GothamProBold.ttf"
-                android:id="@+id/name"
+                android:id="@+id/recycler_item_chatslist_tv_name"
                 android:layout_marginLeft="13dp" />
 
             <LinearLayout
@@ -66,7 +66,7 @@
                     android:layout_marginStart="13dp"
                     android:maxLines="1"
                     android:letterSpacing="0.03"
-                    android:id="@+id/last_message"
+                    android:id="@+id/recycler_item_chatslist_tv_message"
                     fontPath="fonts/GothamPro.ttf"
                     android:layout_marginLeft="13dp"
                     android:ellipsize="end"
@@ -84,7 +84,7 @@
                     android:layout_marginTop="7dp"
                     android:layout_marginRight="7dp"
                     android:layout_marginLeft="4dp"
-                    android:id="@+id/notification_new">
+                    android:id="@+id/recycler_item_chatslist_fl_notification">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -92,14 +92,14 @@
                         android:textSize="9.5sp"
                         android:layout_gravity="center"
                         android:textColor="@color/colorWhiteText"
-                        android:id="@+id/number_of_new_messages"/>
+                        android:id="@+id/recycler_item_chatslist_tv_notification"/>
                 </FrameLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/backgroundGrey"
-                    android:id="@+id/time"
+                    android:id="@+id/recycler_item_chatslist_tv_time"
                     android:text="13:23"
                     android:textSize="10sp"
                     android:layout_marginRight="18dp"/>
@@ -113,7 +113,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/item_separator"
+        android:id="@+id/recycler_item_chatslist_fl_separator"
         android:background="@color/colorBlackTransparentTwenty"
         android:layout_marginBottom="2dp"
         android:layout_marginStart="73dp"

@@ -47,10 +47,9 @@
                 android:layout_marginLeft="15dp"
                 android:textSize="13sp"
                 android:textColor="@color/colorWhiteText"
-                android:inputType="textCapCharacters"
                 android:letterSpacing="0.09"
                 fontPath="fonts/GothamProBold.ttf"
-                android:id="@+id/fieldEmail"/>
+                android:id="@+id/fragment_authorization_et_email"/>
 
 
 
@@ -61,7 +60,7 @@
                 android:layout_marginLeft="-40dp"
                 android:layout_marginTop="2dp"
                 android:visibility="gone"
-                android:id="@+id/cancel_cross_one"
+                android:id="@+id/fragment_authorization_image_cancel_cross_first"
                 android:padding="15dp"
                 android:src="@drawable/icon_cancel_cross"/>
         </LinearLayout>
@@ -101,7 +100,7 @@
                 android:inputType="textPassword"
                 fontPath="fonts/GothamProBold.ttf"
                 android:layout_marginLeft="15dp"
-                android:id="@+id/fieldPassword"/>
+                android:id="@+id/fragment_authorization_et_password"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -112,7 +111,7 @@
                 android:padding="15dp"
                 android:src="@drawable/icon_cancel_cross"
                 android:visibility="gone"
-                android:id="@+id/cancel_cross_two"/>
+                android:id="@+id/fragment_authorization_image_cancel_cross_second"/>
         </LinearLayout>
 
         <FrameLayout
@@ -131,7 +130,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             fontPath="fonts/GothamProBold.ttf"
-            android:id="@+id/button_authorization_enter"
+            android:id="@+id/fragment_authorization_tv_enter"
             android:background="@drawable/ripple_effect"/>
 
         <LinearLayout
@@ -153,7 +152,7 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 fontPath="fonts/GothamProBold.ttf"
-                android:id="@+id/button_reset_password"/>
+                android:id="@+id/fragment_authorization_tv_reset"/>
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

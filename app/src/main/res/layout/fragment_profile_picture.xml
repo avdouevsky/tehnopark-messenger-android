@@ -16,16 +16,16 @@
         android:id="@+id/fragment_profile_toolbar">
 
         <FrameLayout
+            android:clickable="true"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:background="@drawable/ripple_effect_transparent"
-            android:id="@+id/profile_picture_back">
+            android:background="@android:color/black"
+            android:id="@+id/frame_with_icon_back_arrow2">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_back_arrow"
-                android:layout_gravity="center"
-                android:background="@drawable/ripple_effect_transparent"/>
+                android:layout_gravity="center"/>
         </FrameLayout>
 
         <TextView

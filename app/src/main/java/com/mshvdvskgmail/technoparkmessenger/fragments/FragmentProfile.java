@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -60,7 +61,7 @@ public class FragmentProfile extends Fragment {
     }
 
     private void setAdapterContent(View mRootView) {
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.attached_files_recycler_view);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.fragment_profile_rv_files);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -74,37 +75,29 @@ public class FragmentProfile extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
         setOnClickListener(mRecyclerView);
 
-        ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.fragment_profile_picture);
+        ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.fragment_profile_image_profile_picture);
         Picasso.with(getContext()).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
     }
 
     private void setIconsTouchListeners(View mRootView) {
-        FrameLayout mFrame = (FrameLayout)mRootView.findViewById(R.id.frame_with_icon_back_carete);
-        mFrame.setOnClickListener(new View.OnClickListener() {
+        FrameLayout flBackButton = (FrameLayout) mRootView.findViewById(R.id.fragment_profile_fl_back);
+        //flBackButton.setVisibility(View.GONE);
+        flBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                alertDialog.setTitle("ОК, СПАСИБО");
-                alertDialog.setMessage("Все работает ок, не так ли?");
-                alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.setNegativeButton("Не знаю", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert = alertDialog.create();
-                alert.show();
+                Log.d("blablalba", "hello");
+                FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, main)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
-        ImageView mImage = (ImageView) mRootView.findViewById(R.id.button_message);
+        ImageView mImage = (ImageView) mRootView.findViewById(R.id.fragment_profile_image_message);
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +121,7 @@ public class FragmentProfile extends Fragment {
             }
         });
 
-        mImage = (ImageView) mRootView.findViewById(R.id.button_call);
+        mImage = (ImageView) mRootView.findViewById(R.id.fragment_profile_image_call);
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,13 +145,13 @@ public class FragmentProfile extends Fragment {
             }
         });
 
-        TextView mText = (TextView) mRootView.findViewById(R.id.number_of_items);
+        TextView mText = (TextView) mRootView.findViewById(R.id.fragment_profile_tv_items_count);
         mText.setText(""+files.size());
 
         final FragmentProfile a = this;
         final FragmentProfilePicture b = new FragmentProfilePicture();
 
-        mImage = (ImageView) mRootView.findViewById(R.id.fragment_profile_picture);
+        mImage = (ImageView) mRootView.findViewById(R.id.fragment_profile_image_profile_picture);
 
         final ImageView c = mImage;
 
@@ -245,4 +238,14 @@ public class FragmentProfile extends Fragment {
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
         });
     }
+
+//    public void take_me_back (View v) {
+//        FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
+//        getActivity().getSupportFragmentManager()
+//                .beginTransaction()
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                .replace(R.id.container, main)
+//                .addToBackStack(null)
+//                .commit();
+//    }
 }
