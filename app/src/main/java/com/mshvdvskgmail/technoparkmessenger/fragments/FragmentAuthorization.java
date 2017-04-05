@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
+import com.mshvdvskgmail.technoparkmessenger.services.RabbitMQService;
+
+import java.util.UUID;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by mshvdvsk on 07/03/2017.
@@ -67,13 +76,53 @@ public class FragmentAuthorization extends Fragment{
         mAuthorizationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentIncomingCall incomingCall = new FragmentIncomingCall();
-                getFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, incomingCall)
-                        .addToBackStack(null)
-                        .commit();
+//                FragmentIncomingCall incomingCall = new FragmentIncomingCall();
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, incomingCall)
+//                        .addToBackStack(null)
+//                        .commit();
+
+                REST.getInstance().login(emailField.getText().toString(), passwordField.getText().toString(), Controller.getInstance().deviceType(), Controller.getInstance().deviceId(), "")
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new REST.DataSubscriber<User>(){
+
+                            @Override
+                            public void onData(User data) {
+                                Log.w("technopark", "data "+data.name);
+//                                Controller.getInstance().putUser(data);
+                                Controller.getInstance().getAuth().user = data;
+                                Controller.getInstance().fillContacts();
+                                Controller.getInstance().fillChats();
+                                Controller.getInstance().fillGroupChats();
+                                FragmentMainFourTabScreen mainScreen = new FragmentMainFourTabScreen();
+                                getFragmentManager()
+                                        .beginTransaction()
+                                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                                        .replace(R.id.container, mainScreen)
+//                                        .addToBackStack(null)
+                                        .commit();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e("technopart", "error "+e.getLocalizedMessage());
+                            }
+                        });
+/*                REST.getInstance().bar(controller.getAuth().user, controller.getAuth().wifiToken, currentPlace.id)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new REST.DataSubscriber<Bar>() {
+                            @Override
+                            public void onData(Bar data) {
+                                Log.d(TAG, "Bar ik");
+//                        guestList = data.inside;
+                                guestsAdapter.setGuestList(data.inside);
+//                        chatList = data.dialogs;
+                                chatsAdapter.setChatList(data.dialogs);
+                                setContent();
+                            }
+                        });*/
             }
         });
 

@@ -9,23 +9,28 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.models.CallsList;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.model.SipCall;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by mshvdvsk on 20/03/2017.
  */
 
 public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.ViewHolder> {
-    private ArrayList<CallsList> callsList;
+    private ArrayList<SipCall> callsList;
     private View rowView;
     private Context context;
-    private CallsList currentItem;
+    private SipCall currentItem;
     private int count;
 
     private String name;
@@ -40,7 +45,7 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
     private ImageView itemIncomingStatus;
 
 
-    public CallsListAdapter(ArrayList <CallsList> callsList, Context context) {
+    public CallsListAdapter(ArrayList <SipCall> callsList, Context context) {
         this.callsList = callsList;
         this.context = context;
         count = 0;
@@ -72,12 +77,12 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
         ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.profile_icon);
         Picasso.with(context).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
-        currentItem = callsList.get(count);
-        count++;
+        currentItem = callsList.get(position);
+//        count++;
 
-        name = currentItem.getName();
+        name = currentItem.Opposite().cn;
         time = currentItem.getTime();
-        isOnline = currentItem.isOnline();
+//        isOnline = currentItem.Opposite().isOnline();
         isMissed = currentItem.isMissed();
         isIncoming = currentItem.isIncoming();
 
@@ -89,9 +94,20 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
         itemName.setText(name);
         itemTime.setText(time);
 
-        if (isOnline) {
-            itemOnline.setVisibility(View.VISIBLE);
-        } else itemOnline.setVisibility(View.GONE);
+        REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, currentItem.Opposite().id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body() == "1") {
+                    itemOnline.setVisibility(View.VISIBLE);
+                } else itemOnline.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                itemOnline.setVisibility(View.GONE);
+            }
+        });
+
 
         if (isMissed) {
             itemIncomingStatus.setVisibility(View.GONE);

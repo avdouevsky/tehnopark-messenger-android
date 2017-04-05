@@ -4,18 +4,24 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ContactsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.SideSelector;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by mshvdvsk on 19/03/2017.
@@ -26,7 +32,7 @@ public class FragmentContactsList  extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<ContactsListItem> contacts;
+    private ArrayList<User> contacts;
     private ContactsListAdapter mAdapter;
     private StickyHeaderDecoration decor;
 
@@ -65,7 +71,7 @@ public class FragmentContactsList  extends Fragment {
 //        contacts.add(dummyObject1);
 //        contacts.add(dummyObject2);
 //        contacts.add(dummyObject3);
-
+/*
         int counter = 0;
 
         for (char ch : SideSelector.ALPHABET) {
@@ -80,7 +86,37 @@ public class FragmentContactsList  extends Fragment {
                 }
             }
 
-        }
+        }*/
+
+        contacts.addAll(Controller.getInstance().getContacts());
+
+//        REST.getInstance().contacts(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, "")
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new REST.DataSubscriber<List<User>>(){
+//                    @Override
+//                    public void onData(List<User> data){
+//                        contacts.addAll(data);
+//                    }
+//
+//                    @Override
+//                    public void onCompleted(){
+//                        mAdapter.notifyDataSetChanged();
+//                    }
+//                });
+
+/*        REST.getInstance().bar(controller.getAuth().user, controller.getAuth().wifiToken, currentPlace.id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new REST.DataSubscriber<Bar>() {
+                    @Override
+                    public void onData(Bar data) {
+                        Log.d(TAG, "Bar ik");
+//                        guestList = data.inside;
+                        guestsAdapter.setGuestList(data.inside);
+//                        chatList = data.dialogs;
+                        chatsAdapter.setChatList(data.dialogs);
+                        setContent();
+                    }
+                });*/
 
         mAdapter = new ContactsListAdapter(contacts, getContext());
         decor = new StickyHeaderDecoration(mAdapter);

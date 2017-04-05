@@ -8,25 +8,6 @@
     android:background="@drawable/gradient_dark_blue_to_blue"
     tools:ignore="MissingPrefix">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="13dp"
-        app:contentInsetStart="13dp"
-        android:id="@+id/fragment_profile_toolbar">
-
-        <FrameLayout
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:background="@drawable/ripple_effect_transparent"
-            android:id="@+id/frame_with_icon_back_carete">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_back_arrow"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-    </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -93,6 +74,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:textAllCaps="true"
+                android:id="@+id/profile_title"
                 fontPath="fonts/GothamProRegular.ttf"/>
 
             <LinearLayout
@@ -202,6 +184,28 @@
         </LinearLayout>
 
     </ScrollView>
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="13dp"
+        app:contentInsetStart="13dp"
+        android:id="@+id/fragment_profile_toolbar">
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/ripple_effect_transparent"
+            android:id="@+id/frame_with_icon_back_carete">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_arrow"
+                android:layout_gravity="center"
+                android:id="@+id/back_button"
+                android:background="#00000000"
+                />
+        </FrameLayout>
+    </android.support.v7.widget.Toolbar>
 
 
 </RelativeLayout >

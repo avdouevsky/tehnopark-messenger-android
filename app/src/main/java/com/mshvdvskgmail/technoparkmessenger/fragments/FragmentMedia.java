@@ -96,12 +96,12 @@ public class FragmentMedia extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!isSelected){
-                    EventBus.getDefault().post(new MessageEvent(true));
+//                    EventBus.getDefault().post(new MessageEvent(true));
                     linearBottomBar.setVisibility(View.VISIBLE);
                     tvSelectButton.setText("Отменить");
                     isSelected = true;
                 } else {
-                    EventBus.getDefault().post(new MessageEvent(false));
+//                    EventBus.getDefault().post(new MessageEvent(false));
                     linearBottomBar.setVisibility(View.GONE);
                     tvSelectButton.setText("Выбрать");
                     isSelected = false;

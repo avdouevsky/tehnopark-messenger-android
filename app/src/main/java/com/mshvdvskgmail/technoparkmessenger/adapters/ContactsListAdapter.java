@@ -1,6 +1,10 @@
 package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,14 +15,24 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
+import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMainFourTabScreen;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentProfile;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by mshvdvsk on 19/03/2017.
@@ -27,10 +41,10 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapter.ViewHolder> implements SectionIndexer,
         StickyHeaderAdapter<ContactsListAdapter.HeaderHolder> {
 
-    private ArrayList<ContactsListItem> contactsList;
+    private ArrayList<User> contactsList;
     private View rowView;
     private Context context;
-    private ContactsListItem currentItem;
+    private User currentItem;
 
     private String name;
     private String officePosition;
@@ -44,8 +58,11 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
 
     public static final String TAG = ContactsListAdapter.class.getCanonicalName();
 
+    public Context getContext(){
+        return context;
+    }
 
-    public ContactsListAdapter(ArrayList <ContactsListItem> contactsList, Context context) {
+    public ContactsListAdapter(ArrayList <User> contactsList, Context context) {
         this.contactsList = contactsList;
         this.context = context;
         mInflater = LayoutInflater.from(context);
@@ -56,13 +73,14 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         rowView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_contacts_item, parent, false);
         ContactsListAdapter.ViewHolder viewHolder = new ContactsListAdapter.ViewHolder(rowView);
+        viewHolder.context = context;
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ContactsListAdapter.ViewHolder holder, int position) {
-        if (position+1 == contactsList.size() || contactsList.get(position).getName().charAt(0) !=
-                contactsList.get(position+1).getName().charAt(0)){
+        if (position+1 == contactsList.size() || contactsList.get(position).cn.charAt(0) !=
+                contactsList.get(position+1).cn.charAt(0)){
             frameSeparator = holder.mFrameLayout;
             frameSeparator.setVisibility(View.GONE);
         } else {
@@ -70,14 +88,11 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
             frameSeparator.setVisibility(View.VISIBLE);
         }
 
-        ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.profile_icon);
-        Picasso.with(context).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
-
         currentItem = contactsList.get(position);
-
-        name = currentItem.getName();
-        officePosition = currentItem.getOfficePosition();
-        isOnline = currentItem.isOnline();
+        holder.setContact(currentItem);
+        name = currentItem.cn;
+        officePosition = currentItem.title;
+//        isOnline = currentItem.isOnline();
 
         tvItemName = (TextView) holder.mView.findViewById(R.id.name);
         tvItemPosition = (TextView) holder.mView.findViewById(R.id.office_position);
@@ -86,9 +101,33 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         tvItemName.setText(name);
         tvItemPosition.setText(officePosition);
 
-        if (isOnline) {
-            imageItemOnline.setVisibility(View.VISIBLE);
-        } else imageItemOnline.setVisibility(View.GONE);
+        REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, currentItem.id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body() == "1") {
+                    imageItemOnline.setVisibility(View.VISIBLE);
+                } else imageItemOnline.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                imageItemOnline.setVisibility(View.GONE);
+            }
+        });
+
+
+        ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.profile_icon);
+        Picasso.with(context)
+                .load("http://213.247.249.84/basic/web/index.php?r=messages/json/avatar&name="+currentItem.name)
+//                .load("http://213.247.249.84/basic/web/index.php?r=messages/json/avatar&name=testme1")
+//                    .networkPolicy(NetworkPolicy.OFFLINE)
+                .placeholder(R.drawable.pushkin)
+                .error(R.drawable.pushkin)
+                .centerCrop()
+                .resize(300, 300)
+                .onlyScaleDown()
+                .transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
+
     }
 
     @Override
@@ -121,7 +160,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
 //        if (position == 0) { // don't show header for first item
 //            return StickyHeaderDecoration.NO_HEADER_ID;
 //        }
-        return contactsList.get(position).getName().subSequence(0, 1).charAt(0);
+        return contactsList.get(position).cn.subSequence(0, 1).charAt(0);
     }
 
     @Override
@@ -132,8 +171,10 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
 
     @Override
     public void onBindHeaderViewHolder(HeaderHolder viewHolder, int position) {
-        viewHolder.header.setText(""+contactsList.get(position).getName().charAt(0));
+        viewHolder.header.setText(""+contactsList.get(position).cn.charAt(0));
+
     }
+
 
 
 
@@ -141,11 +182,23 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
 
         View mView;
         FrameLayout mFrameLayout;
+        User contact;
+        Context context;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
             mFrameLayout = (FrameLayout) itemView.findViewById(R.id.item_separator);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((MainActivity) context).executeAction("showProfile", contact);
+                }
+            });
+        }
+
+        public void setContact(User user){
+            contact = user;
         }
     }
 

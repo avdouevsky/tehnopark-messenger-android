@@ -4,15 +4,19 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mshvdvsk on 17/03/2017.
@@ -22,7 +26,7 @@ public class FragmentChatsList extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<ChatsListItem> contacts;
+    private ArrayList<Chat> contacts;
     private ChatsListAdapter mAdapter;
 
     @Override
@@ -35,7 +39,11 @@ public class FragmentChatsList extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         contacts = new ArrayList<>();
-
+//        contacts = new List<>;
+//        contacts = Controller.getInstance().getChats();
+        Log.w("Technopark", "chats: " + Controller.getInstance().getChats());
+        contacts.addAll(Controller.getInstance().getChats());
+/*
         ChatsListItem dummyObject1 = new ChatsListItem();
         dummyObject1.setName("Пушкин");
         dummyObject1.setLastLine("you, fat fuck");
@@ -62,7 +70,7 @@ public class FragmentChatsList extends Fragment {
 
         contacts.add(dummyObject1);
         contacts.add(dummyObject2);
-        contacts.add(dummyObject3);
+        contacts.add(dummyObject3);*/
 
 //        for (int i = 0; i < 10; i++){
 //            contacts.add(dummyObject);

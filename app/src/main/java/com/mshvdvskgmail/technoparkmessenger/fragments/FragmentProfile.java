@@ -1,28 +1,38 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ProfileFilesAdapter;
 import com.mshvdvskgmail.technoparkmessenger.models.ProfileAttachment;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
+import static com.mshvdvskgmail.technoparkmessenger.R.id.back_button;
+import static com.mshvdvskgmail.technoparkmessenger.R.id.fragment_profile_name;
+import static com.mshvdvskgmail.technoparkmessenger.R.id.frame_with_icon_back_carete;
+import static com.mshvdvskgmail.technoparkmessenger.R.id.profile_title;
 
 /**
  * Created by mshvdvsk on 03/02/2017.
@@ -35,6 +45,7 @@ public class FragmentProfile extends Fragment {
     private ArrayList<ProfileAttachment> files;
     private ProfileFilesAdapter mAdapter;
     private AlertDialog alert;
+    private User user;
 
     public FragmentProfile() {}
 
@@ -47,8 +58,17 @@ public class FragmentProfile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        user = (User) getArguments().getSerializable("user");
 
         mRootView = inflater.inflate(R.layout.fragment_profile, container, false);
+
+
+        TextView name = (TextView)mRootView.findViewById(fragment_profile_name);
+        name.setText(user.cn);
+
+        TextView title = (TextView)mRootView.findViewById(profile_title);
+        title.setText(user.description);
+
         setAdapterContent(mRootView);
         setIconsTouchListeners(mRootView);
         return mRootView;
@@ -75,10 +95,13 @@ public class FragmentProfile extends Fragment {
     }
 
     private void setIconsTouchListeners(View mRootView) {
-        FrameLayout mFrame = (FrameLayout)mRootView.findViewById(R.id.frame_with_icon_back_carete);
+        FrameLayout mFrame = (FrameLayout)mRootView.findViewById(frame_with_icon_back_carete);
         mFrame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                fm.popBackStack();
+
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                 alertDialog.setTitle("ОК, СПАСИБО");
                 alertDialog.setMessage("Все работает ок, не так ли?");
@@ -105,7 +128,7 @@ public class FragmentProfile extends Fragment {
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                 alertDialog.setTitle("ОК, СПАСИБО");
-                alertDialog.setMessage("Все работает ок, не так ли?");
+                alertDialog.setMessage("Все работает ок, не так ли?" + user);
                 alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
