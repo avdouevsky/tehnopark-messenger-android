@@ -52,7 +52,12 @@ public class FragmentChat extends Fragment {
         });
 
 
-
+        MessageChatItem dummyObject0 = new MessageChatItem();
+        dummyObject0.setText("привет");
+        dummyObject0.setTime("15:40");
+        dummyObject0.setType(7);
+        dummyObject0.setStatus(0);
+        dummyObject0.setIncoming(true);
 
         MessageChatItem dummyObject1 = new MessageChatItem();
         dummyObject1.setText("привет");
@@ -75,6 +80,13 @@ public class FragmentChat extends Fragment {
         dummyObject2.setType(1);
         dummyObject2.setStatus(4);
         dummyObject2.setIncoming(false);
+
+        MessageChatItem dummyObject22 = new MessageChatItem();
+        dummyObject22.setText("привет привет");
+        dummyObject22.setTime("15:40");
+        dummyObject22.setType(1);
+        dummyObject22.setStatus(4);
+        dummyObject22.setIncoming(false);
 
         MessageChatItem dummyObject21 = new MessageChatItem();
         dummyObject21.setText("привет привет");
@@ -205,9 +217,11 @@ public class FragmentChat extends Fragment {
 //        dummyObject6.setType(3);
 //        dummyObject6.setStatus(4);
 
+        messages.add(dummyObject0);
         messages.add(dummyObject1);
         messages.add(dummyObject11);
         messages.add(dummyObject2);
+        messages.add(dummyObject22);
         messages.add(dummyObject21);
         messages.add(dummyObject3);
         messages.add(dummyObject31);

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    tools:ignore="MissingPrefix">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="СЕГОДНЯ"
+        android:textColor="@color/colorBlackBlueText"
+        android:background="@drawable/background_message_time"
+        android:paddingStart="7dp"
+        android:paddingEnd="7dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:id="@+id/recycler_item_message_time_tv_text"
+        fontPath="fonts/GothamPro.ttf"/>
+
+</LinearLayout>

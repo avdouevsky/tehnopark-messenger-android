@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 //        ImageView profileIcon = (ImageView) findViewById(R.id.profile_icon);
 //        Picasso.with(this).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
-        FragmentAuthorization authorization = new FragmentAuthorization();
+        FragmentChat authorization = new FragmentChat();
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
