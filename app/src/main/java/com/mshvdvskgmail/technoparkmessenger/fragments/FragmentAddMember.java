@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.AddMemberListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.SearchItemsAdapter;
+import com.mshvdvskgmail.technoparkmessenger.adapters.SelectedContactsItemAdapter;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.SearchItem;
 
@@ -26,9 +27,11 @@ import java.util.ArrayList;
 public class FragmentAddMember extends Fragment {
     private View mRootView;
     private RecyclerView rvContacts;
+    private RecyclerView rvSelectedContacts;
     private LinearLayoutManager mLayoutManager;
     private ArrayList<ContactsListItem> contacts;
     private AddMemberListAdapter adapter;
+    private SelectedContactsItemAdapter adapterSelected;
     private AlertDialog alert;
 
     public FragmentAddMember() {}
@@ -54,15 +57,37 @@ public class FragmentAddMember extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvContacts.setLayoutManager(mLayoutManager);
 
-        contacts = new ArrayList<>();
-        ContactsListItem dummyObject = new ContactsListItem();
-        for (int i = 0; i < 10; i++){
-            dummyObject.setName("Константин Константинопольский");
-            dummyObject.setOfficePosition("MOOO DUCK");
-            contacts.add(dummyObject);
-        }
-        adapter = new AddMemberListAdapter(contacts, getContext());
-        rvContacts.setAdapter(adapter);
-    }
+        rvSelectedContacts = (RecyclerView) mRootView.findViewById(R.id.fragment_add_member_rv_selected_contacts);
+        rvSelectedContacts.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        rvSelectedContacts.setLayoutManager(mLayoutManager);
 
+        contacts = new ArrayList<>();
+
+        ContactsListItem a = new ContactsListItem();
+        a.setName("Константин Константинопольский");
+        a.setOfficePosition("MOOO DUCK A");
+
+        ContactsListItem b = new ContactsListItem();
+        b.setName("Константин Константинопольский");
+        b.setOfficePosition("MOOO DUCK B");
+
+        ContactsListItem c = new ContactsListItem();
+        c.setName("Константин Константинопольский");
+        c.setOfficePosition("MOOO DUCK C");
+
+        ContactsListItem d = new ContactsListItem();
+        d.setName("Константин Константинопольский");
+        d.setOfficePosition("MOOO DUCK D");
+
+        contacts.add(a);
+        contacts.add(b);
+        contacts.add(c);
+        contacts.add(d);
+
+        adapter = new AddMemberListAdapter(contacts, getContext());
+        adapterSelected = new SelectedContactsItemAdapter(contacts, getContext());
+        rvContacts.setAdapter(adapter);
+        rvSelectedContacts.setAdapter(adapterSelected);
+    }
 }

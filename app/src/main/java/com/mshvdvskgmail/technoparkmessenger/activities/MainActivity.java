@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAddMember;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChatGroup;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMainFourTabScreen;
 import com.squareup.picasso.Picasso;
 
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        ImageView profileIcon = (ImageView) findViewById(R.id.profile_icon);
+//        ImageView profileIcon = (ImageView) findViewById(R.id.recycler_item_contacts_selected_image_picture);
 //        Picasso.with(this).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
         FragmentAddMember authorization = new FragmentAddMember();
