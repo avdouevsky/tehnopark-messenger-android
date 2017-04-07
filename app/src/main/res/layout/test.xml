@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:ignore="MissingPrefix">
     <FrameLayout
@@ -10,16 +10,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_gravity="right">
+        android:layout_marginEnd="22dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/message_outgoing_background"
+            android:background="@drawable/message_incoming_background"
             android:paddingStart="18dp"
             android:paddingEnd="18dp"
             android:paddingTop="11dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="aSADASDSADASDDAS"
+                fontPath="fonts/GothamProBold.ttf"
+                android:textColor="#33cccc"
+                android:visibility="gone"
+                android:paddingBottom="5dp"
+                android:id="@+id/recycler_item_message_file_named_tv_name"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,7 +38,8 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_message_file"/>
+                        android:src="@drawable/ic_message_file"
+                        android:background="@color/incoming_call_button_background_red"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -39,7 +48,7 @@
                         android:textSize="8sp"
                         android:layout_marginTop="10dp"
                         android:textColor="#5a9dc8"
-                        android:id="@+id/recycler_item_message_file_tv_type"
+                        android:id="@+id/recycler_item_message_file_named_tv_type"
                         fontPath="fonts/GothamProBold.ttf"/>
                 </FrameLayout>
 
@@ -53,12 +62,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:minWidth="95dp"
+                        android:minWidth="75dp"
                         android:text="a"
                         android:textColor="#0f2745"
                         android:layout_marginTop="-1dp"
                         android:maxLines="1"
-                        android:id="@+id/recycler_item_message_file_tv_file_name"
+                        android:id="@+id/recycler_item_message_file_named_tv_file_name"
                         fontPath="fonts/GothamPro.ttf"/>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -69,49 +78,35 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/recycler_item_message_file_tv_size"
+                            android:id="@+id/recycler_item_message_file_named_tv_size"
                             android:text="27 KB"
                             fontPath="fonts/GothamPro.ttf"/>
                         <FrameLayout
                             android:layout_width="30dp"
                             android:layout_height="23dp"
                             android:layout_weight="1"/>
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="bottom">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="15:00"
-                                android:textColor="#0f2745"
-                                android:textSize="10sp"
-                                android:layout_gravity="bottom"
-                                android:id="@+id/recycler_item_message_file_tv_time"
-                                fontPath="fonts/GothamProLight.ttf"/>
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_message_read"
-                                android:visibility="visible"
-                                android:layout_marginBottom="2.5dp"
-                                android:layout_marginLeft="5dp"
-                                android:layout_gravity="bottom"
-                                android:id="@+id/recycler_item_message_file_image_delivery_status" />
-                        </LinearLayout>
+                            android:text="15:00"
+                            android:textColor="#0f2745"
+                            android:textSize="10sp"
+                            android:id="@+id/recycler_item_message_file_named_tv_time"
+                            fontPath="fonts/GothamProLight.ttf"
+                            android:layout_gravity="bottom"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_message_tail_outgoing"
-        android:layout_gravity="right"
+        android:src="@drawable/ic_message_tail_incoming"
+        android:layout_gravity="bottom"
         android:layout_marginTop="-18dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="20dp"
-        android:id="@+id/recycler_item_message_file_image_corner"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/recycler_item_message_file_named_image_corner"/>
 </LinearLayout>

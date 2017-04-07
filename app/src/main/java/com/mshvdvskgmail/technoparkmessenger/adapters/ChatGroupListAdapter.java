@@ -2,6 +2,7 @@ package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,13 @@ import java.util.ArrayList;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
+import static android.view.View.GONE;
+
 /**
- * Created by mshvdvsk on 30/03/2017.
+ * Created by mshvdvsk on 06/04/2017.
  */
 
-public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ChatGroupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final static String TAG = FragmentDocumentsList.class.toString();
     private ArrayList<MessageChatItem> messagesList;
@@ -39,6 +42,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private int type;
 
     private TextView tvText;
+    private TextView tvName;
     private TextView tvTime;
     private TextView tvFileType;
     private TextView tvFileSize;
@@ -47,7 +51,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private ImageView imageBlobCorner;
 
 
-    public ChatListAdapter(ArrayList <MessageChatItem> messagesList, Context context) {
+    public ChatGroupListAdapter(ArrayList <MessageChatItem> messagesList, Context context) {
         this.messagesList = messagesList;
         this.context = context;
         count = 0;
@@ -58,36 +62,32 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         switch (viewType){
             case 0: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_incoming_text, parent, false);
-                    ChatListAdapter.MessageViewHolder viewHolder0 = new ChatListAdapter.MessageViewHolder(rowView);
-                    return viewHolder0;
+                    .inflate(R.layout.recycler_message_item_incoming_text_named, parent, false);
+                ChatGroupListAdapter.MessageViewHolder viewHolder0 = new ChatGroupListAdapter.MessageViewHolder(rowView);
+                return viewHolder0;
             case 1: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_outgoing_text, parent, false);
-                    ChatListAdapter.MessageViewHolder viewHolder1 = new ChatListAdapter.MessageViewHolder(rowView);
-                    return viewHolder1;
+                    .inflate(R.layout.recycler_message_item_outgoing_text_named, parent, false);
+                ChatGroupListAdapter.MessageViewHolder viewHolder1 = new ChatGroupListAdapter.MessageViewHolder(rowView);
+                return viewHolder1;
             case 2: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_incoming_pic, parent, false);
-                    ChatListAdapter.PicHolder viewHolder2 = new ChatListAdapter.PicHolder(rowView);
-                    return viewHolder2;
+                    .inflate(R.layout.recycler_message_item_incoming_pic_named, parent, false);
+                ChatGroupListAdapter.PicHolder viewHolder2 = new ChatGroupListAdapter.PicHolder(rowView);
+                return viewHolder2;
             case 3: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_outgoing_pic, parent, false);
-                    ChatListAdapter.PicHolder viewHolder3 = new ChatListAdapter.PicHolder(rowView);
-                    return viewHolder3;
+                    .inflate(R.layout.recycler_message_item_outgoing_pic_named, parent, false);
+                ChatGroupListAdapter.PicHolder viewHolder3 = new ChatGroupListAdapter.PicHolder(rowView);
+                return viewHolder3;
             case 4: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_incoming_file, parent, false);
-                ChatListAdapter.FileHolder viewHolder4 = new ChatListAdapter.FileHolder(rowView);
+                    .inflate(R.layout.recycler_message_item_incoming_file_named, parent, false);
+                ChatGroupListAdapter.FileHolder viewHolder4 = new ChatGroupListAdapter.FileHolder(rowView);
                 return viewHolder4;
             case 5: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_outgoing_file, parent, false);
-                ChatListAdapter.FileHolder viewHolder5 = new ChatListAdapter.FileHolder(rowView);
+                    .inflate(R.layout.recycler_message_item_outgoing_file_named, parent, false);
+                ChatGroupListAdapter.FileHolder viewHolder5 = new ChatGroupListAdapter.FileHolder(rowView);
                 return viewHolder5;
-            case 6: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_missed_call, parent, false);
-                    ChatListAdapter.MissedCallHolder viewHolder6 = new ChatListAdapter.MissedCallHolder(rowView);
-                    return viewHolder6;
             case 7: rowView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.recycler_message_item_time, parent, false);
-                ChatListAdapter.TimeHolder viewHolder7 = new ChatListAdapter.TimeHolder(rowView);
+                ChatGroupListAdapter.TimeHolder viewHolder7 = new ChatGroupListAdapter.TimeHolder(rowView);
                 return viewHolder7;
         }
         return null;
@@ -111,11 +111,12 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case 0:
             case 1:
 
-                MessageViewHolder msgHolder = (MessageViewHolder) holder;
+                ChatGroupListAdapter.MessageViewHolder msgHolder = (ChatGroupListAdapter.MessageViewHolder) holder;
 
-                tvText = msgHolder.text;
-                tvTime = msgHolder.time;
-                imageStatus = msgHolder.status;
+                tvText = msgHolder.tvText;
+                tvTime = msgHolder.tvTime;
+
+                imageStatus = msgHolder.tvStatus;
 
                 tvText.setText(messagesList.get(position).getText());
                 tvTime.setText(messagesList.get(position).getTime());
@@ -126,7 +127,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     status = messagesList.get(position).getStatus();
                     switch (status) {
                         case 0:
-                            imageStatus.setVisibility(View.GONE);
+                            imageStatus.setVisibility(GONE);
                             break;
                         case 1:
                             imageStatus.setVisibility(View.VISIBLE);
@@ -168,13 +169,33 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     params.bottomMargin = marginTopBig;
                 }
 
+                /* setting name visibility */
+
+                if (messagesList.get(position).isIncoming()){
+
+                    tvName = msgHolder.tvName;
+                    tvName.setText(messagesList.get(position).getName());
+
+                    try{
+                        if (messagesList.get(position).getName().equals(messagesList.get(position-1).getName())){
+                            tvName.setVisibility(View.GONE);
+                        } else {
+                            tvName.setVisibility(View.VISIBLE);
+                        }
+                    } catch (Exception e) {
+                        if (messagesList.get(position).isIncoming()){
+                            tvName.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
 
                 break;
 
             case 2:
             case 3:
 
-                PicHolder picHolder = (PicHolder) holder;
+                ChatGroupListAdapter.PicHolder picHolder = (ChatGroupListAdapter.PicHolder) holder;
 
                 imageStatus = picHolder.status;
 
@@ -189,7 +210,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     status = messagesList.get(position).getStatus();
                     switch (status) {
                         case 0:
-                            imageStatus.setVisibility(View.GONE);
+                            imageStatus.setVisibility(GONE);
                             break;
                         case 1:
                             imageStatus.setVisibility(View.VISIBLE);
@@ -231,12 +252,32 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     params.bottomMargin = marginTopBig;
                 }
 
+                /* setting name visibility */
+
+                if (messagesList.get(position).isIncoming()){
+
+                    tvName = picHolder.tvName;
+                    tvName.setText(messagesList.get(position).getName());
+
+                    try{
+                        if (messagesList.get(position).getName().equals(messagesList.get(position-1).getName())){
+                            tvName.setVisibility(View.GONE);
+                        } else {
+                            tvName.setVisibility(View.VISIBLE);
+                        }
+                    } catch (Exception e) {
+                        if (messagesList.get(position).isIncoming()){
+                            tvName.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
                 break;
 
             case 4:
             case 5:
 
-                FileHolder fileHolder = (FileHolder) holder;
+                ChatGroupListAdapter.FileHolder fileHolder = (ChatGroupListAdapter.FileHolder) holder;
 
                 tvFileType = fileHolder.tvFileType;
                 tvFileType.setText(messagesList.get(position).getFileType());
@@ -247,12 +288,12 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 tvFileSize = fileHolder.tvFileSize;
                 tvFileSize.setText(messagesList.get(position).getFileSize());
 
-                if (messagesList.get(position).getType() == 3) {
+                if (messagesList.get(position).getType() == 5) {
 
                     status = messagesList.get(position).getStatus();
                     switch (status) {
                         case 0:
-                            imageStatus.setVisibility(View.GONE);
+                            imageStatus.setVisibility(GONE);
                             break;
                         case 1:
                             imageStatus.setVisibility(View.VISIBLE);
@@ -294,18 +335,31 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     params.bottomMargin = marginTopBig;
                 }
 
-                break;
+                /* setting name visibility */
 
-            case 6:
+                if (messagesList.get(position).isIncoming()){
 
-                MissedCallHolder missCallHolder = (MissedCallHolder) holder;
-                tvText = missCallHolder.text;
-                tvText.setText(messagesList.get(position).getText());
+                    tvName = fileHolder.tvName;
+                    tvName.setText(messagesList.get(position).getName());
+
+                    try{
+                        if (messagesList.get(position).getName().equals(messagesList.get(position-1).getName())){
+                            tvName.setVisibility(View.GONE);
+                        } else {
+                            tvName.setVisibility(View.VISIBLE);
+                        }
+                    } catch (Exception e) {
+                        if (messagesList.get(position).isIncoming()){
+                            tvName.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+
                 break;
 
             case 7:
 
-                TimeHolder timeHolder = (TimeHolder) holder;
+                ChatGroupListAdapter.TimeHolder timeHolder = (ChatGroupListAdapter.TimeHolder) holder;
 
                 params = (ViewGroup.MarginLayoutParams) timeHolder.view.getLayoutParams();
                 params.topMargin = marginTopBig;
@@ -329,7 +383,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case 3: return 3; // outgoing pic
             case 4: return 4; // incoming doc
             case 5: return 5; // outgoing doc
-            case 6: return 6; // missed call
             case 7: return 7; // time
         }
         return -1;
@@ -338,48 +391,41 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
 
         View view;
-        TextView text;
-        TextView time;
-        ImageView status;
+        TextView tvText;
+        TextView tvName;
+        TextView tvTime;
+        ImageView tvStatus;
         ImageView imageBlobCorner;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            text = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_text);
-            time = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_time);
-            status = (ImageView) itemView.findViewById(R.id.recycler_item_message_text_image_delivery_status);
-            imageBlobCorner= (ImageView) itemView.findViewById(R.id.recycler_item_message_text_image_corner);
+            tvName = (TextView) itemView.findViewById(R.id.recycler_item_message_text_named_tv_name);
+            tvText = (TextView) itemView.findViewById(R.id.recycler_item_message_text_named_tv_text);
+            tvTime = (TextView) itemView.findViewById(R.id.recycler_item_message_text_named_tv_time);
+            tvStatus = (ImageView) itemView.findViewById(R.id.recycler_item_message_text_named_image_delivery_status);
+            imageBlobCorner= (ImageView) itemView.findViewById(R.id.recycler_item_message_text_named_image_corner);
         }
     }
 
-    public static class MissedCallHolder extends RecyclerView.ViewHolder {
-
-        View view;
-        TextView text;
-
-        public MissedCallHolder(View itemView) {
-            super(itemView);
-            view = itemView;
-            text = (TextView) itemView.findViewById(R.id.recycler_item_message_missed_call_text);
-        }
-    }
 
     public static class PicHolder extends RecyclerView.ViewHolder {
 
         View view;
         ImageView pic;
         TextView time;
+        TextView tvName;
         ImageView status;
         ImageView imageBlobCorner;
 
         public PicHolder(View itemView) {
             super(itemView);
             view = itemView;
-            pic = (ImageView) itemView.findViewById(R.id.recycler_item_message_picture_image_picture);
-            time = (TextView) itemView.findViewById(R.id.recycler_item_message_picture_tv_time);
-            status = (ImageView) itemView.findViewById(R.id.recycler_item_message_picture_image_delivery_status);
-            imageBlobCorner= (ImageView) itemView.findViewById(R.id.recycler_item_message_picture_image_corner);
+            pic = (ImageView) itemView.findViewById(R.id.recycler_item_message_picture_named_image_picture);
+            time = (TextView) itemView.findViewById(R.id.recycler_item_message_picture_named_tv_time);
+            tvName = (TextView) itemView.findViewById(R.id.recycler_item_message_picture_named_tv_name);
+            status = (ImageView) itemView.findViewById(R.id.recycler_item_message_picture_named_delivery_status);
+            imageBlobCorner= (ImageView) itemView.findViewById(R.id.recycler_item_message_picture_named_image_corner);
         }
     }
 
@@ -388,6 +434,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         View view;
         TextView tvFileType;
         TextView tvFileName;
+        TextView tvName;
         TextView tvFileSize;
         TextView tvTime;
         ImageView imageStatus;
@@ -397,7 +444,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             view = itemView;
             tvFileType = (TextView) itemView.findViewById(R.id.recycler_item_message_file_named_tv_type);
-            tvFileName = (TextView) itemView.findViewById(R.id.recycler_item_message_file_named_tv_name);
+            tvFileName = (TextView) itemView.findViewById(R.id.recycler_item_message_file_named_tv_file_name);
+            tvName = (TextView) itemView.findViewById(R.id.recycler_item_message_file_named_tv_name);
             tvFileSize = (TextView) itemView.findViewById(R.id.recycler_item_message_file_named_tv_size);
             tvTime = (TextView) itemView.findViewById(R.id.recycler_item_message_file_named_tv_time);
             imageStatus = (ImageView) itemView.findViewById(R.id.recycler_item_message_file_named_image_delivery_status);

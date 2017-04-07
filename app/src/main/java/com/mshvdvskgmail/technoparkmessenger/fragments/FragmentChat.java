@@ -179,6 +179,16 @@ public class FragmentChat extends Fragment {
         dummyObject64.setStatus(4);
         dummyObject64.setIncoming(false);
 
+        MessageChatItem dummyObject666 = new MessageChatItem();
+        dummyObject666.setText("ПРОПУЩЕННЫЙ АУДИОЗВОНОК В 14:30");
+        dummyObject666.setFileName("Документация по проекту...");
+        dummyObject666.setFileSize("25 КБ");
+        dummyObject666.setFileType("LSD");
+
+        dummyObject666.setType(6);
+        dummyObject666.setStatus(4);
+        dummyObject666.setIncoming(false);
+
 
 
 //        MessageChatItem dummyObject1 = new MessageChatItem();
@@ -234,6 +244,7 @@ public class FragmentChat extends Fragment {
         messages.add(dummyObject611);
         messages.add(dummyObject6111);
         messages.add(dummyObject64);
+        messages.add(dummyObject666);
 
         adapter = new ChatListAdapter(messages, getContext());
         recyclerView.setAdapter(adapter);

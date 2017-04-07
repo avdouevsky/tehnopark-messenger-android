@@ -5,14 +5,15 @@ package com.mshvdvskgmail.technoparkmessenger.models;
  */
 
 public class MessageChatItem {
+    private String name;
     private String text;
     private String time;
     private String fileType;
     private String fileSize;
     private String fileName;
     private int image;
-    private int status;
-    private int type;
+    private int status; // read/delivered/pending
+    private int type;   // text/pic/doc/outgoing/incoming
     private boolean isIncoming;
 
     public String getText() {
@@ -85,5 +86,13 @@ public class MessageChatItem {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -18,6 +18,7 @@
         android:paddingTop="7dp"
         android:paddingBottom="7dp"
         android:id="@+id/recycler_item_message_time_tv_text"
-        fontPath="fonts/GothamPro.ttf"/>
+        fontPath="fonts/GothamPro.ttf"
+        android:letterSpacing="0.08"/>
 
 </LinearLayout>
