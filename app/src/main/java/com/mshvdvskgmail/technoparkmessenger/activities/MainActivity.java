@@ -5,22 +5,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAuthorization;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChat;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAddMember;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChatGroup;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentContactsList;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentDeniedCall;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentGroupsSettings;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentIncomingCall;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMainFourTabScreen;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMedia;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentOutgoingCall;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentProfile;
-import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentSearch;
 import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -38,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 //        ImageView profileIcon = (ImageView) findViewById(R.id.profile_icon);
 //        Picasso.with(this).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
-        FragmentChatGroup authorization = new FragmentChatGroup();
+        FragmentAddMember authorization = new FragmentAddMember();
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

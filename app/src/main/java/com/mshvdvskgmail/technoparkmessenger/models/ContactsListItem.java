@@ -9,6 +9,7 @@ public class ContactsListItem {
     private String name;
     private String officePosition;
     private boolean isOnline;
+    private boolean isPressed;
 
     public String getOfficePosition() {
         return officePosition;
@@ -34,4 +35,11 @@ public class ContactsListItem {
         isOnline = online;
     }
 
+    public boolean isPressed() {
+        return isPressed;
+    }
+
+    public void setPressed(boolean pressed) {
+        isPressed = pressed;
+    }
 }

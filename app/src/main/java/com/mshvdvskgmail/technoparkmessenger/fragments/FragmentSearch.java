@@ -97,5 +97,4 @@ public class FragmentSearch extends Fragment {
         inputMethodManager.hideSoftInputFromWindow(
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
-
 }
