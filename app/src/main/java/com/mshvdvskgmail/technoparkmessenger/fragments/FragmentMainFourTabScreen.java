@@ -18,7 +18,7 @@ import com.mshvdvskgmail.technoparkmessenger.adapters.MainScreenTabAdapter;
  * Created by mshvdvsk on 16/03/2017.
  */
 
-public class FragmentMainFourTabScreen extends Fragment{
+public class FragmentMainFourTabScreen extends BaseFragment{
     private View mRootView;
     private ImageView writeNewIcon;
     private AlertDialog alert;
@@ -36,9 +36,9 @@ public class FragmentMainFourTabScreen extends Fragment{
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_main_four_tab_screen, container, false);
 
-        TabLayout tabLayout = (TabLayout) mRootView.findViewById(R.id.tab_layout);
+        TabLayout tabLayout = (TabLayout) mRootView.findViewById(R.id.fragment_main_four_tab_tl_tabs);
 //
-        final ViewPager viewPager = (ViewPager) mRootView.findViewById(R.id.pager);
+        final ViewPager viewPager = (ViewPager) mRootView.findViewById(R.id.fragment_main_four_tab_vp_pager);
         final MainScreenTabAdapter adapter = new MainScreenTabAdapter
                 (getChildFragmentManager(), tabLayout.getTabCount(), getContext());
         viewPager.setAdapter(adapter);
@@ -70,7 +70,7 @@ public class FragmentMainFourTabScreen extends Fragment{
             }
         });
 
-        writeNewIcon = (ImageView) mRootView.findViewById(R.id.ic_write_new);
+        writeNewIcon = (ImageView) mRootView.findViewById(R.id.fragment_main_four_tab_image_new_or_search);
 
         writeNewIcon.setOnClickListener(new View.OnClickListener() {
             @Override

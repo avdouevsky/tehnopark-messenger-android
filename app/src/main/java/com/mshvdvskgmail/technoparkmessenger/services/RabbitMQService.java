@@ -65,6 +65,8 @@ import com.mshvdvskgmail.technoparkmessenger.network.model.Settings;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.mshvdvskgmail.technoparkmessenger.network.model.WifiToken;
 
+import static android.R.attr.data;
+
 /**
  * Created by andrey on 06.02.2017.
  */
@@ -97,9 +99,9 @@ public class RabbitMQService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate ");
-        Log.d(TAG, "onCreate " + TechnoparkApp.getInstance().rand);
-
-        preferences = this.getSharedPreferences(RabbitMQService.class.getSimpleName(), MODE_PRIVATE);
+//        Log.d(TAG, "onCreate " + TechnoparkApp.getInstance().rand);
+        Log.d(TAG, "mBinder "+mBinder);
+/*        preferences = this.getSharedPreferences(RabbitMQService.class.getSimpleName(), MODE_PRIVATE);
         deviceId = preferences.getString(DEVICE_ID, null);
         if(deviceId == null){
             deviceId = UUID.randomUUID().toString();
@@ -108,21 +110,140 @@ public class RabbitMQService extends Service {
         queue = DEVICE + "-" + deviceId;
 
 //        EventBus.getDefault().register(this);
-        loadSettings();
+        loadSettings();*/
+    }
+
+    public void auth(User user){
+        Log.w("Rabbit", "User.queue "+user.queue);
+
+        ConnectionFactory factory = new ConnectionFactory();
+        uri = Controller.getInstance().getSettings().getMessagingServerUri();
+        Log.w("Rabbit", "Url "+uri);
+        try {
+            factory.setUri(uri);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        }
+        factory.setAutomaticRecoveryEnabled(true);
+        factory.setRequestedHeartbeat(40);  //1/2 = 20s
+        factory.setTopologyRecoveryEnabled(true);
+        factory.setExceptionHandler(new ExceptionHandler() {
+            @Override
+            public void handleUnexpectedConnectionDriverException(Connection conn, Throwable exception) {
+                Log.w(TAG, "handleUnexpectedConnectionDriverException " + exception.getMessage());
+                //TODO
+            }
+
+            @Override
+            public void handleReturnListenerException(Channel channel, Throwable exception) {
+                Log.w(TAG, "handleReturnListenerException " + exception.getMessage());
+                //TODO
+            }
+
+            @Override
+            public void handleFlowListenerException(Channel channel, Throwable exception) {
+                Log.w(TAG, "handleFlowListenerException " + exception.getMessage());
+                //TODO
+            }
+
+            @Override
+            public void handleConfirmListenerException(Channel channel, Throwable exception) {
+                Log.w(TAG, "handleConfirmListenerException " + exception.getMessage());
+                //TODO
+            }
+
+            @Override
+            public void handleBlockedListenerException(Connection connection, Throwable exception) {
+                Log.w(TAG, "handleBlockedListenerException " + exception.getMessage());
+                //TODO
+            }
+
+            @Override
+            public void handleConsumerException(Channel channel, Throwable exception, Consumer consumer, String consumerTag, String methodName) {
+                Log.w(TAG, "handleConsumerException " + exception.getMessage());
+                //TODO
+            }
+
+            @Override
+            public void handleConnectionRecoveryException(Connection conn, Throwable exception) {
+                Log.w(TAG, "handleConnectionRecoveryException " + exception.getMessage());
+                //TODO
+            }
+
+            @Override
+            public void handleChannelRecoveryException(Channel ch, Throwable exception) {
+                Log.w(TAG, "handleChannelRecoveryException " + exception.getMessage());
+                //TODO
+            }
+
+            @Override
+            public void handleTopologyRecoveryException(Connection conn, Channel ch, TopologyRecoveryException exception) {
+                Log.w(TAG, "handleTopologyRecoveryException " + exception.getMessage());
+                //TODO
+            }
+        });
+
+        Log.d(TAG, "try connect");
+        try {
+            connection = (RecoverableConnection) factory.newConnection();
+            Log.d(TAG, "1");
+        } catch (IOException e) {
+            Log.d(TAG, "2");
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            Log.d(TAG, "3");
+            e.printStackTrace();
+        }
+        Log.d(TAG, "connection "+connection);
+        try {
+            channel = (RecoverableChannel) connection.createChannel();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "channel "+channel);
+
+//        try {
+//            connect();
+//            channel.basicQos(prefetchCount);
+//            channel.basicConsume(user.queue, true, new MessageConsumer(channel));
+//
+//        } catch (TimeoutException e) {
+//            Log.w(TAG, "timeexception");
+//            e.printStackTrace();
+//        } catch (NoSuchAlgorithmException e) {
+//            Log.w(TAG, "nosuchalgorithm");
+//            e.printStackTrace();
+//        } catch (KeyManagementException e) {
+//            Log.w(TAG, "keymanagment");
+//            e.printStackTrace();
+//        } catch (URISyntaxException e) {
+//            Log.w(TAG, "urisyntax");
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            Log.w(TAG, "ioexception");
+//            e.printStackTrace();
+//        }
+
     }
 
     private void connect() throws TimeoutException, NoSuchAlgorithmException, KeyManagementException, URISyntaxException {
         Log.d(TAG, "connect");
-        uri = settings.getMessagingServerUri();
-        unique_id = Controller.getInstance().getAuth().getUser().unique_id;
-
+        uri = Controller.getInstance().getSettings().getMessagingServerUri();
+//        unique_id = Controller.getInstance().getAuth().getUser().unique_id;
+        Log.d(TAG, "uri "+uri);
         try {
             if(connection != null && connection.isOpen()) connection.close();
         } catch (IOException e) {
+            Log.w(TAG, "connect failed");
             e.printStackTrace();
         }
 
         ConnectionFactory factory = new ConnectionFactory();
+        Log.d(TAG, "connection factory "+factory);
         factory.setUri(uri);
         factory.setAutomaticRecoveryEnabled(true);
         factory.setRequestedHeartbeat(40);  //1/2 = 20s
@@ -175,7 +296,9 @@ public class RabbitMQService extends Service {
         });
 
         try {
+            Log.d(TAG, "try connect");
             connection = (RecoverableConnection) factory.newConnection();
+            Log.d(TAG, "connection "+connection);
             connection.addRecoveryListener(new RecoveryListener() {
                 @Override
                 public void handleRecovery(Recoverable recoverable) {
@@ -194,6 +317,7 @@ public class RabbitMQService extends Service {
                 }
             });
             channel = (RecoverableChannel) connection.createChannel();
+            Log.d(TAG, "channel "+channel);
             channel.addRecoveryListener(new RecoveryListener() {
                 @Override
                 public void handleRecovery(Recoverable recoverable) {
@@ -228,6 +352,7 @@ public class RabbitMQService extends Service {
 //            channel.basicConsume(queue, false, new MessageConsumer(channel));
 
         } catch (IOException e) {
+            Log.w(TAG, "ioerror "+e.getMessage());
             e.printStackTrace();
         }
     }

@@ -12,8 +12,13 @@ import android.view.ViewGroup;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
+import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +31,20 @@ public class FragmentChatsList extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<Chat> contacts;
+    private ArrayList<Chat> chats;
     private ChatsListAdapter mAdapter;
+
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,11 +55,8 @@ public class FragmentChatsList extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        contacts = new ArrayList<>();
-//        contacts = new List<>;
-//        contacts = Controller.getInstance().getChats();
-        Log.w("Technopark", "chats: " + Controller.getInstance().getChats());
-        contacts.addAll(Controller.getInstance().getChats());
+        chats = new ArrayList<Chat>();
+        chats.addAll(Controller.getInstance().getChats());
 /*
         ChatsListItem dummyObject1 = new ChatsListItem();
         dummyObject1.setName("Пушкин");
@@ -75,9 +89,24 @@ public class FragmentChatsList extends Fragment {
 //        for (int i = 0; i < 10; i++){
 //            contacts.add(dummyObject);
 //        }
-        mAdapter = new ChatsListAdapter(contacts, getContext());
+        mAdapter = new ChatsListAdapter(chats, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return mRootView;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public final void onEvent(DataLoadEvent event) {
+        eventDataLoad(event.dataSource);
+    }
+
+    protected void eventDataLoad(String dataSource){
+        if(dataSource.equals("Chats")) {
+            Log.w("ChatsList", "eventDataLoad " + dataSource);
+            chats.clear();
+            chats.addAll(Controller.getInstance().getChats());
+            Log.w("ChatsList", "size "+chats.size());
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

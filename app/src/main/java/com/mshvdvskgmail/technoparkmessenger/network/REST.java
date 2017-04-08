@@ -241,11 +241,11 @@ public class REST implements IService {
     }
 
     @Override
-    public Observable<Result<User>> chat(@Header("session-id") int session_id,
+    public Observable<Result<Chat>> chat(@Header("session-id") int session_id,
                                          @Header("token") String token,
                                          @Field("users") String users,
                                          @Field("name") String name){
-        return service.chat(session_id, token, users, name).compose(this.<Result<User>>setup());
+        return service.chat(session_id, token, users, name).compose(this.<Result<Chat>>setup());
     }
 
     @Override
@@ -273,12 +273,12 @@ public class REST implements IService {
     }
 
     @Override
-    public Observable<Result<User>> messages(@Header("session-id") int session_id,
+    public Observable<Result<List<Message>>> messages(@Header("session-id") int session_id,
                                              @Header("token") String token,
                                              @Query("room_uuid") String room_uuid,
                                              @Query("offset") String offset,
                                              @ Query("limit") String limit){
-        return service.messages(session_id, token, room_uuid, offset, limit).compose(this.<Result<User>>setup());
+        return service.messages(session_id, token, room_uuid, offset, limit).compose(this.<Result<List<Message>>>setup());
     }
 
 

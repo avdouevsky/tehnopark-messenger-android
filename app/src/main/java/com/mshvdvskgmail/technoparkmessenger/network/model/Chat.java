@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,19 @@ import java.util.List;
 {"time":"2017-04-04 08:30:16","status":1,"data":[
 {"id":12,"name":"chat","date":"0000-00-00 00:00:00","users_id":"testme1_mc64_ru","uuid":"","peer2peer":0},
 {"id":13,"name":"chat","date":"0000-00-00 00:00:00","users_id":"testme1_mc64_ru","uuid":"","peer2peer":0},
-{"id":14,"name":"chat","date":"0000-00-00 00:00:00","users_id":"testme1_mc64_ru","uuid":"","peer2peer":0},{"id":29,"name":"chat","date":"2017-03-21 17:13:20","users_id":"testme1","uuid":"room_6adec5ebd13bb3ad62e199c08716b4ac","peer2peer":0},{"id":31,"name":"chat","date":"2017-03-21 17:34:14","users_id":"testme1","uuid":"room_fe1f4cd3ab946cf15c151bd53f35b6df","peer2peer":0},{"id":35,"name":"chat","date":"2017-03-23 14:55:57","users_id":"testme1","uuid":"room_9cac23bc4f28b8ea475ee8f91b32241c","peer2peer":0},{"id":36,"name":"chat","date":"2017-03-23 17:08:42","users_id":"testme1","uuid":"room_153bfa9eaaeccb970c241977cb11fdf2","peer2peer":0}],"token":null,"error":null,"profiler":{"action":"0.051895"}}
+{"id":14,"name":"chat","date":"0000-00-00 00:00:00","users_id":"testme1_mc64_ru","uuid":"","peer2peer":0},
+{"id":29,"name":"chat","date":"2017-03-21 17:13:20","users_id":"testme1","uuid":"room_6adec5ebd13bb3ad62e199c08716b4ac","peer2peer":0},{"id":31,"name":"chat","date":"2017-03-21 17:34:14","users_id":"testme1","uuid":"room_fe1f4cd3ab946cf15c151bd53f35b6df","peer2peer":0},{"id":35,"name":"chat","date":"2017-03-23 14:55:57","users_id":"testme1","uuid":"room_9cac23bc4f28b8ea475ee8f91b32241c","peer2peer":0},{"id":36,"name":"chat","date":"2017-03-23 17:08:42","users_id":"testme1","uuid":"room_153bfa9eaaeccb970c241977cb11fdf2","peer2peer":0}],"token":null,"error":null,"profiler":{"action":"0.051895"}}
+
+users: [
+{
+id: 2,
+chat_rooms_id: 13,
+users_id: "testme1",
+push_on: 1
+}
+]
 * */
-public class Chat {
+public class Chat implements Serializable {
     private final static String TAG = Chat.class.toString();
 
     public String id;
@@ -27,9 +38,14 @@ public class Chat {
     public String uuid;
     public int peer2peer;
 
-    public List<User> Users(){
+    public String admin;
+    public List<ChatUser> users;
+
+    /*public List<User> Users(){
         List<User> retVal = new ArrayList<>();
-        users_id = "testme1";
+        if(users_id.equals("testme1_mc64_ru")) {
+            users_id = "testme1";
+        }
         String[] tmp_users = users_id.split(",");
         Log.w("Chat", "Users: "+tmp_users);
         if(tmp_users.length > 0) {
@@ -46,5 +62,5 @@ public class Chat {
         }
 
         return retVal;
-    }
+    }*/
 }

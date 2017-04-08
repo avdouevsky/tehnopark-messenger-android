@@ -6,11 +6,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentCallsList;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChatsList;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentContactsList;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentContactsTabFiller;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentGroupsList;
 
 /**
  * Created by mshvdvsk on 13/03/2017.
@@ -34,7 +38,7 @@ public class MainScreenTabAdapter extends FragmentPagerAdapter {
                 FragmentChatsList tab0 = new FragmentChatsList();
                 return tab0;
             case 1:
-                FragmentContactsTabFiller tab1 = new FragmentContactsTabFiller();
+                FragmentGroupsList tab1 = new FragmentGroupsList();
                 return tab1;
             case 2:
                 FragmentContactsList tab2 = new FragmentContactsList();
@@ -54,7 +58,7 @@ public class MainScreenTabAdapter extends FragmentPagerAdapter {
 
     public View getTabView(int position) {
         View v;
-        switch (position) {
+        /*switch (position) {
             case 0:
                 v = LayoutInflater.from(context).inflate(R.layout.contacts_custom_tab_1, null);
                 return v;
@@ -67,7 +71,28 @@ public class MainScreenTabAdapter extends FragmentPagerAdapter {
             case 3:
                 v = LayoutInflater.from(context).inflate(R.layout.contacts_custom_tab_4, null);
                 return v;
+        }*/
+        v = LayoutInflater.from(context).inflate(R.layout.contacts_custom_tab_1, null);
+        TextView title = (TextView)v.findViewById(R.id.custom_tab_view);
+        switch (position) {
+            case 0:
+                title.setText("ЧАТЫ");
+                break;
+            case 1:
+                title.setText("ГРУППЫ");
+                break;
+            case 2:
+                title.setText("КОНТАКТЫ");
+                break;
+            case 3:
+                title.setText("ВЫЗОВЫ");
+                break;
         }
-        return null;
+
+        FrameLayout badge = (FrameLayout)v.findViewById(R.id.fl_badge);
+        badge.setVisibility(View.GONE);
+
+        return v;
+//        return null;
     }
 }

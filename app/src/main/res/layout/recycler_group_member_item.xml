@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    tools:ignore="MissingPrefix">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_height="43dp"
+                android:layout_width="43dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="18dp"
+                android:id="@+id/profile_icon">
+
+            </ImageView>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_online"
+                android:id="@+id/online_dot"
+                android:paddingStart="46dp"
+                android:paddingTop="55dp"
+                android:paddingLeft="46dp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Александ Пушкин"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_marginStart="13dp"
+                    android:textColor="#10b4fa"
+                    fontPath="fonts/GothamProBold.ttf"
+                    android:id="@+id/name"
+                    android:layout_marginLeft="13dp" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/admin"
+                    android:text="админ группы"
+                    android:textSize="10sp"
+                    android:textColor="#f26522"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    android:visibility="invisible"/>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="РУКОВОДИТЕЛЬ ОТДЕЛА ПРОДАЖ"
+                android:textSize="12sp"
+                android:textColor="@color/backgroundGrey"
+                android:paddingTop="16sp"
+                android:layout_marginStart="13dp"
+                android:maxLines="1"
+                android:letterSpacing="0.03"
+                android:id="@+id/office_position"
+                android:textAllCaps="true"
+                fontPath="fonts/GothamProBold.ttf"
+                android:layout_marginLeft="13dp"
+                android:ellipsize="end"
+                android:maxWidth="190dp"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:id="@+id/item_separator"-->
+        <!--android:background="@color/colorBlackTransparentTwenty"-->
+        <!--android:layout_marginBottom="2dp"-->
+        <!--android:layout_marginStart="73dp"-->
+        <!--android:layout_marginEnd="17dp"-->
+        <!--android:layout_marginLeft="73dp"-->
+        <!--android:layout_marginRight="17dp">-->
+    <!--</FrameLayout>-->
+</LinearLayout>

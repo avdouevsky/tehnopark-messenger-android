@@ -1,10 +1,14 @@
 package com.mshvdvskgmail.technoparkmessenger;
 
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.squareup.picasso.Picasso;
@@ -16,7 +20,7 @@ import org.acra.annotation.ReportsCrashes;
 import com.mshvdvskgmail.technoparkmessenger.network.RabbitMQ;
 import com.mshvdvskgmail.technoparkmessenger.services.MyFirebaseInstanceIDService;
 import com.mshvdvskgmail.technoparkmessenger.services.MyFirebaseMessagingService;
-import com.mshvdvskgmail.technoparkmessenger.services.RabbitMQService;
+//import com.mshvdvskgmail.technoparkmessenger.services.RabbitMQService;
 
 /**
  * Created by Admin on 23.01.2017.
@@ -50,22 +54,14 @@ public class TechnoparkApp extends Application {
         Picasso.with(context).setIndicatorsEnabled(BuildConfig.DEBUG);
 //        Picasso.with(context).setLoggingEnabled(BuildConfig.DEBUG);
 
-
-        Log.d(TAG, "onCreate");
-
-        rand = (float)Math.random() * 5000f;
-
-        Log.d(TAG, "onCreate " + rand);
-
         // это нужно для шрифтов...
         AssetManager assetManager = getAssets();
 
         Controller.getInstance();   //создаем память для наших манипуляций
 
-        startService(new Intent(this, RabbitMQService.class));
+//        startService(new Intent(this, RabbitMQService.class));
 
     }
-
 
     public static TechnoparkApp getInstance() {
         return instance;
@@ -74,4 +70,6 @@ public class TechnoparkApp extends Application {
     public static Context getContext() {
         return context;
     }
+
+
 }

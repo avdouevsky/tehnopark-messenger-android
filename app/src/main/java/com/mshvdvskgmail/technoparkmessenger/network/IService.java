@@ -68,7 +68,7 @@ public interface IService {
 
     @POST("?r=messages/json/chat")
     @FormUrlEncoded
-    public Observable<Result<User>> chat(@Header("session-id") int session_id,
+    public Observable<Result<Chat>> chat(@Header("session-id") int session_id,
                                          @Header("token") String token,
                                          @Field("users") String users,
                                          @Field("name") String name);
@@ -93,11 +93,11 @@ public interface IService {
                                                     @Part MultipartBody.Part file);
 
     @GET("?r=messages/json/messages")
-    public Observable<Result<User>> messages(@Header("session-id") int session_id,
+    public Observable<Result<List<Message>>> messages(@Header("session-id") int session_id,
                                              @Header("token") String token,
                                              @Query("room_uuid") String room_uuid,
                                              @Query("offset") String offset,
-                                             @ Query("limit") String limit);
+                                             @Query("limit") String limit);
 
 
 

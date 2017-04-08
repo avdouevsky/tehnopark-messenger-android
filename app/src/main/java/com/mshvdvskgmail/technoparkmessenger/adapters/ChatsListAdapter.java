@@ -16,10 +16,12 @@ import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
+import com.mshvdvskgmail.technoparkmessenger.network.model.ChatUser;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 import retrofit2.Call;
@@ -83,15 +85,45 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
             mFrameLayout.setVisibility(View.GONE);
         }
 
-        ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.profile_icon);
+        ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.recycler_item_chatslist_image_profile_pic);
         Picasso.with(context).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
         currentItem = chatsList.get(position);
         holder.setChat(currentItem);
 //        count++;
-        Log.w("currentItem.Users()", ""+currentItem.Users());
-        User user = currentItem.Users().get(0);
-        name = user.cn;
+//        Log.w("currentItem.Users()", ""+currentItem.Users());
+//        List<User> usersList = currentItem.Users();
+//        User user = new User();
+//        if(usersList.size() > 0) {
+//            user = currentItem.Users().get(0);
+//        }
+        ChatUser user = currentItem.users.get(0);
+        Log.d("temp", "users "+currentItem.users);
+        Log.d("temp", "user "+user);
+
+        if(user.User().id == Controller.getInstance().getAuth().getUser().id){
+            user = currentItem.users.get(1);
+        }
+
+//        if(currentItem.admin.equals(user.id)){
+//            user = currentItem.users.get(1);
+//        }
+        if(user.User()!=null) {
+            name = user.User().cn;
+            REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, user.User().id).enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.body() == "1") {
+                        itemOnline.setVisibility(View.VISIBLE);
+                    } else itemOnline.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    itemOnline.setVisibility(View.GONE);
+                }
+            });
+        }
         lastLine = "";
         time = currentItem.date;
         hasNew = false;
@@ -104,33 +136,20 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
 //        hasNew = currentItem.hasNew();
 //        newCount = currentItem.getNewCount();
 
-        itemName = (TextView) holder.mView.findViewById(R.id.name);
-        itemLastMessage = (TextView) holder.mView.findViewById(R.id.last_message);
-        itemTime = (TextView) holder.mView.findViewById(R.id.time);
-        itemOnline = (ImageView) holder.mView.findViewById(R.id.online_dot);
-        itemNewNotifi = (FrameLayout) holder.mView.findViewById(R.id.notification_new);
-        itemNotifiCount = (TextView) holder.mView.findViewById(R.id.number_of_new_messages);
-        itemNewNotifi = (FrameLayout) holder.mView.findViewById(R.id.notification_new);
-        itemNotifiCount = (TextView) holder.mView.findViewById(R.id.number_of_new_messages);
+        itemName = (TextView) holder.mView.findViewById(R.id.recycler_item_chatslist_tv_name);
+        itemLastMessage = (TextView) holder.mView.findViewById(R.id.recycler_item_chatslist_tv_message);
+        itemTime = (TextView) holder.mView.findViewById(R.id.recycler_item_chatslist_tv_time);
+        itemOnline = (ImageView) holder.mView.findViewById(R.id.recycler_item_chatslist_image_online);
+        itemNewNotifi = (FrameLayout) holder.mView.findViewById(R.id.recycler_item_chatslist_fl_notification);
+        itemNotifiCount = (TextView) holder.mView.findViewById(R.id.recycler_item_chatslist_tv_notification);
+
 
         itemName.setText(name);
         itemLastMessage.setText(lastLine);
         itemTime.setText(time);
 
 
-        REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, user.id).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.body() == "1") {
-                    itemOnline.setVisibility(View.VISIBLE);
-                } else itemOnline.setVisibility(View.GONE);
-            }
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                itemOnline.setVisibility(View.GONE);
-            }
-        });
 
 //        if (isOnline) {
 //            itemOnline.setVisibility(View.VISIBLE);
@@ -164,7 +183,7 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.item_separator);
+            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.recycler_item_chatslist_fl_separator);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

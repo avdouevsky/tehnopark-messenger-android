@@ -2,7 +2,10 @@ package com.mshvdvskgmail.technoparkmessenger.network.model;
 
 import android.util.Log;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by andrey on 23.01.2017.
@@ -17,12 +20,12 @@ public class Message {
     public String room;
     public int date;
     public int version = 1;
-//    public Map<String, String> headers;
+    public Map<String, String> headers;
     public List<Attachment> attachments;
     public String message = "";
     public Token user_token;
     public WifiToken wifi_token;
-    public User sender;
+    public User sender = new User();
     public String uuid;
     public String local_id;
 
@@ -51,6 +54,17 @@ public class Message {
             Log.w(TAG, e.getMessage());
             return Type.UNKNOWN;
         }
+    }
+
+    public String getTime() {
+        return Integer.toString(date);
+    }
+
+    public boolean isIncoming() {
+        if(sender.equals(Controller.getInstance().getAuth().getUser())){
+            return false;
+        }
+        return true;
     }
 
     public enum Status{

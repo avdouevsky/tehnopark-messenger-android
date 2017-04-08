@@ -19,14 +19,16 @@ import java.util.Map;
 import java.util.UUID;
 
 //import com.mshvdvskgmail.technoparkmessenger.network.model.Bar;
+import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 //import com.mshvdvskgmail.technoparkmessenger.network.model.Room;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Settings;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
-import com.mshvdvskgmail.technoparkmessenger.network.model.WifiToken;
-import com.mshvdvskgmail.technoparkmessenger.services.RabbitMQService;
+
+
+import org.greenrobot.eventbus.EventBus;
 
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -63,11 +65,57 @@ public class Controller {
     private Map<String, User> users = new HashMap<>();
 //    private Map<Integer, List<User>> chinChins = new HashMap<>();
 
+    public void fillAll(){
+        REST.getInstance().contacts(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, "")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new REST.DataSubscriber<List<User>>(){
+                    @Override
+                    public void onData(List<User> data){
+                        contacts = data;
+                    }
+
+                    @Override
+                    public void onCompleted(){
+                        REST.getInstance().chats(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token)
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new REST.DataSubscriber<List<Chat>>(){
+                                    @Override
+                                    public void onData(List<Chat> data){
+                                        Log.w("Chats", "data:" + data);
+                                        chats = data;
+                                    }
+
+                                    @Override
+                                    public void onCompleted(){
+                                        EventBus.getDefault().post(new DataLoadEvent("Chats"));
+                                    }
+                                });
+                        REST.getInstance().groups(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token)
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new REST.DataSubscriber<List<Chat>>(){
+                                    @Override
+                                    public void onData(List<Chat> data){
+                                        Log.w("Groups", "data:" + data);
+                                        group_chats = data;
+                                    }
+
+                                    @Override
+                                    public void onCompleted(){
+                                        EventBus.getDefault().post(new DataLoadEvent("Groups"));
+                                    }
+                                });
+                    }
+                });
+    }
+
     public List<User>getContacts(){
         return contacts;
     }
 
     public User getContactWithName(String name){
+        if(name.equals("testme1_mc64_ru")){
+            name = "testme1";
+        }
         for(User user : contacts){
             Log.w("User", "passing "+user+" user.name: "+user.name+" searching "+name);
             if(user.id != null && user.id.equals(name)){
@@ -111,8 +159,7 @@ public class Controller {
 
                     @Override
                     public void onCompleted(){
-
-
+                        EventBus.getDefault().postSticky(new DataLoadEvent("Chats"));
                     }
                 });
     }
@@ -128,13 +175,13 @@ public class Controller {
                 .subscribe(new REST.DataSubscriber<List<Chat>>(){
                     @Override
                     public void onData(List<Chat> data){
+                        Log.w("Groups", "data:" + data);
                         group_chats = data;
                     }
 
                     @Override
                     public void onCompleted(){
-
-
+                        EventBus.getDefault().postSticky(new DataLoadEvent("Groups"));
                     }
                 });
     }
