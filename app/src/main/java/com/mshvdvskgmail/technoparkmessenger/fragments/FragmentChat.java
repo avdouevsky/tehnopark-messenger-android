@@ -61,18 +61,16 @@ public class FragmentChat extends Fragment {
             public void onLayoutChange(View v, int left, int top, int right,int bottom, int oldLeft, int oldTop,int oldRight, int oldBottom) {
                 if(bottom < oldBottom){
                     if (isBottom){
-                        recyclerView.postDelayed(new Runnable() {
+                        recyclerView.post(new Runnable() {
                             @Override
                             public void run() {
                                 recyclerView.scrollToPosition(messages.size() - 1);
                             }
-                        }, 1);
+                        });
                     }
                 }
             }
         });
-
-
 
         messages = new ArrayList<>();
 
@@ -89,7 +87,6 @@ public class FragmentChat extends Fragment {
                         .commit();
             }
         });
-
 
         MessageChatItem dummyObject0 = new MessageChatItem();
         dummyObject0.setText("привет");
