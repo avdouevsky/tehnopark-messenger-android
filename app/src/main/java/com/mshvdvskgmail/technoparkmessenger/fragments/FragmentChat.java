@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
@@ -26,6 +28,8 @@ public class FragmentChat extends Fragment {
     private LinearLayoutManager lm;
     private ArrayList<MessageChatItem> messages;
     private ChatListAdapter adapter;
+    volatile private Boolean isBottom = true;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,8 +37,43 @@ public class FragmentChat extends Fragment {
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_chat_rv_messages);
         recyclerView.setHasFixedSize(true);
+
         lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = lm.getChildCount();
+                int totalItemCount = lm.getItemCount();
+                int pastVisibleItems = lm.findFirstVisibleItemPosition();
+                if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                    isBottom = true;
+                } else if (visibleItemCount>3){
+                    isBottom = false;
+                }
+            }
+        });
+//
+        recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right,int bottom, int oldLeft, int oldTop,int oldRight, int oldBottom) {
+                if(bottom < oldBottom){
+                    if (isBottom){
+                        recyclerView.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                recyclerView.scrollToPosition(messages.size() - 1);
+                            }
+                        }, 1);
+                    }
+                }
+            }
+        });
+
+
+
         messages = new ArrayList<>();
 
         FrameLayout flBackButton = (FrameLayout) rootView.findViewById(R.id.fragment_chat_fl_back);
@@ -188,44 +227,6 @@ public class FragmentChat extends Fragment {
         dummyObject666.setType(6);
         dummyObject666.setStatus(4);
         dummyObject666.setIncoming(false);
-
-
-
-//        MessageChatItem dummyObject1 = new MessageChatItem();
-//        dummyObject1.setText("привет");
-//        dummyObject1.setTime("15:40");
-//        dummyObject1.setType(0);
-//        dummyObject1.setStatus(0);
-//
-//
-//        MessageChatItem dummyObject2 = new MessageChatItem();
-//        dummyObject2.setText("fuck fuck fucabkdasjkldsahjkdashjkldashjkdasjklh sdalhasdjklhasdjdas");
-//        dummyObject2.setTime("15:40");
-//        dummyObject2.setType(0);
-////        dummyObject2.setStatus(1);
-//
-//        MessageChatItem dummyObject3 = new MessageChatItem();
-//        dummyObject3.setText("fuck fuck fucabkdasjkldsahjkdashjkldashjkdasjklh sdalhasdjklhasdjdas");
-//        dummyObject3.setTime("15:40");
-//        dummyObject3.setType(1);
-//        dummyObject3.setStatus(2);
-//
-//        MessageChatItem dummyObject4 = new MessageChatItem();
-//        dummyObject4.setText("fuck fuck fucabkdasjkldsahjkdashjkldashjkdasjklh sdalhasdjklhasdjdas");
-//        dummyObject4.setTime("15:40");
-//        dummyObject4.setType(1);
-//        dummyObject4.setStatus(3);
-//
-//        MessageChatItem dummyObject5 = new MessageChatItem();
-//        dummyObject5.setText("ПРОПУЩЕННЫЙ АУДИОЗВОНОК 17.03.2017");
-//        dummyObject5.setType(6);
-//        dummyObject5.setStatus(4);
-//
-//        MessageChatItem dummyObject6 = new MessageChatItem();
-//        dummyObject6.setText("fuck fuck fucabkdasjkldsahjkdashjkldashjkdasjklh sdalhasdjklhasdjdas");
-//        dummyObject6.setTime("00:40");
-//        dummyObject6.setType(3);
-//        dummyObject6.setStatus(4);
 
         messages.add(dummyObject0);
         messages.add(dummyObject1);

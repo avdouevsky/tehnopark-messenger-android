@@ -42,7 +42,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private TextView tvTime;
     private TextView tvFileType;
     private TextView tvFileSize;
-    private TextView tvFileName;
     private ImageView imageStatus;
     private ImageView imageBlobCorner;
 
@@ -241,9 +240,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 tvFileType = fileHolder.tvFileType;
                 tvFileType.setText(messagesList.get(position).getFileType());
 
-                tvFileName = fileHolder.tvFileName;
-                tvFileName.setText(messagesList.get(position).getFileName());
-
                 tvFileSize = fileHolder.tvFileSize;
                 tvFileSize.setText(messagesList.get(position).getFileSize());
 
@@ -387,7 +383,6 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         View view;
         TextView tvFileType;
-        TextView tvFileName;
         TextView tvFileSize;
         TextView tvTime;
         ImageView imageStatus;
@@ -396,12 +391,11 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public FileHolder(View itemView) {
             super(itemView);
             view = itemView;
-            tvFileType = (TextView) itemView.findViewById(R.id.recycler_item_message_file_named_tv_type);
-            tvFileName = (TextView) itemView.findViewById(R.id.recycler_item_message_file_named_tv_name);
-            tvFileSize = (TextView) itemView.findViewById(R.id.recycler_item_message_file_named_tv_size);
-            tvTime = (TextView) itemView.findViewById(R.id.recycler_item_message_file_named_tv_time);
-            imageStatus = (ImageView) itemView.findViewById(R.id.recycler_item_message_file_named_image_delivery_status);
-            imageBlobCorner= (ImageView) itemView.findViewById(R.id.recycler_item_message_file_named_image_corner);
+            tvFileType = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_type);
+            tvFileSize = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_size);
+            tvTime = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_time);
+            imageStatus = (ImageView) itemView.findViewById(R.id.recycler_item_message_file_image_delivery_status);
+            imageBlobCorner= (ImageView) itemView.findViewById(R.id.recycler_item_message_file_image_corner);
         }
     }
 
