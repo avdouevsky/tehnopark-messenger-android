@@ -30,6 +30,9 @@ public class FragmentChat extends Fragment {
     private ChatListAdapter adapter;
     volatile private Boolean isBottom = true;
 
+    private final static String TAG = FragmentChat.class.toString();
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,9 +51,13 @@ public class FragmentChat extends Fragment {
                 int visibleItemCount = lm.getChildCount();
                 int totalItemCount = lm.getItemCount();
                 int pastVisibleItems = lm.findFirstVisibleItemPosition();
-                if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                if (pastVisibleItems >= totalItemCount-2 ||
+                        pastVisibleItems + visibleItemCount >= totalItemCount-1){
                     isBottom = true;
-                } else if (visibleItemCount>3){
+//                    Log.d("test", " isBottom = "+isBottom+" pastVisibleItems = "+pastVisibleItems + " visibleItemCount = "
+//                            +visibleItemCount +" totalItemCount = "+totalItemCount
+//                            + " findLastCompletelyVisibleItemPosition = " + pastVisibleItems);
+                } else {
                     isBottom = false;
                 }
             }
@@ -239,10 +246,10 @@ public class FragmentChat extends Fragment {
         messages.add(dummyObject51);
         messages.add(dummyObject6);
         messages.add(dummyObject61);
-        messages.add(dummyObject611);
-        messages.add(dummyObject6111);
-        messages.add(dummyObject64);
-        messages.add(dummyObject666);
+//        messages.add(dummyObject611);
+//        messages.add(dummyObject6111);
+//        messages.add(dummyObject64);
+//        messages.add(dummyObject666);
 
         adapter = new ChatListAdapter(messages, getContext());
         recyclerView.setAdapter(adapter);
