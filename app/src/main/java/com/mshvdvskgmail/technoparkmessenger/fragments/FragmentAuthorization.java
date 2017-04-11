@@ -119,6 +119,16 @@ public class FragmentAuthorization extends Fragment{
             }
         });
 
+//        EditText etEmail = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_email);
+//        final EditText etPassword = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_password);
+//        etEmail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                etPassword.requestFocus();
+//            }
+//        });
+
+
     }
 
     private TextWatcher textWatcher = new TextWatcher() {

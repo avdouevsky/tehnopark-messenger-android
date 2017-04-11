@@ -5,10 +5,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAddMember;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAuthorization;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChat;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMainFourTabScreen;
 import com.squareup.picasso.Picasso;
 
@@ -24,10 +27,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        this.getWindow().setSoftInputMode(
+//                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
 //        ImageView profileIcon = (ImageView) findViewById(R.id.recycler_item_contacts_selected_image_picture);
 //        Picasso.with(this).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
-        FragmentAddMember authorization = new FragmentAddMember();
+        FragmentAuthorization authorization = new FragmentAuthorization();
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

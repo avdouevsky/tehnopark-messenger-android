@@ -18,14 +18,14 @@
             android:id="@+id/fragment_reset_password_image_logo"
             android:src="@drawable/icon_just_logo"
             android:layout_gravity="center"
-            android:layout_marginTop="140dp"/>
+            android:layout_marginTop="125dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/restore_password"
             android:layout_gravity="center"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="60dp"
             android:gravity="center"
             android:textSize="30sp"
             android:textColor="@color/colorWhiteText"
