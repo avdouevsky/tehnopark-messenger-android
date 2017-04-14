@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_main"
+            android:icon="@drawable/icon_home"
+            android:title="Главная" />
+        <item
+            android:id="@+id/nav_feedback"
+            android:icon="@drawable/icon_mail"
+            android:title="Написать в АТОН" />
+        <item
+            android:id="@+id/nav_call"
+            android:icon="@drawable/icon_phone"
+            android:title="Позвонить в АТОН" />
+        <item android:title="" android:enabled="false"/>
+        <item android:title="" android:enabled="false"/>
+        <item android:title="" android:enabled="false"/>
+        <item android:title="" android:enabled="false"/>
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/icon_exit"
+            android:title="Выход" />
+    </group>
+</menu>

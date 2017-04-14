@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingBottom="0dp"
+    android:paddingLeft="38dp"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="0dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:clickable="true"
+        android:id="@+id/imageView"
+        android:layout_height="100dp"
+        android:src="@drawable/photo"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="100dp" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="5dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:maxLines="3"
+        android:scrollHorizontally="false"
+        android:ellipsize="none"
+        android:text="Александр\nКукушкин"
+        android:textColor="@android:color/white"
+        android:textAllCaps="true"
+        android:textSize="@dimen/font_50pt"
+        android:textAppearance="@style/TextAppearance.Gotham.Medium" />
+
+    <FrameLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="74dp"
+        android:background="@android:color/white"
+        android:layout_height="1px"/>
+
+</LinearLayout>
