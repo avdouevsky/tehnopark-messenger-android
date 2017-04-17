@@ -24,11 +24,11 @@ android {
         }
     }
     buildTypes {
-        /*auto {
-            //signingConfig signingConfigs.config_prod
+        debug {
+            //signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }*/
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('GradleBuild') {
       steps {
-        sh '''sh ./gradlew :app:assembleDebug
-sh ./gradlew :app:assembleDebugAndroidTest'''
+        sh 'sh ./gradlew :app:assembleDebug'
       }
     }
     stage('Assemble Release') {
