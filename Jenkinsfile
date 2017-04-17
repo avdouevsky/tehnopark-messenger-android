@@ -7,5 +7,10 @@ pipeline {
 sh ./gradlew :app:assembleDebugAndroidTest'''
       }
     }
+    stage('Assemble Release') {
+      steps {
+        sh 'sh ./gradlew :app:assembleAuto'
+      }
+    }
   }
 }
