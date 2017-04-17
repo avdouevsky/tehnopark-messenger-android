@@ -83,7 +83,7 @@ public class FragmentAuthorization extends Fragment{
         /* the "ВОЙТИ" button */
 
         mAuthorizationButton = (TextView) mRootView.findViewById(R.id.fragment_authorization_tv_enter);
-        mAuthorizationButton.setEnabled(false);
+//        mAuthorizationButton.setEnabled(false);
         mAuthorizationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
