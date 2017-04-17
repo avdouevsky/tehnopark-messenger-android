@@ -13,6 +13,8 @@ import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAddMember;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAuthorization;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChat;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMainFourTabScreen;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentProfile;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentResetPassword;
 import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -27,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        this.getWindow().setSoftInputMode(
-//                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        this.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 //        ImageView profileIcon = (ImageView) findViewById(R.id.recycler_item_contacts_selected_image_picture);
 //        Picasso.with(this).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
-        FragmentChat authorization = new FragmentChat();
+        FragmentAuthorization authorization = new FragmentAuthorization();
         getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
