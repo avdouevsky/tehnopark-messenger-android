@@ -29,7 +29,7 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final static String TAG = FragmentDocumentsList.class.toString();
+    private final static String TAG = ChatListAdapter.class.toString();
     private ArrayList<Message> messagesList;
     private View rowView;
     private ViewGroup.MarginLayoutParams params;
@@ -61,7 +61,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+Log.w(TAG, "message type "+viewType);
         switch (viewType){
             case 0: rowView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.recycler_message_item_incoming_text, parent, false);
@@ -128,10 +128,13 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //            holder.view.setLayoutParams(params2);
 //        }
 
-        //type = messagesList.get(position).getType();
+//        type = messagesList.get(position).getType();
+        //incoming
         type = 0;
-        Log.w("temp", "messagesList get position "+position+" sender: "+messagesList.get(position).sender);
-        if(messagesList.get(position).sender == null || messagesList.get(position).sender.equals(Controller.getInstance().getAuth().getUser())){
+        Log.w("temp", "messagesList get position "+position+" sender: "+messagesList.get(position).sender.unique_id+ " v. "+Controller.getInstance().getAuth().getUser().unique_id);
+        if(messagesList.get(position).sender == null || messagesList.get(position).sender.unique_id.equals(Controller.getInstance().getAuth().getUser().unique_id)){
+            Log.w("temp", "outgoing");
+            //outgoing
             type = 1;
         }
 
@@ -148,7 +151,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 imageStatus = msgHolder.status;
 
                 tvText.setText(messagesList.get(position).message);
-                tvTime.setText(messagesList.get(position).getTime());
+                tvTime.setText(messagesList.get(position).getTimeAsString());
 
                   /* if outgoing, show status */
                 if (type == 1) {
@@ -212,6 +215,8 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 break;
 
             case 2:
+
+
             case 3:
 
 //                PicHolder picHolder = (PicHolder) holder;
@@ -372,6 +377,26 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         return messagesList.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        type = 0;
+        if(messagesList.get(position).sender == null || messagesList.get(position).sender.unique_id.equals(Controller.getInstance().getAuth().getUser().unique_id)){
+            type = 1;
+        }
+        switch (type) {
+            case 0: return 0; // incoming text
+            case 1: return 1; // outgoing text
+            case 2: return 2; // incoming pic
+            case 3: return 3; // outgoing pic
+            case 4: return 4; // incoming doc
+            case 5: return 5; // outgoing doc
+            case 6: return 6; // missed call
+            case 7: return 7; // time
+        }
+        return -1;
+    }
+
 
 //    @Override
 //    public int getItemViewType(int position) {

@@ -5,7 +5,9 @@ import android.util.Log;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +42,16 @@ public class Chat implements Serializable {
 
     public String admin;
     public List<ChatUser> users;
+
+    public int unread;
+    public LastMessage last;
+    public int time;
+
+    public String getTimeAsString() {
+        return new SimpleDateFormat("HH:mm").format(new Date(time * 1000L));
+    }
+
+
 
     /*public List<User> Users(){
         List<User> retVal = new ArrayList<>();
