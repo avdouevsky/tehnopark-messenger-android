@@ -125,9 +125,18 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
             });
         }
         lastLine = "";
-        time = currentItem.date;
-        hasNew = false;
-        newCount = 0;
+        try {
+            lastLine = currentItem.last.message_text;
+        }catch (NullPointerException e){
+
+        }
+
+        time = currentItem.getTimeAsString();
+//        hasNew = false;
+        newCount = currentItem.unread;
+
+        hasNew = (boolean) (currentItem.unread != 0);
+
 
 //        name = currentItem.getName();
 //        lastLine = currentItem.getLastLine();

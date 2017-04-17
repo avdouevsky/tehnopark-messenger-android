@@ -46,6 +46,7 @@ public class TechnoparkApp extends Application {
 
         if(!BuildConfig.DEBUG) ACRA.init(this);
 
+
         instance = this;
         context = getApplicationContext();
         Log.w("Technopark", "app instance "+instance);
@@ -53,7 +54,7 @@ public class TechnoparkApp extends Application {
 
         Picasso.with(context).setIndicatorsEnabled(BuildConfig.DEBUG);
 //        Picasso.with(context).setLoggingEnabled(BuildConfig.DEBUG);
-
+        Config.init(this);
         // это нужно для шрифтов...
         AssetManager assetManager = getAssets();
 

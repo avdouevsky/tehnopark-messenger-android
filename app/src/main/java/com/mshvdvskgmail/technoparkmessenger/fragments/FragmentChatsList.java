@@ -8,13 +8,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.mshvdvskgmail.technoparkmessenger.ChatController;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -27,7 +30,7 @@ import java.util.List;
  * Created by mshvdvsk on 17/03/2017.
  */
 
-public class FragmentChatsList extends Fragment {
+public class FragmentChatsList extends BaseFragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
@@ -36,14 +39,14 @@ public class FragmentChatsList extends Fragment {
 
     @Override
     public void onPause() {
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
         super.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -95,10 +98,10 @@ public class FragmentChatsList extends Fragment {
         return mRootView;
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public final void onEvent(DataLoadEvent event) {
-        eventDataLoad(event.dataSource);
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public final void onEvent(DataLoadEvent event) {
+//        eventDataLoad(event.dataSource);
+//    }
 
     protected void eventDataLoad(String dataSource){
         if(dataSource.equals("Chats")) {
@@ -107,6 +110,14 @@ public class FragmentChatsList extends Fragment {
             chats.addAll(Controller.getInstance().getChats());
             Log.w("ChatsList", "size "+chats.size());
             mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    protected void eventMessage(Message message) {
+        if(message.getType() == Message.Type.DIALOG) {
+            Controller.getInstance().fillChats();
+        }else if(message.getType() == Message.Type.ERROR){
+
         }
     }
 }

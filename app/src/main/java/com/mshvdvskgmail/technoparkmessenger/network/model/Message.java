@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +33,10 @@ public class Message {
 
     protected String status = "sent";
 
+
+    public String getTimeAsString() {
+        return new SimpleDateFormat("HH:mm").format(new Date(date * 1000L));
+    }
 
     public Status getStatus() {
         if(status == null) return Status.READ;
