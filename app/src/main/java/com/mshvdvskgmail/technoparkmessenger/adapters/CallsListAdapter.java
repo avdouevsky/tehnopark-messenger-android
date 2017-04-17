@@ -79,8 +79,11 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
 
         currentItem = callsList.get(position);
 //        count++;
-
-        name = currentItem.Opposite().cn;
+        try {
+            name = currentItem.Opposite().cn;
+        }catch (NullPointerException e){
+            name = "test";
+        }
         time = currentItem.getTime();
 //        isOnline = currentItem.Opposite().isOnline();
         isMissed = currentItem.isMissed();
@@ -93,6 +96,7 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
 
         itemName.setText(name);
         itemTime.setText(time);
+try {
 
         REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, currentItem.Opposite().id).enqueue(new Callback<String>() {
             @Override
@@ -108,6 +112,9 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
             }
         });
 
+}catch (NullPointerException e){
+
+}
 
         if (isMissed) {
             itemIncomingStatus.setVisibility(View.GONE);
