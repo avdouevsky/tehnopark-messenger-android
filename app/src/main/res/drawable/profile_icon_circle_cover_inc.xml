@@ -14,7 +14,7 @@
         <shape android:shape="oval">
             <!-- transparent stroke = larger_circle_size - smaller_circle_size -->
             <stroke android:color="@android:color/transparent"
-                android:width="11dp"/>
+                android:width="18dp"/>
             <solid android:color="#5F7789"/>
             <size
                 android:width="130dp"
