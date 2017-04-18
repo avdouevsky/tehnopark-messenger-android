@@ -7,10 +7,13 @@ import android.util.Log;
 import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.MessageEvent;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 
 /**
  * Created by vlad on 07.04.17.
@@ -51,4 +54,8 @@ public class BaseFragment extends Fragment{
         Log.d(TAG, "event message");
     }
 
+
+    public void setSelected_contacts(ArrayList<User> selected_contacts){
+
+    }
 }

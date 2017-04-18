@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    tools:ignore="MissingPrefix">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:orientation="horizontal">
+        <FrameLayout
+            android:layout_width="72dp"
+            android:layout_height="68dp"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_height="35dp"
+                android:layout_width="35dp"
+                android:layout_marginTop="2dp"
+                android:layout_gravity="center"
+                android:id="@+id/recycler_item_add_member_image_picture">
+            </ImageView>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Константин Константинопольский"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:layout_marginTop="23dp"
+                    android:textColor="#10b4fa"
+                    fontPath="fonts/GothamProBold.ttf"
+                    android:id="@+id/recycler_item_add_member_tv_name" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="РУКОВОДИТЕЛЬ ОТДЕЛА ПРОДАЖ"
+                    android:textSize="10sp"
+                    android:textColor="@color/backgroundGrey"
+                    android:layout_marginTop="10sp"
+                    android:maxLines="1"
+                    android:letterSpacing="0.03"
+                    android:id="@+id/recycler_item_add_member_tv_position"
+                    android:textAllCaps="true"
+                    fontPath="fonts/GothamProBold.ttf"
+                    android:ellipsize="end"/>
+            </LinearLayout>
+
+            <!--FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"></FrameLayout-->
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginRight="8dp"
+                android:id="@+id/recycler_item_add_member_fl_selector">
+                <ImageView
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_select_dot_unchecked"
+                    android:visibility="visible"
+                    android:id="@+id/recycler_item_add_member_image_selector_background">
+                </ImageView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="invisible"
+                    android:layout_marginTop="1dp"
+                    android:src="@drawable/icon_select_checked"
+                    android:id="@+id/recycler_item_add_member_image_selector_check_mark">
+                </ImageView>
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/recycler_item_add_member_fl_separator"
+        android:background="@color/colorBlackTransparentTwenty"
+        android:layout_marginBottom="2dp"
+        android:layout_marginStart="73dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginLeft="73dp"
+        android:layout_marginRight="17dp">
+    </FrameLayout>
+</LinearLayout>

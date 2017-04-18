@@ -85,7 +85,7 @@ public class FragmentMainFourTabScreen extends BaseFragment{
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                 alertDialog.setTitle("ОК, СПАСИБО");
                 alertDialog.setMessage("Все работает ок, не так ли?");
                 alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -101,7 +101,8 @@ public class FragmentMainFourTabScreen extends BaseFragment{
                     }
                 });
                 alert = alertDialog.create();
-                alert.show();
+                alert.show();*/
+                ((MainActivity) getContext()).executeAction("showCreateGroup", null);
             }
         });
 

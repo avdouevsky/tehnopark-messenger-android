@@ -1,8 +1,10 @@
 package com.mshvdvskgmail.technoparkmessenger.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
@@ -13,11 +15,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAddMember;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAuthorization;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChat;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChatsList;
@@ -92,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -122,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void executeAction(String action, Object value) {
+    public void  executeAction(String action, Object value) {
         if(action.equals("showProfile")){
             FragmentProfile fragment = new FragmentProfile();
             Bundle mBundle = new Bundle();
@@ -137,15 +141,22 @@ public class MainActivity extends AppCompatActivity {
             mBundle.putSerializable("chat", chat);
             fragment.setArguments(mBundle);
             this.setFragment(fragment);
-        }else if(action.equals("showGroupSettings")){
+        }else if(action.equals("showGroupSettings")) {
             FragmentGroupsSettings fragment = new FragmentGroupsSettings();
+            Bundle mBundle = new Bundle();
+            Chat chat = (Chat) value;
+            mBundle.putSerializable("chat", chat);
+            fragment.setArguments(mBundle);
+            this.setFragment(fragment);
+        }else if(action.equals("showGroupSettingsMembers")){
+            FragmentAddMember fragment = new FragmentAddMember();
             Bundle mBundle = new Bundle();
             Chat chat = (Chat)value;
             mBundle.putSerializable("chat", chat);
             fragment.setArguments(mBundle);
             this.setFragment(fragment);
         }else if(action.equals("showCreateGroup")){
-            FragmentGroupsSettings fragment = new FragmentGroupsSettings();
+            FragmentAddMember fragment = new FragmentAddMember();
             Bundle mBundle = new Bundle();
 //            Chat chat = (Chat)value;
 //            mBundle.putSerializable("chat", chat);
@@ -173,6 +184,23 @@ public class MainActivity extends AppCompatActivity {
         Log.v("Technopark", "new message "+message);
     }
 
-
+    @Override
+    public void onBackPressed() {
+//        AlertDialog alertDialog = new AlertDialog.Builder(this)
+//                .setMessage("Закрыть приложение?")
+//                .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        dialogInterface.dismiss();
+//                        MainActivity.super.onBackPressed();
+//                    }
+//                })
+//                .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        dialogInterface.dismiss();
+//                    }
+//                }).show();
+    }
 
 }

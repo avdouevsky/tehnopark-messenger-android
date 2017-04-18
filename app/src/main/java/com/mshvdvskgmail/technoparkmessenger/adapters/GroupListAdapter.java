@@ -86,8 +86,22 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
         holder.setChat(currentItem);
 
         name = currentItem.name;
-        lastLine = "Сообщение из чата";//currentItem.getLastMessage();
-        time = currentItem.date;
+//        lastLine = "Сообщение из чата";//currentItem.getLastMessage();
+//        time = currentItem.date;
+
+        lastLine = "";
+        try {
+            lastLine = currentItem.last.message_text;
+        }catch (NullPointerException e){
+
+        }
+
+        time = currentItem.getTimeAsString();
+//        hasNew = false;
+        newCount = currentItem.unread;
+
+        hasNew = (boolean) (currentItem.unread != 0);
+
 
         itemName = (TextView) holder.mView.findViewById(R.id.name);
         itemLastMessage = (TextView) holder.mView.findViewById(R.id.last_message);

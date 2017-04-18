@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.MemberListItem;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Member;
@@ -28,10 +29,10 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapter.ViewHolder> {
 
-    private ArrayList<MemberListItem> members;
+    private ArrayList<User> members;
     private View rowView;
     private Context context;
-    private MemberListItem currentItem;
+    private User currentItem;
 
     private String name;
     private String officePosition;
@@ -45,7 +46,7 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
     public static final String TAG = GroupMembersAdapter.class.getCanonicalName();
 
 
-    public GroupMembersAdapter(ArrayList <MemberListItem> members, Context context) {
+    public GroupMembersAdapter(ArrayList <User> members, Context context) {
         this.members = members;
         this.context = context;
     }
@@ -79,7 +80,7 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
 
         name = currentItem.getName();
         officePosition = currentItem.getOfficePosition();
-        isOnline = currentItem.isOnline();
+//        isOnline = currentItem.isOnline();
 
         tvItemName = (TextView) holder.mView.findViewById(R.id.name);
         tvItemPosition = (TextView) holder.mView.findViewById(R.id.office_position);
@@ -92,10 +93,10 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
             imageItemOnline.setVisibility(View.VISIBLE);
         } else imageItemOnline.setVisibility(View.GONE);
 
-        if (currentItem.isAdmin()){
-            TextView admin = (TextView) holder.mView.findViewById(R.id.admin);
-            admin.setVisibility(View.VISIBLE);
-        }
+//        if (currentItem.isAdmin()){
+//            TextView admin = (TextView) holder.mView.findViewById(R.id.admin);
+//            admin.setVisibility(View.VISIBLE);
+//        }
     }
 
     @Override

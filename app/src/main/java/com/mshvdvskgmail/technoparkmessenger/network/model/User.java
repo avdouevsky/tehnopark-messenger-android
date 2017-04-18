@@ -66,4 +66,11 @@ public class User implements Serializable {
     public Token token;
     public String queue;
 
+    public String getName() {
+        return name;
+    }
+
+    public String getOfficePosition() {
+        return description;
+    }
 }
