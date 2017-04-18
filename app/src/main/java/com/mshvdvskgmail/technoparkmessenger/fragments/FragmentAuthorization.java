@@ -100,8 +100,9 @@ public class FragmentAuthorization extends Fragment{
                             public Observable<RabbitMQ> call(Result<User> userResult) {
 //                                user = userResult.data;
                                 Controller.getInstance().getAuth().user = userResult.data;
-                                ChatController.getInstance().r = new RMQChat("amqp://tmes:tmespass@t-mes.xsrv.ru:5672/%2Ftmes%2Fchat", 20, userResult.data.queue);
-                                return ChatController.getInstance().r.connectAndSubscribe();
+                                    ChatController.getInstance().r = new RMQChat("amqp://tmes:tmespass@t-mes.xsrv.ru:5672/%2Ftmes%2Fchat", 20, userResult.data.queue);
+                                    return ChatController.getInstance().r.connectAndSubscribe();
+
                                 //{"type":"rabbit","version":1,"date":1490606701,"headers":[],
                             }
 

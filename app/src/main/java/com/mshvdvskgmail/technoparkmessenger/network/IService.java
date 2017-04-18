@@ -73,23 +73,24 @@ public interface IService {
                                          @Field("users") String users,
                                          @Field("name") String name);
 
-    @GET("?r=messages/json/chat-name")
-    public Observable<Result<User>> chatName(@Header("session-id") int session_id,
+    @POST("?r=messages/json/chat-name")
+    @FormUrlEncoded
+    public Observable<Result<Chat>> chatName(@Header("session-id") int session_id,
                                              @Header("token") String token,
-                                             @Query("room_uuid") String room_uuid);
+                                             @Query("room_uuid") String room_uuid,
+                                             @Field("name") String name);
 
     @GET("?r=messages/json/calls")
     public Observable<Result<List<SipCall>>> calls(@Header("session-id") int session_id,
                                                    @Header("token") String token,
                                                    @Query("number") String number,
                                                    @Query("offset") String offset,
-                                                   @ Query("limit") String limit);
+                                                   @Query("limit") String limit);
 
     @Multipart
     @POST("?r=messages/attach/upload")
     public Observable<Result<String>> upload_attach(@Header("session-id") int session_id,
                                                     @Header("token") String token,
-                                                    @Header("user-id") int id,
                                                     @Part MultipartBody.Part file);
 
     @GET("?r=messages/json/messages")

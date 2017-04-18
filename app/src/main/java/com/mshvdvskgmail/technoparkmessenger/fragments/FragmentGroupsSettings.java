@@ -12,11 +12,15 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ContactsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.GroupFilesAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.GroupMembersAdapter;
@@ -25,12 +29,17 @@ import com.mshvdvskgmail.technoparkmessenger.adapters.SideSelector;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.MemberListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.ProfileAttachment;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
+import com.mshvdvskgmail.technoparkmessenger.network.model.ChatUser;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by mshvdvsk on 29/03/2017.
@@ -41,10 +50,11 @@ public class FragmentGroupsSettings extends Fragment {
     private RecyclerView viewMembers;
     private LinearLayoutManager lm;
     private ArrayList<ProfileAttachment> files;
-    private ArrayList<MemberListItem> members;
+    private ArrayList<User> members;
     private GroupFilesAdapter adapter;
     private GroupMembersAdapter membersAdapter;
     private AlertDialog alert;
+    private Chat activeChat;
 
     public FragmentGroupsSettings() {}
 
@@ -57,11 +67,25 @@ public class FragmentGroupsSettings extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        activeChat = (Chat) getArguments().getSerializable("chat");
+
         View view = inflater.inflate(R.layout.fragment_group_settings, container, false);
+        setChatInfo(view);
         setAttachedFilesAdapterContent(view);
         setMembersAdapterContent(view);
         setIconsTouchListeners(view);
         return view;
+    }
+
+    private void setChatInfo(View rootView){
+        TextView name = (TextView) rootView.findViewById(R.id.fragment_group_settings_name);
+        name.setText(activeChat.name);
+        TextView status = (TextView) rootView.findViewById(R.id.fragment_group_settings_status);
+        if(activeChat.admin.equals(Controller.getInstance().getAuth().getUser().unique_id)){
+            status.setText("Вы администратор");
+        }else{
+            status.setText("");
+        }
     }
 
     private void setAttachedFilesAdapterContent(View rootView) {
@@ -72,13 +96,14 @@ public class FragmentGroupsSettings extends Fragment {
         viewFiles.setLayoutManager(lm);
 
         files = new ArrayList<>();
-        ProfileAttachment dummyObject = new ProfileAttachment();
-        for (int i = 0; i < 10; i++){
-            files.add(dummyObject);
-        }
+//        ProfileAttachment dummyObject = new ProfileAttachment();
+//        for (int i = 0; i < 10; i++){
+//            files.add(dummyObject);
+//        }
 
         TextView mText = (TextView) rootView.findViewById(R.id.fragment_group_settings_tv_files_count);
         mText.setText(""+files.size());
+
 
         adapter = new GroupFilesAdapter(files, getContext());
         viewFiles.setAdapter(adapter);
@@ -95,7 +120,10 @@ public class FragmentGroupsSettings extends Fragment {
         viewMembers.setLayoutManager(lm);
 
         members = new ArrayList<>();
-
+        for (ChatUser tmp_chat_user: activeChat.users) {
+            members.add(tmp_chat_user.User());
+        }
+/*
         MemberListItem dummyObject1 = new MemberListItem();
         dummyObject1.setName("kek");
         dummyObject1.setOfficePosition("CEO");
@@ -127,9 +155,17 @@ public class FragmentGroupsSettings extends Fragment {
         members.add(dummyObject3);
         members.add(dummyObject4);
         members.add(dummyObject5);
-
+*/
         TextView totalNumber = (TextView) rootView.findViewById(R.id.fragment_group_settings_tv_members_count);
-        totalNumber.setText(""+files.size());
+        totalNumber.setText(""+members.size());
+
+        LinearLayout addMembers = (LinearLayout)rootView.findViewById(R.id.fragment_group_settings_ll_add);
+        addMembers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getContext()).executeAction("showGroupSettingsMembers", activeChat);
+            }
+        });
 
         membersAdapter = new GroupMembersAdapter(members, getContext());
         viewMembers.setAdapter(membersAdapter);
@@ -139,7 +175,37 @@ public class FragmentGroupsSettings extends Fragment {
 
 
 
-    private void setIconsTouchListeners(View mRootView) {
+    private void setIconsTouchListeners(final View mRootView) {
+        FrameLayout edit = (FrameLayout)mRootView.findViewById(R.id.fragment_group_settings_fl_edit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout name = (LinearLayout)mRootView.findViewById(R.id.fragment_group_settings_name_container);
+                LinearLayout nameEdit = (LinearLayout)mRootView.findViewById(R.id.fragment_group_settings_name_edit_container);
+                EditText newName = (EditText)mRootView.findViewById(R.id.fragment_group_settings_name_edit_container_et);
+
+                if(name.getVisibility() == View.VISIBLE){
+                    name.setVisibility(View.GONE);
+                    nameEdit.setVisibility(View.VISIBLE);
+
+                }else{
+
+                    name.setVisibility(View.VISIBLE);
+                    nameEdit.setVisibility(View.GONE);
+//                    REST.getInstance().chatName();
+                    REST.getInstance().chatName(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, activeChat.uuid, newName.getText().toString())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new REST.DataSubscriber<Chat>() {
+
+                                @Override
+                                public void onData(Chat data) {
+                                    activeChat = data;
+                                    setChatInfo(mRootView);
+                                }
+                            });
+                }
+            }
+        });
         FrameLayout mFrame = (FrameLayout)mRootView.findViewById(R.id.fragment_group_settings_fl_back);
         mFrame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,23 +250,23 @@ public class FragmentGroupsSettings extends Fragment {
                 if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
                     int position = recyclerView.getChildLayoutPosition(child); // пока не нужно, но
                     // потом поможет определить выбранный элемент
-                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                    alertDialog.setTitle("Фокус");
-                    alertDialog.setMessage("Ты выбрал номер " + (position+1) + ", верно?");
-                    alertDialog.setPositiveButton("Но как?!", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    alertDialog.setNegativeButton("Не может быть!", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    alert = alertDialog.create();
-                    alert.show();
+//                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+//                    alertDialog.setTitle("Фокус");
+//                    alertDialog.setMessage("Ты выбрал номер " + (position+1) + ", верно?");
+//                    alertDialog.setPositiveButton("Но как?!", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//                    alertDialog.setNegativeButton("Не может быть!", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//                    alert = alertDialog.create();
+//                    alert.show();
                 }
                 return false;
             }

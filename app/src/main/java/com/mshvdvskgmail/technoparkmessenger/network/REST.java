@@ -4,12 +4,15 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -249,10 +252,11 @@ public class REST implements IService {
     }
 
     @Override
-    public Observable<Result<User>> chatName(@Header("session-id") int session_id,
+    public Observable<Result<Chat>> chatName(@Header("session-id") int session_id,
                                              @Header("token") String token,
-                                             @Query("room_uuid") String room_uuid){
-        return service.chatName(session_id, token, room_uuid).compose(this.<Result<User>>setup());
+                                             @Query("room_uuid") String room_uuid,
+                                             @Field("name") String name){
+        return service.chatName(session_id, token, room_uuid, name).compose(this.<Result<Chat>>setup());
     }
 
     @Override
@@ -267,9 +271,22 @@ public class REST implements IService {
     @Override
     public Observable<Result<String>> upload_attach(@Header("session-id") int session_id,
                                                     @Header("token") String token,
-                                                    @Header("user-id") int id,
                                                     @Part MultipartBody.Part file){
-        return service.upload_attach(session_id, token, id, file).compose(this.<Result<String>>setup());
+        return service.upload_attach(session_id, token, file).compose(this.<Result<String>>setup());
+    }
+
+    public Observable<Result<String>> upload_file(int session_id, String token, File file, String mime) {
+        Log.w(TAG, "file "+ file);
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse(mime),
+                        file
+                );
+        Log.w(TAG, "requestFile "+ requestFile);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+        Log.w(TAG, "body "+ body);
+        return upload_attach(session_id, token, body);
     }
 
     @Override

@@ -43,6 +43,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private int status;
     private int type;
 
+    private TextView tvName;
     private TextView tvText;
     private TextView tvTime;
     private TextView tvFileType;
@@ -72,8 +73,8 @@ Log.w(TAG, "message type "+viewType);
                     MessageViewHolder viewHolder1 = new MessageViewHolder(rowView);
                     return viewHolder1;
             case 2: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_incoming_pic, parent, false);
-                    PicHolder viewHolder2 = new PicHolder(rowView);
+                    .inflate(R.layout.recycler_message_item_incoming_text_named, parent, false);
+                    MessageViewHolder viewHolder2 = new MessageViewHolder(rowView);
                     return viewHolder2;
             case 3: rowView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.recycler_message_item_outgoing_pic, parent, false);
@@ -109,6 +110,7 @@ Log.w(TAG, "message type "+viewType);
         dpValue = 23; // margin in dips
         int marginTopBig = (int)(dpValue * d); // margin in pixels
 
+        MessageViewHolder msgHolder;
 
 //        params = (ViewGroup.MarginLayoutParams) holder.view.getLayoutParams();
 
@@ -136,6 +138,8 @@ Log.w(TAG, "message type "+viewType);
             Log.w("temp", "outgoing");
             //outgoing
             type = 1;
+        }else if(activeChat.peer2peer == 0){
+            type = 2;
         }
 
         switch (type) {
@@ -144,7 +148,7 @@ Log.w(TAG, "message type "+viewType);
             case 0:
             case 1:
 
-                MessageViewHolder msgHolder = (MessageViewHolder) holder;
+                msgHolder = (MessageViewHolder) holder;
 
                 tvText = msgHolder.text;
                 tvTime = msgHolder.time;
@@ -152,33 +156,6 @@ Log.w(TAG, "message type "+viewType);
 
                 tvText.setText(messagesList.get(position).message);
                 tvTime.setText(messagesList.get(position).getTimeAsString());
-
-                  /* if outgoing, show status */
-                if (type == 1) {
-
-/*                    status = messagesList.get(position).getStatus();
-                    switch (status) {
-                        case 0:
-                            imageStatus.setVisibility(View.GONE);
-                            break;
-                        case 1:
-                            imageStatus.setVisibility(View.VISIBLE);
-                            imageStatus.setImageResource(R.drawable.ic_message_pending);
-                            break;
-                        case 2:
-                            imageStatus.setVisibility(View.VISIBLE);
-                            imageStatus.setImageResource(R.drawable.ic_message_sent);
-                            break;
-                        case 3:
-                            imageStatus.setVisibility(View.VISIBLE);
-                            imageStatus.setImageResource(R.drawable.ic_message_recieved);
-                            break;
-                        case 4:
-                            imageStatus.setVisibility(View.VISIBLE);
-                            imageStatus.setImageResource(R.drawable.ic_message_read);
-                            break;
-                    }*/
-                }
 
                 /* setting blob corner and blob margin */
 
@@ -215,7 +192,50 @@ Log.w(TAG, "message type "+viewType);
                 break;
 
             case 2:
+                msgHolder = (MessageViewHolder) holder;
 
+                tvName = msgHolder.name;
+                tvText = msgHolder.text;
+                tvTime = msgHolder.time;
+                imageStatus = msgHolder.status;
+
+                tvName.setText(messagesList.get(position).sender.getName());
+                tvText.setText(messagesList.get(position).message);
+                tvTime.setText(messagesList.get(position).getTimeAsString());
+
+                /* setting blob corner and blob margin */
+
+                imageBlobCorner = msgHolder.imageBlobCorner;
+
+                try{
+                    if (messagesList.get(position).isIncoming()!=messagesList.get(position+1).isIncoming()){
+                        imageBlobCorner.setVisibility(View.VISIBLE);
+                        params = (ViewGroup.MarginLayoutParams) msgHolder.view.getLayoutParams();
+                        params.topMargin = marginTopSmall;
+                        params.bottomMargin = 0;
+                    } else {
+                        imageBlobCorner.setVisibility(View.INVISIBLE);
+                        params = (ViewGroup.MarginLayoutParams) msgHolder.view.getLayoutParams();
+                        params.topMargin = marginTopBig;
+                        params.bottomMargin = 0;
+                    }
+                } catch (Exception e) {
+                    imageBlobCorner.setVisibility(View.VISIBLE);
+                    if(position > 1) {
+                        if (messagesList.get(position).isIncoming() != messagesList.get(position - 1).isIncoming()) {
+                            params = (ViewGroup.MarginLayoutParams) msgHolder.view.getLayoutParams();
+                            params.topMargin = marginTopBig;
+                            params.bottomMargin = marginTopBig;
+                        } else {
+                            params = (ViewGroup.MarginLayoutParams) msgHolder.view.getLayoutParams();
+                            params.topMargin = marginTopSmall;
+                            params.bottomMargin = marginTopBig;
+                        }
+                    }
+                }
+
+
+                break;
 
             case 3:
 
@@ -383,11 +403,13 @@ Log.w(TAG, "message type "+viewType);
         type = 0;
         if(messagesList.get(position).sender == null || messagesList.get(position).sender.unique_id.equals(Controller.getInstance().getAuth().getUser().unique_id)){
             type = 1;
+        }else if(activeChat.peer2peer == 0){
+            type = 2;
         }
         switch (type) {
             case 0: return 0; // incoming text
             case 1: return 1; // outgoing text
-            case 2: return 2; // incoming pic
+            case 2: return 2; // incoming text named
             case 3: return 3; // outgoing pic
             case 4: return 4; // incoming doc
             case 5: return 5; // outgoing doc
@@ -417,12 +439,14 @@ Log.w(TAG, "message type "+viewType);
         View view;
         TextView text;
         TextView time;
+        TextView name;
         ImageView status;
         ImageView imageBlobCorner;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
             view = itemView;
+            name = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_name);
             text = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_text);
             time = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_time);
             status = (ImageView) itemView.findViewById(R.id.recycler_item_message_text_image_delivery_status);
