@@ -6,6 +6,7 @@ import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,27 +147,12 @@ public class FragmentOutgoingCall extends Fragment {
             @Override
             public void onClick(View v) {
 
-                /*  show toast reaction */
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                alertDialog.setTitle("ОК, СПАСИБО");
-                alertDialog.setMessage("Все работает ок, не так ли?");
-                alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.setNegativeButton("Не знаю", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert = alertDialog.create();
-                alert.show();
-//                Intent myIntent = new Intent(MainActivity.this, ActivityProfile.class);
-//                startActivity(myIntent);
+                FragmentDeniedCall call = new FragmentDeniedCall();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, call)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }

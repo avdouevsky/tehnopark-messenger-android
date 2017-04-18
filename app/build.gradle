@@ -33,6 +33,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.3'
     compile 'jp.wasabeef:picasso-transformations:2.1.0'
     compile 'ca.barrenechea.header-decor:header-decor:0.2.8'
+    compile 'ch.acra:acra:4.5.0'
     compile project(path: ':flowcontrol')
     testCompile 'junit:junit:4.12'
 }

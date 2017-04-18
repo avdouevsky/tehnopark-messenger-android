@@ -3,6 +3,7 @@ package com.mshvdvskgmail.technoparkmessenger.fragments;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
@@ -44,6 +46,8 @@ public class FragmentGroupsSettings extends Fragment {
     private GroupFilesAdapter adapter;
     private GroupMembersAdapter membersAdapter;
     private AlertDialog alert;
+    private FrameLayout flAddMember;
+    private LinearLayout llMedia;
 
     public FragmentGroupsSettings() {}
 
@@ -160,6 +164,34 @@ public class FragmentGroupsSettings extends Fragment {
                 });
                 alert = alertDialog.create();
                 alert.show();
+            }
+        });
+
+        flAddMember = (FrameLayout) mRootView.findViewById(R.id.fragment_group_settings_fl_add_member);
+        flAddMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentAddMember addMember = new FragmentAddMember();
+                getFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, addMember)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        llMedia = (LinearLayout) mRootView.findViewById(R.id.fragment_group_settings_ll_media);
+        llMedia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentMedia addMember = new FragmentMedia();
+                getFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, addMember)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }

@@ -71,11 +71,11 @@ public class FragmentAuthorization extends Fragment{
         mAuthorizationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentIncomingCall incomingCall = new FragmentIncomingCall();
+                FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
                 getFragmentManager()
                         .beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, incomingCall)
+                        .replace(R.id.container, main)
                         .addToBackStack(null)
                         .commit();
             }

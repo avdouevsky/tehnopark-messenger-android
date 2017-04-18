@@ -4,8 +4,12 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TechnoParkMessenger.iml" filepath="$PROJECT_DIR$/TechnoParkMessenger.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/appFlow/appFlow.iml" filepath="$PROJECT_DIR$/appFlow/appFlow.iml" />
       <module fileurl="file://$PROJECT_DIR$/appFlow/appFlow.iml" filepath="$PROJECT_DIR$/appFlow/appFlow.iml" />
       <module fileurl="file://$PROJECT_DIR$/flowcontrol/flowcontrol.iml" filepath="$PROJECT_DIR$/flowcontrol/flowcontrol.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flowcontrol/flowcontrol.iml" filepath="$PROJECT_DIR$/flowcontrol/flowcontrol.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tehnopark-messenger-android.iml" filepath="$PROJECT_DIR$/tehnopark-messenger-android.iml" />
     </modules>
   </component>
 </project>

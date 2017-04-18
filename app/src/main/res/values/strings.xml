@@ -31,6 +31,8 @@
     <string name="denied_call_first_icon">ОТМЕНИТЬ</string>
     <string name="denied_call_second_icon">ПЕРЕЗВОНИТЬ</string>
     <string name="denied_call_third_icon">СООБЩЕНИЕ</string>
+    <string name="crash_toast_text">ошибка</string>
+
 
     <string name="textLink"><u>https://ru.wikipedia.org/wiki/%D0%</u></string>
 

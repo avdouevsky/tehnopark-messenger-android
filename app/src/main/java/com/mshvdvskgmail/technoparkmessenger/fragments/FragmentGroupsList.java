@@ -58,7 +58,7 @@ public class FragmentGroupsList extends Fragment {
 //        for (int i = 0; i < 10; i++){
 //            contacts.add(dummyObject);
 //        }
-        adapter = new GroupListAdapter(groups, getContext());
+        adapter = new GroupListAdapter(groups, getContext(), getActivity().getSupportFragmentManager());
         mRecyclerView.setAdapter(adapter);
 
         return mRootView;

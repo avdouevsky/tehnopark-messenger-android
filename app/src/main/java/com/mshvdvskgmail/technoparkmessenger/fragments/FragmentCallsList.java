@@ -67,7 +67,7 @@ public class FragmentCallsList extends Fragment {
 //        for (int i = 0; i < 10; i++){
 //            contacts.add(dummyObject);
 //        }
-        mAdapter = new CallsListAdapter(calls, getContext());
+        mAdapter = new CallsListAdapter(calls, getContext(), getActivity().getSupportFragmentManager());
         mRecyclerView.setAdapter(mAdapter);
 
         return mRootView;

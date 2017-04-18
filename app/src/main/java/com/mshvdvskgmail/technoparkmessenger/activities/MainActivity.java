@@ -17,6 +17,8 @@ import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentProfile;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentResetPassword;
 import com.squareup.picasso.Picasso;
 
+import org.acra.ACRA;
+
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 

@@ -108,23 +108,31 @@
                     android:layout_weight="1">
                 </FrameLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5"
-                    android:textSize="10sp"
-                    android:textColor="#B0B4BA"
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/fragment_group_settings_tv_files_count"
-                    fontPath="fonts/GothamProBold.ttf"/>
+                    android:layout_height="20dp"
+                    android:id="@+id/fragment_group_settings_ll_media">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_caret_grey"
-                    android:layout_marginRight="37dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="1dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textSize="10sp"
+                        android:textColor="#B0B4BA"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/fragment_group_settings_tv_files_count"
+                        fontPath="fonts/GothamProBold.ttf"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_caret_grey"
+                        android:layout_marginRight="37dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="1dp"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -190,7 +198,8 @@
                     android:layout_height="43dp"
                     android:background="@drawable/icon_blue_cross_background"
                     android:layout_marginStart="30dp"
-                    android:layout_marginLeft="30dp">
+                    android:layout_marginLeft="30dp"
+                    android:id="@+id/fragment_group_settings_fl_add_member">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

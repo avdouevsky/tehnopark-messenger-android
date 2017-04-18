@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatGroupListAdapter;
@@ -27,6 +28,7 @@ public class FragmentChatGroup extends Fragment {
     private LinearLayoutManager lm;
     private ArrayList<MessageChatItem> messages;
     private ChatGroupListAdapter adapter;
+    private LinearLayout llGroupSettings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +39,20 @@ public class FragmentChatGroup extends Fragment {
         lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         messages = new ArrayList<>();
+
+        llGroupSettings = (LinearLayout) rootView.findViewById(R.id.fragment_chat_group_ll_group_settings);
+        llGroupSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentGroupsSettings groupSettings = new FragmentGroupsSettings();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, groupSettings)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         FrameLayout flBackButton = (FrameLayout) rootView.findViewById(R.id.fragment_chat_group_fl_back);
         flBackButton.setOnClickListener(new View.OnClickListener() {

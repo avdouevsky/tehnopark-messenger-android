@@ -1,6 +1,8 @@
 package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChat;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChatGroup;
 import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.GroupsListItem;
 import com.squareup.picasso.Picasso;
@@ -38,10 +42,13 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
     private TextView tvLastMessage;
     private TextView tvTime;
 
+    private FragmentManager fManager;
 
-    public GroupListAdapter(ArrayList <GroupsListItem> groupsList, Context context) {
+
+    public GroupListAdapter(ArrayList <GroupsListItem> groupsList, Context context, FragmentManager fManager) {
         this.groupsList = groupsList;
         this.context = context;
+        this.fManager = fManager;
         count = 0;
     }
 
@@ -85,6 +92,18 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
         tvName.setText(name);
         tvLastMessage.setText(lastLine);
         tvName.setText(time);
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentChatGroup chat = new FragmentChatGroup();
+                fManager.beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, chat)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
     }
 
