@@ -2,6 +2,7 @@ package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
@@ -33,6 +35,7 @@ public class FragmentAddMember extends Fragment {
     private AddMemberListAdapter adapter;
     private SelectedContactsItemAdapter adapterSelected;
     private AlertDialog alert;
+    private LinearLayout llSearch;
 
     public FragmentAddMember() {}
 
@@ -48,6 +51,20 @@ public class FragmentAddMember extends Fragment {
 
         mRootView = inflater.inflate(R.layout.fragment_add_member, container, false);
         setAdapterContent(mRootView);
+
+        llSearch = (LinearLayout) mRootView.findViewById(R.id.fragment_add_member_ll_search_bar);
+        llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentSearch search = new FragmentSearch();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, search)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
         return mRootView;
     }
 

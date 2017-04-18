@@ -2,11 +2,13 @@ package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.GroupListAdapter;
@@ -24,6 +26,8 @@ public class FragmentGroupsList extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private ArrayList<GroupsListItem> groups;
     private GroupListAdapter adapter;
+    private LinearLayout llSearch;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +37,19 @@ public class FragmentGroupsList extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        llSearch = (LinearLayout) mRootView.findViewById(R.id.ll_all_ll_search_bar);
+        llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentSearch search = new FragmentSearch();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, search)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         groups = new ArrayList<>();
 

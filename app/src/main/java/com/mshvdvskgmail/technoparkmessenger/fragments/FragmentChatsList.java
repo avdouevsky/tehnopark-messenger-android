@@ -26,6 +26,8 @@ public class FragmentChatsList extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private ArrayList<ChatsListItem> contacts;
     private ChatsListAdapter mAdapter;
+    private LinearLayout llSearch;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +37,19 @@ public class FragmentChatsList extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
+        llSearch = (LinearLayout) mRootView.findViewById(R.id.ll_all_ll_search_bar);
+        llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentSearch search = new FragmentSearch();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.container, search)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         contacts = new ArrayList<>();
 

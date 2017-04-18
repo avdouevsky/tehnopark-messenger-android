@@ -84,8 +84,10 @@ public class FragmentSearch extends Fragment {
         txCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                etSearch.setText("");
-                hideSoftKeyboard(getActivity());
+                try{
+                    etSearch.setText("");
+                    hideSoftKeyboard(getActivity());
+                } catch (Exception e){ }
             }
         });
     }
