@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChatGroup;
@@ -146,16 +147,15 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentIncomingCall call = new FragmentIncomingCall();
-                fManager.beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, call)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.INCOMING_CALL, null));
+                  //TODO FragmentIncomingCall call = new FragmentIncomingCall();
+//                fManager.beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, call)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
-
-
     }
 
     @Override
@@ -164,14 +164,13 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        View mView;
-        FrameLayout flSeparator;
-        TextView tvName;
-        TextView tvTime;
-        ImageView imageOnline;
-        ImageView imageStatus;
-        ImageView imagePicture;
+        private View mView;
+        private FrameLayout flSeparator;
+        private TextView tvName;
+        private TextView tvTime;
+        private ImageView imageOnline;
+        private ImageView imageStatus;
+        private ImageView imagePicture;
 
         public ViewHolder(View itemView) {
             super(itemView);

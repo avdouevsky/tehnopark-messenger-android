@@ -14,9 +14,11 @@ import android.widget.Toast;
 
 import com.mshvdvskgmail.technoparkmessenger.ChatController;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
@@ -147,13 +149,14 @@ public class FragmentChatsList extends BaseFragment {
         llSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentSearch search = new FragmentSearch();
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, search)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.SEARCH, null));
+                //TODO FragmentSearch search = new FragmentSearch();
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, search)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
     }

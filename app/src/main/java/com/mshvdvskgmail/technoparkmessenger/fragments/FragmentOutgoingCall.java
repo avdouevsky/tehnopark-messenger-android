@@ -15,9 +15,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
 import org.w3c.dom.Text;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -146,13 +149,13 @@ public class FragmentOutgoingCall extends Fragment {
         frameEndCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                FragmentDeniedCall call = new FragmentDeniedCall();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, call)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.DENIED_CALL, null));
+                //TODO FragmentDeniedCall call = new FragmentDeniedCall();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, call)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
     }

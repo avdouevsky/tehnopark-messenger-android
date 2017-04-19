@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
@@ -28,6 +29,7 @@ import com.mshvdvskgmail.technoparkmessenger.adapters.GroupFilesAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.GroupMembersAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ProfileFilesAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.SideSelector;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.MemberListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.ProfileAttachment;
@@ -36,6 +38,8 @@ import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.network.model.ChatUser;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -240,13 +244,14 @@ public class FragmentGroupsSettings extends Fragment {
         flAddMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentAddMember addMember = new FragmentAddMember();
-                getFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, addMember)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.ADD_MEMBER, null));
+                //TODO FragmentAddMember addMember = new FragmentAddMember();
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, addMember)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 
@@ -254,14 +259,15 @@ public class FragmentGroupsSettings extends Fragment {
         llMedia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentMedia addMember = new FragmentMedia();
-                getFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, addMember)
-                        .addToBackStack(null)
-                        .commit();
-                alert.show();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MEDIA, null));
+                //TODO FragmentMedia addMember = new FragmentMedia();
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, addMember)
+//                        .addToBackStack(null)
+//                        .commit();
+//                alert.show();
             }
         });
     }

@@ -179,13 +179,14 @@ public class FragmentAuthorization extends BaseFragment{
         mResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentResetPassword authorization = new FragmentResetPassword();
-                getFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, authorization)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.RESET_PASSWORD, null));
+                //TODO FragmentResetPassword authorization = new FragmentResetPassword();
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, authorization)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 

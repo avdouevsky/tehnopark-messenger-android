@@ -11,8 +11,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.GroupsListItem;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
@@ -21,6 +23,8 @@ import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChatGroup;
 import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.GroupsListItem;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -113,12 +117,13 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentChatGroup chat = new FragmentChatGroup();
-                fManager.beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, chat)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.CHAT_GROUP, null));
+                //TODO FragmentChatGroup chat = new FragmentChatGroup();
+//                fManager.beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, chat)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 

@@ -11,10 +11,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatGroupListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.models.MessageChatItem;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -44,13 +48,14 @@ public class FragmentChatGroup extends Fragment {
         llGroupSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentGroupsSettings groupSettings = new FragmentGroupsSettings();
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, groupSettings)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.GROUPS_SETTINGS, null));
+                //TODO FragmentGroupsSettings groupSettings = new FragmentGroupsSettings();
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, groupSettings)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 
@@ -58,13 +63,14 @@ public class FragmentChatGroup extends Fragment {
         flBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, main)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MAIN_FOUR_TAB_SCREEN, null));
+                //TODO FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
+//                getActivity().getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, main)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 

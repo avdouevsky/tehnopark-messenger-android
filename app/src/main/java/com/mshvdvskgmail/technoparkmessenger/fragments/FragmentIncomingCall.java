@@ -15,8 +15,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -69,13 +73,14 @@ public class FragmentIncomingCall extends Fragment {
         frameDeny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentDeniedCall deniedCall = new FragmentDeniedCall();
-                getFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, deniedCall)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.DENIED_CALL, null));
+                //TODO FragmentDeniedCall deniedCall = new FragmentDeniedCall();
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, deniedCall)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 

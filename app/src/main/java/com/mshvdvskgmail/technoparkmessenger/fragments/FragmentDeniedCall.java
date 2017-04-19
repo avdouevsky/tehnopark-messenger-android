@@ -11,8 +11,12 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -55,12 +59,13 @@ public class FragmentDeniedCall extends Fragment {
         frameCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentMainFourTabScreen mainScreen = new FragmentMainFourTabScreen();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, mainScreen)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MAIN_FOUR_TAB_SCREEN, null));
+                //TODO FragmentMainFourTabScreen mainScreen = new FragmentMainFourTabScreen();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, mainScreen)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 
@@ -68,13 +73,14 @@ public class FragmentDeniedCall extends Fragment {
         frameCallback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentOutgoingCall outgoingCall = new FragmentOutgoingCall();
-                getFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, outgoingCall)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.OUTGOING_CALL, null));
+                //TODO FragmentOutgoingCall outgoingCall = new FragmentOutgoingCall();
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, outgoingCall)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 

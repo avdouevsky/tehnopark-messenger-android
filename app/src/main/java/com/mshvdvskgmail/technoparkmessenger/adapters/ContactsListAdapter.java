@@ -18,7 +18,9 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentProfile;
 import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
 import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
@@ -28,6 +30,8 @@ import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -130,12 +134,13 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentProfile profile = new FragmentProfile();
-                fManager.beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, profile)
-                        .addToBackStack(null)
-                        .commit();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.PROFILE, null));
+                //TODO FragmentProfile profile = new FragmentProfile();
+//                fManager.beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, profile)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 
