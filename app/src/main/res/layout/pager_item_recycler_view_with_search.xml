@@ -47,7 +47,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pager_recycler"
+        android:id="@+id/recycler_view_all"
         android:background="@color/media_background_grey"
         xmlns:android="http://schemas.android.com/apk/res/android">
     </android.support.v7.widget.RecyclerView>

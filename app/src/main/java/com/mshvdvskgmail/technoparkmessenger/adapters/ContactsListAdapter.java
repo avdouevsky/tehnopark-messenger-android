@@ -164,7 +164,9 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
 
     @Override
     public int getItemCount() {
-        return contactsList.size();
+        return 0;
+        //TODO
+        //return contactsList.size();
     }
 
     public Object[] getSections() {
@@ -206,9 +208,6 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         viewHolder.header.setText(""+contactsList.get(position).cn.charAt(0));
 
     }
-
-
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 

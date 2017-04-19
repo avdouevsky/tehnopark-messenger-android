@@ -213,13 +213,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void take_me_back (View v) {
-        FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .replace(R.id.container, main)
-                .addToBackStack(null)
-                .commit();
+//TODO
+//        FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                .replace(R.id.container, main)
+//                .addToBackStack(null)
+//                .commit();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

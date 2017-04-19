@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentChatGroup;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentIncomingCall;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentOutgoingCall;
@@ -20,6 +21,8 @@ import com.mshvdvskgmail.technoparkmessenger.models.CallsList;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.SipCall;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
@@ -109,20 +112,22 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
         if (isOnline) {
             imageOnline.setVisibility(View.VISIBLE);
         } else imageOnline.setVisibility(View.GONE);
-        REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, currentItem.Opposite().id).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.body() == "1") {
-//                    itemOnline.setVisibility(View.VISIBLE);
-                }
-//                else itemOnline.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-//                itemOnline.setVisibility(View.GONE);
-            }
-        });
+        //TODO
+//        REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id,
+//                Controller.getInstance().getAuth().getUser().token.token, currentItem.Opposite().id).enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//                if (response.body() == "1") {
+////                    itemOnline.setVisibility(View.VISIBLE);
+//                }
+////                else itemOnline.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+////                itemOnline.setVisibility(View.GONE);
+//            }
+//        });
 
 //}catch (NullPointerException e){
 //

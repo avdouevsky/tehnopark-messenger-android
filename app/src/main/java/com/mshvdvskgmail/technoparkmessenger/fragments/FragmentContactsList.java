@@ -29,24 +29,38 @@ import rx.android.schedulers.AndroidSchedulers;
 
 public class FragmentContactsList  extends Fragment {
 
-    private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<User> contacts;
+    private ArrayList<User> contacts = new ArrayList<>();
     private ContactsListAdapter mAdapter;
     private StickyHeaderDecoration decor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.recycler_view_contacts, container, false);
+        View view = inflater.inflate(R.layout.recycler_view_contacts, container, false);
 
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_contacts_rv_contacts);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_contacts_rv_contacts);
+        SideSelector sideSelector = (SideSelector) view.findViewById(R.id.recycler_view_contacts_ss_side_selector);
+
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        contacts = new ArrayList<>();
+        decor = new StickyHeaderDecoration(mAdapter);
+        mRecyclerView.addItemDecoration(decor, 0);
 
+        mAdapter = new ContactsListAdapter(contacts, getContext());
+        mRecyclerView.setAdapter(mAdapter);
+
+        sideSelector.setRecyclerView(mRecyclerView);
+
+        loadData();
+
+        return view;
+    }
+
+    private void loadData(){
+        contacts.addAll(Controller.getInstance().getContacts());
 //        ContactsListItem dummyObject1 = new ContactsListItem();
 //        dummyObject1.setName("Пушкин1");
 //        dummyObject1.setOfficePosition("fucker1");
@@ -88,7 +102,6 @@ public class FragmentContactsList  extends Fragment {
 
         }*/
 
-        contacts.addAll(Controller.getInstance().getContacts());
 
 //        REST.getInstance().contacts(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, "")
 //                .observeOn(AndroidSchedulers.mainThread())
@@ -119,13 +132,5 @@ public class FragmentContactsList  extends Fragment {
                 });*/
 
 //        mAdapter = new ContactsListAdapter(contacts, getContext(), getActivity().getSupportFragmentManager());
-        decor = new StickyHeaderDecoration(mAdapter);
-        mRecyclerView.addItemDecoration(decor, 0);
-        mRecyclerView.setAdapter(mAdapter);
-
-        SideSelector sideSelector = (SideSelector) mRootView.findViewById(R.id.recycler_view_contacts_ss_side_selector);
-        sideSelector.setRecyclerView(mRecyclerView);
-
-        return mRootView;
     }
 }
