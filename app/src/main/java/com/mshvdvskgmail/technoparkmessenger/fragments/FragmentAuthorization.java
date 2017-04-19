@@ -1,6 +1,7 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mshvdvskgmail.technoparkmessenger.BuildConfig;
 import com.mshvdvskgmail.technoparkmessenger.ChatController;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
@@ -43,16 +45,11 @@ import rx.functions.Func1;
 public class FragmentAuthorization extends Fragment{
     private final static String TAG  = FragmentAuthorization.class.toString();
 
-   // private View mRootView;
-    private AlertDialog alert;
     private EditText emailField;
     private EditText passwordField;
     private TextView mAuthorizationButton;
     private ImageView cancelCross1;
     private ImageView cancelCross2;
-    private String s1;
-    private String s2;
-
 
     public FragmentAuthorization() {}
 
@@ -63,41 +60,34 @@ public class FragmentAuthorization extends Fragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mRootView = inflater.inflate(R.layout.fragment_athorization, container, false);
 
-//        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-        setButtonListeners(mRootView);
-
-        /* setting the watcher */
-        emailField = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_email);
+        cancelCross1 = (ImageView) mRootView.findViewById(R.id.fragment_authorization_image_cancel_cross_first);
+        cancelCross2 = (ImageView) mRootView.findViewById(R.id.fragment_authorization_image_cancel_cross_second);
+        mAuthorizationButton = (TextView) mRootView.findViewById(R.id.fragment_authorization_tv_enter);
+        emailField = (EditText) mRootView.findViewById(R.id.fragment_authorization_et);
         passwordField = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_password);
+
+        mAuthorizationButton.setEnabled(false);
+        if(BuildConfig.DEBUG){
+            emailField.setText("testme1");
+            passwordField.setText("Hello123test");
+            mAuthorizationButton.setEnabled(true);
+        }
+
         emailField.addTextChangedListener(textWatcher);
         passwordField.addTextChangedListener(textWatcher);
+
+        setButtonListeners(mRootView);
 
         return mRootView;
     }
 
     private void setButtonListeners(View mRootView) {
-
-        /* the "ВОЙТИ" button */
-
-        mAuthorizationButton = (TextView) mRootView.findViewById(R.id.fragment_authorization_tv_enter);
-        mAuthorizationButton.setEnabled(false);
         mAuthorizationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                FragmentIncomingCall incomingCall = new FragmentIncomingCall();
-//                getFragmentManager()
-//                        .beginTransaction()
-//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                        .replace(R.id.container, incomingCall)
-//                        .addToBackStack(null)
-//                        .commit();
                 REST.getInstance().login(emailField.getText().toString(), passwordField.getText().toString(), Controller.getInstance().deviceType(), Controller.getInstance().deviceId(), "")
                         .flatMap(new Func1<Result<User>, Observable<RabbitMQ>>() {
                             @Override
@@ -211,7 +201,7 @@ public class FragmentAuthorization extends Fragment{
 
         /* the username input delete button */
 
-        cancelCross1 = (ImageView) mRootView.findViewById(R.id.fragment_authorization_image_cancel_cross_first);
+
         cancelCross1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,7 +212,7 @@ public class FragmentAuthorization extends Fragment{
 
         /* the username input delete button */
 
-        cancelCross2 = (ImageView) mRootView.findViewById(R.id.fragment_authorization_image_cancel_cross_second);
+
         cancelCross2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,59 +229,20 @@ public class FragmentAuthorization extends Fragment{
 //                etPassword.requestFocus();
 //            }
 //        });
-
-
     }
 
     private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
 
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3)
-        {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            checkFieldsForEnteredValues();
-            checkFieldsForEmptyValues();
-        }
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {}
 
         @Override
         public void afterTextChanged(Editable editable) {
+            mAuthorizationButton.setEnabled(!emailField.getText().toString().isEmpty() && !passwordField.getText().toString().isEmpty());
+            cancelCross1.setVisibility(emailField.getText().toString().isEmpty() ? View.GONE : View.VISIBLE);
+            cancelCross1.setVisibility(passwordField.getText().toString().isEmpty() ? View.GONE : View.VISIBLE);
         }
     };
-
-    private void checkFieldsForEnteredValues() {
-
-        s1 = emailField.getText().toString();
-        s2 = passwordField.getText().toString();
-
-        if (s1.equals("") && s2.equals("")) {
-            mAuthorizationButton.setEnabled(false);
-        } else if (!s1.equals("")&&s2.equals("")) {
-            mAuthorizationButton.setEnabled(false);
-        } else if (!s2.equals("")&&s1.equals("")) {
-            mAuthorizationButton.setEnabled(false);
-        } else {
-            mAuthorizationButton.setEnabled(true);
-        }
-    }
-
-    private void checkFieldsForEmptyValues() {
-
-        s1 = emailField.getText().toString();
-        s2 = passwordField.getText().toString();
-
-        if (s1.length()>0){
-            cancelCross1.setVisibility(View.VISIBLE);
-        }
-
-        if (s2.length()>0){
-            cancelCross2.setVisibility(View.VISIBLE);
-        }
-
-    }
-
-
 }

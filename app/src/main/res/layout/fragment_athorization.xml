@@ -37,21 +37,20 @@
                 android:layout_marginLeft="16dp" />
 
             <EditText
+                android:inputType="textPersonName"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:hint="@string/corporate_email_hint"
                 android:textColorHint="#9096A0"
                 android:background="@android:color/transparent"
-                android:cursorVisible="false"
+                android:cursorVisible="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="15dp"
                 android:textSize="13sp"
                 android:textColor="@color/colorWhiteText"
                 android:letterSpacing="0.09"
                 fontPath="fonts/GothamProBold.ttf"
-                android:id="@+id/fragment_authorization_et_email"/>
-
-
+                android:id="@+id/fragment_authorization_et"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -70,7 +69,7 @@
             android:layout_height="1dp"
             android:layout_gravity="center_horizontal"
             android:background="@color/colorWhiteTransparent40"
-            android:layout_marginTop="-4dp"></FrameLayout>
+            android:layout_marginTop="-4dp"/>
 
         <LinearLayout
             android:layout_width="285dp"
@@ -125,7 +124,8 @@
             android:layout_width="286dp"
             android:layout_height="50dp"
             android:layout_marginTop="45dp"
-            android:text="ВОЙТИ"
+            android:textAllCaps="true"
+            android:text="Войти"
             android:textColor="@drawable/selector_white_gray"
             android:layout_gravity="center"
             android:gravity="center"
@@ -145,6 +145,7 @@
             <TextView
                 android:layout_width="175dp"
                 android:layout_height="45dp"
+                android:textAllCaps="true"
                 android:text="@string/restore_password"
                 android:textSize="10sp"
                 android:textColor="#10b4fa"

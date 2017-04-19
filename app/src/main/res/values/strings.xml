@@ -5,7 +5,7 @@
     <string name="edittext_hint"><font size="13">Напишите сообщение...</font></string>
     <string name="searchtext_hint"><font size="11">Поиск</font></string>
 
-    <string name="restore_password">ВОССТАНОВЛЕНИЕ ПАРОЛЯ<u></u></string>
+    <string name="restore_password">Восстановление пароля<u></u></string>
     <string name="reset_password">Восстановление пароля</string>
     <string name="reset_password_tip">Для восстановления пароля обратитесь к техническому специалисту</string>
     <string name="reset_password_ok">ОК, СПАСИБО</string>
