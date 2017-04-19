@@ -92,13 +92,13 @@ public class FragmentDocumentsList extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
 //        Log.d(TAG, "onMessageEvent");
-        if (event.state){
-            adapter.isAnimated = true;
-            adapter.notifyDataSetChanged();
-        } else {
-            adapter.isAnimated = true;
-            adapter.notifyDataSetChanged();
-        }
+//        if (event.state){
+//            adapter.isAnimated = true;
+//            adapter.notifyDataSetChanged();
+//        } else {
+//            adapter.isAnimated = true;
+//            adapter.notifyDataSetChanged();
+//        }
     }
 
 }

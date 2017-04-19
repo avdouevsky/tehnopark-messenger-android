@@ -113,19 +113,20 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.body() == "1") {
-                    itemOnline.setVisibility(View.VISIBLE);
-                } else itemOnline.setVisibility(View.GONE);
+//                    itemOnline.setVisibility(View.VISIBLE);
+                }
+//                else itemOnline.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                itemOnline.setVisibility(View.GONE);
+//                itemOnline.setVisibility(View.GONE);
             }
         });
 
-}catch (NullPointerException e){
-
-}
+//}catch (NullPointerException e){
+//
+//}
 
         if (isMissed) {
             imageStatus.setVisibility(View.GONE);

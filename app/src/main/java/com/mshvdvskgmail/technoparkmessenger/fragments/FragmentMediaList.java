@@ -104,14 +104,14 @@ public class FragmentMediaList extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         Log.d(TAG, "onMessageEvent");
-        if (event.state){
-            adapter.isSelecting = true;
-            adapter.notifyDataSetChanged();
-        } else {
-            adapter.isSelecting = false;
-            adapter.clearSelected();
-            adapter.notifyDataSetChanged();
-        }
+//        if (event.state){
+//            adapter.isSelecting = true;
+//            adapter.notifyDataSetChanged();
+//        } else {
+//            adapter.isSelecting = false;
+//            adapter.clearSelected();
+//            adapter.notifyDataSetChanged();
+//        }
     }
 
 }

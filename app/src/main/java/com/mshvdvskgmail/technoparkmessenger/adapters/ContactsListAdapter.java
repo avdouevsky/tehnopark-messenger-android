@@ -86,7 +86,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
     }
 
     @Override
-    public void onBindViewHolder(ContactsListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ContactsListAdapter.ViewHolder holder, int position) {
         if (position+1 == contactsList.size() || contactsList.get(position).cn.charAt(0) !=
                 contactsList.get(position+1).cn.charAt(0)){
             frameSeparator = holder.mFrameLayout;
@@ -115,16 +115,17 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         tvName.setText(name);
         tvPosition.setText(officePosition);
 
-        REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, currentItem.id).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.body() == "1") {
-                    imageItemOnline.setVisibility(View.VISIBLE);
-                } else imageItemOnline.setVisibility(View.GONE);
-            }
+//        REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, currentItem.id).enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//                if (response.body() == "1") {
+//                    imageItemOnline.setVisibility(View.VISIBLE);
+//                } else imageItemOnline.setVisibility(View.GONE);
+//            }
 //        if (isOnline) {
 //            imageOnline.setVisibility(View.VISIBLE);
 //        } else imageOnline.setVisibility(View.GONE);
+
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,24 +141,24 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
 
     }
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                imageItemOnline.setVisibility(View.GONE);
-            }
-        });
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+//                imageItemOnline.setVisibility(View.GONE);
+//            }
+//        });
 
 
-        ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.profile_icon);
-        Picasso.with(context)
-                .load("http://213.247.249.84/basic/web/index.php?r=messages/json/avatar&name="+currentItem.name)
-//                .load("http://213.247.249.84/basic/web/index.php?r=messages/json/avatar&name=testme1")
-//                    .networkPolicy(NetworkPolicy.OFFLINE)
-                .placeholder(R.drawable.pushkin)
-                .error(R.drawable.pushkin)
-                .centerCrop()
-                .resize(300, 300)
-                .onlyScaleDown()
-                .transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
+//        ImageView profileIcon = (ImageView) holder.mView.findViewById(R.id.profile_icon);
+//        Picasso.with(context)
+//                .load("http://213.247.249.84/basic/web/index.php?r=messages/json/avatar&name="+currentItem.name)
+////                .load("http://213.247.249.84/basic/web/index.php?r=messages/json/avatar&name=testme1")
+////                    .networkPolicy(NetworkPolicy.OFFLINE)
+//                .placeholder(R.drawable.pushkin)
+//                .error(R.drawable.pushkin)
+//                .centerCrop()
+//                .resize(300, 300)
+//                .onlyScaleDown()
+//                .transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
     }
 
@@ -229,7 +230,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
             imagePicture = (ImageView) itemView.findViewById(R.id.recycler_item_contacts_image_picture);
             imageOnline = (ImageView) itemView.findViewById(R.id.recycler_item_contacts_image_online);
             frameSeparator = (FrameLayout) itemView.findViewById(R.id.recycler_item_contacts_fl_separator);
-            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.item_separator);
+//            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.item_separator);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

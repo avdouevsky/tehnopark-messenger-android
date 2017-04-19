@@ -76,18 +76,18 @@ public class FragmentAddMember extends BaseFragment {
         mRootView = inflater.inflate(R.layout.fragment_add_member, container, false);
         setAdapterContent(mRootView);
 
-        llSearch = (LinearLayout) mRootView.findViewById(R.id.fragment_add_member_ll_search_bar);
-        llSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentSearch search = new FragmentSearch();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, search)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
+//        llSearch = (LinearLayout) mRootView.findViewById(R.id.fragment_add_member_ll_search_bar);
+//        llSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FragmentSearch search = new FragmentSearch();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, search)
+//                        .addToBackStack(null)
+//                        .commit();
+//            }
+//        });
 
         return mRootView;
     }

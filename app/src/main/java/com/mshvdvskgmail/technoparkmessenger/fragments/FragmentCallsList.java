@@ -38,7 +38,7 @@ public class FragmentCallsList extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
+        mRootView = inflater.inflate(R.layout.pager_item_recycler_view_with_search, container, false);
 //        mRootView = inflater.inflate(R.layout.recycler_view_basic, container, false);
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_all);

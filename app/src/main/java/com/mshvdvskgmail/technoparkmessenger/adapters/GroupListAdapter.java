@@ -52,22 +52,18 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
     private FrameLayout itemNewNotifi;
     private TextView itemNotifiCount;
 
-
-    public GroupListAdapter(ArrayList <Chat> groupsList, Context context) {
-        this.groupsList = groupsList;
-        this.context = context;
-
-
     private TextView tvName;
     private TextView tvLastMessage;
     private TextView tvTime;
 
     private FragmentManager fManager;
 
-
-    public GroupListAdapter(ArrayList <GroupsListItem> groupsList, Context context, FragmentManager fManager) {
+    public GroupListAdapter(ArrayList <Chat> groupsList, Context context) {
         this.groupsList = groupsList;
         this.context = context;
+//    public GroupListAdapter(ArrayList <GroupsListItem> groupsList, Context context, FragmentManager fManager) {
+//        this.groupsList = groupsList;
+//        this.context = context;
         this.fManager = fManager;
         count = 0;
     }
@@ -102,9 +98,9 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
         currentItem = groupsList.get(count);
         count++;
 
-        name = currentItem.getName();
-        lastLine = currentItem.getLastMessage();
-        time = currentItem.getTime();
+//        name = currentItem.getName();
+//        lastLine = currentItem.getLastMessage();
+//        time = currentItem.getTime();
 
         tvName = holder.tvName;
         tvLastMessage = holder.tvLastMessage;

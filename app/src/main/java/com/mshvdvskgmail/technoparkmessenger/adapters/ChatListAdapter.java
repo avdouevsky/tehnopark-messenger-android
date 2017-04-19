@@ -159,35 +159,35 @@ Log.w(TAG, "message type "+viewType);
 
                 tvText.setText(messagesList.get(position).message);
                 tvTime.setText(messagesList.get(position).getTimeAsString());
-                tvText.setText(messagesList.get(position).getText());
+//                tvText.setText(messagesList.get(position).getText());
                 tvTime.setText(messagesList.get(position).getTime());
 
                   /* if outgoing, show status */
-                if (messagesList.get(position).getType() == 1) {
-
-                    status = messagesList.get(position).getStatus();
-                    switch (status) {
-                        case 0:
-                            imageStatus.setVisibility(View.GONE);
-                            break;
-                        case 1:
-                            imageStatus.setVisibility(View.VISIBLE);
-                            imageStatus.setImageResource(R.drawable.ic_message_pending);
-                            break;
-                        case 2:
-                            imageStatus.setVisibility(View.VISIBLE);
-                            imageStatus.setImageResource(R.drawable.ic_message_sent);
-                            break;
-                        case 3:
-                            imageStatus.setVisibility(View.VISIBLE);
-                            imageStatus.setImageResource(R.drawable.ic_message_recieved);
-                            break;
-                        case 4:
-                            imageStatus.setVisibility(View.VISIBLE);
-                            imageStatus.setImageResource(R.drawable.ic_message_read);
-                            break;
-                    }
-                }
+//                if (messagesList.get(position).getType() == 1) {
+//
+//                    status = messagesList.get(position).getStatus();
+//                    switch (status) {
+//                        case 0:
+//                            imageStatus.setVisibility(View.GONE);
+//                            break;
+//                        case 1:
+//                            imageStatus.setVisibility(View.VISIBLE);
+//                            imageStatus.setImageResource(R.drawable.ic_message_pending);
+//                            break;
+//                        case 2:
+//                            imageStatus.setVisibility(View.VISIBLE);
+//                            imageStatus.setImageResource(R.drawable.ic_message_sent);
+//                            break;
+//                        case 3:
+//                            imageStatus.setVisibility(View.VISIBLE);
+//                            imageStatus.setImageResource(R.drawable.ic_message_recieved);
+//                            break;
+//                        case 4:
+//                            imageStatus.setVisibility(View.VISIBLE);
+//                            imageStatus.setImageResource(R.drawable.ic_message_read);
+//                            break;
+//                    }
+//                }
 
                 /* setting blob corner and blob margin */
 
@@ -415,7 +415,7 @@ Log.w(TAG, "message type "+viewType);
 
                 MissedCallHolder missCallHolder = (MissedCallHolder) holder;
                 tvText = missCallHolder.text;
-                tvText.setText(messagesList.get(position).getText());
+//                tvText.setText(messagesList.get(position).getText());
                 break;
 
             case 7:
@@ -482,7 +482,7 @@ Log.w(TAG, "message type "+viewType);
         public MessageViewHolder(View itemView) {
             super(itemView);
             view = itemView;
-            name = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_name);
+//            name = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_name);
             text = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_text);
             time = (TextView) itemView.findViewById(R.id.recycler_item_message_text_tv_time);
             status = (ImageView) itemView.findViewById(R.id.recycler_item_message_text_image_delivery_status);
@@ -533,7 +533,7 @@ Log.w(TAG, "message type "+viewType);
             super(itemView);
             view = itemView;
             tvFileType = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_type);
-            tvFileName = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_name);
+//            tvFileName = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_name);
             tvFileSize = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_size);
             tvTime = (TextView) itemView.findViewById(R.id.recycler_item_message_file_tv_time);
             imageStatus = (ImageView) itemView.findViewById(R.id.recycler_item_message_file_image_delivery_status);

@@ -58,14 +58,14 @@ public class AddMemberListAdapter extends RecyclerView.Adapter<AddMemberListAdap
         this.context = context;
         this.selected_contacts = selected_contacts;
         this.parentFragment = fragment;
-    public boolean isSelecting;
-
-
-    public AddMemberListAdapter(ArrayList <ContactsListItem> contacts, Context context) {
-        this.contacts = contacts;
-        this.context = context;
-        mInflater = LayoutInflater.from(context);
     }
+
+
+//    public AddMemberListAdapter(ArrayList <ContactsListItem> contacts, Context context) {
+//        this.contacts = contacts;
+//        this.context = context;
+//        mInflater = LayoutInflater.from(context);
+//    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
