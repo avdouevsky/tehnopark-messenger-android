@@ -1,11 +1,15 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
-import android.support.v4.app.Fragment;
+import android.os.Bundle;
 
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.MessageEvent;
+import com.mshvdvskgmail.technoparkmessenger.events.SetTitleEvent;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 
@@ -19,21 +23,51 @@ import java.util.ArrayList;
  * Created by vlad on 07.04.17.
  */
 
-public class BaseFragment extends Fragment{
+public class BaseFragment extends Fragment {
     private final static String TAG = BaseFragment.class.toString();
 
+    public static Fragment newInstance(Fragments screenKey, Bundle data) {
+        Fragment fragment;
+
+        switch (screenKey){
+            case AUTHORIZATION:
+                fragment = new FragmentAuthorization();
+                fragment.setArguments(data);
+                return fragment;
+            case MAIN_FOUR_TAB_SCREEN:
+                fragment = new FragmentMainFourTabScreen();
+                fragment.setArguments(data);
+                return fragment;
+            default:
+                fragment = new SimpleFragment();
+                if(data == null) data = new Bundle();
+                data.putString(SimpleFragment.TEXT, screenKey.toString());
+                fragment.setArguments(data);
+                return fragment;
+        }
+    }
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
         EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        if(ArgsBuilder.create(getArguments()).title() != null){
+            EventBus.getDefault().post(new SetTitleEvent(ArgsBuilder.create(getArguments()).title()));
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public final void onEvent(DataLoadEvent event) {

@@ -16,7 +16,7 @@ import com.mshvdvskgmail.technoparkmessenger.R;
  * Created by mshvdvsk on 07/03/2017.
  */
 
-public class FragmentResetPassword extends Fragment{
+public class FragmentResetPassword extends BaseFragment{
     private View mRootView;
     private AlertDialog alert;
     private TextView acceptButton;
@@ -51,7 +51,7 @@ public class FragmentResetPassword extends Fragment{
 
                 /*  show toast reaction */
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setTitle("ОК, СПАСИБО");
                 alertDialog.setMessage("Все работает ок, не так ли?");
                 alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {

@@ -191,11 +191,12 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
             @Override
             public void onClick(View v) {
                 FragmentChat chat = new FragmentChat();
-                fManager.beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, chat)
-                        .addToBackStack(null)
-                        .commit();
+                //TODO
+//                fManager.beginTransaction()
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                        .replace(R.id.container, chat)
+//                        .addToBackStack(null)
+//                        .commit();
             }
         });
 

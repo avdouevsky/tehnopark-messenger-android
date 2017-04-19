@@ -11,6 +11,7 @@ import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 
 public class ArgsBuilder {
     public static final String USER_UNIQUE_ID = "USER_UNIQUE_ID";
+    public static final String TOOLBAR_TITLE = "TOOLBAR_TITLE";
 //    public static final String BAR_ID = "BAR_ID";
 
     private Bundle bundle;
@@ -49,13 +50,18 @@ public class ArgsBuilder {
         return put(USER_UNIQUE_ID, user.unique_id);
     }
 
-/*    public ArgsBuilder bar(Bar bar){
-        Controller.getInstance().putPlace(bar);
-        return put(BAR_ID, bar.id);
-    }*/
+    public ArgsBuilder title(String title){
+        return put(TOOLBAR_TITLE, title);
+    }
+
 
     public int get(String key, int def){
         return bundle.getInt(key, def);
+    }
+
+    @Nullable
+    public String title(){
+        return bundle.getString(TOOLBAR_TITLE, null);
     }
 
     /**

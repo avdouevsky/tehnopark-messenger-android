@@ -1,48 +1,42 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
-import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mshvdvskgmail.technoparkmessenger.BuildConfig;
 import com.mshvdvskgmail.technoparkmessenger.ChatController;
+import com.mshvdvskgmail.technoparkmessenger.Consts;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.RMQChat;
 import com.mshvdvskgmail.technoparkmessenger.network.RabbitMQ;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Result;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
-//import com.mshvdvskgmail.technoparkmessenger.services.RabbitMQService;
 
-import java.util.UUID;
+import org.greenrobot.eventbus.EventBus;
 
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 
 /**
  * Created by mshvdvsk on 07/03/2017.
  */
 
-public class FragmentAuthorization extends Fragment{
+public class FragmentAuthorization extends BaseFragment{
     private final static String TAG  = FragmentAuthorization.class.toString();
 
     private EditText emailField;
@@ -92,14 +86,11 @@ public class FragmentAuthorization extends Fragment{
                         .flatMap(new Func1<Result<User>, Observable<RabbitMQ>>() {
                             @Override
                             public Observable<RabbitMQ> call(Result<User> userResult) {
-//                                user = userResult.data;
                                 Controller.getInstance().getAuth().user = userResult.data;
-                                    ChatController.getInstance().r = new RMQChat("amqp://tmes:tmespass@t-mes.xsrv.ru:5672/%2Ftmes%2Fchat", 20, userResult.data.queue);
-                                    return ChatController.getInstance().r.connectAndSubscribe();
+                                ChatController.getInstance().r = new RMQChat(Consts.Network.AMQP_API, 20, userResult.data.queue);
 
-                                //{"type":"rabbit","version":1,"date":1490606701,"headers":[],
+                                return ChatController.getInstance().r.connectAndSubscribe();
                             }
-
                         })
                         .subscribe(new Subscriber<RabbitMQ>() {
                             @Override
@@ -113,7 +104,7 @@ public class FragmentAuthorization extends Fragment{
                                 Log.d(TAG, "onError " + e.getMessage());
                                 e.printStackTrace();
                                 //где то произошел косяк, либо сайт, илбо реббит, либо интернет
-                                Toast.makeText(getContext(), "Ошибка авторизации", Toast.LENGTH_LONG);
+                                Toast.makeText(getActivity(), "Ошибка авторизации", Toast.LENGTH_LONG);
                             }
 
                             @Override
@@ -125,14 +116,14 @@ public class FragmentAuthorization extends Fragment{
 //                                Controller.getInstance().fillContacts();
 //                                Controller.getInstance().fillChats();
 //                                Controller.getInstance().fillGroupChats();
-                                FragmentMainFourTabScreen mainScreen = new FragmentMainFourTabScreen();
-                                getFragmentManager()
-                                        .beginTransaction()
-                                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                                        .replace(R.id.container, mainScreen)
-//                                        .addToBackStack(null)
-                                        .commit();
-
+                                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MAIN_FOUR_TAB_SCREEN, null, SwitchFragmentEvent.Direction.REPLACE));
+//                                FragmentMainFourTabScreen mainScreen = new FragmentMainFourTabScreen();
+//                                getFragmentManager()
+//                                        .beginTransaction()
+////                                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                                        .replace(R.id.container, mainScreen)
+////                                        .addToBackStack(null)
+//                                        .commit();
                             }
                         });
 //
@@ -184,7 +175,6 @@ public class FragmentAuthorization extends Fragment{
         });
 
         /* the "ВОССТАНОВЛЕНИЕ ПАРОЛЯ" button */
-
         TextView mResetPassword = (TextView) mRootView.findViewById(R.id.fragment_authorization_tv_reset);
         mResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,9 +189,6 @@ public class FragmentAuthorization extends Fragment{
             }
         });
 
-        /* the username input delete button */
-
-
         cancelCross1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,9 +197,6 @@ public class FragmentAuthorization extends Fragment{
             }
         });
 
-        /* the username input delete button */
-
-
         cancelCross2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,15 +204,6 @@ public class FragmentAuthorization extends Fragment{
                 cancelCross2.setVisibility(View.GONE);
             }
         });
-
-//        EditText etEmail = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_email);
-//        final EditText etPassword = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_password);
-//        etEmail.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                etPassword.requestFocus();
-//            }
-//        });
     }
 
     private TextWatcher textWatcher = new TextWatcher() {
