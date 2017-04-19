@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.view.ChatItemView;
 
@@ -45,12 +46,12 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ChatsListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ChatsListAdapter.ViewHolder holder, final int position) {
         holder.getView().setData(chatsList.get(position));
         holder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.CHAT, null));
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.CHAT, ArgsBuilder.create().chat(chatsList.get(position)).bundle()));
             }
         });
     }

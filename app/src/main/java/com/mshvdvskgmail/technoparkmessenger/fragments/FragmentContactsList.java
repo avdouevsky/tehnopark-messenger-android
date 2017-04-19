@@ -46,11 +46,12 @@ public class FragmentContactsList  extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        mAdapter = new ContactsListAdapter(contacts, getContext());
+        mRecyclerView.setAdapter(mAdapter);
         decor = new StickyHeaderDecoration(mAdapter);
         mRecyclerView.addItemDecoration(decor, 0);
 
-        mAdapter = new ContactsListAdapter(contacts, getContext());
-        mRecyclerView.setAdapter(mAdapter);
+
 
         sideSelector.setRecyclerView(mRecyclerView);
 

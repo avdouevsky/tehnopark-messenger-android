@@ -24,8 +24,9 @@ import java.util.ArrayList;
 
 /**
  * Created by mshvdvsk on 06/04/2017.
+ * @deprecated use FragmentChat
  */
-
+@Deprecated
 public class FragmentChatGroup extends Fragment {
     private View rootView;
     private RecyclerView recyclerView;

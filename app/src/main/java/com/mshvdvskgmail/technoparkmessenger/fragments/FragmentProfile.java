@@ -33,6 +33,7 @@ import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ProfileFilesAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.models.ProfileAttachment;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
@@ -80,7 +81,8 @@ public class FragmentProfile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        user = (User) getArguments().getSerializable("user");
+        //user = (User) getArguments().getSerializable("user");
+        user = ArgsBuilder.create().user();
 
         mRootView = inflater.inflate(R.layout.fragment_profile, container, false);
 

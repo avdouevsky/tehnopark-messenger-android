@@ -103,7 +103,8 @@ Log.w(TAG, "message type "+viewType);
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Message message = messagesList.get(position);
         if(message.getStatus() != Message.Status.READ) {
-            ChatController.getInstance().r.sendMessageStatus(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, activeChat.uuid, message.uuid, message.local_id, Message.Status.DELIVERED);
+            ChatController.getInstance().r.sendMessageStatus(
+                    Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, activeChat.uuid, message.uuid, message.local_id, Message.Status.DELIVERED);
         }
 
         int dpValue = 7; // margin in dips

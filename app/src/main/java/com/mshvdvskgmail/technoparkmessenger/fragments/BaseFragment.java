@@ -38,6 +38,18 @@ public class BaseFragment extends Fragment {
                 fragment = new FragmentMainFourTabScreen();
                 fragment.setArguments(data);
                 return fragment;
+            case CHAT:
+                fragment = new FragmentChat();
+                fragment.setArguments(data);
+                return fragment;
+            case PROFILE:
+                fragment = new FragmentProfile();
+                fragment.setArguments(data);
+                return fragment;
+//            case INCOMING_CALL:
+//                fragment = new FragmentIncomingCall();
+//                fragment.setArguments(data);
+//                return fragment;
             default:
                 fragment = new SimpleFragment();
                 if(data == null) data = new Bundle();

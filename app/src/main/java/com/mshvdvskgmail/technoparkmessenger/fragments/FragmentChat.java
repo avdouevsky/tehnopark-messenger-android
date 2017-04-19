@@ -1,27 +1,16 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,47 +20,27 @@ import android.widget.FrameLayout;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.models.MessageChatItem;
 
 import java.util.ArrayList;
 import android.webkit.MimeTypeMap;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mshvdvskgmail.technoparkmessenger.ChatController;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
-import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
 import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
-import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
-import com.mshvdvskgmail.technoparkmessenger.events.MessageEvent;
-import com.mshvdvskgmail.technoparkmessenger.models.MessageChatItem;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.network.model.ChatUser;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rx.android.schedulers.AndroidSchedulers;
-
-import static org.droidparts.Injector.getApplicationContext;
 
 /**
  * Created by mshvdvsk on 30/03/2017.
@@ -79,11 +48,11 @@ import static org.droidparts.Injector.getApplicationContext;
 
 public class FragmentChat extends BaseFragment {
     private static final int CHOOSE_FILE_REQUESTCODE = 10202;
-    private View rootView;
+
     private RecyclerView recyclerView;
     private LinearLayoutManager lm;
     private ArrayList<Message> messages;
-    private Chat activeChat;
+    private Chat chat;
     private ChatListAdapter mAdapter;
     private EditText w_message;
     private File selected_file;
@@ -107,26 +76,29 @@ public class FragmentChat extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        activeChat = (Chat) getArguments().getSerializable("chat");
+        //chat = (Chat) getArguments().getSerializable("chat");
+        chat = ArgsBuilder.create().chat();
 
-        rootView = inflater.inflate(R.layout.fragment_chat, container, false);
+        View root = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_chat_rv_messages);
+        recyclerView = (RecyclerView) root.findViewById(R.id.fragment_chat_rv_messages);
+        TextView tvContact = (TextView)root.findViewById(R.id.fragment_chat_tv_name);
+        final TextView tvStatus = (TextView)root.findViewById(R.id.fragment_chat_tv_online_status);
+        ImageView ivProfile = (ImageView)root.findViewById(R.id.fragment_chat_iv_profile);
+        FrameLayout call = (FrameLayout) root.findViewById(R.id.fragment_chat_fl_call);
+
         recyclerView.setHasFixedSize(true);
         lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
 
-        TextView tvContact = (TextView)rootView.findViewById(R.id.fragment_chat_tv_name);
-        final TextView tvStatus = (TextView)rootView.findViewById(R.id.fragment_chat_tv_online_status);
-//        List<User> usersList = activeChat.Users();
-        List<ChatUser> usersList = activeChat.users;
-        ImageView ivProfile = (ImageView)rootView.findViewById(R.id.fragment_chat_iv_profile);
-        FrameLayout call = (FrameLayout) rootView.findViewById(R.id.fragment_chat_fl_call);
-        if(activeChat.peer2peer == 0){
+//        List<User> usersList = chat.Users();
+        List<ChatUser> usersList = chat.users;
+
+        if(chat.peer2peer == 0){
             //групповой чат
-            tvContact.setText(activeChat.name);
-            Log.w("chat", "status: "+activeChat.admin + " v. "+Controller.getInstance().getAuth().getUser().unique_id);
-            if(activeChat.admin.equals(Controller.getInstance().getAuth().getUser().unique_id)) {
+            tvContact.setText(chat.name);
+            Log.w("chat", "status: "+ chat.admin + " v. "+Controller.getInstance().getAuth().getUser().unique_id);
+            if(chat.admin.equals(Controller.getInstance().getAuth().getUser().unique_id)) {
                 tvStatus.setText("Вы администратор");
             }else{
                 tvStatus.setText("");
@@ -134,7 +106,7 @@ public class FragmentChat extends BaseFragment {
             ivProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((MainActivity) getContext()).executeAction("showGroupSettings", activeChat);
+                    ((MainActivity) getContext()).executeAction("showGroupSettings", chat);
                 }
             });
             call.setVisibility(View.GONE);
@@ -176,13 +148,13 @@ public class FragmentChat extends BaseFragment {
 
 
 
-        w_message = (EditText) rootView.findViewById(R.id.fragment_chat_et_write_message);
+        w_message = (EditText) root.findViewById(R.id.fragment_chat_et_write_message);
         w_message.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(startTime + timeout * 1000 < System.currentTimeMillis()){
                     startTime = System.currentTimeMillis();
-                    ChatController.getInstance().r.sendUserStatus(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, activeChat.uuid, w_message.getText().toString(), "text_input");
+                    ChatController.getInstance().r.sendUserStatus(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, chat.uuid, w_message.getText().toString(), "text_input");
                 }
             }
 
@@ -196,7 +168,7 @@ public class FragmentChat extends BaseFragment {
 
             }
         });
-        FrameLayout send_message = (FrameLayout) rootView.findViewById(R.id.fragment_chat_fl_send_message);
+        FrameLayout send_message = (FrameLayout) root.findViewById(R.id.fragment_chat_fl_send_message);
 
         send_message.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,7 +177,7 @@ public class FragmentChat extends BaseFragment {
             }
         });
 
-        FrameLayout attach = (FrameLayout) rootView.findViewById(R.id.fragment_chat_fl_attach_file);
+        FrameLayout attach = (FrameLayout) root.findViewById(R.id.fragment_chat_fl_attach_file);
         attach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,7 +187,7 @@ public class FragmentChat extends BaseFragment {
 
         messages = new ArrayList<>();
 
-        FrameLayout flBackButton = (FrameLayout) rootView.findViewById(R.id.fragment_chat_fl_back);
+        FrameLayout flBackButton = (FrameLayout) root.findViewById(R.id.fragment_chat_fl_back);
         flBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -384,7 +356,7 @@ public class FragmentChat extends BaseFragment {
 ////        dummyObject6.setTime("00:40");
 ////        dummyObject6.setType(3);
 ////        dummyObject6.setStatus(4);
-        REST.getInstance().messages(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, activeChat.uuid, "0", "100")
+        REST.getInstance().messages(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, chat.uuid, "0", "100")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new REST.DataSubscriber<List<Message>>(){
                     @Override
@@ -416,14 +388,14 @@ public class FragmentChat extends BaseFragment {
         messages.add(dummyObject6111);
         messages.add(dummyObject64);*/
 
-        mAdapter = new ChatListAdapter(messages, activeChat, getContext());
+        mAdapter = new ChatListAdapter(messages, chat, getContext());
         recyclerView.setAdapter(mAdapter);
 
-        return rootView;
+        return root;
     }
 
     private void sendMessage() {
-        ChatController.getInstance().r.sendMessage(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, activeChat.uuid, w_message.getText().toString(), "no local id", null).subscribe();
+        ChatController.getInstance().r.sendMessage(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, chat.uuid, w_message.getText().toString(), "no local id", null).subscribe();
         w_message.setText("");
     }
 
@@ -433,7 +405,7 @@ public class FragmentChat extends BaseFragment {
             mAdapter.notifyDataSetChanged();
 
             recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
-            ChatController.getInstance().r.sendMessageStatus(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, activeChat.uuid, message.uuid, message.local_id, Message.Status.DELIVERED);
+            ChatController.getInstance().r.sendMessageStatus(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, chat.uuid, message.uuid, message.local_id, Message.Status.DELIVERED);
         }else if(message.getType() == Message.Type.ERROR){
             Log.e("temp", message.message);
             Toast.makeText(getContext(), "Ошибка отправки", Toast.LENGTH_LONG).show();

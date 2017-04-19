@@ -26,6 +26,7 @@ import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
 import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMainFourTabScreen;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentProfile;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
@@ -134,7 +135,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.PROFILE, null));
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.PROFILE, ArgsBuilder.create().user(currentItem).bundle()));
                 //TODO FragmentProfile profile = new FragmentProfile();
 //                fManager.beginTransaction()
 //                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -169,9 +170,7 @@ public class ContactsListAdapter extends RecyclerView.Adapter<ContactsListAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
-        //TODO
-        //return contactsList.size();
+        return contactsList.size();
     }
 
     public Object[] getSections() {

@@ -135,6 +135,7 @@ public class StickyHeaderDecoration extends RecyclerView.ItemDecoration {
         final int count = parent.getChildCount();
         long previousHeaderId = -1;
 
+        if(mAdapter != null)
         for (int layoutPos = 0; layoutPos < count; layoutPos++) {
             final View child = parent.getChildAt(layoutPos);
             final int adapterPos = parent.getChildAdapterPosition(child);
