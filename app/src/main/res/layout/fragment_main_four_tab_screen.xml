@@ -26,73 +26,60 @@
         </FrameLayout>
 
 
-        <FrameLayout
+        <!--<FrameLayout
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_gravity="right"
-            android:id="@+id/fragment_main_four_tab_fl_new_or_search">
+            android:id="@+id/fragment_main_four_tab_fl_new_or_search">-->
             <ImageView
-                android:layout_width="17dp"
-                android:layout_height="17dp"
+                android:layout_gravity="right"
+                android:scaleType="center"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:id="@+id/fragment_main_four_tab_image_new_or_search"
                 android:src="@drawable/ic_write_new"
-                android:layout_gravity="center"/>
-        </FrameLayout>
+                />
+        <!--</FrameLayout>-->
     </android.support.v7.widget.Toolbar>
 
-    <FrameLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/fragment_main_four_tab_tl_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/backGroundDarkBlue"
+        app:tabTextAppearance="@style/TabTextStyle"
+        app:tabIndicatorColor="#10b4fa"
+        app:tabIndicatorHeight="3dp"
+        app:tabSelectedTextColor="#10b4fa"
+        app:tabTextColor="@color/colorWhiteText"
+        app:tabPaddingBottom="-3dp"
+        app:tabPaddingEnd="-3dp"
+        app:tabPaddingStart="-3dp"
+        app:tabPaddingTop="-3dp"
+        app:tabMode="scrollable"
+        app:tabMinWidth="50dp">
 
-
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/fragment_main_four_tab_tl_tabs"
+        <android.support.design.widget.TabItem
+            android:text="ЧАТЫ"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+        <android.support.design.widget.TabItem
+            android:text="ГРУППЫ"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+        <android.support.design.widget.TabItem
+            android:text="КОНТАКТЫ"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+        <android.support.design.widget.TabItem
+            android:text="ВЫЗОВЫ"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/backGroundDarkBlue"
-            app:tabTextAppearance="@style/TabTextStyle"
-            app:tabIndicatorColor="#10b4fa"
-            app:tabIndicatorHeight="3dp"
-            app:tabSelectedTextColor="#10b4fa"
-            app:tabTextColor="@color/colorWhiteText"
-            app:tabPaddingBottom="-3dp"
-            app:tabPaddingEnd="-3dp"
-            app:tabPaddingStart="-3dp"
-            app:tabPaddingTop="-3dp"
-            app:tabMode="scrollable"
-            app:tabMinWidth="50dp">
+            android:layout_height="match_parent" />
 
-
-            <android.support.design.widget.TabItem
-                android:text="ЧАТЫ"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent" />
-            <android.support.design.widget.TabItem
-                android:text="ГРУППЫ"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent" />
-            <android.support.design.widget.TabItem
-                android:text="КОНТАКТЫ"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent" />
-            <android.support.design.widget.TabItem
-                android:text="ВЫЗОВЫ"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </android.support.design.widget.TabLayout>
-
-
-    </FrameLayout>
-
+    </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/fragment_main_four_tab_vp_pager"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent">
-    </android.support.v4.view.ViewPager>
-
-
+        android:layout_height="match_parent"/>
 </LinearLayout>

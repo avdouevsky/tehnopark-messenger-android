@@ -1,5 +1,6 @@
 package com.mshvdvskgmail.technoparkmessenger.network.model;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
@@ -44,6 +45,7 @@ public class Chat implements Serializable {
     public List<ChatUser> users;
 
     public int unread;
+    @Nullable
     public LastMessage last;
     public int time;
 

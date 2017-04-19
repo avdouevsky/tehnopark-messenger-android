@@ -24,12 +24,16 @@ import retrofit2.http.*;
 import retrofit2.http.Header;
 import rx.Observable;
 import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 import com.mshvdvskgmail.technoparkmessenger.Consts;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.events.ErrorEvent;
 import com.mshvdvskgmail.technoparkmessenger.network.model.*;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by andrey on 23.01.2017.
@@ -111,6 +115,7 @@ public class REST implements IService {
                                     Controller.getInstance().setSettings(settingsResult.data);
                                     return observable
                                             .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
                                             .timeout(timeout, TimeUnit.SECONDS)
                                             .retry(retries);
                                 }
@@ -118,6 +123,7 @@ public class REST implements IService {
                 }else
                     return observable
                         .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .timeout(timeout, TimeUnit.SECONDS)
                         .retry(retries);
             }
@@ -175,12 +181,12 @@ public class REST implements IService {
         return service.loginSocial(id, token, deviceId, social, social_id, social_token, add).compose(this.<Result<User>>setup());
     }*/
 
-    @Override
-    public Call<String> user_status(@Header("session-id") int session_id,
-                                                   @Header("token") String token,
-                                                   @Query("u") String name){
-        return service.user_status(session_id, token, name);
-    }
+//    @Override
+//    public Call<String> user_status(@Header("session-id") int session_id,
+//                                                   @Header("token") String token,
+//                                                   @Query("u") String name){
+//        return service.user_status(session_id, token, name);
+//    }
 
     @Override
     public Call<String> user_ext(@Header("session-id") int session_id,
@@ -189,11 +195,6 @@ public class REST implements IService {
         return service.user_ext(session_id, token, name);
     }
 
-
-//    @Override
-//    public Observable<Result<Settings>> settings(){
-//        return service.settings().compose(this.<Result<Settings>>setup());
-//    }
 
     @Override
     public Observable<Result<Settings>> settings() {
@@ -235,6 +236,10 @@ public class REST implements IService {
     public Observable<Result<List<Chat>>> chats(@Header("session-id") int session_id,
                                           @Header("token") String token){
         return service.chats(session_id, token).compose(this.<Result<List<Chat>>>setup());
+    }
+
+    public Observable<Result<List<Chat>>> chats(Token token){
+        return service.chats(token.session_id, token.token).compose(this.<Result<List<Chat>>>setup());
     }
 
     @Override
@@ -450,6 +455,8 @@ public class REST implements IService {
         @Override
         public void onError(Throwable e) {
             Log.w(TAG, "DataSubscriber.onError", e);
+
+            EventBus.getDefault().postSticky(new ErrorEvent(e));
         }
     }
 }

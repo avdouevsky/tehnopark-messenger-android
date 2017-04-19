@@ -140,24 +140,24 @@ public class FragmentChat extends BaseFragment {
             call.setVisibility(View.GONE);
         }else{
             //одиночный
-            User user = usersList.get(0).User();
+            User user = usersList.get(0).user;
             if(user.id.equals(Controller.getInstance().getAuth().getUser().id)) {
-                user = usersList.get(1).User();
+                user = usersList.get(1).user;
             }
             tvContact.setText(user.cn);
-            REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, user.id).enqueue(new Callback<String>() {
-                @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    if (response.body() == "1") {
-                        tvStatus.setText("ОНЛАЙН");
-                    } else tvStatus.setText("ОФЛАЙН");
-                }
-
-                @Override
-                public void onFailure(Call<String> call, Throwable t) {
-                    tvStatus.setText("ОФЛАЙН");
-                }
-            });
+//           TODO REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, user.id).enqueue(new Callback<String>() {
+//                @Override
+//                public void onResponse(Call<String> call, Response<String> response) {
+//                    if (response.body() == "1") {
+//                        tvStatus.setText("ОНЛАЙН");
+//                    } else tvStatus.setText("ОФЛАЙН");
+//                }
+//
+//                @Override
+//                public void onFailure(Call<String> call, Throwable t) {
+//                    tvStatus.setText("ОФЛАЙН");
+//                }
+//            });
 
             final User finalUser = user;
             ivProfile.setOnClickListener(new View.OnClickListener() {

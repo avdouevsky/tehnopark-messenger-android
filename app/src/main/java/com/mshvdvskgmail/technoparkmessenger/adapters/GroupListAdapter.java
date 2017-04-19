@@ -91,7 +91,7 @@ public class GroupListAdapter extends RecyclerView.Adapter<GroupListAdapter.View
             params.topMargin = 0;
         }
 
-        if (position==groupsList.size()-1){
+        if (position == groupsList.size() - 1){
             FrameLayout mFrameLayout = holder.mFrameLayout;
             mFrameLayout.setVisibility(View.GONE);
         }

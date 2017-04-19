@@ -107,7 +107,7 @@ public class FragmentAddMember extends BaseFragment {
         selected_contacts = new ArrayList<>();
         if(activeChat != null){
             for (ChatUser tmp_user:activeChat.users) {
-                selected_contacts.add(tmp_user.User());
+                selected_contacts.add(tmp_user.user);
             }
         }
 

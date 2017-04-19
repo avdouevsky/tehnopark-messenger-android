@@ -21,10 +21,10 @@ import com.mshvdvskgmail.technoparkmessenger.network.model.*;
 
 public interface IService {
 
-    @GET("?r=messages/json/u-s")
-    public Call<String> user_status(@Header("session-id") int session_id,
-                                                   @Header("token") String token,
-                                                   @Query("u") String name);
+//    @GET("?r=messages/json/u-s")
+//    public Call<String> user_status(@Header("session-id") int session_id,
+//                                                   @Header("token") String token,
+//                                                   @Query("u") String name);
 
     @GET("?r=messages/json/u-e")
     public Call<String> user_ext(@Header("session-id") int session_id,

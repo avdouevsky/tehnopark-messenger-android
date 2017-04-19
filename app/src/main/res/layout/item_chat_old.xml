@@ -16,10 +16,11 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_height="43dp"
-                android:layout_width="43dp"
+                android:layout_height="@dimen/chat_item_avatar_size"
+                android:layout_width="@dimen/chat_item_avatar_size"
                 android:layout_marginLeft="17dp"
                 android:layout_marginTop="18dp"
+                android:src="@drawable/icon_user"
                 android:id="@+id/recycler_item_chatslist_image_profile_pic">
 
             </ImageView>
@@ -67,7 +68,8 @@
                     android:maxLines="1"
                     android:letterSpacing="0.03"
                     android:id="@+id/recycler_item_chatslist_tv_message"
-                    fontPath="fonts/GothamPro.ttf"
+                    android:textAppearance="@style/TextAppearance.Gotham"
+
                     android:layout_marginLeft="13dp"
                     android:ellipsize="end"
                     android:maxWidth="190dp"/>

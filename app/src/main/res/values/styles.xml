@@ -14,7 +14,56 @@
 
     <style name="Color1SwitchStyle" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/backgroundGrey</item>
+    </style>
 
+    <!-- ==================== TextAppearances ==================== -->
+    <!-- Black -->
+    <style name="TextAppearance.Gotham.Black" parent="android:TextAppearance">
+        <item name="fontPath">fonts/GothamPro-Black.ttf</item>
+    </style>
+    <style name="TextAppearance.Gotham.Black.Italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/GothamPro-Black-Italic.ttf</item>
+    </style>
+
+    <!-- Regular -->
+    <style name="TextAppearance.Gotham" parent="android:TextAppearance">
+        <!--<item name="fontPath">fonts/GothamPro-Reg.ttf</item>-->
+        <item name="fontPath">fonts/GothamProRegular.ttf</item>
+    </style>
+    <style name="TextAppearance.Gotham.Bold" parent="android:TextAppearance">
+        <item name="fontPath">fonts/GothamPro-Bold.ttf</item>
+    </style>
+    <style name="TextAppearance.Gotham.Bold.Italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/GothamPro-Bold-Italic.ttf</item>
+    </style>
+    <style name="TextAppearance.Gotham.Italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/GothamPro-Italic.ttf</item>
+    </style>
+
+    <!-- Light -->
+    <style name="TextAppearance.Gotham.Light" parent="android:TextAppearance">
+        <!--<item name="fontPath">fonts/GothamPro-Light.ttf</item>-->
+        <item name="fontPath">fonts/GothamPro-LightA.ttf</item>
+    </style>
+    <style name="TextAppearance.Gotham.LightItalic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/GothamPro-Light-Italic.ttf</item>
+    </style>
+
+    <!-- Medium -->
+    <style name="TextAppearance.Gotham.Medium" parent="android:TextAppearance">
+        <!--<item name="fontPath">fonts/GothamPro-Medium.ttf</item>-->
+        <item name="fontPath">fonts/GothamPro-MediumA.ttf</item>
+    </style>
+    <style name="TextAppearance.Gotham.Medium.Italic" parent="android:TextAppearance">
+        <item name="fontPath">fonts/GothamPro-Medium-Italic.ttf</item>
+    </style>
+
+    <!-- Narrow -->
+    <style name="TextAppearance.Gotham.Narrow.Bold" parent="android:TextAppearance">
+        <item name="fontPath">fonts/GothamPro-Narrow-Bold.ttf</item>
+    </style>
+    <style name="TextAppearance.Gotham.Narrow.Medium" parent="android:TextAppearance">
+        <item name="fontPath">fonts/GothamPro-Narrow-Medium.ttf</item>
     </style>
 
 

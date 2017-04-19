@@ -62,6 +62,7 @@ public class User implements Serializable {
     public String ipphone;
     public String mobile;
     public String mail;
+    public String avatar;
 
     public Token token;
     public String queue;

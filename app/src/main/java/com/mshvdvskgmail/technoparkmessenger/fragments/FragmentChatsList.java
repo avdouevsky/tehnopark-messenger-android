@@ -1,8 +1,6 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,62 +8,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.mshvdvskgmail.technoparkmessenger.ChatController;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
-import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
-import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
-
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by mshvdvsk on 17/03/2017.
  */
-
 public class FragmentChatsList extends BaseFragment {
+    private final static String TAG = FragmentChatsList.class.toString();
+
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<Chat> chats;
+//    private List<Chat> chats = new ArrayList<>();
     private ChatsListAdapter mAdapter;
     private LinearLayout llSearch;
-
-
-    @Override
-    public void onPause() {
-//        EventBus.getDefault().unregister(this);
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//        EventBus.getDefault().register(this);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.recycler_view_with_search, container, false);
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_all);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        //mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new ChatsListAdapter(getContext());
+        mRecyclerView.setAdapter(mAdapter);
+        setListeners(mRootView);
+        loadData();
 
-        chats = new ArrayList<Chat>();
-        chats.addAll(Controller.getInstance().getChats());
+        //chats.addAll(Controller.getInstance().getChats());
 /*
         llSearch = (LinearLayout) mRootView.findViewById(R.id.ll_all_ll_search_bar);
         llSearch.setOnClickListener(new View.OnClickListener() {
@@ -113,36 +93,39 @@ public class FragmentChatsList extends BaseFragment {
 //        for (int i = 0; i < 10; i++){
 //            contacts.add(dummyObject);
 //        }
-        mAdapter = new ChatsListAdapter(chats, getContext());
-        //mAdapter = new ChatsListAdapter(contacts, getContext(), getActivity().getSupportFragmentManager());
-        mRecyclerView.setAdapter(mAdapter);
-        setListeners(mRootView);
+
 
         return mRootView;
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public final void onEvent(DataLoadEvent event) {
-//        eventDataLoad(event.dataSource);
+    private void loadData(){
+        REST.getInstance().chats(Controller.getInstance().getAuth().getUser().token)
+        .subscribe(new REST.DataSubscriber<List<Chat>>() {
+            @Override
+            public void onData(List<Chat> data) {
+                mAdapter.setData(data);
+                Log.d(TAG, "asd");
+            }
+        });
+    }
+
+//    protected void eventDataLoad(String dataSource){
+//        if(dataSource.equals("Chats")) {
+//            Log.w("ChatsList", "eventDataLoad " + dataSource);
+//            chats.clear();
+//            chats.addAll(Controller.getInstance().getChats());
+//            Log.w("ChatsList", "size "+chats.size());
+//            mAdapter.notifyDataSetChanged();
+//        }
 //    }
 
-    protected void eventDataLoad(String dataSource){
-        if(dataSource.equals("Chats")) {
-            Log.w("ChatsList", "eventDataLoad " + dataSource);
-            chats.clear();
-            chats.addAll(Controller.getInstance().getChats());
-            Log.w("ChatsList", "size "+chats.size());
-            mAdapter.notifyDataSetChanged();
-        }
-    }
-
-    protected void eventMessage(Message message) {
-        if(message.getType() == Message.Type.DIALOG) {
-            Controller.getInstance().fillChats();
-        }else if(message.getType() == Message.Type.ERROR){
-
-        }
-    }
+//    protected void eventMessage(Message message) {
+//        if(message.getType() == Message.Type.DIALOG) {
+//            Controller.getInstance().fillChats();
+//        }else if(message.getType() == Message.Type.ERROR){
+//
+//        }
+//    }
 
     private void setListeners(View view){
         LinearLayout llSearch = (LinearLayout) view.findViewById(R.id.ll_all_ll_search_bar);

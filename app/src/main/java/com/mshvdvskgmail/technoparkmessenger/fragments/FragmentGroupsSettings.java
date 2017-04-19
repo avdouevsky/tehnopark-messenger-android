@@ -129,7 +129,7 @@ public class FragmentGroupsSettings extends Fragment {
 
         members = new ArrayList<>();
         for (ChatUser tmp_chat_user: activeChat.users) {
-            members.add(tmp_chat_user.User());
+            members.add(tmp_chat_user.user);
         }
 /*
         MemberListItem dummyObject1 = new MemberListItem();

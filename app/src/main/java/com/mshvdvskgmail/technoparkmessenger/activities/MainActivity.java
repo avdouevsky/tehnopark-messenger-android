@@ -15,6 +15,7 @@ import android.view.View;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.events.ErrorEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.fragments.BaseFragment;
 import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
@@ -234,6 +235,16 @@ public class MainActivity extends AppCompatActivity {
             default:
                 navigator.forwardTo(event.getStates(), event.getBundle());
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ErrorEvent event) {
+        new AlertDialog.Builder(this).setMessage(event.getThrowable().getMessage()).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private class MainCommand extends BundleCommand{
