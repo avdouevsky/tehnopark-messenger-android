@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.MemberListItem;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Member;
@@ -28,10 +29,10 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapter.ViewHolder> {
 
-    private ArrayList<MemberListItem> members;
+    private ArrayList<User> members;
     private View rowView;
     private Context context;
-    private MemberListItem currentItem;
+    private User currentItem;
 
     private String name;
     private String officePosition;
@@ -46,21 +47,21 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
     public static final String TAG = GroupMembersAdapter.class.getCanonicalName();
 
 
-    public GroupMembersAdapter(ArrayList <MemberListItem> members, Context context) {
+    public GroupMembersAdapter(ArrayList <User> members, Context context) {
         this.members = members;
         this.context = context;
     }
 
     @Override
-    public GroupMembersAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         rowView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_group_member_item, parent, false);
-        GroupMembersAdapter.ViewHolder viewHolder = new GroupMembersAdapter.ViewHolder(rowView);
+        ViewHolder viewHolder = new ViewHolder(rowView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(GroupMembersAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
 //        float d = context.getResources().getDisplayMetrics().density;
 //        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
@@ -111,6 +112,7 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
         TextView tvPosition;
         ImageView imageOnline;
         ImageView imageProfile;
+        FrameLayout mFrameLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -119,6 +121,9 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
             tvPosition = (TextView) itemView.findViewById(R.id.recycler_item_group_member_tv_position);
             imageOnline = (ImageView) itemView.findViewById(R.id.recycler_item_group_member_image_online);
             imageProfile = (ImageView) itemView.findViewById(R.id.recycler_item_group_member_image_picture);
+            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.item_separator);
         }
     }
+
+
 }

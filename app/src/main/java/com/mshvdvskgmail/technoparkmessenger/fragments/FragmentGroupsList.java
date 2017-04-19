@@ -13,6 +13,27 @@ import android.widget.LinearLayout;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.GroupListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.models.GroupsListItem;
+import android.support.annotation.MainThread;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
+import com.mshvdvskgmail.technoparkmessenger.adapters.GroupListAdapter;
+import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
+import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
+import com.mshvdvskgmail.technoparkmessenger.models.GroupsListItem;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -24,16 +45,26 @@ public class FragmentGroupsList extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<GroupsListItem> groups;
-    private GroupListAdapter adapter;
-    private LinearLayout llSearch;
+    private ArrayList<Chat> groups;
+    private GroupListAdapter mAdapter;
 
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.recycler_view_with_search, container, false);
+        mRootView = inflater.inflate(R.layout.pager_item_recycler_view_with_search, container, false);
 
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_all);
+        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.pager_recycler);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -52,33 +83,27 @@ public class FragmentGroupsList extends Fragment {
         });
 
         groups = new ArrayList<>();
+        groups.addAll(Controller.getInstance().getGroupChats());
 
-        GroupsListItem dummyObject1 = new GroupsListItem();
-        dummyObject1.setName("Отдел продаж");
-        dummyObject1.setLastMessage("Документы подписали");
-        dummyObject1.setTime("11:20");
-
-        GroupsListItem dummyObject2 = new GroupsListItem();
-        dummyObject2.setName("Отпуск");
-        dummyObject2.setLastMessage("Вернусь в понедельник");
-        dummyObject2.setTime("вчера");
-
-        GroupsListItem dummyObject3 = new GroupsListItem();
-        dummyObject3.setName("Корпоратив");
-        dummyObject3.setLastMessage("Место отличное");
-        dummyObject3.setTime("15.01.2017");
-
-        groups.add(dummyObject1);
-        groups.add(dummyObject2);
-        groups.add(dummyObject3);
-
-//        for (int i = 0; i < 10; i++){
-//            contacts.add(dummyObject);
-//        }
-        adapter = new GroupListAdapter(groups, getContext(), getActivity().getSupportFragmentManager());
-        mRecyclerView.setAdapter(adapter);
+        mAdapter = new GroupListAdapter(groups, getContext());
+        mRecyclerView.setAdapter(mAdapter);
 
         return mRootView;
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public final void onEvent(DataLoadEvent event) {
+        eventDataLoad(event.dataSource);
+    }
+
+    protected void eventDataLoad(String dataSource){
+        if(dataSource.equals("Groups")) {
+            Log.w("GroupsList", "eventDataLoad " + dataSource);
+            groups.clear();
+            groups.addAll(Controller.getInstance().getGroupChats());
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
 }
 

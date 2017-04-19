@@ -14,7 +14,7 @@ import com.mshvdvskgmail.technoparkmessenger.R;
  * Created by mshvdvsk on 16/03/2017.
  */
 
-public class FragmentContactsTabFiller extends Fragment {
+public class FragmentContactsTabFiller extends BaseFragment {
     private View mRootView;
 
     @Override

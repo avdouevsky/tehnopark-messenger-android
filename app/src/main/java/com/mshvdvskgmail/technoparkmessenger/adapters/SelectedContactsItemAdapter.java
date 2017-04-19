@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
+import com.mshvdvskgmail.technoparkmessenger.fragments.BaseFragment;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAddMember;
+import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,7 +27,7 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class SelectedContactsItemAdapter extends RecyclerView.Adapter<SelectedContactsItemAdapter.ViewHolder> {
 
-    private ArrayList<ContactsListItem> contacts;
+    private ArrayList<User> contacts;
     private Context context;
     private FrameLayout mFrame;
     private LayoutInflater mInflater;
@@ -38,23 +42,26 @@ public class SelectedContactsItemAdapter extends RecyclerView.Adapter<SelectedCo
 
     public boolean isSelecting;
 
+    public BaseFragment parentFragment;
 
-    public SelectedContactsItemAdapter(ArrayList <ContactsListItem> contacts, Context context) {
+
+    public SelectedContactsItemAdapter(ArrayList <User> contacts, Context context, BaseFragment fragment) {
         this.contacts = contacts;
         this.context = context;
+        this.parentFragment = fragment;
         mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public SelectedContactsItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_item_contacts_selected, parent, false);
-        SelectedContactsItemAdapter.ViewHolder viewHolder = new SelectedContactsItemAdapter.ViewHolder(rowView);
+        ViewHolder viewHolder = new ViewHolder(rowView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(SelectedContactsItemAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         rootView = holder.rootView;
         tvName = holder.tvName;
         imagePicture = holder.imagePicture;
@@ -69,8 +76,10 @@ public class SelectedContactsItemAdapter extends RecyclerView.Adapter<SelectedCo
         flCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                contacts.get(position).setPressed(!contacts.get(position).isPressed());
-                notifyDataSetChanged();
+//                contacts.get(position).setPressed(!contacts.get(position).isPressed());
+                contacts.remove(position);
+                parentFragment.setSelected_contacts(contacts);
+//                notifyDataSetChanged();
             }
         });
     }

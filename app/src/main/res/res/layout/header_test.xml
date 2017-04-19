@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="32dp"
+    android:orientation="vertical"
+    tools:context="com.mshvdvskgmail.technoparkmessenger.activities.MainActivity"
+    tools:ignore="MissingPrefix"
+    android:background="#E5E5E5">
+
+
+    <TextView android:id="@+id/text_item"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:gravity="center_vertical"
+        android:textSize="15sp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:text="Sample text"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        fontPath="fonts/GothamProBold.ttf"
+        android:textColor="@color/colorBlueLightText"/>
+
+
+</LinearLayout>

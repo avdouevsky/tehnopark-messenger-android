@@ -4,15 +4,26 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.CallsListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.models.CallsList;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.model.SipCall;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Result;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by mshvdvsk on 20/03/2017.
@@ -22,12 +33,13 @@ public class FragmentCallsList extends Fragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
-    private ArrayList<CallsList> calls;
+    private ArrayList<SipCall> calls;
     private CallsListAdapter mAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.recycler_view_basic, container, false);
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mRootView = inflater.inflate(R.layout.pager_item_recycler_view, container, false);
+//        mRootView = inflater.inflate(R.layout.recycler_view_basic, container, false);
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_all);
         mRecyclerView.setHasFixedSize(true);
@@ -36,7 +48,7 @@ public class FragmentCallsList extends Fragment {
 
         calls = new ArrayList<>();
 
-        CallsList dummyObject1 = new CallsList();
+        /*CallsList dummyObject1 = new CallsList();
         dummyObject1.setName("Пушкин");
         dummyObject1.setTime("10:20");
         dummyObject1.setOnline(true);
@@ -66,8 +78,44 @@ public class FragmentCallsList extends Fragment {
 
 //        for (int i = 0; i < 10; i++){
 //            contacts.add(dummyObject);
-//        }
-        mAdapter = new CallsListAdapter(calls, getContext(), getActivity().getSupportFragmentManager());
+//        }*/
+REST.getInstance().user_ext(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, Controller.getInstance().getAuth().getUser().id)
+//        .observeOn(AndroidSchedulers.mainThread())
+        .enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                REST.getInstance().calls(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, response.body(), "0", "100")
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new REST.DataSubscriber<List<SipCall>>(){
+                            @Override
+                            public void onData(List<SipCall> data){
+                                Log.w("Technopart", "recieve callers "+data);
+                                calls.addAll(data);
+                            }
+
+                            @Override
+                            public void onCompleted(){
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+//        .subscribe(new REST.DataSubscriber<Integer>(){
+//           @Override
+//            public void onData(Integer ext_num){
+//               Log.w("Technopark", "Ext number: "+ext_num);
+//
+//           }
+//        });
+
+
+        mAdapter = new CallsListAdapter(calls, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return mRootView;

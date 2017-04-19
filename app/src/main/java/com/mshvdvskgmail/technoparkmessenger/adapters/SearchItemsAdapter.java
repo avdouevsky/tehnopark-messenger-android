@@ -32,15 +32,15 @@ public class SearchItemsAdapter extends RecyclerView.Adapter<SearchItemsAdapter.
     }
 
     @Override
-    public SearchItemsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_search_item, parent, false);
-        SearchItemsAdapter.ViewHolder viewHolder = new SearchItemsAdapter.ViewHolder(rowView);
+        ViewHolder viewHolder = new ViewHolder(rowView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(SearchItemsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         tvName = holder.tvName;
         tvMessage = holder.tvMessage;
         tvTime = holder.tvTime;

@@ -7,9 +7,14 @@ import android.os.Bundle;
 import android.transition.Transition;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionInflater;
+import android.util.Log;
+import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -18,17 +23,38 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.ChatController;
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ProfileFilesAdapter;
+import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.models.ProfileAttachment;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+import rx.android.schedulers.AndroidSchedulers;
+
+import static com.mshvdvskgmail.technoparkmessenger.R.id.*;
+
+//import static com.mshvdvskgmail.technoparkmessenger.R.id.back_button;
+//import static com.mshvdvskgmail.technoparkmessenger.R.id.fragment_profile_name;
+//import static com.mshvdvskgmail.technoparkmessenger.R.id.fragment_profile_tv_name;
+//import static com.mshvdvskgmail.technoparkmessenger.R.id.fragment_profile_tv_title;
+//import static com.mshvdvskgmail.technoparkmessenger.R.id.frame_with_icon_back_carete;
+//import static com.mshvdvskgmail.technoparkmessenger.R.id.profile_title;
 
 /**
  * Created by mshvdvsk on 03/02/2017.
@@ -41,6 +67,7 @@ public class FragmentProfile extends Fragment {
     private ArrayList<ProfileAttachment> files;
     private ProfileFilesAdapter mAdapter;
     private AlertDialog alert;
+    private User user;
 
     public FragmentProfile() {}
 
@@ -53,8 +80,20 @@ public class FragmentProfile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        user = (User) getArguments().getSerializable("user");
 
         mRootView = inflater.inflate(R.layout.fragment_profile, container, false);
+
+
+        TextView name = (TextView)mRootView.findViewById(fragment_profile_tv_name);
+        name.setText(user.cn);
+
+        TextView phone = (TextView)mRootView.findViewById(R.id.fragment_profile_tv_phone);
+        phone.setText(user.mobile + " "+user.mail);
+
+        TextView title = (TextView)mRootView.findViewById(fragment_profile_tv_title);
+        title.setText(user.description);
+
         setAdapterContent(mRootView);
         setIconsTouchListeners(mRootView);
         return mRootView;
@@ -86,21 +125,9 @@ public class FragmentProfile extends Fragment {
         flBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("blablalba", "hello");
-                FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .replace(R.id.container, main)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
-        ImageView mImage = (ImageView) mRootView.findViewById(R.id.fragment_profile_image_message);
-        mImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                fm.popBackStack();
+/*
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                 alertDialog.setTitle("ОК, СПАСИБО");
                 alertDialog.setMessage("Все работает ок, не так ли?");
@@ -117,7 +144,48 @@ public class FragmentProfile extends Fragment {
                     }
                 });
                 alert = alertDialog.create();
-                alert.show();
+                alert.show();*/
+            }
+        });
+
+        ImageView mImage = (ImageView) mRootView.findViewById(R.id.fragment_profile_image_message);
+        mImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+//                alertDialog.setTitle("ОК, СПАСИБО");
+//                alertDialog.setMessage("Все работает ок, не так ли?" + user);
+//                alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                alertDialog.setNegativeButton("Не знаю", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                alert = alertDialog.create();
+//                alert.show();
+//                ChatController.getInstance().r.sendMessage(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, "room_9cac23bc4f28b8ea475ee8f91b32241c", "Тестовое сообщение в чат", "no local id", null).subscribe();
+                REST.getInstance().chat(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, user.id, "")
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new REST.DataSubscriber<Chat>(){
+                            @Override
+                            public void onCompleted(){
+                                Controller.getInstance().fillChats();
+                                Controller.getInstance().fillGroupChats();
+
+//                                EventBus.getDefault().postSticky(new DataLoadEvent("Chats"));
+                            }
+
+                            @Override
+                            public void onData(Chat data) {
+                                ((MainActivity) getContext()).executeAction("showChat", data);
+                            }
+                        });
             }
         });
 

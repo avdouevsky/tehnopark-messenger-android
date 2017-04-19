@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -17,14 +17,18 @@
         fontPath="fonts/GothamProBold.ttf"
         android:background="@color/backgroundGrey"
         android:gravity="center"
-        android:layout_marginTop="4dp"/>
+        android:layout_marginTop="4dp"
+        />
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/notification_background_dot"
-        android:layout_marginLeft="92dp"
-        android:layout_marginTop="1dp">
+        android:layout_marginTop="1dp"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="right"
+        android:id="@+id/fl_badge">
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,9 +36,10 @@
             android:text="1"
             android:textSize="7dp"
             android:textColor="@color/colorWhiteText"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:id="@+id/tv_badge_count"/>
 
     </FrameLayout>
 
 
-</RelativeLayout>
+</FrameLayout>

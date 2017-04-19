@@ -26,15 +26,15 @@ public class GroupFilesAdapter extends RecyclerView.Adapter<GroupFilesAdapter.Vi
     }
 
     @Override
-    public GroupFilesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_group_attached_item, parent, false);
-        GroupFilesAdapter.ViewHolder viewHolder = new GroupFilesAdapter.ViewHolder(rowView);
+        ViewHolder viewHolder = new ViewHolder(rowView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(GroupFilesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         if (position==0){
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
             int dpValue = 37; // margin in dips

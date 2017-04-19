@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_dark_blue_to_blue"
+    tools:ignore="MissingPrefix">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="13dp"
+        app:contentInsetStart="13dp"
+        android:id="@+id/fragment_profile_toolbar">
+
+        <FrameLayout
+            android:clickable="true"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@android:color/black"
+            android:id="@+id/frame_with_icon_back_arrow2">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_arrow"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Александр Пушкин"
+            android:textColor="@color/colorWhiteText"
+            android:layout_gravity="center"
+            android:textSize="15sp"
+            fontPath="fonts/GothamProBold.ttf"/>
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="-44dp"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="330dp"
+            android:layout_height="330dp"
+            android:src="@drawable/pushkin"
+            android:id="@+id/fragment_profile_big_picture"
+            android:background="@drawable/ic_circle_shadow"
+            android:layout_gravity="center"
+            android:transitionName="profile"/>
+    </FrameLayout>
+</RelativeLayout>

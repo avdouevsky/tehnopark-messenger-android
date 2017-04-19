@@ -2,6 +2,7 @@ package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,10 @@ import android.widget.TextView;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.MediaList;
+import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentAddMember;
+import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
+import com.mshvdvskgmail.technoparkmessenger.models.MediaList;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,7 +30,8 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class AddMemberListAdapter extends RecyclerView.Adapter<AddMemberListAdapter.ViewHolder> {
 
-    private ArrayList<ContactsListItem> contacts;
+    private ArrayList<User> contacts;
+    public ArrayList<User> selected_contacts;
     private Context context;
     private FrameLayout mFrame;
     private LayoutInflater mInflater;
@@ -42,6 +48,16 @@ public class AddMemberListAdapter extends RecyclerView.Adapter<AddMemberListAdap
     private ImageView imageSelectBackground;
     private ImageView imageCheckMarkIcon;
 
+    private FragmentAddMember parentFragment;
+
+    public boolean isSelecting;
+
+
+    public AddMemberListAdapter(ArrayList <User> contacts, ArrayList <User> selected_contacts, Context context, FragmentAddMember fragment) {
+        this.contacts = contacts;
+        this.context = context;
+        this.selected_contacts = selected_contacts;
+        this.parentFragment = fragment;
     public boolean isSelecting;
 
 
@@ -52,15 +68,15 @@ public class AddMemberListAdapter extends RecyclerView.Adapter<AddMemberListAdap
     }
 
     @Override
-    public AddMemberListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rowView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_add_member_item, parent, false);
-        AddMemberListAdapter.ViewHolder viewHolder = new AddMemberListAdapter.ViewHolder(rowView);
+        ViewHolder viewHolder = new ViewHolder(rowView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(AddMemberListAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         rootView = holder.rootView;
         flSeparator = holder.flSeparator;
         tvName = holder.tvName;
@@ -82,12 +98,24 @@ public class AddMemberListAdapter extends RecyclerView.Adapter<AddMemberListAdap
         imageSelectBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                contacts.get(position).setPressed(!contacts.get(position).isPressed());
-                notifyDataSetChanged();
+//                contacts.get(position).setPressed(!contacts.get(position).isPressed())
+                Log.w("addMember adapter", "init add "+contacts.get(position).getName() + " || " +selected_contacts.indexOf(contacts.get(position)));
+                if(selected_contacts.indexOf(contacts.get(position)) == -1) {
+                    Log.w("addMember adapter", "not found, add");
+                    selected_contacts.add(contacts.get(position));
+                }else{
+                    Log.w("addMember adapter", "found remove");
+                    selected_contacts.remove(contacts.get(position));
+                }
+                Log.w("addMember adapter", "set selected init call "+selected_contacts);
+                parentFragment.setSelected_contacts(selected_contacts);
+
+//                notifyDataSetChanged();
             }
         });
 
-        if (contacts.get(position).isPressed()){
+        if(selected_contacts.indexOf(contacts.get(position)) != -1){
+//        if (contacts.get(position).isPressed()){
             imageSelectBackground.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_checked));
             imageCheckMarkIcon.setVisibility(View.VISIBLE);
         } else {

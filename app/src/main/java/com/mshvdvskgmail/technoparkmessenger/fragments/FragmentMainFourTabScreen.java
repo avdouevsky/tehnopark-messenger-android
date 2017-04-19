@@ -1,5 +1,7 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,16 +11,19 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
+import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.MainScreenTabAdapter;
 
 /**
  * Created by mshvdvsk on 16/03/2017.
  */
 
-public class FragmentMainFourTabScreen extends Fragment{
+public class FragmentMainFourTabScreen extends BaseFragment{
     private View mRootView;
     private ImageView writeNewIcon;
     private AlertDialog alert;
@@ -29,7 +34,11 @@ public class FragmentMainFourTabScreen extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,7 +85,7 @@ public class FragmentMainFourTabScreen extends Fragment{
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+                /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                 alertDialog.setTitle("ОК, СПАСИБО");
                 alertDialog.setMessage("Все работает ок, не так ли?");
                 alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
@@ -92,7 +101,8 @@ public class FragmentMainFourTabScreen extends Fragment{
                     }
                 });
                 alert = alertDialog.create();
-                alert.show();
+                alert.show();*/
+                ((MainActivity) getContext()).executeAction("showCreateGroup", null);
             }
         });
 

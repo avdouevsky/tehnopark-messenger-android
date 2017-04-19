@@ -9,7 +9,6 @@
     tools:ignore="MissingPrefix">
 
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -77,6 +76,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:textAllCaps="true"
+                android:id="@+id/fragment_profile_tv_title"
                 fontPath="fonts/GothamProRegular.ttf"/>
 
             <LinearLayout
@@ -117,7 +117,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="22dp"
                 android:letterSpacing="0.09"
-                fontPath="fonts/GothamProBold.ttf"/>
+                fontPath="fonts/GothamProBold.ttf"
+                android:id="@+id/fragment_profile_tv_phone"/>
 
             <FrameLayout
                 android:layout_width="285dp"
