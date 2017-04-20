@@ -31,11 +31,15 @@ import com.mshvdvskgmail.technoparkmessenger.ChatController;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.RMQChat;
+import com.mshvdvskgmail.technoparkmessenger.network.RabbitMQ;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.network.model.ChatUser;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
+import com.mshvdvskgmail.technoparkmessenger.view.MessageEditView;
 
 import java.io.File;
 import java.util.List;
@@ -50,33 +54,16 @@ public class FragmentChat extends BaseFragment {
     private static final int CHOOSE_FILE_REQUESTCODE = 10202;
 
     private RecyclerView recyclerView;
-    private LinearLayoutManager lm;
-    private ArrayList<Message> messages;
-    private Chat chat;
     private ChatListAdapter mAdapter;
-    private EditText w_message;
-    private File selected_file;
+    private MessageEditView messageEditView;
 
     private long startTime;
     private int timeout = 2;
 
-    protected Controller controller = Controller.getInstance();
-
-    @Override
-    public void onPause() {
-  //      EventBus.getDefault().unregister(this);
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-//        EventBus.getDefault().register(this);
-    }
+    private Chat chat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //chat = (Chat) getArguments().getSerializable("chat");
         chat = ArgsBuilder.create().chat();
 
         View root = inflater.inflate(R.layout.fragment_chat, container, false);
@@ -85,19 +72,18 @@ public class FragmentChat extends BaseFragment {
         TextView tvContact = (TextView)root.findViewById(R.id.fragment_chat_tv_name);
         final TextView tvStatus = (TextView)root.findViewById(R.id.fragment_chat_tv_online_status);
         ImageView ivProfile = (ImageView)root.findViewById(R.id.fragment_chat_iv_profile);
-        FrameLayout call = (FrameLayout) root.findViewById(R.id.fragment_chat_fl_call);
+        final FrameLayout call = (FrameLayout) root.findViewById(R.id.fragment_chat_fl_call);
 
         recyclerView.setHasFixedSize(true);
-        lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
 
-//        List<User> usersList = chat.Users();
         List<ChatUser> usersList = chat.users;
 
         if(chat.peer2peer == 0){
+            Log.w("chat", "status: "+ chat.admin + " v. "+Controller.getInstance().getAuth().getUser().unique_id);
             //групповой чат
             tvContact.setText(chat.name);
-            Log.w("chat", "status: "+ chat.admin + " v. "+Controller.getInstance().getAuth().getUser().unique_id);
             if(chat.admin.equals(Controller.getInstance().getAuth().getUser().unique_id)) {
                 tvStatus.setText("Вы администратор");
             }else{
@@ -106,7 +92,7 @@ public class FragmentChat extends BaseFragment {
             ivProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((MainActivity) getContext()).executeAction("showGroupSettings", chat);
+                    //TODO ((MainActivity) getContext()).executeAction("showGroupSettings", chat);
                 }
             });
             call.setVisibility(View.GONE);
@@ -117,25 +103,13 @@ public class FragmentChat extends BaseFragment {
                 user = usersList.get(1).user;
             }
             tvContact.setText(user.cn);
-//           TODO REST.getInstance().user_status(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, user.id).enqueue(new Callback<String>() {
-//                @Override
-//                public void onResponse(Call<String> call, Response<String> response) {
-//                    if (response.body() == "1") {
-//                        tvStatus.setText("ОНЛАЙН");
-//                    } else tvStatus.setText("ОФЛАЙН");
-//                }
-//
-//                @Override
-//                public void onFailure(Call<String> call, Throwable t) {
-//                    tvStatus.setText("ОФЛАЙН");
-//                }
-//            });
+            tvStatus.setText(user.online == 1 ? "ОНЛАЙН" : "ОФЛАЙН");
 
             final User finalUser = user;
             ivProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((MainActivity) getContext()).executeAction("showProfile", finalUser);
+                    //TODO ((MainActivity) getContext()).executeAction("showProfile", finalUser);
                 }
             });
             call.setOnClickListener(new View.OnClickListener() {
@@ -146,291 +120,81 @@ public class FragmentChat extends BaseFragment {
             });
         }
 
+        messageEditView = (MessageEditView) root.findViewById(R.id.viewMessageEdit);
 
-
-        w_message = (EditText) root.findViewById(R.id.fragment_chat_et_write_message);
-        w_message.addTextChangedListener(new TextWatcher() {
+        messageEditView.setCommand(new ICommand<MessageEditView.Action>() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(startTime + timeout * 1000 < System.currentTimeMillis()){
-                    startTime = System.currentTimeMillis();
-                    ChatController.getInstance().r.sendUserStatus(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, chat.uuid, w_message.getText().toString(), "text_input");
+            public void exec(MessageEditView.Action data) {
+                switch (data){
+                    case TYPE:
+                        ChatController.getInstance().r.sendUserStatus(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, chat.uuid,
+                                messageEditView.getText(), "text_input");
+                        break;
+                    case SEND:
+                        sendMessage();
+                        break;
+                    case ATTACH:
+                        openFile();
+                        break;
                 }
             }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
         });
-        FrameLayout send_message = (FrameLayout) root.findViewById(R.id.fragment_chat_fl_send_message);
-
-        send_message.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendMessage();
-            }
-        });
-
-        FrameLayout attach = (FrameLayout) root.findViewById(R.id.fragment_chat_fl_attach_file);
-        attach.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFile();
-            }
-        });
-
-        messages = new ArrayList<>();
 
         FrameLayout flBackButton = (FrameLayout) root.findViewById(R.id.fragment_chat_fl_back);
         flBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                fm.popBackStack();
-//                FragmentMainFourTabScreen main = new FragmentMainFourTabScreen();
-//                getActivity().getSupportFragmentManager()
-//                        .beginTransaction()
-//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                        .replace(R.id.container, main)
-//                        .addToBackStack(null)
-//                        .commit();
+                getActivity().onBackPressed();
             }
         });
 
-
-//
-//
-//        MessageChatItem dummyObject1 = new MessageChatItem();
-//        dummyObject1.setText("привет");
-//        dummyObject1.setTime("15:40");
-//        dummyObject1.setType(0);
-//        dummyObject1.setStatus(0);
-//        dummyObject1.setIncoming(true);
-//
-//        MessageChatItem dummyObject11 = new MessageChatItem();
-//        dummyObject11.setText("привет");
-//        dummyObject11.setTime("15:40");
-//        dummyObject11.setType(1);
-//        dummyObject11.setStatus(4);
-//        dummyObject11.setIncoming(false);
-//
-//
-//        MessageChatItem dummyObject2 = new MessageChatItem();
-//        dummyObject2.setText("привет привет");
-//        dummyObject2.setTime("15:40");
-//        dummyObject2.setType(1);
-//        dummyObject2.setStatus(4);
-//        dummyObject2.setIncoming(false);
-//
-//        MessageChatItem dummyObject21 = new MessageChatItem();
-//        dummyObject21.setText("привет привет");
-//        dummyObject21.setTime("15:40");
-//        dummyObject21.setType(0);
-//        dummyObject21.setStatus(4);
-//        dummyObject21.setIncoming(true);
-//
-//        MessageChatItem dummyObject3 = new MessageChatItem();
-//        dummyObject3.setText("доброе утро любимый");
-//        dummyObject3.setTime("15:40");
-//        dummyObject3.setType(0);
-//        dummyObject3.setStatus(4);
-//        dummyObject3.setIncoming(true);
-//
-//        MessageChatItem dummyObject31 = new MessageChatItem();
-//        dummyObject31.setText("доброе утро любимый");
-//        dummyObject31.setTime("15:40");
-//        dummyObject31.setType(1);
-//        dummyObject31.setStatus(4);
-//        dummyObject31.setIncoming(false);
-//
-//        MessageChatItem dummyObject4 = new MessageChatItem();
-//        dummyObject4.setText("ты уже умерла или еще нет?");
-//        dummyObject4.setTime("15:40");
-//        dummyObject4.setType(1);
-//        dummyObject4.setStatus(4);
-//        dummyObject4.setIncoming(false);
-//
-//        MessageChatItem dummyObject41 = new MessageChatItem();
-//        dummyObject41.setText("ты уже умерла или еще нет?");
-//        dummyObject41.setTime("15:40");
-//        dummyObject41.setType(0);
-//        dummyObject41.setStatus(4);
-//        dummyObject41.setIncoming(true);
-//
-//        MessageChatItem dummyObject5 = new MessageChatItem();
-//        dummyObject5.setText("еще нет, дорогой, подожди 30 лет");
-//        dummyObject5.setTime("15:40");
-//        dummyObject5.setType(0);
-//        dummyObject5.setStatus(4);
-//        dummyObject5.setIncoming(true);
-//
-//
-//        MessageChatItem dummyObject51 = new MessageChatItem();
-//        dummyObject51.setText("еще нет, дорогой, подожди 30 лет");
-//        dummyObject51.setTime("15:40");
-//        dummyObject51.setType(1);
-//        dummyObject51.setStatus(4);
-//        dummyObject51.setIncoming(false);
-//
-//
-//
-//        MessageChatItem dummyObject6 = new MessageChatItem();
-//        dummyObject6.setText("ох, ты меня успокоила, а то я думал, ждать 50 придется");
-//        dummyObject6.setTime("00:40");
-//        dummyObject6.setType(1);
-//        dummyObject6.setStatus(4);
-//        dummyObject6.setIncoming(false);
-//
-//
-//        MessageChatItem dummyObject61 = new MessageChatItem();
-//        dummyObject61.setText("ох, ты меня успокоила, а то я думал, ждать 50 придется");
-//        dummyObject61.setTime("00:40");
-//        dummyObject61.setType(0);
-//        dummyObject61.setStatus(4);
-//        dummyObject61.setIncoming(true);
-//
-//        MessageChatItem dummyObject611 = new MessageChatItem();
-//        dummyObject611.setTime("00:40");
-//        dummyObject611.setType(2);
-//        dummyObject611.setStatus(4);
-//        dummyObject611.setIncoming(true);
-//
-//        MessageChatItem dummyObject6111 = new MessageChatItem();
-//        dummyObject6111.setTime("00:40");
-//        dummyObject6111.setFileName("Документация по проекту...");
-//        dummyObject6111.setFileSize("25 КБ");
-//        dummyObject6111.setFileType("LSD");
-//        dummyObject6111.setType(4);
-//        dummyObject6111.setStatus(4);
-//        dummyObject6111.setIncoming(true);
-//
-//        MessageChatItem dummyObject64 = new MessageChatItem();
-//        dummyObject64.setTime("00:40");
-//        dummyObject64.setFileName("Документация по проекту...");
-//        dummyObject64.setFileSize("25 КБ");
-//        dummyObject64.setFileType("LSD");
-//        dummyObject64.setType(5);
-//        dummyObject64.setStatus(4);
-//        dummyObject64.setIncoming(false);
-//
-//
-//
-////        MessageChatItem dummyObject1 = new MessageChatItem();
-////        dummyObject1.setText("привет");
-////        dummyObject1.setTime("15:40");
-////        dummyObject1.setType(0);
-////        dummyObject1.setStatus(0);
-////
-////
-////        MessageChatItem dummyObject2 = new MessageChatItem();
-////        dummyObject2.setText("fuck fuck fucabkdasjkldsahjkdashjkldashjkdasjklh sdalhasdjklhasdjdas");
-////        dummyObject2.setTime("15:40");
-////        dummyObject2.setType(0);
-//////        dummyObject2.setStatus(1);
-////
-////        MessageChatItem dummyObject3 = new MessageChatItem();
-////        dummyObject3.setText("fuck fuck fucabkdasjkldsahjkdashjkldashjkdasjklh sdalhasdjklhasdjdas");
-////        dummyObject3.setTime("15:40");
-////        dummyObject3.setType(1);
-////        dummyObject3.setStatus(2);
-////
-////        MessageChatItem dummyObject4 = new MessageChatItem();
-////        dummyObject4.setText("fuck fuck fucabkdasjkldsahjkdashjkldashjkdasjklh sdalhasdjklhasdjdas");
-////        dummyObject4.setTime("15:40");
-////        dummyObject4.setType(1);
-////        dummyObject4.setStatus(3);
-////
-////        MessageChatItem dummyObject5 = new MessageChatItem();
-////        dummyObject5.setText("ПРОПУЩЕННЫЙ АУДИОЗВОНОК 17.03.2017");
-////        dummyObject5.setType(6);
-////        dummyObject5.setStatus(4);
-////
-////        MessageChatItem dummyObject6 = new MessageChatItem();
-////        dummyObject6.setText("fuck fuck fucabkdasjkldsahjkdashjkldashjkdasjklh sdalhasdjklhasdjdas");
-////        dummyObject6.setTime("00:40");
-////        dummyObject6.setType(3);
-////        dummyObject6.setStatus(4);
-        REST.getInstance().messages(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, chat.uuid, "0", "100")
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new REST.DataSubscriber<List<Message>>(){
-                    @Override
-                    public void onData(List<Message> data){
-                        Log.w("Technopart", "recieve messages "+data);
-                        messages.addAll(data);
-                    }
-
-                    @Override
-                    public void onCompleted(){
-                        mAdapter.notifyDataSetChanged();
-                        recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
-                    }
-                });
-
-        /*messages.add(dummyObject1);
-        messages.add(dummyObject11);
-        messages.add(dummyObject2);
-        messages.add(dummyObject21);
-        messages.add(dummyObject3);
-        messages.add(dummyObject31);
-        messages.add(dummyObject4);
-        messages.add(dummyObject41);
-        messages.add(dummyObject5);
-        messages.add(dummyObject51);
-        messages.add(dummyObject6);
-        messages.add(dummyObject61);
-        messages.add(dummyObject611);
-        messages.add(dummyObject6111);
-        messages.add(dummyObject64);*/
-
-        mAdapter = new ChatListAdapter(messages, chat, getContext());
+        mAdapter = new ChatListAdapter(getContext(), chat);
         recyclerView.setAdapter(mAdapter);
+
+        loadData();
 
         return root;
     }
 
+    private void loadData(){
+        REST.getInstance().messages(Controller.getInstance().getAuth().getUser().token, chat.uuid, 0, 100)
+                .subscribe(new REST.DataSubscriber<List<Message>>(){
+                    @Override
+                    public void onData(List<Message> data){
+                        mAdapter.setData(data);
+                    }
+                });
+    }
+
     private void sendMessage() {
-        ChatController.getInstance().r.sendMessage(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, chat.uuid, w_message.getText().toString(), "no local id", null).subscribe();
-        w_message.setText("");
+        ChatController.getInstance().r.sendMessage(Controller.getInstance().getAuth().user.token,
+                Controller.getInstance().getAuth().user.id, chat.uuid, messageEditView.getText(), "no local id", null).subscribe(new RMQChat.LogSubscriber<RabbitMQ>("sendMessage"));
+        messageEditView.clear();
     }
 
     protected void eventMessage(Message message) {
+        //TODO место багов, нужно проверять LocalID и по нему принимать решение об ошибке, а то придет из другой комнаты сообщение и всё...
         if(message.getType() == Message.Type.DIALOG) {
-            messages.add(message);
-            mAdapter.notifyDataSetChanged();
-
+            mAdapter.addData(message);
             recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
-            ChatController.getInstance().r.sendMessageStatus(Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, chat.uuid, message.uuid, message.local_id, Message.Status.DELIVERED);
+
+            ChatController.getInstance().r.sendMessageStatus(Controller.getInstance().getAuth().user.token,
+                    Controller.getInstance().getAuth().user.id, chat.uuid, message.uuid, message.local_id, Message.Status.DELIVERED)
+            .subscribe(new RMQChat.LogSubscriber<RabbitMQ>("sendMessageStatus"));
         }else if(message.getType() == Message.Type.ERROR){
             Log.e("temp", message.message);
             Toast.makeText(getContext(), "Ошибка отправки", Toast.LENGTH_LONG).show();
         }
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public final void onEvent(DataLoadEvent event) {
-//        eventDataLoad(event.dataSource);
+//    protected void eventDataLoad(String dataSource){
+//        if(dataSource.equals("Groups")) {
+//            Log.w("GroupsList", "eventDataLoad " + dataSource);
+////            groups.clear();
+////            groups.addAll(Controller.getInstance().getGroupChats());
+//            mAdapter.notifyDataSetChanged();
+//        }
 //    }
-//
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public final void onEvent(MessageEvent event) {
-//        eventMessage(event.getMessage());
-//    }
-
-
-    protected void eventDataLoad(String dataSource){
-        if(dataSource.equals("Groups")) {
-            Log.w("GroupsList", "eventDataLoad " + dataSource);
-//            groups.clear();
-//            groups.addAll(Controller.getInstance().getGroupChats());
-            mAdapter.notifyDataSetChanged();
-        }
-    }
 
 //    public void openFile(String mimeType) {
     public void openFile() {

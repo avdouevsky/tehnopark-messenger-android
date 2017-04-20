@@ -32,7 +32,7 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_message_file"/>
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="PDF"
@@ -40,7 +40,7 @@
                         android:layout_marginTop="10dp"
                         android:textColor="#5a9dc8"
                         android:id="@+id/recycler_item_message_file_tv_type"
-                        fontPath="fonts/GothamProBold.ttf"/>
+                        android:textAppearance="@style/TextAppearance.Gotham.Bold"/>
                 </FrameLayout>
 
                 <LinearLayout

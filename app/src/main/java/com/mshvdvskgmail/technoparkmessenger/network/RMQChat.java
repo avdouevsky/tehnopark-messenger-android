@@ -5,10 +5,13 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.mshvdvskgmail.technoparkmessenger.events.ErrorEvent;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Token;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -233,6 +236,30 @@ public class RMQChat {
         String json = gson.toJson(message);
 
         return rabbitMQ.basicPublish("conversation.outgoing", route, json, queue).compose(this.<RabbitMQ>setup()).compose(this.<RabbitMQ>checkConnection());
+    }
+
+    public static class LogSubscriber<T> extends Subscriber<T>{
+        private String name;
+
+        public LogSubscriber(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void onCompleted() {
+            Log.v(TAG, "onCompleted " + name);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.w(TAG, e);
+            EventBus.getDefault().postSticky(new ErrorEvent(e));
+        }
+
+        @Override
+        public void onNext(T t) {
+            Log.v(TAG, "onNext " + name);
+        }
     }
 
     public interface IMessage{

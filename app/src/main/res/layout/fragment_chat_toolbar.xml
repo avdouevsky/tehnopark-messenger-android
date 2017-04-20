@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="3dp"
+        app:contentInsetStart="3dp"
+        android:background="@color/backGroundDarkBlue">
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="left"
+            android:id="@+id/fragment_chat_fl_back">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back_arrow"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:src="@drawable/ic_group_icon"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="13dp"
+            android:id="@+id/fragment_chat_iv_profile"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Александ Пушкин"
+                android:textSize="15sp"
+                android:textColor="#0193c6"
+                android:textStyle="bold"
+                android:id="@+id/fragment_chat_tv_name"
+                android:textAppearance="@style/TextAppearance.Gotham"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ОНЛАЙН"
+                android:textSize="10sp"
+                android:textColor="@color/colorWhiteText"
+                android:textStyle="bold"
+                android:letterSpacing="0.09"
+                android:layout_marginTop="8dp"
+                android:id="@+id/fragment_chat_tv_online_status"
+                android:textAppearance="@style/TextAppearance.Gotham"
+                />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="right"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/fragment_chat_fl_call">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_phone"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+    </android.support.v7.widget.Toolbar>
+</FrameLayout>

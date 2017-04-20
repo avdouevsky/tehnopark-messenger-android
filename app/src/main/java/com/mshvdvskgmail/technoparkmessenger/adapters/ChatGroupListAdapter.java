@@ -2,7 +2,6 @@ package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +61,7 @@ public class ChatGroupListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         switch (viewType){
             case 0: rowView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recycler_message_item_incoming_text_named, parent, false);
+                    .inflate(R.layout.item_message_incoming_text_named, parent, false);
                 ChatGroupListAdapter.MessageViewHolder viewHolder0 = new ChatGroupListAdapter.MessageViewHolder(rowView);
                 return viewHolder0;
             case 1: rowView = LayoutInflater.from(parent.getContext())

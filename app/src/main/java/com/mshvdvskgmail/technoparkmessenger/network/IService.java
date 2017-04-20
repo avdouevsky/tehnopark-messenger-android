@@ -97,8 +97,8 @@ public interface IService {
     public Observable<Result<List<Message>>> messages(@Header("session-id") int session_id,
                                              @Header("token") String token,
                                              @Query("room_uuid") String room_uuid,
-                                             @Query("offset") String offset,
-                                             @Query("limit") String limit);
+                                             @Query("offset") int offset,
+                                             @Query("limit") int limit);
 
 
 

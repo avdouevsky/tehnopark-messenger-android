@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="56dp"
+    android:background="@android:color/white"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp"
+    >
+    <EditText
+        android:background="@drawable/text_enter_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/edittext_hint"
+        android:cursorVisible="false"
+        android:id="@+id/editText"
+        android:inputType="textCapSentences|textMultiLine"
+        android:maxLines="5"
+        android:paddingLeft="37dp"
+        android:textSize="14sp"
+        android:layout_gravity="center_vertical"
+        android:layout_toLeftOf="@+id/imageView"
+        android:layout_toStartOf="@+id/imageView" />
+
+    <ImageView
+        android:scaleType="center"
+        android:src="@drawable/ic_attach"
+        android:layout_width="37dp"
+        android:layout_height="match_parent"
+        android:id="@+id/imageAttach"/>
+
+    <FrameLayout
+        android:clickable="true"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="right|center_vertical"
+        android:id="@+id/frameSend"
+        android:background="@drawable/ripple_effect_send_message"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+        <ImageView
+            android:scaleType="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_send_message"/>
+    </FrameLayout>
+
+    <ImageView
+        android:layout_marginLeft="-8.5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_message_input_corner"
+        android:layout_gravity="right"
+        android:paddingRight="2dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/frameSend"
+        android:layout_toStartOf="@+id/frameSend"
+        android:id="@+id/imageView" />
+</RelativeLayout>

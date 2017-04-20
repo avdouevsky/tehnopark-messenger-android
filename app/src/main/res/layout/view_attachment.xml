@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_marginBottom="12dp"
+    android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/frameMime"
+        android:orientation="vertical"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imFile"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_message_file"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|bottom"
+            android:layout_gravity="bottom"
+            android:text="PDF"
+            android:textSize="8sp"
+            android:paddingBottom="3dp"
+            android:lines="2"
+            android:layout_marginTop="10dp"
+            android:textColor="#5a9dc8"
+            android:id="@+id/tvMime"
+            android:textAppearance="@style/TextAppearance.Gotham.Bold"/>
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/layoutInfo"
+        android:layout_marginLeft="8dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="95dp"
+            android:text="file.pdf"
+            android:textColor="#0f2745"
+            android:layout_marginTop="-1dp"
+            android:maxLines="1"
+            android:id="@+id/tvFileName"
+            android:textAppearance="@style/TextAppearance.Gotham"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvFileSize"
+            android:text="27 KB"
+            android:textAppearance="@style/TextAppearance.Gotham" />
+    </LinearLayout>
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pushkin"
+        android:adjustViewBounds="true"
+        android:id="@+id/imPreview"
+        />
+</LinearLayout>

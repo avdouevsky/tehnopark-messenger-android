@@ -3,6 +3,7 @@ package com.mshvdvskgmail.technoparkmessenger.network.model;
 import android.util.Log;
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.helpers.Helpers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,7 +64,7 @@ public class Message {
     }
 
     public String getTime() {
-        return Integer.toString(date);
+        return Helpers.timeToString(date);
     }
 
     public boolean isIncoming() {

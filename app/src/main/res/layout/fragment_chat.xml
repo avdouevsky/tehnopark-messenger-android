@@ -1,188 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingPrefix">
-    <android.support.v7.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentInsetLeft="3dp"
-        app:contentInsetStart="3dp"
-        android:background="@color/backGroundDarkBlue">
-        <FrameLayout
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_gravity="left"
-            android:id="@+id/fragment_chat_fl_back">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_back_arrow"
-                android:layout_gravity="center"/>
-        </FrameLayout>
 
-        <ImageView
-            android:layout_width="43dp"
-            android:layout_height="43dp"
-            android:src="@drawable/ic_group_icon"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="13dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="13dp"
-            android:id="@+id/fragment_chat_iv_profile"
-            />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Александ Пушкин"
-                android:textSize="15sp"
-                android:textColor="#0193c6"
-                android:textStyle="bold"
-                android:id="@+id/fragment_chat_tv_name"
-                fontPath="fonts/GothamProBold.ttf"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ОНЛАЙН"
-                android:textSize="10sp"
-                android:textColor="@color/colorWhiteText"
-                android:textStyle="bold"
-                android:letterSpacing="0.09"
-                android:layout_marginTop="8dp"
-                android:id="@+id/fragment_chat_tv_online_status"
-                fontPath="fonts/GothamPro.ttf"/>
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_gravity="right"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/fragment_chat_fl_call">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_phone"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-    </android.support.v7.widget.Toolbar>
-
-    <!--<android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fragment_chat_rv_messages"
-        fontPath="fonts/GothamProBold.ttf"
-        android:layout_weight="1"
-        android:background="#F2F2F2">
-    </android.support.v7.widget.RecyclerView>-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp">
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="5dp">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="43dp"
-                android:layout_marginLeft="14dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginRight="12dp"
-                android:background="@drawable/text_enter_frame">
-                <FrameLayout
-                    android:layout_width="43dp"
-                    android:layout_height="43dp"
-                    android:layout_gravity="bottom"
-                    android:id="@+id/fragment_chat_fl_attach_file">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_attach"
-                        android:layout_gravity="center"/>
-                </FrameLayout>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:paddingTop="3dp"/>
-
-                </FrameLayout>
-
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/edittext_hint"
-                    android:layout_marginStart="40dp"
-                    android:background="@android:color/transparent"
-                    android:cursorVisible="false"
-                    android:layout_marginLeft="40dp"
-                    android:id="@+id/fragment_chat_et_write_message"
-                    android:singleLine="false"
-                    android:inputType="textCapSentences|textMultiLine"
-                    android:maxLines="5"
-                    android:layout_gravity="center_vertical"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"/>
-            </FrameLayout>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_message_input_corner"
-                android:layout_gravity="right"
-                android:paddingRight="2dp"/>
-        <!--</FrameLayout>-->
-
-        <FrameLayout
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_gravity="bottom"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
-            android:id="@+id/fragment_chat_fl_send_message"
-            android:background="@drawable/ripple_effect_send_message">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_send_message"/>
-        </FrameLayout>
-
-    </LinearLayout>
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/header"
-    android:layout_above="@+id/vgEdit">
+    <include layout="@layout/fragment_chat_toolbar"
+        android:id="@+id/include" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_chat_rv_messages"
         fontPath="fonts/GothamProBold.ttf"
-        android:layout_weight="1"
-        android:background="#F2F2F2">
-    </android.support.v7.widget.RecyclerView>
-</FrameLayout>
+        android:background="#F2F2F2"
+        android:layout_below="@+id/include"
+        android:layout_above="@+id/viewMessageEdit"/>
 
-</LinearLayout>
+    <com.mshvdvskgmail.technoparkmessenger.view.MessageEditView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:id="@+id/viewMessageEdit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
+</RelativeLayout>

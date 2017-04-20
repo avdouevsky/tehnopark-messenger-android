@@ -314,9 +314,16 @@ public class REST implements IService {
     public Observable<Result<List<Message>>> messages(@Header("session-id") int session_id,
                                              @Header("token") String token,
                                              @Query("room_uuid") String room_uuid,
-                                             @Query("offset") String offset,
-                                             @ Query("limit") String limit){
+                                             @Query("offset") int offset,
+                                             @Query("limit") int limit){
         return service.messages(session_id, token, room_uuid, offset, limit).compose(this.<Result<List<Message>>>setup());
+    }
+
+    public Observable<Result<List<Message>>> messages(Token token,
+                                                      String room_uuid,
+                                                      int offset,
+                                                      int limit){
+        return messages(token.session_id, token.token, room_uuid, offset, limit);
     }
 
 
