@@ -107,6 +107,8 @@ public class SideSelector extends View {
 
     protected void onDraw(Canvas canvas) {
 
+        if(sections == null) return;
+
         int viewHeight = getPaddedHeight();
         float charHeight = ((float) viewHeight) / (float) sections.length;
 

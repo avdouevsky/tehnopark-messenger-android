@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:paddingTop="18dp"
+    android:paddingRight="18dp"
+    tools:ignore="MissingPrefix">
+
+    <ImageView
+        android:layout_marginRight="13dp"
+        android:layout_height="@dimen/chat_item_avatar_size"
+        android:layout_width="@dimen/chat_item_avatar_size"
+        android:layout_marginLeft="17dp"
+        android:src="@drawable/icon_user"
+        android:id="@+id/imFace"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:text="Александ Пушкин"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/colorBlueTextPrimary"
+            fontPath="fonts/GothamProBold.ttf"
+            android:id="@+id/tvName"
+            android:layout_toRightOf="@+id/imFace"
+            android:layout_toEndOf="@+id/imFace" />
+
+    <TextView
+        android:textAllCaps="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Спасибо за информацию!"
+        android:textSize="12sp"
+        android:textColor="@color/backgroundGrey"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:letterSpacing="0.03"
+        android:id="@+id/recycler_item_chatslist_tv_message"
+        android:textAppearance="@style/TextAppearance.Gotham.Bold"
+        android:ellipsize="end"
+        android:layout_alignBottom="@+id/imFace"
+        android:layout_toLeftOf="@+id/recycler_item_chatslist_tv_notification"
+        android:layout_toRightOf="@+id/imFace"
+        android:layout_toStartOf="@+id/recycler_item_chatslist_tv_notification"
+        android:layout_toEndOf="@+id/imFace" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_online"
+        android:id="@+id/recycler_item_chatslist_image_online"
+        android:layout_alignBottom="@+id/imFace"
+        android:layout_alignRight="@+id/imFace"
+        android:layout_alignEnd="@+id/imFace"
+        android:layout_marginBottom="-7dp"
+        android:layout_marginRight="14.5dp"
+        android:layout_marginEnd="14.5dp" />
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/backgroundGrey"
+        android:id="@+id/tvTime"
+        android:text="13:23"
+        android:gravity="center_vertical"
+        android:textSize="10sp"
+        android:layout_alignTop="@+id/recycler_item_chatslist_tv_message"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/recycler_item_chatslist_tv_message" />-->
+
+    <!--<TextView
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="20.5dp"
+        android:layout_height="20.5dp"
+        android:background="@drawable/notification_chatslist_new_circle"
+        android:text="2"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="9.5sp"
+        android:layout_gravity="center"
+        android:textColor="@color/colorWhiteText"
+        android:id="@+id/recycler_item_chatslist_tv_notification"
+        android:layout_alignBaseline="@+id/tvTime"
+        android:layout_alignBottom="@+id/tvTime"
+        android:layout_toLeftOf="@+id/tvTime"
+        android:layout_toStartOf="@+id/tvTime" />-->
+
+    <FrameLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/recycler_item_chatslist_fl_separator"
+        android:background="@color/colorBlackTransparentTwenty"
+        android:layout_toRightOf="@+id/imFace"
+        android:layout_toEndOf="@+id/imFace"/>
+</RelativeLayout>

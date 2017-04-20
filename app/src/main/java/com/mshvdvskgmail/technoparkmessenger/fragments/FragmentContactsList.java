@@ -28,110 +28,52 @@ import rx.android.schedulers.AndroidSchedulers;
  */
 
 public class FragmentContactsList  extends Fragment {
-
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
-    private ArrayList<User> contacts = new ArrayList<>();
     private ContactsListAdapter mAdapter;
     private StickyHeaderDecoration decor;
+    private RecyclerView mRecyclerView;
+    private SideSelector sideSelector;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.recycler_view_contacts, container, false);
+        View root = inflater.inflate(R.layout.recycler_view_contacts, container, false);
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_contacts_rv_contacts);
-        SideSelector sideSelector = (SideSelector) view.findViewById(R.id.recycler_view_contacts_ss_side_selector);
+
+        mRecyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_contacts_rv_contacts);
+
+        sideSelector = (SideSelector) root.findViewById(R.id.recycler_view_contacts_ss_side_selector);
 
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new ContactsListAdapter(contacts, getContext());
+        mAdapter = new ContactsListAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
-        decor = new StickyHeaderDecoration(mAdapter);
-        mRecyclerView.addItemDecoration(decor, 0);
+        //decor = new StickyHeaderDecoration(mAdapter);
+        //mRecyclerView.addItemDecoration(decor, 0);
 
 
-
-        sideSelector.setRecyclerView(mRecyclerView);
 
         loadData();
 
-        return view;
+        return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private void loadData(){
-        contacts.addAll(Controller.getInstance().getContacts());
-//        ContactsListItem dummyObject1 = new ContactsListItem();
-//        dummyObject1.setName("Пушкин1");
-//        dummyObject1.setOfficePosition("fucker1");
-//        dummyObject1.setOnline(true);
-//
-//        ContactsListItem dummyObject2 = new ContactsListItem();
-//        dummyObject2.setName("Пушкин2");
-//        dummyObject2.setOfficePosition("fucker2");
-//        dummyObject2.setOnline(true);
-//
-//        ContactsListItem dummyObject3 = new ContactsListItem();
-//        dummyObject3.setName("Пушкин3");
-//        dummyObject3.setOfficePosition("fucker3");
-//        dummyObject3.setOnline(true);
-//
-//        for (int i = 0; i < 20; i++){
-//            contacts.add(dummyObject1);
-//            contacts.add(dummyObject2);
-//            contacts.add(dummyObject3);
-//        }
-
-//        contacts.add(dummyObject1);
-//        contacts.add(dummyObject2);
-//        contacts.add(dummyObject3);
-/*
-        int counter = 0;
-
-        for (char ch : SideSelector.ALPHABET) {
-            counter++;
-            if ((counter % 2)==0){
-                for (int i = 1; i <= 2; i++) {
-                    ContactsListItem dummyObject = new ContactsListItem();
-                    dummyObject.setName(String.valueOf(ch) + "-" + i);
-                    dummyObject.setOfficePosition("CEO");
-                    dummyObject.setOnline(true);
-                    contacts.add(dummyObject);
-                }
-            }
-
-        }*/
-
-
-//        REST.getInstance().contacts(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, "")
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new REST.DataSubscriber<List<User>>(){
-//                    @Override
-//                    public void onData(List<User> data){
-//                        contacts.addAll(data);
-//                    }
-//
-//                    @Override
-//                    public void onCompleted(){
-//                        mAdapter.notifyDataSetChanged();
-//                    }
-//                });
-
-/*        REST.getInstance().bar(controller.getAuth().user, controller.getAuth().wifiToken, currentPlace.id)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new REST.DataSubscriber<Bar>() {
+        REST.getInstance().contacts(Controller.getInstance().getAuth().getUser().token, null)
+                .subscribe(new REST.DataSubscriber<List<User>>() {
                     @Override
-                    public void onData(Bar data) {
-                        Log.d(TAG, "Bar ik");
-//                        guestList = data.inside;
-                        guestsAdapter.setGuestList(data.inside);
-//                        chatList = data.dialogs;
-                        chatsAdapter.setChatList(data.dialogs);
-                        setContent();
+                    public void onData(List<User> data) {
+                        mAdapter.setData(data);
+                        sideSelector.setRecyclerView(mRecyclerView);
+                        decor = new StickyHeaderDecoration(mAdapter);
+                        mRecyclerView.addItemDecoration(decor, 0);
+                        sideSelector.invalidate();
                     }
-                });*/
-
-//        mAdapter = new ContactsListAdapter(contacts, getContext(), getActivity().getSupportFragmentManager());
+                });
     }
 }

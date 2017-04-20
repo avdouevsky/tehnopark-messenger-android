@@ -67,6 +67,8 @@ public class User implements Serializable {
     public Token token;
     public String queue;
 
+    public int online;
+
     public String getName() {
         return name;
     }

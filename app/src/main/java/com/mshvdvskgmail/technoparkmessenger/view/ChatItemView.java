@@ -17,7 +17,6 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 /**
  * Created by andrey on 19.04.2017.
  */
-
 public class ChatItemView extends LinearLayout {
     private TextView tvName;
     private TextView tvLastMessage;
@@ -52,6 +51,7 @@ public class ChatItemView extends LinearLayout {
     }
 
     public void setData(Chat data){
+        imOnline.setVisibility(INVISIBLE);
         if(data.peer2peer == 1){
             for(ChatUser cu : data.users)
                 if(cu.users_id != null && cu.user != null && !cu.users_id.equals(Controller.getInstance().getAuth().getUser().id)){
@@ -64,6 +64,7 @@ public class ChatItemView extends LinearLayout {
                             .into(imFace);
 
                     tvName.setText(cu.user.cn);
+                    imOnline.setVisibility(cu.user.online == 1 ? VISIBLE : INVISIBLE);
                 }else{
                     tvName.setText("Unknown");
                 }

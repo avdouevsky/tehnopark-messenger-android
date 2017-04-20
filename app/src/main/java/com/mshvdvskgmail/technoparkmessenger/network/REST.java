@@ -1,5 +1,6 @@
 package com.mshvdvskgmail.technoparkmessenger.network;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -223,6 +224,11 @@ public class REST implements IService {
                                                    @Header("token") String token,
                                                    @Query("search") String search){
         return service.contacts(session_id, token, search).compose(this.<Result<List<User>>>setup());
+    }
+
+    public Observable<Result<List<User>>> contacts(Token token,
+                                                   @Nullable String search){
+        return contacts(token.session_id, token.token, search);
     }
 
     @Override

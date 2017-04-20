@@ -31,40 +31,40 @@
         <item name="fontPath">fonts/GothamProRegular.ttf</item>
     </style>
     <style name="TextAppearance.Gotham.Bold" parent="android:TextAppearance">
-        <item name="fontPath">fonts/GothamPro-Bold.ttf</item>
+        <item name="fontPath">fonts/GothamProBold.ttf</item>
     </style>
-    <style name="TextAppearance.Gotham.Bold.Italic" parent="android:TextAppearance">
+    <!--<style name="TextAppearance.Gotham.Bold.Italic" parent="android:TextAppearance">
         <item name="fontPath">fonts/GothamPro-Bold-Italic.ttf</item>
     </style>
     <style name="TextAppearance.Gotham.Italic" parent="android:TextAppearance">
         <item name="fontPath">fonts/GothamPro-Italic.ttf</item>
-    </style>
+    </style>-->
 
     <!-- Light -->
     <style name="TextAppearance.Gotham.Light" parent="android:TextAppearance">
         <!--<item name="fontPath">fonts/GothamPro-Light.ttf</item>-->
-        <item name="fontPath">fonts/GothamPro-LightA.ttf</item>
+        <item name="fontPath">fonts/GothamProLight.ttf</item>
     </style>
-    <style name="TextAppearance.Gotham.LightItalic" parent="android:TextAppearance">
+    <!--<style name="TextAppearance.Gotham.LightItalic" parent="android:TextAppearance">
         <item name="fontPath">fonts/GothamPro-Light-Italic.ttf</item>
-    </style>
+    </style>-->
 
     <!-- Medium -->
-    <style name="TextAppearance.Gotham.Medium" parent="android:TextAppearance">
+    <!--<style name="TextAppearance.Gotham.Medium" parent="android:TextAppearance">-->
         <!--<item name="fontPath">fonts/GothamPro-Medium.ttf</item>-->
-        <item name="fontPath">fonts/GothamPro-MediumA.ttf</item>
+    <!--<item name="fontPath">fonts/GothamPro-MediumA.ttf</item>
     </style>
     <style name="TextAppearance.Gotham.Medium.Italic" parent="android:TextAppearance">
         <item name="fontPath">fonts/GothamPro-Medium-Italic.ttf</item>
-    </style>
+    </style>-->
 
-    <!-- Narrow -->
-    <style name="TextAppearance.Gotham.Narrow.Bold" parent="android:TextAppearance">
+<!-- Narrow -->
+    <!--<style name="TextAppearance.Gotham.Narrow.Bold" parent="android:TextAppearance">
         <item name="fontPath">fonts/GothamPro-Narrow-Bold.ttf</item>
     </style>
     <style name="TextAppearance.Gotham.Narrow.Medium" parent="android:TextAppearance">
         <item name="fontPath">fonts/GothamPro-Narrow-Medium.ttf</item>
-    </style>
+    </style>-->
 
 
 
