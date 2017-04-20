@@ -271,10 +271,16 @@ public class REST implements IService {
     @Override
     public Observable<Result<List<SipCall>>> calls(@Header("session-id") int session_id,
                                                    @Header("token") String token,
-                                                   @Query("number") String number,
-                                                   @Query("offset") String offset,
-                                                   @ Query("limit") String limit){
-        return service.calls(session_id, token, number, offset, limit).compose(this.<Result<List<SipCall>>>setup());
+                                                   //@Query("number") String number,
+                                                   @Query("offset") int offset,
+                                                   @ Query("limit") int limit){
+        return service.calls(session_id, token, offset, limit).compose(this.<Result<List<SipCall>>>setup());
+    }
+
+    public Observable<Result<List<SipCall>>> calls(Token token,
+                                                   @Query("offset") int offset,
+                                                   @ Query("limit") int limit){
+        return calls(token.session_id, token.token, offset, limit);
     }
 
     @Override

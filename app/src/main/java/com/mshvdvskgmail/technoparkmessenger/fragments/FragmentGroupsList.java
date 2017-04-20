@@ -1,47 +1,25 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.adapters.GroupListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
-import com.mshvdvskgmail.technoparkmessenger.models.GroupsListItem;
-import android.support.annotation.MainThread;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
-import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.adapters.GroupListAdapter;
-import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
-import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
-import com.mshvdvskgmail.technoparkmessenger.models.GroupsListItem;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**

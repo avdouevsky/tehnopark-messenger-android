@@ -83,9 +83,9 @@ public interface IService {
     @GET("?r=messages/json/calls")
     public Observable<Result<List<SipCall>>> calls(@Header("session-id") int session_id,
                                                    @Header("token") String token,
-                                                   @Query("number") String number,
-                                                   @Query("offset") String offset,
-                                                   @Query("limit") String limit);
+                                                   //@Query("number") String number,
+                                                   @Query("offset") int offset,
+                                                   @Query("limit") int limit);
 
     @Multipart
     @POST("?r=messages/attach/upload")

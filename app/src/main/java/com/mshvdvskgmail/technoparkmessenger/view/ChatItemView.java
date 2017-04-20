@@ -2,7 +2,6 @@ package com.mshvdvskgmail.technoparkmessenger.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,13 +41,13 @@ public class ChatItemView extends LinearLayout {
     }
 
     private void buildUI() {
-        LinearLayout.inflate(getContext(), R.layout.item_chat, this);
+        LinearLayout.inflate(getContext(), R.layout.view_item_chat, this);
 
-        tvName = (TextView) findViewById(R.id.recycler_item_chatslist_tv_name);
+        tvName = (TextView) findViewById(R.id.tvName);
         tvLastMessage = (TextView) findViewById(R.id.recycler_item_chatslist_tv_message);
-        tvTime = (TextView) findViewById(R.id.recycler_item_chatslist_tv_time);
+        tvTime = (TextView) findViewById(R.id.tvTime);
         imOnline = (ImageView) findViewById(R.id.recycler_item_chatslist_image_online);
-        imFace = (ImageView) findViewById(R.id.recycler_item_chatslist_image_profile_pic);
+        imFace = (ImageView) findViewById(R.id.imFace);
         tvCount = (TextView) findViewById(R.id.recycler_item_chatslist_tv_notification);
     }
 

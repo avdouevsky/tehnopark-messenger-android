@@ -21,7 +21,7 @@
                 android:layout_marginLeft="17dp"
                 android:layout_marginTop="18dp"
                 android:src="@drawable/icon_user"
-                android:id="@+id/recycler_item_chatslist_image_profile_pic">
+                android:id="@+id/imFace">
 
             </ImageView>
             <ImageView
@@ -49,7 +49,7 @@
                 android:layout_marginStart="13dp"
                 android:textColor="@color/colorBlueTextPrimary"
                 fontPath="fonts/GothamProBold.ttf"
-                android:id="@+id/recycler_item_chatslist_tv_name"
+                android:id="@+id/tvName"
                 android:layout_marginLeft="13dp" />
 
             <LinearLayout
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/backgroundGrey"
-                    android:id="@+id/recycler_item_chatslist_tv_time"
+                    android:id="@+id/tvTime"
                     android:text="13:23"
                     android:textSize="10sp"
                     android:layout_marginRight="18dp"/>

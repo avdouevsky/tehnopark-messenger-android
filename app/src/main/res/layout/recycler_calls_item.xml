@@ -18,7 +18,7 @@
             <ImageView
                 android:layout_width="11dp"
                 android:layout_height="11dp"
-                android:id="@+id/recycler_item_calls_image_status"
+                android:id="@+id/imDirection"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="19dp"
                 android:layout_marginLeft="19dp"

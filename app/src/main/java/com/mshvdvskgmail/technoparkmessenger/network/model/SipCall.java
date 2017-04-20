@@ -1,5 +1,7 @@
 package com.mshvdvskgmail.technoparkmessenger.network.model;
 
+import android.support.annotation.Nullable;
+
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 
 import java.text.ParseException;
@@ -29,35 +31,30 @@ public class SipCall {
     private final static String TAG = SipCall.class.toString();
 
     public String calldate;
+    public int calltime;
     public String src;
     public String dst;
     public int duration;
     public int billsec;
     public String disposition;
 
+    @Nullable
     public User src_u;
+
+    @Nullable
     public User dst_u;
 
     public boolean isIncoming(){
-        if(dst_u == Controller.getInstance().getAuth().getUser()){
-            return true;
-        }
-        return false;
+        return dst_u != null && dst_u.id.equals(Controller.getInstance().getAuth().getUser().id);
     }
-    public User Opposite(){
-        if(isIncoming()){
-            return src_u;
-        }
-        return dst_u;
+
+    @Nullable
+    public User opposite(){
+        return isIncoming() ? src_u : dst_u;
     }
 
     public boolean isMissed(){
-        if(!isIncoming()){
-            if(disposition == "NO ANSWER"){
-                return true;
-            }
-        }
-        return false;
+        return !isIncoming() && disposition.equals("NO ANSWER");
     }
 
     public String getTime(){
@@ -73,5 +70,4 @@ public class SipCall {
         }
         return "";
     }
-
 }
