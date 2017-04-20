@@ -10,8 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.GroupListAdapter;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.models.GroupsListItem;
 import android.support.annotation.MainThread;
 import android.support.v4.app.Fragment;
@@ -29,6 +34,7 @@ import com.mshvdvskgmail.technoparkmessenger.adapters.GroupListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.models.ChatsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.GroupsListItem;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,40 +42,36 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mshvdvsk on 29/03/2017.
  */
 
-public class FragmentGroupsList extends Fragment {
-    private View mRootView;
+public class FragmentGroupsList extends BaseFragment {
     private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
-    private ArrayList<Chat> groups;
-    private GroupListAdapter mAdapter;
-
-    @Override
-    public void onPause() {
-        EventBus.getDefault().unregister(this);
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        EventBus.getDefault().register(this);
-    }
+//    private ArrayList<Chat> groups;
+    private ChatsListAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.pager_item_recycler_view_with_search, container, false);
+        View root = inflater.inflate(R.layout.recycler_view_with_search, container, false);
 
-        mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_all);
+        mRecyclerView = (RecyclerView) root.findViewById(R.id.recycler_view_all);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new ChatsListAdapter(getContext());
+        mRecyclerView.setAdapter(mAdapter);
 
-//        llSearch = (LinearLayout) mRootView.findViewById(R.id.ll_all_ll_search_bar);
+        mAdapter.setClickListener(new ICommand<Chat>() {
+            @Override
+            public void exec(Chat chat) {
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.CHAT, ArgsBuilder.create().chat(chat).bundle()));
+            }
+        });
+
+//        llSearch = (LinearLayout) root.findViewById(R.id.ll_all_ll_search_bar);
 //        llSearch.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -82,28 +84,37 @@ public class FragmentGroupsList extends Fragment {
 //            }
 //        });
 
-        groups = new ArrayList<>();
-        groups.addAll(Controller.getInstance().getGroupChats());
+        //groups = new ArrayList<>();
+        //groups.addAll(Controller.getInstance().getGroupChats());
 
-        mAdapter = new GroupListAdapter(groups, getContext());
-        mRecyclerView.setAdapter(mAdapter);
+        loadData();
 
-        return mRootView;
+        return root;
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public final void onEvent(DataLoadEvent event) {
-        eventDataLoad(event.dataSource);
+    private void loadData(){
+        REST.getInstance().groups(Controller.getInstance().getAuth().getUser().token)
+                .subscribe(new REST.DataSubscriber<List<Chat>>() {
+                    @Override
+                    public void onData(List<Chat> data) {
+                        mAdapter.setData(data);
+                    }
+                });
     }
 
-    protected void eventDataLoad(String dataSource){
-        if(dataSource.equals("Groups")) {
-            Log.w("GroupsList", "eventDataLoad " + dataSource);
-            groups.clear();
-            groups.addAll(Controller.getInstance().getGroupChats());
-            mAdapter.notifyDataSetChanged();
-        }
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public final void onEvent(DataLoadEvent event) {
+//        eventDataLoad(event.dataSource);
+//    }
+
+//    protected void eventDataLoad(String dataSource){
+//        if(dataSource.equals("Groups")) {
+//            Log.w("GroupsList", "eventDataLoad " + dataSource);
+//            groups.clear();
+//            groups.addAll(Controller.getInstance().getGroupChats());
+//            mAdapter.notifyDataSetChanged();
+//        }
+//    }
 
 }
 

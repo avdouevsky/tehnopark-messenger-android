@@ -53,18 +53,26 @@ public class ChatItemView extends LinearLayout {
     }
 
     public void setData(Chat data){
-        for(ChatUser cu : data.users)
-            if(cu.users_id != null && cu.user != null && !cu.users_id.equals(Controller.getInstance().getAuth().getUser().id)){
-                if(cu.user.avatar != null) Picasso.with(getContext())
-                        .load(cu.user.avatar)
-                        .placeholder(R.drawable.icon_user)
-                        .error(R.drawable.icon_user)
-                        .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
-                        .centerCrop().transform(new RoundedCornersTransformation(360,0))
-                        .into(imFace);
+        if(data.peer2peer == 1){
+            for(ChatUser cu : data.users)
+                if(cu.users_id != null && cu.user != null && !cu.users_id.equals(Controller.getInstance().getAuth().getUser().id)){
+                    if(cu.user.avatar != null) Picasso.with(getContext())
+                            .load(cu.user.avatar)
+                            .placeholder(R.drawable.icon_user)
+                            .error(R.drawable.icon_user)
+                            .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+                            .centerCrop().transform(new RoundedCornersTransformation(360,0))
+                            .into(imFace);
 
-                tvName.setText(cu.user.cn);
-            }
+                    tvName.setText(cu.user.cn);
+                }else{
+                    tvName.setText("Unknown");
+                }
+        }else{
+            tvName.setText(data.name);
+            imFace.setImageResource(R.drawable.ic_group_icon);
+        }
+
 
         tvTime.setText(data.getTimeAsString());
         tvLastMessage.setText(data.last != null ? data.last.message_text : "");

@@ -239,13 +239,17 @@ public class REST implements IService {
     }
 
     public Observable<Result<List<Chat>>> chats(Token token){
-        return service.chats(token.session_id, token.token).compose(this.<Result<List<Chat>>>setup());
+        return chats(token.session_id, token.token);
     }
 
     @Override
     public Observable<Result<List<Chat>>> groups(@Header("session-id") int session_id,
                                            @Header("token") String token){
         return service.groups(session_id, token).compose(this.<Result<List<Chat>>>setup());
+    }
+
+    public Observable<Result<List<Chat>>> groups(Token token){
+        return groups(token.session_id, token.token);
     }
 
     @Override

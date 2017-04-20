@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.view.ChatItemView;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.ViewHolder> {
     private List<Chat> chatsList = new ArrayList<>();
     private Context context;
+    private ICommand<Chat> clickListener;
 
     public ChatsListAdapter(Context context) {
         this.context = context;
@@ -40,18 +42,22 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
 
     private void sort(){/*do nothing*/}
 
+    public void setClickListener(ICommand<Chat> clickListener) {
+        this.clickListener = clickListener;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(new ChatItemView(context));
     }
 
     @Override
-    public void onBindViewHolder(ChatsListAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ChatsListAdapter.ViewHolder holder, int position) {
         holder.getView().setData(chatsList.get(position));
         holder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.CHAT, ArgsBuilder.create().chat(chatsList.get(position)).bundle()));
+                if(clickListener != null) clickListener.exec(chatsList.get(holder.getAdapterPosition()));
             }
         });
     }

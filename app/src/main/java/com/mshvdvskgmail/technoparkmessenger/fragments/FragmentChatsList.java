@@ -15,6 +15,7 @@ import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatsListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import org.greenrobot.eventbus.EventBus;
@@ -45,6 +46,13 @@ public class FragmentChatsList extends BaseFragment {
         mRecyclerView.setAdapter(mAdapter);
         setListeners(mRootView);
         loadData();
+
+        mAdapter.setClickListener(new ICommand<Chat>() {
+            @Override
+            public void exec(Chat chat) {
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.CHAT, ArgsBuilder.create().chat(chat).bundle()));
+            }
+        });
 
         //chats.addAll(Controller.getInstance().getChats());
 /*
@@ -129,19 +137,19 @@ public class FragmentChatsList extends BaseFragment {
 //    }
 
     private void setListeners(View view){
-        LinearLayout llSearch = (LinearLayout) view.findViewById(R.id.ll_all_ll_search_bar);
-        llSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.SEARCH, null));
+//        LinearLayout llSearch = (LinearLayout) view.findViewById(R.id.ll_all_ll_search_bar);
+//        llSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.SEARCH, null));
                 //TODO FragmentSearch search = new FragmentSearch();
 //                getActivity().getSupportFragmentManager()
 //                        .beginTransaction()
 //                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
 //                        .replace(R.id.container, search)
 //                        .addToBackStack(null)
-//                        .commit();
-            }
-        });
+////                        .commit();
+//            }
+//        });
     }
 }
