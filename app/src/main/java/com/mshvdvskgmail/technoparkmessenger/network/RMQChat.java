@@ -185,6 +185,7 @@ public class RMQChat {
         message.user_token = token;
         message.local_id = localId;
         message.message = text;
+        message.attachments = attachments;
 
         String route = "dialog." + meId + "." + room_uuid;
         String json = gson.toJson(message);

@@ -116,6 +116,7 @@ public class FragmentAuthorization extends BaseFragment{
 //                                Controller.getInstance().fillContacts();
 //                                Controller.getInstance().fillChats();
 //                                Controller.getInstance().fillGroupChats();
+                                REST.getInstance().createSecurePicasso(getActivity(), Controller.getInstance().getAuth().getUser().token);
                                 EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MAIN_FOUR_TAB_SCREEN, null, SwitchFragmentEvent.Direction.REPLACE));
 //                                FragmentMainFourTabScreen mainScreen = new FragmentMainFourTabScreen();
 //                                getFragmentManager()

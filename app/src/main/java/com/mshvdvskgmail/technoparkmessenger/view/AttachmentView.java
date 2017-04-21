@@ -8,8 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
+
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * Created by andrey on 20.04.2017.
@@ -51,7 +55,32 @@ public class AttachmentView extends FrameLayout {
     }
 
     public void setData(@Nullable Attachment attachment){
-        if(attachment == null) setVisibility(GONE);
+        if(attachment == null){
+            setVisibility(GONE);
+            return;
+        }
+
+        boolean image = attachment.mime.startsWith("image/");
+        frameMime.setVisibility(image ? GONE : VISIBLE);
+        layoutInfo.setVisibility(image ? GONE : VISIBLE);
+        imPreview.setVisibility(image ? VISIBLE : GONE);
+
+        if(image){
+            REST.getInstance().getPicasso()
+                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid=" + attachment.uuid)
+                    .resizeDimen(R.dimen.chat_image_max_size, R.dimen.chat_image_max_size)
+                    .centerCrop()
+                    .transform(new RoundedCornersTransformation(Math.round(getResources().getDimension(R.dimen.chat_image_corner)),0))
+                    //.load(attachment.url)
+                    //.placeholder(R.drawable.icon_user)
+                    //.error(R.drawable.icon_user)
+                    //.resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+                    //.centerCrop().transform(new RoundedCornersTransformation(360,0))
+                    .into(imPreview);
+        }else{
+
+        }
+
         //todo other
     }
 }

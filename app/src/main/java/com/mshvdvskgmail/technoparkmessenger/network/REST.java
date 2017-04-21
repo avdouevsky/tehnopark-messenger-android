@@ -1,19 +1,25 @@
 package com.mshvdvskgmail.technoparkmessenger.network;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -29,10 +35,13 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
+import com.mshvdvskgmail.technoparkmessenger.BuildConfig;
 import com.mshvdvskgmail.technoparkmessenger.Consts;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.events.ErrorEvent;
 import com.mshvdvskgmail.technoparkmessenger.network.model.*;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -290,24 +299,43 @@ public class REST implements IService {
     }
 
     @Override
-    public Observable<Result<String>> upload_attach(@Header("session-id") int session_id,
+    public Observable<Result<Attachment>> upload_attach(@Header("session-id") int session_id,
                                                     @Header("token") String token,
                                                     @Part MultipartBody.Part file){
-        return service.upload_attach(session_id, token, file).compose(this.<Result<String>>setup());
+        return service.upload_attach(session_id, token, file).compose(this.<Result<Attachment>>setup());
     }
 
-    public Observable<Result<String>> upload_file(int session_id, String token, File file, String mime) {
-        Log.w(TAG, "file "+ file);
-        RequestBody requestFile =
-                RequestBody.create(
-                        MediaType.parse(mime),
-                        file
-                );
-        Log.w(TAG, "requestFile "+ requestFile);
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-        Log.w(TAG, "body "+ body);
-        return upload_attach(session_id, token, body);
+    public Observable<Result<Attachment>> upload_attach(Token token, File file, String mime) {
+        RequestBody requestFile = RequestBody.create(MediaType.parse(mime), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+        return upload_attach(token.session_id, token.token, body);
+    }
+
+    private Picasso picasso;
+
+    public void createSecurePicasso(Context context, final Token token){
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request newRequest = chain.request().newBuilder()
+                                .addHeader("session-id", token.session_id + "")
+                                .addHeader("token", token.token)
+                                .build();
+                        return chain.proceed(newRequest);
+                    }
+                })
+                .addInterceptor(new HttpLoggingInterceptor())
+                .build();
+
+        picasso = new Picasso.Builder(context)
+                .downloader(new OkHttp3Downloader(client))
+                .indicatorsEnabled(BuildConfig.DEBUG)
+                .build();
+    }
+
+    public Picasso getPicasso() {
+        return picasso;
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import android.widget.FrameLayout;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
 
+import java.net.URI;
 import java.util.ArrayList;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
@@ -35,22 +37,27 @@ import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.RMQChat;
 import com.mshvdvskgmail.technoparkmessenger.network.RabbitMQ;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.network.model.ChatUser;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Result;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.mshvdvskgmail.technoparkmessenger.view.MessageEditView;
 
 import java.io.File;
 import java.util.List;
 
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 
 /**
  * Created by mshvdvsk on 30/03/2017.
  */
 
 public class FragmentChat extends BaseFragment {
+    private final static String TAG = FragmentChat.class.toString();
     private static final int CHOOSE_FILE_REQUESTCODE = 10202;
 
     private RecyclerView recyclerView;
@@ -131,7 +138,7 @@ public class FragmentChat extends BaseFragment {
                                 messageEditView.getText(), "text_input");
                         break;
                     case SEND:
-                        sendMessage();
+                        sendMessage(null);
                         break;
                     case ATTACH:
                         openFile();
@@ -166,10 +173,22 @@ public class FragmentChat extends BaseFragment {
                 });
     }
 
-    private void sendMessage() {
+    private void sendMessage(@Nullable List<Attachment> attachments) {
         ChatController.getInstance().r.sendMessage(Controller.getInstance().getAuth().user.token,
-                Controller.getInstance().getAuth().user.id, chat.uuid, messageEditView.getText(), "no local id", null).subscribe(new RMQChat.LogSubscriber<RabbitMQ>("sendMessage"));
+                Controller.getInstance().getAuth().user.id, chat.uuid, messageEditView.getText(), "no local id", attachments).subscribe(new RMQChat.LogSubscriber<RabbitMQ>("sendMessage"));
         messageEditView.clear();
+    }
+
+    private void sendFile(File file, String mime){
+        REST.getInstance().upload_attach(Controller.getInstance().getAuth().getUser().token, file, mime)
+                .subscribe(new REST.DataSubscriber<Attachment>() {
+                    @Override
+                    public void onData(Attachment data) {
+                        List<Attachment> attachments = new ArrayList<Attachment>();
+                        attachments.add(data);
+                        sendMessage(attachments);
+                    }
+                });
     }
 
     protected void eventMessage(Message message) {
@@ -198,44 +217,24 @@ public class FragmentChat extends BaseFragment {
 
 //    public void openFile(String mimeType) {
     public void openFile() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
+        //Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT); //TODO не получилось возбудить эту штуку
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        //intent.addCategory(Intent.CATEGORY_OPENABLE);
+        //intent.setType("*/*");
+        intent.setType("image/*");  //TODO заглушка на открытие только картинок
         startActivityForResult(intent, CHOOSE_FILE_REQUESTCODE);
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Log.d("chat", "onActivityResult "+data.getType()+ " | "+data.getData().getPath());
         if (requestCode == CHOOSE_FILE_REQUESTCODE && null != data)
         {
-//            Bundle data1=data.getExtras();
-            Log.d("chat", "onActivityResult "+data.getData() + " | "+ getMimeType(data.getDataString()));
-//            File f=(File)data1.get(key);
-//            File file = new File(URI.create(data.getData().getEncodedPath()).getPath());
-//            File file = new File(getRealPathFromURI(this.getContext(), Uri.parse(data.getDataString())));
-            File file = new File(data.getData().getEncodedPath());
-            Log.w("chat", "file: " + file.isFile());
+            Log.v(TAG, "onActivityResult "+ data.getData() + " | "+ getMimeType(data.getDataString()));
+            File file = new File(URI.create(data.getData().getEncodedPath()).getPath());
+            Log.v(TAG, "file: " + file.isFile());
 
-
-            REST.getInstance().upload_file(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, file, getMimeType(data.getDataString()))
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new REST.DataSubscriber<String>() {
-
-                        @Override
-                        public void onData(String data) {
-                            Log.w("chat", "data: "+data);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            super.onError(e);
-                            Log.e("chat", "error: "+e);
-                        }
-                    });
-
+            sendFile(file, getMimeType(data.getDataString()));
         }
     }
 
@@ -248,20 +247,25 @@ public class FragmentChat extends BaseFragment {
         return type;
     }
 
-    public String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = null;
-        try {
-            String[] proj = { MediaStore.Images.Media.DATA };
-            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
+//    public String getRealPathFromURI(Context context, Uri contentUri) {
+//        Cursor cursor = null;
+//        try {
+//            String[] proj = { MediaStore.Images.Media.DATA };
+//            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//            cursor.moveToFirst();
+//
+//            return cursor.getString(column_index);
+//        } catch (Exception e){
+//            Log.w(TAG, e);
+//            return null;
+//        }
+//        finally {
+//            if (cursor != null) {
+//                cursor.close();
+//            }
+//        }
+//    }
 
 
 //    private String getRealPathFromURI(Uri contentUri) {

@@ -71,16 +71,32 @@ public class MessageView extends FrameLayout {
         frameContent.setBackground(getResources().getDrawable(out ? message_outgoing_background : message_incoming_background));
 
         tvName.setVisibility(!p2p && !out ? VISIBLE : GONE);
+        if(!p2p) tvName.setText(data.sender.getName());
         cornerLeft.setVisibility(!out ? VISIBLE : GONE);
         cornerRight.setVisibility(!out ? GONE : VISIBLE);
         imStatus.setVisibility(out ? VISIBLE : GONE);
 
         viewAttachment.setVisibility(data.attachments == null || data.attachments.size() == 0 ? GONE : VISIBLE);
         if(data.attachments == null || data.attachments.size() == 0) viewAttachment.setData(null);
-        else viewAttachment.setData(data.attachments.get(0));
+        else{
+            viewAttachment.setData(data.attachments.get(0));
+            frameContent.getLayoutParams().width = Math.round((float)getLayoutParams().width * 0.8f); //TODO!!
+        }
 
         tvText.setText(data.message);
         tvTime.setText(data.getTime());
+
+        switch (data.getStatus()){
+            case READ:
+                imStatus.setImageResource(R.drawable.ic_message_read);
+                break;
+            case SENT:
+                imStatus.setImageResource(R.drawable.ic_message_sent);
+                break;
+            case DELIVERED:
+                imStatus.setImageResource(R.drawable.ic_message_recieved);
+                break;
+        }
     }
 
     @Override

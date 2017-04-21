@@ -89,7 +89,7 @@ public interface IService {
 
     @Multipart
     @POST("?r=messages/attach/upload")
-    public Observable<Result<String>> upload_attach(@Header("session-id") int session_id,
+    public Observable<Result<Attachment>> upload_attach(@Header("session-id") int session_id,
                                                     @Header("token") String token,
                                                     @Part MultipartBody.Part file);
 

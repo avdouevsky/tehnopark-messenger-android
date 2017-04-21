@@ -53,6 +53,8 @@
             android:textAppearance="@style/TextAppearance.Gotham" />
     </LinearLayout>
     <ImageView
+        android:maxWidth="@dimen/chat_image_max_size"
+        android:maxHeight="@dimen/chat_image_max_size"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:src="@drawable/pushkin"
