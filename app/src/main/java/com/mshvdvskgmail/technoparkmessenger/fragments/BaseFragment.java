@@ -46,12 +46,20 @@ public class BaseFragment extends Fragment {
                 fragment = new FragmentProfile();
                 fragment.setArguments(data);
                 return fragment;
-//            case INCOMING_CALL:
-//                fragment = new FragmentIncomingCall();
-//                fragment.setArguments(data);
-//                return fragment;
+            case OUTGOING_CALL:
+                fragment = new FragmentOutgoingCall();
+                fragment.setArguments(data);
+                return fragment;
             case GROUPS_SETTINGS:
                 fragment = new FragmentGroupsSettings();
+                fragment.setArguments(data);
+                return fragment;
+            case ADD_MEMBER:
+                fragment = new FragmentAddMember();
+                fragment.setArguments(data);
+                return fragment;
+            case MEDIA:
+                fragment = new FragmentMedia();
                 fragment.setArguments(data);
                 return fragment;
             default:
@@ -102,10 +110,5 @@ public class BaseFragment extends Fragment {
 
     protected void eventMessage(Message message) {
         Log.d(TAG, "event message");
-    }
-
-
-    public void setSelected_contacts(ArrayList<User> selected_contacts){
-
     }
 }

@@ -9,16 +9,21 @@
     android:paddingBottom="9dp"
     android:paddingLeft="18dp"
     android:paddingRight="18dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_message_tail_outgoing"
+        android:layout_gravity="right"
+        android:layout_marginTop="-18dp"
+        android:id="@+id/cornerRight"/>
+
     <FrameLayout
         android:id="@+id/frameContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/message_outgoing_background"
         android:orientation="vertical"
-        android:paddingStart="18dp"
-        android:paddingEnd="18dp"
-        android:paddingTop="11dp"
-        android:paddingBottom="11dp"
         android:layout_marginLeft="6dp"
         >
         <LinearLayout
@@ -26,30 +31,34 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <TextView
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingTop="11dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Александр Пушкин"
-                android:paddingBottom="6dp"
                 android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:textColor="#33cccc"
                 android:visibility="visible"
                 android:id="@+id/tvName"/>
-
             <TextView
+                android:paddingTop="6dp"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="10dp"
                 android:id="@+id/tvText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Привет! Много дел? Давай сходим на обед, мне кажется сейчас самое время!"
                 android:textColor="#0f2745"
-                android:paddingBottom="10dp"
                 android:textAppearance="@style/TextAppearance.Gotham"
                 />
 
             <com.mshvdvskgmail.technoparkmessenger.view.AttachmentView
+                android:padding="@dimen/chat_item_image_padding"
                 android:id="@+id/viewAttachment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
-
         </LinearLayout>
         <TextView
             android:layout_marginRight="20dp"
@@ -66,25 +75,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_message_read"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_marginBottom="2.5dp"
             android:layout_marginLeft="5dp"
             android:layout_gravity="bottom|right"
             android:id="@+id/imStatus" />
     </FrameLayout>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_message_tail_outgoing"
-        android:layout_gravity="right"
-        android:layout_marginTop="-18dp"
-        android:id="@+id/cornerRight"/>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_message_tail_incoming"
         android:layout_gravity="left"
         android:layout_marginTop="-18dp"
+        android:visibility="gone"
         android:id="@+id/cornerLeft"/>
 
 </LinearLayout>

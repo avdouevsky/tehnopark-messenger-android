@@ -53,7 +53,12 @@ public class Chat implements Serializable {
         return new SimpleDateFormat("HH:mm").format(new Date(time * 1000L));
     }
 
-
+    public List<User> getUsers(){
+        List<User> users = new ArrayList<>();
+        for(ChatUser cu : this.users)
+            if(cu.user != null) users.add(cu.user);
+        return users;
+    }
 
     /*public List<User> Users(){
         List<User> retVal = new ArrayList<>();

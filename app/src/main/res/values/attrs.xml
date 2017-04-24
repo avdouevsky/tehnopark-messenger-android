@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AvatarView">
+        <attr name="face_size" format="enum">
+            <enum name="SMALL" value="0"/>
+            <enum name="MEDIUM" value="1"/>
+            <enum name="BIG" value="2"/>
+        </attr>
+        <attr name="show_online" format="boolean"/>
+    </declare-styleable>
+</resources>

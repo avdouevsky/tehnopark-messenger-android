@@ -3,7 +3,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="chat_item_image_width_max">250dp</dimen>
+    <dimen name="chat_item_image_height_max">140dp</dimen>
+    <dimen name="chat_item_image_padding">4dp</dimen>
+
     <dimen name="chat_item_avatar_size">43dp</dimen>
-    <dimen name="chat_image_max_size">250dp</dimen>
-    <dimen name="chat_image_corner">20dp</dimen>
+    <!--<dimen name="chat_image_max_size">250dp</dimen>-->
+    <dimen name="chat_image_outer_corner">18dp</dimen>
+    <dimen name="chat_image_inner_corner">14dp</dimen>
 </resources>

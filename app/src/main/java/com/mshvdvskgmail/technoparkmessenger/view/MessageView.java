@@ -24,6 +24,7 @@ public class MessageView extends FrameLayout {
     private AttachmentView viewAttachment;
     private TextView tvTime;
     private ImageView imStatus;
+    private boolean withCorners = false;
     private ImageView cornerRight;
     private ImageView cornerLeft;
 
@@ -70,18 +71,32 @@ public class MessageView extends FrameLayout {
 
         frameContent.setBackground(getResources().getDrawable(out ? message_outgoing_background : message_incoming_background));
 
-        tvName.setVisibility(!p2p && !out ? VISIBLE : GONE);
-        if(!p2p) tvName.setText(data.sender.getName());
-        cornerLeft.setVisibility(!out ? VISIBLE : GONE);
-        cornerRight.setVisibility(!out ? GONE : VISIBLE);
+
+        cornerLeft.setVisibility(!out && withCorners? VISIBLE : GONE);
+        cornerRight.setVisibility(!out && withCorners? GONE : VISIBLE);
         imStatus.setVisibility(out ? VISIBLE : GONE);
 
         viewAttachment.setVisibility(data.attachments == null || data.attachments.size() == 0 ? GONE : VISIBLE);
-        if(data.attachments == null || data.attachments.size() == 0) viewAttachment.setData(null);
+        if(data.attachments == null || data.attachments.size() == 0){
+            viewAttachment.setData(null);
+            tvText.setVisibility(VISIBLE);
+            tvTime.setVisibility(VISIBLE);
+            imStatus.setVisibility(VISIBLE);
+            frameContent.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        }
         else{
             viewAttachment.setData(data.attachments.get(0));
-            frameContent.getLayoutParams().width = Math.round((float)getLayoutParams().width * 0.8f); //TODO!!
+            frameContent.getLayoutParams().width = Math.round(
+                    getResources().getDimension(R.dimen.chat_item_image_width_max)
+                    + getResources().getDimension(R.dimen.chat_item_image_padding) * 2
+            );
+//            frameContent.getLayoutParams().width = Math.round((float)getLayoutParams().width * 0.8f); //TODO!!
+            tvText.setVisibility(GONE);
+            tvTime.setVisibility(GONE);
+            imStatus.setVisibility(GONE);
         }
+        tvName.setVisibility(!p2p && !out ? VISIBLE : GONE);
+        if(!p2p) tvName.setText(data.sender.getName());
 
         tvText.setText(data.message);
         tvTime.setText(data.getTime());

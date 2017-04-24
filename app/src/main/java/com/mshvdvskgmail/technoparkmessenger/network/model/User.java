@@ -69,6 +69,8 @@ public class User implements Serializable {
 
     public int online;
 
+    transient public boolean uiSelected = false;
+
     public String getName() {
         return name;
     }
@@ -76,4 +78,24 @@ public class User implements Serializable {
     public String getOfficePosition() {
         return description;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof User)
+            return id.equals(((User)obj).id);
+        else
+            return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        //return super.toString();
+        return id;
+    }
+
+    //    @Override
+//    public int hashCode() {
+//        //return super.hashCode();
+//        return id.hashCode();
+//    }
 }

@@ -43,8 +43,6 @@ public class FragmentIncomingCall extends Fragment {
     private Handler handler;
     private int animationStatus = 0;
 
-
-
     public FragmentIncomingCall() {}
 
     @Override
@@ -156,6 +154,7 @@ public class FragmentIncomingCall extends Fragment {
         handler.postDelayed((new Runnable() {
             @Override
             public void run() {
+                if(!isAdded()) return;
 
                 TransitionDrawable transition;
 

@@ -173,7 +173,7 @@ public class FragmentOutgoingCall extends Fragment {
         handler.postDelayed((new Runnable() {
             @Override
             public void run() {
-
+                if(!isAdded()) return;
                 TransitionDrawable transition;
 
                 switch (animationStatus) {

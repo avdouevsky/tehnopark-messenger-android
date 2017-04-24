@@ -28,6 +28,7 @@ public class MemberListView extends FrameLayout {
     private GroupMembersAdapter adapter;
 
     private ICommand<User> clickListener;
+    private ICommand<Void> addListener;
 
     public MemberListView(Context context) {
         this(context, null);
@@ -68,12 +69,16 @@ public class MemberListView extends FrameLayout {
         tvMemberAdd.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                //todo add member
+                if(addListener != null) addListener.exec(null);
             }
         });
     }
 
     public void setClickListener(ICommand<User> clickListener) {
         adapter.setClickListener(clickListener);
+    }
+
+    public void setAddListener(ICommand<Void> addListener) {
+        this.addListener = addListener;
     }
 }

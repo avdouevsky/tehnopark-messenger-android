@@ -73,6 +73,20 @@ public interface IService {
                                          @Field("users") String users,
                                          @Field("name") String name);
 
+    @POST("?r=messages/json/group-add")
+    @FormUrlEncoded
+    public Observable<Result<Chat>> group_add(@Header("session-id") int session_id,
+                                              @Header("token") String token,
+                                              @Query("room_uuid") String room_uuid,
+                                              @Field("users") String users);
+
+    @POST("?r=messages/json/group-remove")
+    @FormUrlEncoded
+    public Observable<Result<Chat>> group_remove(@Header("session-id") int session_id,
+                                              @Header("token") String token,
+                                              @Query("room_uuid") String room_uuid,
+                                              @Field("users") String users);
+
     @POST("?r=messages/json/chat-name")
     @FormUrlEncoded
     public Observable<Result<Chat>> chatName(@Header("session-id") int session_id,

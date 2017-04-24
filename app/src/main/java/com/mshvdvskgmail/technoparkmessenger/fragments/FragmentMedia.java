@@ -23,7 +23,7 @@ import org.greenrobot.eventbus.EventBus;
  * Created by mshvdvsk on 21/03/2017.
  */
 
-public class FragmentMedia extends Fragment {
+public class FragmentMedia extends BaseFragment {
     private View mRootView;
     private ImageView imageTrashIcon;
     private ImageView imageShareIcon;

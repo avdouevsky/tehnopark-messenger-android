@@ -58,7 +58,7 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
         holder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.INCOMING_CALL, null));
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.OUTGOING_CALL, null));
             }
         });
     }

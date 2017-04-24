@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_marginBottom="12dp"
     android:layout_width="wrap_content" android:layout_height="wrap_content">
 
     <FrameLayout
@@ -53,10 +52,11 @@
             android:textAppearance="@style/TextAppearance.Gotham" />
     </LinearLayout>
     <ImageView
-        android:maxWidth="@dimen/chat_image_max_size"
-        android:maxHeight="@dimen/chat_image_max_size"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:maxWidth="@dimen/chat_item_image_width_max"
+        android:maxHeight="@dimen/chat_item_image_height_max"
+        android:scaleType="centerCrop"
+        android:layout_width="@dimen/chat_item_image_width_max"
+        android:layout_height="@dimen/chat_item_image_height_max"
         android:src="@drawable/pushkin"
         android:adjustViewBounds="true"
         android:id="@+id/imPreview"

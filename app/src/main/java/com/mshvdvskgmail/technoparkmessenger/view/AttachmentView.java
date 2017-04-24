@@ -45,6 +45,8 @@ public class AttachmentView extends FrameLayout {
     private void buildUI(){
         FrameLayout.inflate(getContext(), R.layout.view_attachment, this);
 
+        if(isInEditMode()) return;
+
         frameMime = (FrameLayout) findViewById(R.id.frameMime);
         imFile = (ImageView) findViewById(R.id.imFile);
         tvMime = (TextView) findViewById(R.id.tvMime);
@@ -55,6 +57,8 @@ public class AttachmentView extends FrameLayout {
     }
 
     public void setData(@Nullable Attachment attachment){
+        if(isInEditMode()) return;
+
         if(attachment == null){
             setVisibility(GONE);
             return;
@@ -68,14 +72,9 @@ public class AttachmentView extends FrameLayout {
         if(image){
             REST.getInstance().getPicasso()
                     .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid=" + attachment.uuid)
-                    .resizeDimen(R.dimen.chat_image_max_size, R.dimen.chat_image_max_size)
+                    .resizeDimen(R.dimen.chat_item_image_width_max, R.dimen.chat_item_image_height_max)
                     .centerCrop()
-                    .transform(new RoundedCornersTransformation(Math.round(getResources().getDimension(R.dimen.chat_image_corner)),0))
-                    //.load(attachment.url)
-                    //.placeholder(R.drawable.icon_user)
-                    //.error(R.drawable.icon_user)
-                    //.resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
-                    //.centerCrop().transform(new RoundedCornersTransformation(360,0))
+                    .transform(new RoundedCornersTransformation(Math.round(getResources().getDimension(R.dimen.chat_image_inner_corner)),0))
                     .into(imPreview);
         }else{
 

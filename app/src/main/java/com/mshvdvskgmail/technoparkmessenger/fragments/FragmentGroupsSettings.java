@@ -11,14 +11,19 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.view.MediaListView;
 import com.mshvdvskgmail.technoparkmessenger.view.MemberListView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -97,6 +102,20 @@ public class FragmentGroupsSettings extends Fragment {
                                 }
                             });
                 }
+            }
+        });
+
+        viewMemberList.setAddListener(new ICommand<Void>() {
+            @Override
+            public void exec(Void data) {
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.ADD_MEMBER, ArgsBuilder.create().chat(chat).bundle()));
+            }
+        });
+
+        viewMediaList.setCountClickListener(new ICommand<Void>() {
+            @Override
+            public void exec(Void data) {
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MEDIA, ArgsBuilder.create().chat(chat).bundle()));
             }
         });
 

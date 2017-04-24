@@ -6,10 +6,10 @@ package com.mshvdvskgmail.technoparkmessenger;
 
 public enum Fragments {
     BASE,
-    ADD_MEMBER,
-    AUTHORIZATION,
+    ADD_MEMBER, //+
+    AUTHORIZATION, //+
     CALL_LIST,
-    CHAT,
+    CHAT, //+
     CHAT_GROUP,
     CHATS_LIST,
     CONTACTS_LIST,
@@ -18,14 +18,14 @@ public enum Fragments {
 
     DOCUMENTS_LIST,
     GROUPS_LIST,
-    GROUPS_SETTINGS,    /* FragmentGroupsSettings */
+    GROUPS_SETTINGS,    /* FragmentGroupsSettings */ //+
     INCOMING_CALL,
     LINKS_LIST,
-    MAIN_FOUR_TAB_SCREEN,
-    MEDIA,
+    MAIN_FOUR_TAB_SCREEN, //+
+    MEDIA, //+
     MEDIA_LIST,
-    OUTGOING_CALL,
-    PROFILE,
+    OUTGOING_CALL,  //+
+    PROFILE, //+
 
     PROFILE_PICTURE,
     RESET_PASSWORD,

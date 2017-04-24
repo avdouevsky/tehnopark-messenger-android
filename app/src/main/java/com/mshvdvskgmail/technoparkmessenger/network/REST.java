@@ -2,14 +2,15 @@ package com.mshvdvskgmail.technoparkmessenger.network;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -40,7 +41,6 @@ import com.mshvdvskgmail.technoparkmessenger.Consts;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.events.ErrorEvent;
 import com.mshvdvskgmail.technoparkmessenger.network.model.*;
-import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -273,6 +273,57 @@ public class REST implements IService {
                                          @Field("users") String users,
                                          @Field("name") String name){
         return service.chat(session_id, token, users, name).compose(this.<Result<Chat>>setup());
+    }
+
+    public Observable<Result<Chat>> chat(Token token,
+                                         List<User> users,
+                                         String name){
+        String uu = TextUtils.join(",", users);
+        return chat(token.session_id, token.token, uu, name).compose(this.<Result<Chat>>setup());
+    }
+
+    @Override
+    @Deprecated
+    public Observable<Result<Chat>> group_add(@Header("session-id") int session_id,
+                                              @Header("token") String token,
+                                              @Query("room_uuid") String room_uuid,
+                                              @Field("users") String users) {
+        return service.group_add(session_id, token, room_uuid, users).compose(this.<Result<Chat>>setup());
+    }
+
+    public Observable<Result<Chat>> group_add(Token token,
+                                              Chat chat,
+                                              List<User> users) {
+        List<User> inChat = chat.getUsers();
+        List<User> users2 = new ArrayList<>(users);
+        users2.removeAll(inChat);
+        if(users2.size() == 0){
+            Result<Chat> r = new Result<>();
+            r.data = chat;
+            r.status = OK;
+            return Observable.just(r);
+        }else
+            return group_add(token.session_id, token.token, chat.uuid, TextUtils.join(",", users2));
+    }
+
+    @Override
+    public Observable<Result<Chat>> group_remove(@Header("session-id") int session_id,
+                                                 @Header("token") String token,
+                                                 @Query("room_uuid") String room_uuid,
+                                                 @Field("users") String users) {
+        return service.group_remove(session_id, token, room_uuid, users).compose(this.<Result<Chat>>setup());
+    }
+
+    public Observable<Result<Chat>> group_remove(Token token, Chat chat, List<User> users){
+        List<User> inChat = chat.getUsers();
+        inChat.removeAll(users);
+        if(inChat.size() == 0){
+            Result<Chat> r = new Result<>();
+            r.data = chat;
+            r.status = OK;
+            return Observable.just(r);
+        }else
+            return group_remove(token.session_id, token.token, chat.uuid, TextUtils.join(",", inChat));
     }
 
     @Override

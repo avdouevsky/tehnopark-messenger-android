@@ -14,10 +14,14 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
 import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.MainScreenTabAdapter;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by mshvdvsk on 16/03/2017.
@@ -84,25 +88,13 @@ public class FragmentMainFourTabScreen extends BaseFragment{
         writeNewIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                switch (viewPager.getCurrentItem()){
+                    case 0:
+                    case 1:
+                        EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.ADD_MEMBER, null));
+                        break;
+                }
 
-                /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                alertDialog.setTitle("ОК, СПАСИБО");
-                alertDialog.setMessage("Все работает ок, не так ли?");
-                alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.setNegativeButton("Не знаю", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert = alertDialog.create();
-                alert.show();*/
-                ((MainActivity) getContext()).executeAction("showCreateGroup", null);
             }
         });
 

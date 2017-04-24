@@ -178,6 +178,9 @@ public class FragmentChat extends BaseFragment {
             };
             fragment_chat_iv_profile.setOnClickListener(groupSettings);
             layoutToolbarHeader.setOnClickListener(groupSettings);
+        }else{
+            //TODO set user avatar
+            fragment_chat_iv_profile.setImageResource(R.drawable.icon_user);
         }
 
 

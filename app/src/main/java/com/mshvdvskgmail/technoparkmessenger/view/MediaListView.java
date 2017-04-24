@@ -5,11 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.GroupFilesAdapter;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 
 import java.util.List;
@@ -23,6 +25,8 @@ public class MediaListView extends FrameLayout {
     private RecyclerView recyclerView;
 
     private GroupFilesAdapter adapter;
+
+    private ICommand<Void> countClickListener;
 
     public MediaListView(Context context) {
         this(context, null);
@@ -49,10 +53,21 @@ public class MediaListView extends FrameLayout {
         recyclerView.setLayoutManager(lm);
         adapter = new GroupFilesAdapter(getContext());
         recyclerView.setAdapter(adapter);
+
+        tvFilesCount.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(countClickListener != null) countClickListener.exec(null);
+            }
+        });
     }
 
     public void setData(@NonNull List<Attachment> attachments){
         adapter.setData(attachments);
         tvFilesCount.setText(String.format("%d", attachments.size()));
+    }
+
+    public void setCountClickListener(ICommand<Void> countClickListener) {
+        this.countClickListener = countClickListener;
     }
 }
