@@ -50,6 +50,10 @@ public class BaseFragment extends Fragment {
 //                fragment = new FragmentIncomingCall();
 //                fragment.setArguments(data);
 //                return fragment;
+            case GROUPS_SETTINGS:
+                fragment = new FragmentGroupsSettings();
+                fragment.setArguments(data);
+                return fragment;
             default:
                 fragment = new SimpleFragment();
                 if(data == null) data = new Bundle();

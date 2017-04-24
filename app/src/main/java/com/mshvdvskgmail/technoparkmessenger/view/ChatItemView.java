@@ -65,9 +65,10 @@ public class ChatItemView extends LinearLayout {
 
                     tvName.setText(cu.user.cn);
                     imOnline.setVisibility(cu.user.online == 1 ? VISIBLE : INVISIBLE);
-                }else{
+                }/*else{
+                    // ignore!
                     tvName.setText("Unknown");
-                }
+                }*/
         }else{
             tvName.setText(data.name);
             imFace.setImageResource(R.drawable.ic_group_icon);

@@ -41,6 +41,7 @@ public class FragmentChatGroup extends Fragment {
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_chat_group_rv_messages);
         recyclerView.setHasFixedSize(true);
+
         lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         messages = new ArrayList<>();

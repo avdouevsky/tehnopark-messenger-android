@@ -276,11 +276,18 @@ public class REST implements IService {
     }
 
     @Override
+    @Deprecated
     public Observable<Result<Chat>> chatName(@Header("session-id") int session_id,
                                              @Header("token") String token,
                                              @Query("room_uuid") String room_uuid,
                                              @Field("name") String name){
         return service.chatName(session_id, token, room_uuid, name).compose(this.<Result<Chat>>setup());
+    }
+
+    public Observable<Result<Chat>> chatName(Token token,
+                                             @Query("room_uuid") String room_uuid,
+                                             @Field("name") String name){
+        return chatName(token.session_id, token.token, room_uuid, name);
     }
 
     @Override
@@ -309,6 +316,15 @@ public class REST implements IService {
         RequestBody requestFile = RequestBody.create(MediaType.parse(mime), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
         return upload_attach(token.session_id, token.token, body);
+    }
+
+    @Override
+    public Observable<Result<List<Attachment>>> get_room_attachments(@Header("session-id") int session_id, @Header("token") String token, @Query("room_uuid") String room_uuid) {
+        return service.get_room_attachments(session_id, token, room_uuid).compose(this.<Result<List<Attachment>>>setup());
+    }
+
+    public Observable<Result<List<Attachment>>> get_room_attachments(Token token, String room_uuid) {
+        return get_room_attachments(token.session_id, token.token, room_uuid);
     }
 
     private Picasso picasso;

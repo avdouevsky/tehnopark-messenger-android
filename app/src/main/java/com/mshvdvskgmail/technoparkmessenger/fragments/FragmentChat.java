@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
 
@@ -26,12 +27,14 @@ import java.net.URI;
 import java.util.ArrayList;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mshvdvskgmail.technoparkmessenger.ChatController;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
@@ -44,6 +47,8 @@ import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Result;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.mshvdvskgmail.technoparkmessenger.view.MessageEditView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.List;
@@ -60,6 +65,9 @@ public class FragmentChat extends BaseFragment {
     private final static String TAG = FragmentChat.class.toString();
     private static final int CHOOSE_FILE_REQUESTCODE = 10202;
 
+    private ImageView fragment_chat_iv_profile;
+    private LinearLayout layoutToolbarHeader;
+
     private RecyclerView recyclerView;
     private ChatListAdapter mAdapter;
     private MessageEditView messageEditView;
@@ -74,6 +82,9 @@ public class FragmentChat extends BaseFragment {
         chat = ArgsBuilder.create().chat();
 
         View root = inflater.inflate(R.layout.fragment_chat, container, false);
+
+        fragment_chat_iv_profile = (ImageView) root.findViewById(R.id.fragment_chat_iv_profile);
+        layoutToolbarHeader = (LinearLayout) root.findViewById(R.id.layoutToolbarHeader);
 
         recyclerView = (RecyclerView) root.findViewById(R.id.fragment_chat_rv_messages);
         TextView tvContact = (TextView)root.findViewById(R.id.fragment_chat_tv_name);
@@ -157,6 +168,18 @@ public class FragmentChat extends BaseFragment {
 
         mAdapter = new ChatListAdapter(getContext(), chat);
         recyclerView.setAdapter(mAdapter);
+
+        if(chat.peer2peer == 0){
+            View.OnClickListener groupSettings = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.GROUPS_SETTINGS, ArgsBuilder.create().chat(chat).bundle()));
+                }
+            };
+            fragment_chat_iv_profile.setOnClickListener(groupSettings);
+            layoutToolbarHeader.setOnClickListener(groupSettings);
+        }
+
 
         loadData();
 

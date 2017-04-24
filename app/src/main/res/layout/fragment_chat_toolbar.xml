@@ -14,8 +14,9 @@
             android:layout_gravity="left"
             android:id="@+id/fragment_chat_fl_back">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:src="@drawable/ic_back_arrow"
                 android:layout_gravity="center"/>
         </FrameLayout>
@@ -32,14 +33,16 @@
             />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/layoutToolbarHeader"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:paddingRight="44dp"
             android:orientation="vertical"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Александ Пушкин"
                 android:textSize="15sp"
@@ -47,6 +50,8 @@
                 android:textStyle="bold"
                 android:id="@+id/fragment_chat_tv_name"
                 android:textAppearance="@style/TextAppearance.Gotham"
+                android:lines="1"
+                android:ellipsize="end"
                 />
 
             <TextView
@@ -70,8 +75,9 @@
             android:layout_marginBottom="10dp"
             android:id="@+id/fragment_chat_fl_call">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:src="@drawable/ic_phone"
                 android:layout_gravity="center"/>
         </FrameLayout>

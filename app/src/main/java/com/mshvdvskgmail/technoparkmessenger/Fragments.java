@@ -18,7 +18,7 @@ public enum Fragments {
 
     DOCUMENTS_LIST,
     GROUPS_LIST,
-    GROUPS_SETTINGS,
+    GROUPS_SETTINGS,    /* FragmentGroupsSettings */
     INCOMING_CALL,
     LINKS_LIST,
     MAIN_FOUR_TAB_SCREEN,

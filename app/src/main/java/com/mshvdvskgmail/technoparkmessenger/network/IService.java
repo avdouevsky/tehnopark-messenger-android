@@ -93,6 +93,12 @@ public interface IService {
                                                     @Header("token") String token,
                                                     @Part MultipartBody.Part file);
 
+    //http://t-mes.xsrv.ru/basic/web/?r=messages/attach/index&debug=1&room_uuid=blablabla
+    @GET("?r=messages/attach/index")
+    public Observable<Result<List<Attachment>>> get_room_attachments(@Header("session-id") int session_id,
+                                                                     @Header("token") String token,
+                                                                     @Query("room_uuid") String room_uuid);
+
     @GET("?r=messages/json/messages")
     public Observable<Result<List<Message>>> messages(@Header("session-id") int session_id,
                                              @Header("token") String token,

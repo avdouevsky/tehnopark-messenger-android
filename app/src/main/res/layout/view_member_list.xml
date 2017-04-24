@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="37dp"
+        android:paddingRight="37dp"
+        android:layout_marginBottom="35dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="УЧАСТНИКИ"
+            android:letterSpacing="0.07"
+            android:textSize="10sp"
+            android:layout_alignParentLeft="true"
+            android:textColor="@color/colorBlueLightButDarkerText"
+            android:textAppearance="@style/TextAppearance.Gotham.Bold"
+            android:textAllCaps="true"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3 из 256"
+            android:textSize="10sp"
+            android:textColor="#B0B4BA"
+            android:id="@+id/tvMembersCount"
+            android:textAppearance="@style/TextAppearance.Gotham.Bold"
+            />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvMemberAdd"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:drawableLeft="@drawable/button_member_add"
+        android:drawablePadding="12dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить участников"
+        android:layout_gravity="center_vertical"
+        android:textSize="15sp"
+        android:textColor="@color/colorBlueLightText"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:textAppearance="@style/TextAppearance.Gotham.Bold"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginTop="18dp"
+        android:id="@+id/recyclerView"
+        android:textAppearance="@style/TextAppearance.Gotham.Bold">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

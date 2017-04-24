@@ -1,26 +1,24 @@
 package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.models.ContactsListItem;
-import com.mshvdvskgmail.technoparkmessenger.models.MemberListItem;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
+import com.mshvdvskgmail.technoparkmessenger.view.MemberItemView;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Member;
 import java.util.ArrayList;
+import java.util.List;
 
-import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
@@ -28,76 +26,57 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  */
 
 public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapter.ViewHolder> {
-
-    private ArrayList<User> members;
-    private View rowView;
-    private Context context;
-    private User currentItem;
-
-    private String name;
-    private String officePosition;
-    private boolean isOnline;
-
-    private TextView tvName;
-    private TextView tvPosition;
-    private ImageView imageOnline;
-    private FrameLayout frameSeparator;
-    private ImageView profileIcon;
-
     public static final String TAG = GroupMembersAdapter.class.getCanonicalName();
 
+    private Context context;
+    private List<User> members = new ArrayList<>();
+    private ICommand<User> clickListener;
 
-    public GroupMembersAdapter(ArrayList <User> members, Context context) {
-        this.members = members;
+    public GroupMembersAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setData(@Nullable List<User> users){
+        if(users == null) users = new ArrayList<>();
+        members = users;
+        sort();
+        notifyDataSetChanged();
+    }
+
+    public void addData(List<User> users){
+        members.addAll(users);
+        sort();
+        notifyDataSetChanged();
+    }
+
+    private void sort(){
+        // do nothing
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        rowView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_group_member_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(rowView);
-        return viewHolder;
+        return new ViewHolder(new MemberItemView(context));
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        holder.getView().setData(members.get(position));
 
-//        float d = context.getResources().getDisplayMetrics().density;
-//        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
-//
-//        int topMargin = (int)(-10 * d);
-//
-//        if (position == 0){
-//            params.topMargin = topMargin;
-//        } else {
-//            params.topMargin = 0;
-//        }
-
-        profileIcon = holder.imageProfile;
-        Picasso.with(context).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
-
-        currentItem = members.get(position);
-
-        tvName = holder.tvName;
-        tvPosition = holder.tvPosition;
-        imageOnline = holder.imageOnline;
-
-        name = currentItem.getName();
-        officePosition = currentItem.getOfficePosition();
-//        isOnline = currentItem.isOnline();
-
-        tvName.setText(name);
-        tvPosition.setText(officePosition);
-
-        if (isOnline) {
-            imageOnline.setVisibility(View.VISIBLE);
-        } else imageOnline.setVisibility(View.GONE);
+        holder.getView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(clickListener != null) clickListener.exec(members.get(holder.getAdapterPosition()));
+            }
+        });
 
 //        if (currentItem.isAdmin()){
 //            TextView admin = (TextView) holder.mView.findViewById(R.id.recycler_item_group_member_tv_admin);
 //            admin.setVisibility(View.VISIBLE);
 //        }
+    }
+
+    public void setClickListener(ICommand<User> clickListener) {
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -106,22 +85,12 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        View mView;
-        TextView tvName;
-        TextView tvPosition;
-        ImageView imageOnline;
-        ImageView imageProfile;
-        FrameLayout mFrameLayout;
-
         public ViewHolder(View itemView) {
             super(itemView);
-            mView = itemView;
-            tvName = (TextView) itemView.findViewById(R.id.recycler_item_group_member_tv_name);
-            tvPosition = (TextView) itemView.findViewById(R.id.recycler_item_group_member_tv_position);
-            imageOnline = (ImageView) itemView.findViewById(R.id.recycler_item_group_member_image_online);
-            imageProfile = (ImageView) itemView.findViewById(R.id.recycler_item_group_member_image_picture);
-//            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.item_separator);
+        }
+
+        public MemberItemView getView(){
+            return (MemberItemView) itemView;
         }
     }
 
