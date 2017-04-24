@@ -20,6 +20,7 @@ import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
 import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.MainScreenTabAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,8 +42,6 @@ public class FragmentMainFourTabScreen extends BaseFragment{
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,7 +90,7 @@ public class FragmentMainFourTabScreen extends BaseFragment{
                 switch (viewPager.getCurrentItem()){
                     case 0:
                     case 1:
-                        EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.ADD_MEMBER, null));
+                        EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.ADD_MEMBER, ArgsBuilder.create().chat(null).bundle()));
                         break;
                 }
 
