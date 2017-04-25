@@ -10,7 +10,7 @@
                         android:height="43dp"/>
                 </shape>
             </item>
-            <item android:drawable="@drawable/ic_blue_cross"/>
+            <item android:drawable="@drawable/ic_blue_cross_43"/>
         </layer-list>
     </item>
 </selector>

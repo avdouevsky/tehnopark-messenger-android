@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
@@ -40,6 +41,7 @@ public class FragmentGroupsSettings extends Fragment {
     private TextView tvGroupName;
     private TextView tvGroupStatus;
     private EditText editView;
+    private LinearLayout frameInfo;
 
     private ImageView imageViewEdit;
 
@@ -65,6 +67,7 @@ public class FragmentGroupsSettings extends Fragment {
         tvGroupStatus = (TextView) root.findViewById(R.id.fragment_group_settings_status);
         editView = (EditText) root.findViewById(R.id.fragment_group_settings_name_edit_container_et);
         FrameLayout frameBack = (FrameLayout)root.findViewById(R.id.fragment_group_settings_fl_back);
+        frameInfo = (LinearLayout)root.findViewById(R.id.fragment_group_settings_name_container);
 
         imageViewEdit = (ImageView) root.findViewById(R.id.imageViewEdit);
 
@@ -87,11 +90,11 @@ public class FragmentGroupsSettings extends Fragment {
         imageViewEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tvGroupName.getVisibility() == View.VISIBLE){
-                    tvGroupName.setVisibility(View.GONE);
+                if(frameInfo.getVisibility() == View.VISIBLE){
+                    frameInfo.setVisibility(View.GONE);
                     editView.setVisibility(View.VISIBLE);
                 }else{
-                    tvGroupName.setVisibility(View.VISIBLE);
+                    frameInfo.setVisibility(View.VISIBLE);
                     editView.setVisibility(View.GONE);
                     REST.getInstance().chatName(Controller.getInstance().getAuth().getUser().token, chat.uuid, editView.getText().toString())
                             .subscribe(new REST.DataSubscriber<Chat>() {
@@ -104,6 +107,27 @@ public class FragmentGroupsSettings extends Fragment {
                 }
             }
         });
+
+//        imageViewEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(tvGroupName.getVisibility() == View.VISIBLE){
+//                    tvGroupName.setVisibility(View.GONE);
+//                    editView.setVisibility(View.VISIBLE);
+//                }else{
+//                    tvGroupName.setVisibility(View.VISIBLE);
+//                    editView.setVisibility(View.GONE);
+//                    REST.getInstance().chatName(Controller.getInstance().getAuth().getUser().token, chat.uuid, editView.getText().toString())
+//                            .subscribe(new REST.DataSubscriber<Chat>() {
+//                                @Override
+//                                public void onData(Chat data) {
+//                                    chat = data;
+//                                    setChatInfo();
+//                                }
+//                            });
+//                }
+//            }
+//        });
 
         viewMemberList.setAddListener(new ICommand<Void>() {
             @Override
