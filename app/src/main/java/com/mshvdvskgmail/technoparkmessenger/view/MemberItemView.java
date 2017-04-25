@@ -2,7 +2,6 @@ package com.mshvdvskgmail.technoparkmessenger.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +21,7 @@ public class MemberItemView extends FrameLayout {
     private TextView tvPosition;
     private ImageView imageOnline;
     private ImageView imageProfile;
+    private TextView tvAdmin;
 
     public MemberItemView(Context context) {
         this(context, null);
@@ -44,9 +44,10 @@ public class MemberItemView extends FrameLayout {
         tvPosition = (TextView) findViewById(R.id.recycler_item_group_member_tv_position);
         imageOnline = (ImageView) findViewById(R.id.recycler_item_group_member_image_online);
         imageProfile = (ImageView) findViewById(R.id.recycler_item_group_member_image_picture);
+        tvAdmin = (TextView) findViewById(R.id.recycler_item_group_member_tv_admin);
     }
 
-    public void setData(User user){
+    public void setData(User user, boolean isAdmin){
         if(user.avatar != null) Picasso.with(getContext())
                 .load(user.avatar)
                 .placeholder(R.drawable.icon_user)
@@ -58,5 +59,6 @@ public class MemberItemView extends FrameLayout {
         tvName.setText(user.cn);
         tvPosition.setText(user.title);
         imageOnline.setVisibility(user.online == 1 ? VISIBLE : GONE);
+        tvAdmin.setVisibility(isAdmin ? VISIBLE : GONE);
     }
 }

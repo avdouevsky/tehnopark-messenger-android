@@ -1,15 +1,19 @@
 package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.network.model.SipCall;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.mshvdvskgmail.technoparkmessenger.view.CallItemView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -52,15 +56,26 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
 
     @Override
     public void onBindViewHolder(CallsListAdapter.ViewHolder holder, int position) {
-        SipCall call = calls.get(position);
+        final SipCall call = calls.get(position);
         holder.getView().setData(call);
 
-        holder.getView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.OUTGOING_CALL, null));
-            }
-        });
+        User t = null;
+        User u1 = call.src_u;
+        User u2 = call.dst_u;
+        if(u1 != null && !u1.id.equals(Controller.getInstance().getAuth().getUser().id))
+            t = u1;
+        if(u2 != null && !u2.id.equals(Controller.getInstance().getAuth().getUser().id))
+            t = u2;
+        if(t != null){
+            final User other = t;
+            holder.getView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.OUTGOING_CALL, ArgsBuilder.create().user(other).bundle()));
+                }
+            });
+        }
+
     }
 
     @Override

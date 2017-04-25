@@ -5,24 +5,38 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.models.ProfileAttachment;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mshvdvsk on 03/02/2017.
  */
 
 public class ProfileFilesAdapter extends RecyclerView.Adapter<ProfileFilesAdapter.ViewHolder> {
-
-    private ArrayList<ProfileAttachment> files;
+    private List<Attachment> files = new ArrayList<>();
     private Context context;
 
-    public ProfileFilesAdapter(ArrayList <ProfileAttachment> files, Context context) {
-        this.files = files;
+    private ICommand<Attachment> clickListener;
+
+    public ProfileFilesAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setData(List<Attachment> attachments){
+        files = attachments;
+        sort();
+        notifyDataSetChanged();
+    }
+
+    private void sort(){
+        /* do nothing */
     }
 
     @Override
@@ -34,7 +48,7 @@ public class ProfileFilesAdapter extends RecyclerView.Adapter<ProfileFilesAdapte
     }
 
     @Override
-    public void onBindViewHolder(ProfileFilesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final ProfileFilesAdapter.ViewHolder holder, int position) {
         if (position==0){
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
             int dpValue = 37; // margin in dips
@@ -45,6 +59,18 @@ public class ProfileFilesAdapter extends RecyclerView.Adapter<ProfileFilesAdapte
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.mView.getLayoutParams();
             params.leftMargin = 0;
         }
+
+        String mime = "FILE";
+
+        holder.type.setText(/*files.get(position).mime*/ mime);
+        if(files.get(position).name != null) holder.name.setText(files.get(position).name);
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(clickListener != null) clickListener.exec(files.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -52,12 +78,23 @@ public class ProfileFilesAdapter extends RecyclerView.Adapter<ProfileFilesAdapte
         return files.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public void setClickListener(ICommand<Attachment> clickListener) {
+        this.clickListener = clickListener;
+    }
 
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        //recycler_item_profile_attached_file_tv_name
+        //recycler_item_profile_attached_file_tv_type
         View mView;
+        TextView type;
+        TextView name;
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+
+            name = (TextView) itemView.findViewById(R.id.recycler_item_profile_attached_file_tv_name);
+            type = (TextView) itemView.findViewById(R.id.recycler_item_profile_attached_file_tv_type);
         }
+
     }
 }

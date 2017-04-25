@@ -7,4 +7,5 @@ public class Attachment  {
     public String mime;
     public String url;
     public String uuid;
+    public String name;
 }

@@ -1,11 +1,8 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -16,8 +13,6 @@ import android.widget.ImageView;
 
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
-import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.MainScreenTabAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
@@ -29,9 +24,13 @@ import org.greenrobot.eventbus.EventBus;
  */
 
 public class FragmentMainFourTabScreen extends BaseFragment{
+    private final static int ICON_PLUS = R.drawable.icon_plus;
+    private final static int ICON_SEARCH = R.drawable.icon_search;
+
     private View mRootView;
-    private ImageView writeNewIcon;
+    private ImageView imageActionIcon;
     private AlertDialog alert;
+    private ViewPager viewPager;
 
     public FragmentMainFourTabScreen() {}
 
@@ -50,7 +49,8 @@ public class FragmentMainFourTabScreen extends BaseFragment{
 
         TabLayout tabLayout = (TabLayout) mRootView.findViewById(R.id.fragment_main_four_tab_tl_tabs);
 //
-        final ViewPager viewPager = (ViewPager) mRootView.findViewById(R.id.fragment_main_four_tab_vp_pager);
+
+        viewPager = (ViewPager) mRootView.findViewById(R.id.fragment_main_four_tab_vp_pager);
         final MainScreenTabAdapter adapter = new MainScreenTabAdapter
                 (getChildFragmentManager(), tabLayout.getTabCount(), getContext());
         viewPager.setAdapter(adapter);
@@ -69,6 +69,7 @@ public class FragmentMainFourTabScreen extends BaseFragment{
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                updateUI();
             }
 
             @Override
@@ -82,9 +83,9 @@ public class FragmentMainFourTabScreen extends BaseFragment{
             }
         });
 
-        writeNewIcon = (ImageView) mRootView.findViewById(R.id.fragment_main_four_tab_image_new_or_search);
+        imageActionIcon = (ImageView) mRootView.findViewById(R.id.fragment_main_four_tab_image_new_or_search);
 
-        writeNewIcon.setOnClickListener(new View.OnClickListener() {
+        imageActionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (viewPager.getCurrentItem()){
@@ -101,8 +102,28 @@ public class FragmentMainFourTabScreen extends BaseFragment{
         return mRootView;
     }
 
-    private void addListeners() {
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        updateUI();
+    }
+
+    private void updateUI(){
+        switch (viewPager.getCurrentItem()){
+            case 0:
+                imageActionIcon.setImageResource(ICON_PLUS);
+                break;
+            case 1:
+                imageActionIcon.setImageResource(ICON_PLUS);
+                break;
+            case 2:
+                imageActionIcon.setImageResource(ICON_SEARCH);
+                break;
+            case 3:
+                imageActionIcon.setImageResource(ICON_SEARCH);
+                break;
+        }
     }
 
 }

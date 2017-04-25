@@ -8,6 +8,7 @@
     <dimen name="chat_item_image_padding">4dp</dimen>
 
     <dimen name="chat_item_avatar_size">43dp</dimen>
+    <dimen name="chat_item_avatar_medium">43dp</dimen>
     <!--<dimen name="chat_image_max_size">250dp</dimen>-->
     <dimen name="chat_image_outer_corner">18dp</dimen>
     <dimen name="chat_image_inner_corner">14dp</dimen>

@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
-        });
+        }).show();
     }
 
     private class MainCommand extends BundleCommand{

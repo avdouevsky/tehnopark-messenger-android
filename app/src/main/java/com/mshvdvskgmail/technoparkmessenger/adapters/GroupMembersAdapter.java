@@ -11,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.mshvdvskgmail.technoparkmessenger.view.MemberItemView;
 import com.squareup.picasso.Picasso;
@@ -31,6 +33,7 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
     private Context context;
     private List<User> members = new ArrayList<>();
     private ICommand<User> clickListener;
+    private Chat chat;
 
     public GroupMembersAdapter(Context context) {
         this.context = context;
@@ -60,7 +63,8 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.getView().setData(members.get(position));
+        Chat chat = ArgsBuilder.create().chat();    //TODO не красиво :(
+        holder.getView().setData(members.get(position), chat != null && chat.admin.equals(members.get(position).id));
 
         holder.getView().setOnClickListener(new View.OnClickListener() {
             @Override

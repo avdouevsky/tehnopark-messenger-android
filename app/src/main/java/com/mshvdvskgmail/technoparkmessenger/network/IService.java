@@ -113,6 +113,16 @@ public interface IService {
                                                                      @Header("token") String token,
                                                                      @Query("room_uuid") String room_uuid);
 
+    @GET("?r=messages/attach/index")
+    public Observable<Result<List<Attachment>>> get_user_attachments(@Header("session-id") int session_id,
+                                                                     @Header("token") String token,
+                                                                     @Query("user_id") String user_id);
+
+    @GET("?r=messages/attach/get&view=0")
+    public Observable<Result<Attachment>> get_attachment(@Header("session-id") int session_id,
+                                                                     @Header("token") String token,
+                                                                     @Query("uuid") String uuid);
+
     @GET("?r=messages/json/messages")
     public Observable<Result<List<Message>>> messages(@Header("session-id") int session_id,
                                              @Header("token") String token,

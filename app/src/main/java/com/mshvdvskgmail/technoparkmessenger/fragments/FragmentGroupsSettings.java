@@ -32,7 +32,7 @@ import java.util.List;
  * Created by mshvdvsk on 29/03/2017.
  *
  */
-public class FragmentGroupsSettings extends Fragment {
+public class FragmentGroupsSettings extends BaseFragment {
     private final static String TAG = FragmentGroupsSettings.class.toString();
 
     private MediaListView viewMediaList;
@@ -77,7 +77,12 @@ public class FragmentGroupsSettings extends Fragment {
         frameBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isAdded()) getActivity().onBackPressed();
+                if(frameInfo.getVisibility() != View.VISIBLE){
+                    frameInfo.setVisibility(View.VISIBLE);
+                    editView.setVisibility(View.GONE);
+                }else{
+                    if(isAdded()) getActivity().onBackPressed();
+                }
             }
         });
 
@@ -87,16 +92,18 @@ public class FragmentGroupsSettings extends Fragment {
             return root;
         }
 
+        imageViewEdit.setVisibility(chat != null && chat.admin.equals(Controller.getInstance().getAuth().getUser().id) ? View.VISIBLE : View.GONE);
         imageViewEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(frameInfo.getVisibility() == View.VISIBLE){
                     frameInfo.setVisibility(View.GONE);
                     editView.setVisibility(View.VISIBLE);
+                    editView.setText(chat.name);
                 }else{
                     frameInfo.setVisibility(View.VISIBLE);
                     editView.setVisibility(View.GONE);
-                    REST.getInstance().chatName(Controller.getInstance().getAuth().getUser().token, chat.uuid, editView.getText().toString())
+                    if(chat != null) REST.getInstance().chatName(Controller.getInstance().getAuth().getUser().token, chat.uuid, editView.getText().toString())
                             .subscribe(new REST.DataSubscriber<Chat>() {
                                 @Override
                                 public void onData(Chat data) {

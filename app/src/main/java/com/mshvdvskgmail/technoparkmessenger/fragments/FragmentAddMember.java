@@ -139,18 +139,26 @@ public class FragmentAddMember extends BaseFragment {
                             }
                         });
                 }else{
-                            REST.getInstance().group_add(Controller.getInstance().getAuth().getUser().token, chat, adapterSelected.getData())
-                                .flatMap(new Func1<Result<Chat>, Observable<Result<Chat>>>() {
-                                    @Override
-                                    public Observable<Result<Chat>> call(Result<Chat> chatResult) {
-                                        return REST.getInstance().group_remove(Controller.getInstance().getAuth().getUser().token, chat, adapterSelected.getData());
-                                    }
-                                }).subscribe(new REST.DataSubscriber<Chat>() {
+                    REST.getInstance().group_add(Controller.getInstance().getAuth().getUser().token, chat, adapterSelected.getData())
+                            .subscribe(new REST.DataSubscriber<Chat>() {
                                 @Override
                                 public void onData(Chat data) {
                                     if(isAdded()) getActivity().onBackPressed();
                                 }
                             });
+                    /* //была идея динамической выборки
+                    REST.getInstance().group_add(Controller.getInstance().getAuth().getUser().token, chat, adapterSelected.getData())
+                        .flatMap(new Func1<Result<Chat>, Observable<Result<Chat>>>() {
+                            @Override
+                            public Observable<Result<Chat>> call(Result<Chat> chatResult) {
+                                return REST.getInstance().group_remove(Controller.getInstance().getAuth().getUser().token, chat, adapterSelected.getData());
+                            }
+                        }).subscribe(new REST.DataSubscriber<Chat>() {
+                        @Override
+                        public void onData(Chat data) {
+                            if(isAdded()) getActivity().onBackPressed();
+                        }
+                    });*/
                 }
             }
         });
@@ -169,21 +177,26 @@ public class FragmentAddMember extends BaseFragment {
                 .subscribe(new REST.DataSubscriber<List<User>>() {
                     @Override
                     public void onData(List<User> data) {
+                        if(chat != null){
+                            List<User> users = new ArrayList<>();
+                            for (ChatUser cu: chat.users) if(cu.user != null) users.add(cu.user);
+                            data.removeAll(users);
+                        }
                         adapterUsers.setData(data);
-                        setAdapterContent(data);
+//                        setAdapterContent(data);
                         reCalcCounters();
                     }
                 });
     }
 
-    private void setAdapterContent(List<User> contacts) {
-        if(chat != null){
-            List<User> users = new ArrayList<>();
-            for (ChatUser cu: chat.users) if(cu.user != null) users.add(cu.user);
-            for(User u : contacts) if(users.contains(u)) u.uiSelected = true;
-            users.clear();
-            for(User u : contacts) if(u.uiSelected) users.add(u);
-            adapterSelected.setData(users);
-        }
-    }
+//    private void setAdapterContent(List<User> contacts) {
+//        if(chat != null){
+//            List<User> users = new ArrayList<>();
+//            for (ChatUser cu: chat.users) if(cu.user != null) users.add(cu.user);
+//            for(User u : contacts) if(users.contains(u)) u.uiSelected = true;
+//            users.clear();
+//            for(User u : contacts) if(u.uiSelected) users.add(u);
+//            adapterSelected.setData(users);
+//        }
+//    }
 }

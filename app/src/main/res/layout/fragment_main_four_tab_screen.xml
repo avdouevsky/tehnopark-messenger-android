@@ -37,7 +37,7 @@
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:id="@+id/fragment_main_four_tab_image_new_or_search"
-                android:src="@drawable/ic_write_new"
+                android:src="@drawable/icon_write"
                 />
         <!--</FrameLayout>-->
     </android.support.v7.widget.Toolbar>

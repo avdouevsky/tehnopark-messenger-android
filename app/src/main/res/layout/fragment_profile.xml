@@ -29,6 +29,7 @@
 
 
             <ImageView
+                android:id="@+id/imOnline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_green_dot"
@@ -51,9 +52,10 @@
                     android:id="@+id/fragment_profile_tv_name"
                     android:layout_gravity="center"
                     android:layout_marginRight="5dp"
-                    fontPath="fonts/GothamProRegular.ttf"/>
+                    android:textAppearance="@style/TextAppearance.Gotham"
+                    />
 
-                <TextView
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Пушкин"
@@ -62,12 +64,13 @@
                     android:layout_marginTop="0dp"
                     android:layout_gravity="center"
                     android:id="@+id/fragment_profile_tv_surname"
-                    fontPath="fonts/GothamProRegular.ttf"/>
+                    fontPath="fonts/GothamProRegular.ttf"/>-->
 
             </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="отдел продаж / Руководитель"
                 android:textColor="@color/colorWhiteText"

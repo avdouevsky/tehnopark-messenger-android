@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="LSD"
+            android:text="FILE"
             android:id="@+id/recycler_item_profile_attached_file_tv_type"
             android:textSize="8sp"
             android:textColor="#5a9dc8"
