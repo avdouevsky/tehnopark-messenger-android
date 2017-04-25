@@ -60,7 +60,7 @@ public class FragmentAuthorization extends BaseFragment{
         cancelCross1 = (ImageView) mRootView.findViewById(R.id.fragment_authorization_image_cancel_cross_first);
         cancelCross2 = (ImageView) mRootView.findViewById(R.id.fragment_authorization_image_cancel_cross_second);
         mAuthorizationButton = (TextView) mRootView.findViewById(R.id.fragment_authorization_tv_enter);
-        emailField = (EditText) mRootView.findViewById(R.id.fragment_authorization_et);
+        emailField = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_email);
         passwordField = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_password);
 
         mAuthorizationButton.setEnabled(false);
@@ -82,7 +82,8 @@ public class FragmentAuthorization extends BaseFragment{
         mAuthorizationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                REST.getInstance().login(emailField.getText().toString(), passwordField.getText().toString(), Controller.getInstance().deviceType(), Controller.getInstance().deviceId(), "")
+                String stringTrimmer = emailField.getText().toString().trim();
+                REST.getInstance().login(stringTrimmer, passwordField.getText().toString(), Controller.getInstance().deviceType(), Controller.getInstance().deviceId(), "")
                         .flatMap(new Func1<Result<User>, Observable<RabbitMQ>>() {
                             @Override
                             public Observable<RabbitMQ> call(Result<User> userResult) {
