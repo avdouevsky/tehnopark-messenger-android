@@ -251,27 +251,76 @@ public class FragmentChat extends BaseFragment {
         startActivityForResult(intent, CHOOSE_FILE_REQUESTCODE);
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CHOOSE_FILE_REQUESTCODE && null != data)
         {
             Log.v(TAG, "onActivityResult "+ data.getData() + " | "+ getMimeType(data.getDataString()));
-            File file = new File(URI.create(data.getData().getEncodedPath()).getPath());
+            String  path = data.getData().getEncodedPath();
+            if(data.getData().getScheme().equals("content")){
+                path = getRealPathFromURI(getActivity(), data.getData());
+            }
+            //File file = new File(URI.create(data.getData().getEncodedPath()).getPath());
+            File file = new File(URI.create(path).getPath());
             Log.v(TAG, "file: " + file.isFile());
 
-            sendFile(file, getMimeType(data.getDataString()));
+            sendFile(file, getMimeType(file.getAbsolutePath()));
         }
     }
 
     public static String getMimeType(String url) {
-        String type = null;
+        String type = "application/octet-stream";
         String extension = MimeTypeMap.getFileExtensionFromUrl(url);
         if (extension != null) {
             type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
         }
+        if(type == null) type = "application/octet-stream";
         return type;
     }
+
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+
+            return cursor.getString(column_index);
+        } catch (Exception e){
+            Log.w(TAG, e);
+            return null;
+        }
+        finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == CHOOSE_FILE_REQUESTCODE && null != data)
+//        {
+//            Log.v(TAG, "onActivityResult "+ data.getData() + " | "+ getMimeType(data.getDataString()));
+//            File file = new File(URI.create(data.getData().getEncodedPath()).getPath());
+//            Log.v(TAG, "file: " + file.isFile());
+//
+//            sendFile(file, getMimeType(data.getDataString()));
+//        }
+//    }
+//
+//    public static String getMimeType(String url) {
+//        String type = null;
+//        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+//        if (extension != null) {
+//            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+//        }
+//        return type;
+//    }
 
 //    public String getRealPathFromURI(Context context, Uri contentUri) {
 //        Cursor cursor = null;

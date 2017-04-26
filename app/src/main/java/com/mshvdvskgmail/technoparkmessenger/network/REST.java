@@ -382,16 +382,6 @@ public class REST implements IService {
 
     public void createSecurePicasso(Context context, final Token token){
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request newRequest = chain.request().newBuilder()
-                                .addHeader("session-id", token.session_id + "")
-                                .addHeader("token", token.token)
-                                .build();
-                        return chain.proceed(newRequest);
-                    }
-                })
                 .addInterceptor(new HttpLoggingInterceptor())
                 .build();
 
