@@ -13,7 +13,7 @@
     </style>
 
     <style name="Color1SwitchStyle" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/backgroundGrey</item>
+        <item name="colorControlActivated">@color/switcher_background_activated</item>
     </style>
 
     <!-- ==================== TextAppearances ==================== -->

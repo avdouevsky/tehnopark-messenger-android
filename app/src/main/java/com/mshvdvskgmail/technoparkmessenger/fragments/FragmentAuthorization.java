@@ -63,11 +63,11 @@ public class FragmentAuthorization extends BaseFragment{
         emailField = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_email);
         passwordField = (EditText) mRootView.findViewById(R.id.fragment_authorization_et_password);
 
-        mAuthorizationButton.setEnabled(false);
+//        mAuthorizationButton.setEnabled(false);
         if(BuildConfig.DEBUG){
             emailField.setText("testme1");
             passwordField.setText("Hello123test");
-            mAuthorizationButton.setEnabled(true);
+//            mAuthorizationButton.setEnabled(true);
         }
 
         emailField.addTextChangedListener(textWatcher);
@@ -182,7 +182,7 @@ public class FragmentAuthorization extends BaseFragment{
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.RESET_PASSWORD, null));
-                //TODO FragmentResetPassword authorization = new FragmentResetPassword();
+//                FragmentResetPassword authorization = new FragmentResetPassword();
 //                getFragmentManager()
 //                        .beginTransaction()
 //                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -218,7 +218,7 @@ public class FragmentAuthorization extends BaseFragment{
 
         @Override
         public void afterTextChanged(Editable editable) {
-            mAuthorizationButton.setEnabled(!emailField.getText().toString().isEmpty() && !passwordField.getText().toString().isEmpty());
+//            mAuthorizationButton.setEnabled(!emailField.getText().toString().isEmpty() && !passwordField.getText().toString().isEmpty());
             cancelCross1.setVisibility(emailField.getText().toString().isEmpty() ? View.GONE : View.VISIBLE);
             cancelCross1.setVisibility(passwordField.getText().toString().isEmpty() ? View.GONE : View.VISIBLE);
         }

@@ -3,9 +3,11 @@ package com.mshvdvskgmail.technoparkmessenger.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.squareup.picasso.Picasso;
@@ -35,7 +37,6 @@ public class FragmentProfilePicture extends Fragment {
         mRootView = inflater.inflate(R.layout.fragment_profile_picture, container, false);
 
         ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.fragment_profile_picture_image_picture);
-//        final ImageView profileIconShadow = (ImageView) mRootView.findViewById(R.id.shadow);
         Picasso.with(getContext()).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
 //        handler = new Handler();
@@ -46,8 +47,20 @@ public class FragmentProfilePicture extends Fragment {
 //                profileIconShadow.setVisibility(View.VISIBLE);
 //            }
 //        }, 8200);
+        setIconsTouchListeners(mRootView);
 
         return mRootView;
+    }
+
+    private void setIconsTouchListeners(View mRootView) {
+        FrameLayout flBackButton = (FrameLayout) mRootView.findViewById(R.id.fragment_profile_picture_fl_back);
+        flBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                fm.popBackStack();
+            }
+        });
     }
 
 }

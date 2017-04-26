@@ -34,6 +34,14 @@ public class BaseFragment extends Fragment {
                 fragment = new FragmentAuthorization();
                 fragment.setArguments(data);
                 return fragment;
+            case PROFILE_PICTURE:
+                fragment = new FragmentProfilePicture();
+                fragment.setArguments(data);
+                return fragment;
+            case RESET_PASSWORD:
+                fragment = new FragmentResetPassword();
+                fragment.setArguments(data);
+                return fragment;
             case MAIN_FOUR_TAB_SCREEN:
                 fragment = new FragmentMainFourTabScreen();
                 fragment.setArguments(data);

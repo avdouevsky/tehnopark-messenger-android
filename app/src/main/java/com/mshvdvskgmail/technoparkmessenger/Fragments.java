@@ -27,8 +27,8 @@ public enum Fragments {
     OUTGOING_CALL,  //+
     PROFILE, //+
 
-    PROFILE_PICTURE,
-    RESET_PASSWORD,
+    PROFILE_PICTURE,//+
+    RESET_PASSWORD, //+
     SEARCH
     ;
 

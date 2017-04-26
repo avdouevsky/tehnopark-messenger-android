@@ -4,8 +4,8 @@
     android:orientation="vertical"
     android:layout_width="75dp"
     android:layout_height="106dp"
-    android:layout_marginRight="23dp"
-    android:layout_marginEnd="23dp"
+    android:layout_marginRight="14dp"
+    android:layout_marginEnd="14dp"
     tools:ignore="MissingPrefix">
 
     <FrameLayout
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="FILE"
+            android:text="PDF"
             android:id="@+id/recycler_item_profile_attached_file_tv_type"
             android:textSize="8sp"
             android:textColor="#5a9dc8"
