@@ -263,7 +263,12 @@ public class FragmentChat extends BaseFragment {
                 path = getRealPathFromURI(getActivity(), data.getData());
             }
             //File file = new File(URI.create(data.getData().getEncodedPath()).getPath());
-            File file = new File(URI.create(path).getPath());
+            File file = new File("");
+            try{
+                file = new File(path);
+            } catch (Exception e){
+
+            }
             Log.v(TAG, "file: " + file.isFile());
 
             sendFile(file, getMimeType(file.getAbsolutePath()));
