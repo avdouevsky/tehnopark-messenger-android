@@ -91,7 +91,10 @@ public class FragmentProfile extends Fragment {
         name.setText(user.cn);
 
         TextView phone = (TextView)mRootView.findViewById(R.id.fragment_profile_tv_phone);
-        phone.setText(user.mobile + " "+user.mail);
+        phone.setText(user.mobile);
+
+        TextView mail = (TextView)mRootView.findViewById(R.id.fragment_profile_tv_mail);
+        mail.setText(user.mail);
 
         TextView title = (TextView)mRootView.findViewById(fragment_profile_tv_title);
         title.setText(user.description);

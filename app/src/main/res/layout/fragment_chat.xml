@@ -16,7 +16,10 @@
         fontPath="fonts/GothamProBold.ttf"
         android:background="#F2F2F2"
         android:layout_below="@+id/include"
-        android:layout_above="@+id/viewMessageEdit"/>
+        android:layout_above="@+id/viewMessageEdit"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:clipToPadding="false"/>
 
     <com.mshvdvskgmail.technoparkmessenger.view.MessageEditView
         android:layout_width="match_parent"
@@ -24,7 +27,6 @@
         android:id="@+id/viewMessageEdit"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        />
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>

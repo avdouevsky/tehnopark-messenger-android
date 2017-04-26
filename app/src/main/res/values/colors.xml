@@ -30,7 +30,7 @@
     <color name="colorBlackBlueText">#0f2745</color>
     <color name="tranparent40">#580f2745</color>
     <color name="transparentBlack20">#C2C2C2</color>
-
+    <color name="switcher_background_activated">#197BA7</color>
 
     <color name="call_bleeping_effect_10">#28415A</color>
     <color name="call_bleeping_effect_20">#3F556C</color>

@@ -66,14 +66,14 @@ public class MessageView extends FrameLayout {
     public void setData(Message data, boolean p2p){
         boolean out = data.sender.id.equals(Controller.getInstance().getAuth().getUser().id);
 
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)frameContent.getLayoutParams();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)frameContent.getLayoutParams();
         params.gravity = out ? Gravity.RIGHT : Gravity.LEFT;
 
         frameContent.setBackground(getResources().getDrawable(out ? message_outgoing_background : message_incoming_background));
 
 
-        cornerLeft.setVisibility(!out && withCorners? VISIBLE : GONE);
-        cornerRight.setVisibility(!out && withCorners? GONE : VISIBLE);
+//        cornerLeft.setVisibility(!out && withCorners? VISIBLE : GONE); // сказано "убрали хвостики нахрен"
+//        cornerRight.setVisibility(!out && withCorners? GONE : VISIBLE); // сказано "убрали хвостики нахрен"
         imStatus.setVisibility(out ? VISIBLE : GONE);
 
         viewAttachment.setVisibility(data.attachments == null || data.attachments.size() == 0 ? GONE : VISIBLE);

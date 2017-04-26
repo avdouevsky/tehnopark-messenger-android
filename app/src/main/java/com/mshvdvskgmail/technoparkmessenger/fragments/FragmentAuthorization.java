@@ -182,7 +182,7 @@ public class FragmentAuthorization extends BaseFragment{
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.RESET_PASSWORD, null));
-                //TODO FragmentResetPassword authorization = new FragmentResetPassword();
+//                FragmentResetPassword authorization = new FragmentResetPassword();
 //                getFragmentManager()
 //                        .beginTransaction()
 //                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

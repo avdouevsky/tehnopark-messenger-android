@@ -49,7 +49,7 @@
                 android:textColor="#0193c6"
                 android:textStyle="bold"
                 android:id="@+id/fragment_chat_tv_name"
-                android:textAppearance="@style/TextAppearance.Gotham"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:lines="1"
                 android:ellipsize="end"
                 />

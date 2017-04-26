@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="20dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                 android:text="РУКОВОДИТЕЛЬ ОТДЕЛА ПРОДАЖ"
                 android:textSize="12sp"
                 android:textColor="@color/backgroundGrey"
-                android:paddingTop="16sp"
+                android:paddingTop="10sp"
                 android:layout_marginStart="13dp"
                 android:maxLines="1"
                 android:letterSpacing="0.03"

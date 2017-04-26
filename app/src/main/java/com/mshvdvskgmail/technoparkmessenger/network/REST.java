@@ -360,7 +360,7 @@ public class REST implements IService {
     public Observable<Result<Attachment>> upload_attach(@Header("session-id") int session_id,
                                                     @Header("token") String token,
                                                     @Part MultipartBody.Part file){
-        return service.upload_attach(session_id, token, file).compose(this.<Result<Attachment>>setup());
+        return service2.upload_attach(session_id, token, file).compose(this.<Result<Attachment>>setup());
     }
 
     public Observable<Result<Attachment>> upload_attach(Token token, File file, String mime) {

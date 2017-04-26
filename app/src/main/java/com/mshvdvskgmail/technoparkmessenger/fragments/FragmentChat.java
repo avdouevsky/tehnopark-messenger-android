@@ -121,7 +121,7 @@ public class FragmentChat extends BaseFragment {
                 user = usersList.get(1).user;
             }
             tvContact.setText(user.cn);
-            tvStatus.setText(user.online == 1 ? "ОНЛАЙН" : "ОФЛАЙН");
+            tvStatus.setText(user.online == 1 ? "ОНЛАЙН" : "ОФФЛАЙН");
 
             final User finalUser = user;
             ivProfile.setOnClickListener(new View.OnClickListener() {

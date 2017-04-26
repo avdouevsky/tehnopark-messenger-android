@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Александр"
+                    android:text="Александр Грусть"
                     android:textSize="24sp"
                     android:textColor="@color/colorWhiteText"
                     android:id="@+id/fragment_profile_tv_name"
@@ -53,31 +53,26 @@
                     android:layout_marginRight="5dp"
                     fontPath="fonts/GothamProRegular.ttf"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Пушкин"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorWhiteText"
-                    android:layout_marginTop="0dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/fragment_profile_tv_surname"
-                    fontPath="fonts/GothamProRegular.ttf"/>
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="отдел продаж / Руководитель"
+                android:text="здесь может быть
+очень длинная надпись:
+в две или три строки"
                 android:textColor="@color/colorWhiteText"
+                android:maxWidth="300dp"
                 android:textSize="12sp"
                 android:letterSpacing="0.08"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:textAllCaps="true"
+                android:lineSpacingExtra="2dp"
                 android:id="@+id/fragment_profile_tv_title"
-                fontPath="fonts/GothamProRegular.ttf"/>
+                fontPath="fonts/GothamProRegular.ttf"
+                android:gravity="center"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -85,6 +80,8 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center"
                 android:layout_marginTop="34dp">
+
+
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -97,7 +94,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/btn_phone"
-                    android:id="@+id/fragment_profile_image_call"/>
+                    android:id="@+id/fragment_profile_image_call"
+                    android:layout_marginRight="42dp"/>
+
+                <FrameLayout
+                    android:layout_width="47dp"
+                    android:layout_height="47dp"
+                    android:background="@drawable/call_button_background"
+                    android:layout_gravity="center"
+                    android:id="@+id/fragment_call_incoming_fl_answer"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/btn_mail"
+                        android:layout_gravity="center"/>
+
+                </FrameLayout>
 
             </LinearLayout>
 
@@ -119,6 +133,26 @@
                 android:letterSpacing="0.09"
                 fontPath="fonts/GothamProBold.ttf"
                 android:id="@+id/fragment_profile_tv_phone"/>
+
+            <FrameLayout
+                android:layout_width="285dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorWhiteTransparent20"
+                android:layout_marginTop="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rudnev@gmail.com"
+                android:textSize="13sp"
+                android:textColor="@color/colorBlueLightText"
+                android:layout_gravity="center"
+                android:layout_marginTop="22dp"
+                android:letterSpacing="0.09"
+                android:textAllCaps="true"
+                fontPath="fonts/GothamProBold.ttf"
+                android:id="@+id/fragment_profile_tv_mail"/>
 
             <FrameLayout
                 android:layout_width="285dp"
