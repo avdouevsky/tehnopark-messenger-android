@@ -22,7 +22,7 @@ public class MemberItemView extends FrameLayout {
     private TextView tvAdmin;
     private ImageView imageOnline;
     private ImageView imageProfile;
-    private TextView tvAdmin;
+
 
     public MemberItemView(Context context) {
         this(context, null);
