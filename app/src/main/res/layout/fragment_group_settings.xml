@@ -32,7 +32,6 @@
             android:layout_width="43dp"
             android:layout_marginLeft="17dp"
             android:layout_marginStart="17dp"
-            android:layout_marginTop="18dp"
             android:layout_marginBottom="10dp"
             android:id="@+id/fragment_group_settings_image_picture"
             android:src="@drawable/ic_group_icon"/>

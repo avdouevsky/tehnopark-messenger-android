@@ -220,7 +220,7 @@ public class FragmentAuthorization extends BaseFragment{
         public void afterTextChanged(Editable editable) {
 //            mAuthorizationButton.setEnabled(!emailField.getText().toString().isEmpty() && !passwordField.getText().toString().isEmpty());
             cancelCross1.setVisibility(emailField.getText().toString().isEmpty() ? View.GONE : View.VISIBLE);
-            cancelCross1.setVisibility(passwordField.getText().toString().isEmpty() ? View.GONE : View.VISIBLE);
+            cancelCross2.setVisibility(passwordField.getText().toString().isEmpty() ? View.GONE : View.VISIBLE);
         }
     };
 }

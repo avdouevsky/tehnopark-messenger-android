@@ -4,8 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_dark_blue_to_blue"
-    tools:ignore="MissingPrefix">
+    android:background="@drawable/gradient_dark_blue_to_blue">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +52,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:letterSpacing="0.09"
-            fontPath="fonts/GothamProBold.ttf"
+            android:textAppearance="@style/TextAppearance.Gotham.Bold"
             />
 
         <LinearLayout
@@ -98,7 +97,7 @@
         android:textColor="@color/colorWhiteText"
         android:textSize="10sp"
         android:letterSpacing="0.09"
-        fontPath="fonts/GothamProBold.ttf"
+        android:textAppearance="@style/TextAppearance.Gotham.Bold"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         />
@@ -140,7 +139,7 @@
         android:layout_marginTop="12dp"
         android:minLines="2"
         android:textSize="24sp"
-        fontPath="fonts/GothamPro.ttf"/>
+        android:textAppearance="@style/TextAppearance.Gotham"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -152,7 +151,7 @@
         android:textSize="10sp"
         android:letterSpacing="0.09"
         android:layout_marginTop="16dp"
-        fontPath="fonts/GothamPro.ttf"/>
+        android:textAppearance="@style/TextAppearance.Gotham"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -164,7 +163,7 @@
         android:textSize="10sp"
         android:letterSpacing="0.09"
         android:layout_marginTop="10dp"
-        fontPath="fonts/GothamPro.ttf"/>
+        android:textAppearance="@style/TextAppearance.Gotham" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -200,6 +199,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/incoming_call_first_icon"
+                android:textAppearance="@style/TextAppearance.Gotham"
+
                 android:textColor="@color/colorWhiteText"
                 android:textSize="10sp"
                 android:letterSpacing="0.09"
@@ -233,6 +234,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/incoming_call_second_icon"
+                android:textAppearance="@style/TextAppearance.Gotham"
                 android:textColor="@color/colorWhiteText"
                 android:textSize="10sp"
                 android:letterSpacing="0.09"
@@ -269,6 +271,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_call_outgoing_tv_mute"
                 android:text="@string/incoming_call_third_icon"
+                android:textAppearance="@style/TextAppearance.Gotham"
                 android:textColor="@color/colorWhiteText"
                 android:textSize="10sp"
                 android:letterSpacing="0.09"
@@ -299,6 +302,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/incoming_call_end_icon"
+        android:textAppearance="@style/TextAppearance.Gotham"
         android:textColor="@color/colorWhiteText"
         android:textSize="10sp"
         android:letterSpacing="0.09"
