@@ -37,7 +37,7 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  * Created by mshvdvsk on 04/04/2017.
  */
 
-public class FragmentSearch extends Fragment {
+public class FragmentSearch extends BaseFragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;

@@ -3,24 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="59dp"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.mshvdvskgmail.technoparkmessenger.activities.MainActivity"
-    android:background="#F2F2F2">
+    >
 
 
     <TextView android:id="@+id/view_header_media_tx_text"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="59dp"
         android:gravity="center_vertical"
         android:textSize="10sp"
         tools:text="В ПРОШЛОМ МЕСЯЦЕ"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
         android:textAppearance="@style/TextAppearance.Gotham.Bold"
-        android:textColor="@color/colorBlueLightText"/>
+        android:textColor="@color/colorBlueLightText"
+        android:background="#F2F2F2"/>
 
 
 </LinearLayout>

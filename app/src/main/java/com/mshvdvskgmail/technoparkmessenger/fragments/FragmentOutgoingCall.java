@@ -32,7 +32,7 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  * Created by mshvdvsk on 09/03/2017.
  */
 
-public class FragmentOutgoingCall extends Fragment {
+public class FragmentOutgoingCall extends BaseFragment {
     private final static String TAG = FragmentGroupsSettings.class.toString();
 
     private FrameLayout frameLoudspeakers;

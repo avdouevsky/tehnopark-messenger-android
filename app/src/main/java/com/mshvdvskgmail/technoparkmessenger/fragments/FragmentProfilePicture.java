@@ -19,7 +19,7 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  * Created by mshvdvsk on 03/04/2017.
  */
 
-public class FragmentProfilePicture extends Fragment {
+public class FragmentProfilePicture extends BaseFragment {
     private View mRootView;
     private Handler handler;
 

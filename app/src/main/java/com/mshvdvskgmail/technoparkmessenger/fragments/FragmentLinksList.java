@@ -25,7 +25,7 @@ import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
  * Created by mshvdvsk on 23/03/2017.
  */
 
-public class FragmentLinksList extends Fragment {
+public class FragmentLinksList extends BaseFragment {
 
     private final static String TAG = FragmentLinksList.class.toString();
 

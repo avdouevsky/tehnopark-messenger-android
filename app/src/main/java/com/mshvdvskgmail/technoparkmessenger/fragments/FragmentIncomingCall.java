@@ -28,7 +28,7 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  * Created by mshvdvsk on 09/03/2017.
  */
 
-public class FragmentIncomingCall extends Fragment {
+public class FragmentIncomingCall extends BaseFragment {
     private View mRootView;
     private AlertDialog alert;
     private FrameLayout frameDeny;

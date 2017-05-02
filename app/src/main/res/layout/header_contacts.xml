@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="32dp"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mshvdvskgmail.technoparkmessenger.activities.MainActivity"
-    android:background="#E5E5E5">
+    tools:context="com.mshvdvskgmail.technoparkmessenger.activities.MainActivity">
 
     <TextView android:id="@+id/view_header_contacts_tx_text"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,8 +15,10 @@
         android:textSize="15sp"
         android:textAppearance="@style/TextAppearance.Gotham.Bold"
         tools:text="Sample text"
-        android:layout_marginStart="17dp"
-        android:layout_marginLeft="17dp"
-        android:textColor="@color/colorBlueLightText"/>
+        android:paddingStart="17dp"
+        android:paddingLeft="17dp"
+        android:textColor="@color/colorBlueLightText"
+        android:background="#E5E5E5"
+         />
 
 </LinearLayout>

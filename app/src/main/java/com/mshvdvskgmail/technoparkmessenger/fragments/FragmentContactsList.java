@@ -27,7 +27,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * Created by mshvdvsk on 19/03/2017.
  */
 
-public class FragmentContactsList  extends Fragment {
+public class FragmentContactsList  extends BaseFragment {
     private ContactsListAdapter mAdapter;
     private StickyHeaderDecoration decor;
     private RecyclerView mRecyclerView;
