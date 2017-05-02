@@ -6,8 +6,7 @@
     android:layout_height="80dp"
     android:paddingTop="18dp"
     android:paddingRight="18dp"
-    android:paddingLeft="18dp"
-    tools:ignore="MissingPrefix">
+    android:paddingLeft="18dp">
     <ImageView
         android:layout_width="11dp"
         android:layout_height="match_parent"
@@ -38,7 +37,7 @@
         android:textStyle="bold"
         android:textSize="15sp"
         android:textColor="@color/colorBlueTextPrimary"
-        fontPath="fonts/GothamProBold.ttf"
+        android:textAppearance="@style/TextAppearance.Gotham.Bold"
         android:id="@+id/tvName"
         android:layout_toRightOf="@+id/imFace"
         android:layout_toEndOf="@+id/imFace"

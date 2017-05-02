@@ -4,8 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    tools:ignore="MissingPrefix">
+    android:gravity="center_horizontal">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,7 +17,7 @@
         android:paddingTop="7dp"
         android:paddingBottom="7dp"
         android:id="@+id/recycler_item_message_time_tv_text"
-        fontPath="fonts/GothamPro.ttf"
+        android:textAppearance="@style/TextAppearance.Gotham"
         android:letterSpacing="0.08"/>
 
 </LinearLayout>

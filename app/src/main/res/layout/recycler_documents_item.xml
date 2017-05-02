@@ -4,8 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#F2F2F2"
-    tools:ignore="MissingPrefix">
+    android:background="#F2F2F2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,7 +62,7 @@
                 android:id="@+id/recycler_item_documents_tv_type_icon"
                 android:textSize="8sp"
                 android:textColor="#5a9dc8"
-                fontPath="fonts/GothamProBold.ttf"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:layout_marginTop="10dp"/>
 
 
@@ -84,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ДокументДокументДокументДокументДокументДокумент.pdf"
+                android:textAppearance="@style/TextAppearance.Gotham"
                 android:maxLines="1"
                 android:textColor="#0f2745"
                 android:ellipsize="end"
@@ -99,6 +99,7 @@
                     android:layout_height="wrap_content"
                     android:text="4 КБ"
                     android:textColor="#999999"
+                    android:textAppearance="@style/TextAppearance.Gotham"
                     android:id="@+id/recycler_item_documents_tv_size"/>
 
                 <TextView
@@ -112,6 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="pdf"
+                    android:textAppearance="@style/TextAppearance.Gotham"
                     android:textColor="#999999"
                     android:id="@+id/recycler_item_documents_tv_type"/>
 

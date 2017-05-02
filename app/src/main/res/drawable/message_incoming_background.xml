@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-<item>
-    <shape xmlns:android="http://schemas.android.com/apk/res/android" >
-        <solid android:color="#22000000" />
-        <corners
-            android:bottomLeftRadius="@dimen/chat_image_outer_corner"
-            android:bottomRightRadius="@dimen/chat_image_outer_corner"
-            android:topLeftRadius="@dimen/chat_image_outer_corner"
-            android:topRightRadius="@dimen/chat_image_outer_corner" />
+    <!--эмитация тени у сообщения-->
+<!--<item>-->
+    <!--<shape xmlns:android="http://schemas.android.com/apk/res/android" >-->
+        <!--<solid android:color="#22000000" />-->
+        <!--<corners-->
+            <!--android:bottomLeftRadius="@dimen/chat_image_outer_corner"-->
+            <!--android:bottomRightRadius="@dimen/chat_image_outer_corner"-->
+            <!--android:topLeftRadius="@dimen/chat_image_outer_corner"-->
+            <!--android:topRightRadius="@dimen/chat_image_outer_corner" />-->
 
-    </shape>
-</item>
+    <!--</shape>-->
+<!--</item>-->
 <item android:top="1dp" android:right="1dp">
     <shape xmlns:android="http://schemas.android.com/apk/res/android" >
         <solid android:color="#FFFFFF" />

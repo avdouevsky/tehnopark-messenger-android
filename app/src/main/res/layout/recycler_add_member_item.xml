@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    tools:ignore="MissingPrefix">
+    android:layout_height="80dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="69dp"
@@ -39,7 +38,7 @@
                     android:textSize="12sp"
                     android:layout_marginTop="23dp"
                     android:textColor="#10b4fa"
-                    fontPath="fonts/GothamProBold.ttf"
+                    android:textAppearance="@style/TextAppearance.Gotham.Bold"
                     android:id="@+id/recycler_item_add_member_tv_name" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -52,7 +51,7 @@
                     android:letterSpacing="0.03"
                     android:id="@+id/recycler_item_add_member_tv_position"
                     android:textAllCaps="true"
-                    fontPath="fonts/GothamProBold.ttf"
+                    android:textAppearance="@style/TextAppearance.Gotham.Bold"
                     android:ellipsize="end"/>
             </LinearLayout>
 

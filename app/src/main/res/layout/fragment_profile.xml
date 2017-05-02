@@ -5,8 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_dark_blue_to_blue"
-    tools:ignore="MissingPrefix">
+    android:background="@drawable/gradient_dark_blue_to_blue">
 
 
     <ScrollView
@@ -29,7 +28,6 @@
 
 
             <ImageView
-                android:id="@+id/imOnline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_green_dot"
@@ -55,22 +53,11 @@
                     android:textAppearance="@style/TextAppearance.Gotham"
                     />
 
-                <!--<TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Пушкин"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorWhiteText"
-                    android:layout_marginTop="0dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/fragment_profile_tv_surname"
-                    fontPath="fonts/GothamProRegular.ttf"/>-->
 
             </LinearLayout>
 
             <TextView
-                android:gravity="center_vertical|center_horizontal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="здесь может быть
 очень длинная надпись:
@@ -84,8 +71,8 @@
                 android:textAllCaps="true"
                 android:lineSpacingExtra="2dp"
                 android:id="@+id/fragment_profile_tv_title"
-                fontPath="fonts/GothamProRegular.ttf"
-                />
+                android:textAppearance="@style/TextAppearance.Gotham"
+                android:gravity="center"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -144,7 +131,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="22dp"
                 android:letterSpacing="0.09"
-                fontPath="fonts/GothamProBold.ttf"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:id="@+id/fragment_profile_tv_phone"/>
 
             <FrameLayout
@@ -164,7 +151,7 @@
                 android:layout_marginTop="22dp"
                 android:letterSpacing="0.09"
                 android:textAllCaps="true"
-                fontPath="fonts/GothamProBold.ttf"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:id="@+id/fragment_profile_tv_mail"/>
 
             <FrameLayout
@@ -191,7 +178,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="37dp"
                     android:textColor="@color/colorBlueLightButDarkerText"
-                    fontPath="fonts/GothamProBold.ttf"
+                    android:textAppearance="@style/TextAppearance.Gotham.Bold"
+
                     />
 
                 <FrameLayout
@@ -209,7 +197,8 @@
                     android:textColor="@color/colorWhiteTransparent40"
                     android:layout_alignParentRight="true"
                     android:id="@+id/fragment_profile_tv_items_count"
-                    fontPath="fonts/GothamProBold.ttf"/>
+                    android:textAppearance="@style/TextAppearance.Gotham.Bold"
+                    />
 
                 <ImageView
                     android:layout_width="wrap_content"

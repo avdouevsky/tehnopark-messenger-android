@@ -6,7 +6,6 @@
     android:layout_height="59dp"
     android:orientation="vertical"
     tools:context="com.mshvdvskgmail.technoparkmessenger.activities.MainActivity"
-    tools:ignore="MissingPrefix"
     android:background="#F2F2F2">
 
 
@@ -17,11 +16,10 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:textSize="10sp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         tools:text="В ПРОШЛОМ МЕСЯЦЕ"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        fontPath="fonts/GothamProBold.ttf"
+        android:textAppearance="@style/TextAppearance.Gotham.Bold"
         android:textColor="@color/colorBlueLightText"/>
 
 

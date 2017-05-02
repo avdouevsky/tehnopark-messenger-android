@@ -4,8 +4,7 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    tools:ignore="MissingPrefix">
+    android:gravity="center">
 
     <TextView
         android:layout_width="115dp"
@@ -14,10 +13,12 @@
         android:maxLines="1"
         android:textColor="@color/colorWhiteText"
         android:text="КОНТАКТЫ"
-        fontPath="fonts/GothamProBold.ttf"
+        android:textAppearance="@style/TextAppearance.Gotham.Bold"
         android:background="@color/backgroundGrey"
         android:gravity="center"
         android:layout_marginTop="4dp"
+        android:textSize="14.3sp"
+
         />
 
     <FrameLayout

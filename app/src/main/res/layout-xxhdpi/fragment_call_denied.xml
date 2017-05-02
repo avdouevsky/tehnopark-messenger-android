@@ -17,30 +17,26 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:gravity="right"
-            android:layout_marginTop="3.5dp"
-            >
+            android:gravity="center"
+            android:visibility="gone">
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bleeping_dot_10"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/fragment_call_incoming_fl_dot_one"/>
+                android:layout_marginLeft="10dp"/>
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bleeping_dot_20"
                 android:layout_marginLeft="9dp"
-                android:layout_marginRight="9dp"
-                android:id="@+id/fragment_call_incoming_fl_dot_two"/>
+                android:layout_marginRight="9dp"/>
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bleeping_dot_50"
-                android:id="@+id/fragment_call_incoming_fl_dot_three"/>
+                android:background="@drawable/bleeping_dot_50"/>
         </LinearLayout>
 
         <TextView
@@ -48,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="@string/incoming_call_title"
             android:textColor="@color/colorWhiteText"
-            android:textSize="15sp"
+            android:textSize="10sp"
             android:layout_weight="1"
             android:gravity="center"
             android:letterSpacing="0.09"
@@ -60,29 +56,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:gravity="left"
-            android:layout_marginTop="3.5dp">
+            android:gravity="center"
+            android:visibility="gone">
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bleeping_dot_50"
-                android:id="@+id/fragment_call_incoming_fl_dot_four"/>
+                android:background="@drawable/bleeping_dot_50"/>
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bleeping_dot_20"
                 android:layout_marginLeft="9dp"
-                android:layout_marginRight="9dp"
-                android:id="@+id/fragment_call_incoming_fl_dot_five"/>
+                android:layout_marginRight="9dp"/>
 
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bleeping_dot_10"
-                android:layout_marginRight="10dp"
-                android:id="@+id/fragment_call_incoming_fl_dot_six"/>
+                android:layout_marginRight="10dp"/>
+
         </LinearLayout>
 
     </LinearLayout>
@@ -91,31 +85,40 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/incoming_call_title_call_type"
+        android:text="@string/denied_call_title_call_type"
         android:textColor="@color/colorWhiteText"
-        android:textSize="15sp"
+        android:textSize="10sp"
         android:letterSpacing="0.09"
         android:textAppearance="@style/TextAppearance.Gotham.Bold"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         />
 
-
-
     <FrameLayout
-        android:layout_width="204dp"
-        android:layout_height="204dp"
-        android:layout_gravity="center"
-        android:background="@drawable/profile_icon_circle_cover_out"
-        android:layout_marginTop="44dp">
-
-        <ImageView
-            android:layout_width="183dp"
-            android:layout_height="183dp"
-            android:layout_gravity="center"
-            android:id="@+id/fragment_call_incoming_image_picture" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2">
     </FrameLayout>
 
+    <FrameLayout
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_gravity="center"
+        android:background="@drawable/profile_icon_circle_cover_out"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:layout_width="133dp"
+            android:layout_height="133dp"
+            android:layout_gravity="center"
+            android:id="@+id/fragment_call_denied_image_picture" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+    </FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -124,12 +127,10 @@
         android:textColor="@color/colorWhiteText"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="12dp"
         android:minLines="2"
-        android:textSize="36sp"
-        android:textAppearance="@style/TextAppearance.Gotham"
-
-        />
+        android:textSize="24sp"
+        android:textAppearance="@style/TextAppearance.Gotham"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -138,11 +139,10 @@
         android:gravity="center"
         android:text="@string/incoming_call_department"
         android:textColor="@color/colorWhiteText"
-        android:textSize="15sp"
+        android:textSize="10sp"
         android:letterSpacing="0.09"
         android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.Gotham"
-        />
+        android:textAppearance="@style/TextAppearance.Gotham"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -151,23 +151,17 @@
         android:gravity="center"
         android:text="@string/incoming_call_position"
         android:textColor="@color/colorWhiteText"
-        android:textSize="15sp"
+        android:textSize="10sp"
         android:letterSpacing="0.09"
         android:layout_marginTop="10dp"
-        android:textAppearance="@style/TextAppearance.Gotham"
-        />
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"></FrameLayout>
+        android:textAppearance="@style/TextAppearance.Gotham"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="22dp"
-        android:layout_marginBottom="30sp">
+        android:layout_marginBottom="10sp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -178,16 +172,16 @@
             android:layout_marginTop="38dp">
 
             <FrameLayout
-                android:layout_width="105dp"
-                android:layout_height="105dp"
-                android:background="@drawable/call_button_background_red"
-                android:layout_gravity="right"
-                android:id="@+id/fragment_call_incoming_fl_deny">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/call_button_background_denied"
+                android:layout_gravity="center"
+                android:id="@+id/fragment_call_denied_fl_cancel">
 
                 <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/deny_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cancel_window"
                     android:layout_gravity="center"
                     />
 
@@ -196,14 +190,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/outgoing_call_first_icon"
-                android:textAppearance="@style/TextAppearance.Gotham"
+                android:text="@string/denied_call_first_icon"
                 android:textColor="@color/colorWhiteText"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:letterSpacing="0.09"
-                android:layout_gravity="right"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="10dp"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="14dp"/>
 
         </LinearLayout>
 
@@ -214,16 +206,17 @@
             android:layout_weight="1">
 
             <FrameLayout
-                android:layout_width="105dp"
-                android:layout_height="105dp"
-                android:background="@drawable/call_button_background_outgoing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/call_button_background_green"
                 android:layout_gravity="center"
-                android:id="@+id/fragment_call_incoming_fl_message">
+                android:layout_marginTop="38dp"
+                android:id="@+id/fragment_call_denied_fl_callback">
 
                 <ImageView
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
-                    android:src="@drawable/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/accept_call"
                     android:layout_gravity="center"/>
 
             </FrameLayout>
@@ -231,13 +224,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/outgoing_call_second_icon"
-                android:textAppearance="@style/TextAppearance.Gotham"
+                android:text="@string/denied_call_second_icon"
                 android:textColor="@color/colorWhiteText"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:letterSpacing="0.09"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="14dp"/>
 
         </LinearLayout>
 
@@ -249,17 +241,17 @@
             android:layout_marginRight="18dp">
 
             <FrameLayout
-                android:layout_width="105dp"
-                android:layout_height="105dp"
-                android:background="@drawable/call_button_background_green"
-                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/call_button_background_denied"
+                android:layout_gravity="center"
                 android:layout_marginTop="38dp"
-                android:id="@+id/fragment_call_incoming_fl_answer">
+                android:id="@+id/fragment_call_denied_fl_message">
 
                 <ImageView
-                    android:layout_width="31dp"
-                    android:layout_height="31dp"
-                    android:src="@drawable/accept_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/message"
                     android:layout_gravity="center"/>
 
             </FrameLayout>
@@ -267,19 +259,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/outgoing_call_third_icon"
-                android:textAppearance="@style/TextAppearance.Gotham"
+                android:text="@string/denied_call_third_icon"
                 android:textColor="@color/colorWhiteText"
-                android:textSize="15sp"
+                android:textSize="10sp"
                 android:letterSpacing="0.09"
-                android:layout_gravity="left"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="15dp"/>
+                android:layout_gravity="center"
+                android:layout_marginTop="14dp"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+    </FrameLayout>
 
 </LinearLayout>

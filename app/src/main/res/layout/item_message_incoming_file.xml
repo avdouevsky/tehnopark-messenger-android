@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:ignore="MissingPrefix">
+    >
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +40,9 @@
                         android:layout_marginTop="10dp"
                         android:textColor="#5a9dc8"
                         android:id="@+id/recycler_item_message_file_tv_type"
-                        fontPath="fonts/GothamProBold.ttf"/>
+                        android:textAppearance="@style/TextAppearance.Gotham.Bold"
+                        />
+
                 </FrameLayout>
 
                 <LinearLayout
@@ -59,7 +61,8 @@
                         android:layout_marginTop="-1dp"
                         android:maxLines="1"
                         android:id="@+id/recycler_item_message_file_tv_file_name"
-                        fontPath="fonts/GothamPro.ttf"/>
+                        android:textAppearance="@style/TextAppearance.Gotham"
+                        />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -71,7 +74,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/recycler_item_message_file_tv_size"
                             android:text="27 KB"
-                            fontPath="fonts/GothamPro.ttf"/>
+                            android:textAppearance="@style/TextAppearance.Gotham"
+                            />
                         <FrameLayout
                             android:layout_width="30dp"
                             android:layout_height="23dp"
@@ -83,7 +87,7 @@
                             android:textColor="#0f2745"
                             android:textSize="10sp"
                             android:id="@+id/recycler_item_message_file_tv_time"
-                            fontPath="fonts/GothamProLight.ttf"
+                            android:textAppearance="@style/TextAppearance.Gotham.Light"
                             android:layout_gravity="bottom"/>
                     </LinearLayout>
                 </LinearLayout>

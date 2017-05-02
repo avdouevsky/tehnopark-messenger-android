@@ -4,8 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#F2F2F2"
-    tools:ignore="MissingPrefix">
+    android:background="#F2F2F2">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -74,7 +73,7 @@
                 android:text="леди годива - Поиск в Google"
                 android:id="@+id/recycler_item_links_tv_title"
                 android:textColor="#0f2745"
-                fontPath="fonts/GothamProBold.ttf"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:maxLines="2"
                 android:ellipsize="end"/>
 

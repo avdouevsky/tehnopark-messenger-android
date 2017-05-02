@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="MissingPrefix">
+    android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +50,8 @@
                 android:textColor="#0193c6"
                 android:textStyle="bold"
                 android:id="@+id/fragment_chat_group_tv_name"
-                fontPath="fonts/GothamPro.ttf"/>
+                android:textAppearance="@style/TextAppearance.Gotham"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,7 +63,8 @@
                 android:letterSpacing="0.09"
                 android:layout_marginTop="8dp"
                 android:id="@+id/fragment_chat_group_tv_admin_title"
-                fontPath="fonts/GothamPro.ttf"/>
+                android:textAppearance="@style/TextAppearance.Gotham"
+                />
 
         </LinearLayout>
 
