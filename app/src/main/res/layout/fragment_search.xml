@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="MissingPrefix"
     android:id="@+id/fragment_search">
 
     <LinearLayout
@@ -56,7 +55,8 @@
             android:textSize="11sp"
             android:id="@+id/fragment_search_tv_cancel"
             android:textColor="#0f2745"
-            fontPath="fonts/GothamPro.ttf"/>
+            android:textAppearance="@style/TextAppearance.Gotham"
+            />
     </LinearLayout>
 
     <FrameLayout

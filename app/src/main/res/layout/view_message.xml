@@ -46,8 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="Привет! Много дел? Давай сходим на обед, мне кажется сейчас самое время!"
                 android:textColor="#0f2745"
-                android:textAppearance="@style/TextAppearance.Gotham"
-                />
+                android:textAppearance="@style/TextAppearance.Gotham"/>
 
             <com.mshvdvskgmail.technoparkmessenger.view.AttachmentView
                 android:padding="@dimen/chat_item_image_padding"

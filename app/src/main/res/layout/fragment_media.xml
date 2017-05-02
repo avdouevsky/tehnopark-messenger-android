@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="MissingPrefix">
+    android:layout_height="match_parent">
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +21,8 @@
             android:textColor="@color/colorBlueLightText"
             android:id="@+id/fragment_media_tv_title"
             android:layout_marginRight="14dp"
-            fontPath="fonts/GothamProBold.ttf"/>
+            android:textAppearance="@style/TextAppearance.Gotham.Bold"
+            />
 
 
         <TextView
@@ -34,7 +34,7 @@
             android:textColor="@color/colorBlueLightText"
             android:id="@+id/fragment_media_tv_select"
             android:layout_marginRight="9dp"
-            fontPath="fonts/GothamPro.ttf"
+            android:textAppearance="@style/TextAppearance.Gotham"
             android:padding="10dp">
         </TextView>
     </android.support.v7.widget.Toolbar>
@@ -65,14 +65,19 @@
 
             <android.support.design.widget.TabItem
                 android:text="МЕДИА"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent" />
+                android:layout_width="match_parent"
+                />
             <android.support.design.widget.TabItem
                 android:text="ССЫЛКИ"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent" />
+                android:layout_width="match_parent"
+                />
             <android.support.design.widget.TabItem
                 android:text="ДОКУМЕНТЫ"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent" />
 

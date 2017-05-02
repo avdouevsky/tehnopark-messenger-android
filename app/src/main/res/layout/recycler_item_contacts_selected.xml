@@ -5,8 +5,7 @@
     android:orientation="vertical"
     android:layout_width="60dp"
     android:layout_height="70dp"
-    android:gravity="center"
-    tools:ignore="MissingPrefix">
+    android:gravity="center">
 
     <FrameLayout
         android:layout_width="43dp"
@@ -47,6 +46,6 @@
         android:textColor="#10b4fa"
         android:textSize="9sp"
         android:layout_gravity="bottom|center_horizontal"
-        fontPath="fonts/GothamProBold.ttf"/>
+        android:textAppearance="@style/TextAppearance.Gotham.Bold"/>
 
 </FrameLayout>

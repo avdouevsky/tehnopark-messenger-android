@@ -5,8 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_dark_blue_to_blue"
-    tools:ignore="MissingPrefix">
+    android:background="@drawable/gradient_dark_blue_to_blue">
 
 
 
@@ -38,7 +37,8 @@
             android:layout_gravity="center"
             android:textSize="15sp"
             android:id="@+id/fragment_profile_picture_tv_name"
-            fontPath="fonts/GothamProBold.ttf"/>
+            android:textAppearance="@style/TextAppearance.Gotham.Bold"
+            />
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout

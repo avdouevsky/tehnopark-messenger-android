@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    tools:ignore="MissingPrefix">
+    android:layout_height="80dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="79dp"
@@ -27,7 +26,7 @@
                 android:layout_marginTop="19dp"
                 android:layout_marginStart="13dp"
                 android:textColor="#babdc3"
-                fontPath="fonts/GothamProBold.ttf"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:id="@+id/recycler_item_search_tv_name"
                 android:layout_marginLeft="13dp" />
 
@@ -47,7 +46,7 @@
                     android:maxLines="1"
                     android:letterSpacing="0.03"
                     android:id="@+id/recycler_item_search_tv_message"
-                    fontPath="fonts/GothamPro.ttf"
+                    android:textAppearance="@style/TextAppearance.Gotham"
                     android:layout_marginLeft="13dp"
                     android:ellipsize="end"
                     android:maxWidth="190dp"/>

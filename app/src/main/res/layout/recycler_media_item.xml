@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:ignore="MissingPrefix"
     android:background="#F2F2F2">
 
     <LinearLayout
@@ -45,7 +44,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="6dp"
-                fontPath="fonts/GothamProBold.ttf"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:visibility="gone"/>
 
             <ImageView
@@ -106,7 +105,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="6dp"
-                fontPath="fonts/GothamProBold.ttf"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:visibility="gone"/>
 
             <ImageView
@@ -167,7 +166,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="6dp"
-                fontPath="fonts/GothamProBold.ttf"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:visibility="gone"/>
 
             <ImageView
@@ -228,7 +227,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="6dp"
-                fontPath="fonts/GothamProBold.ttf"
+                android:textAppearance="@style/TextAppearance.Gotham.Bold"
                 android:visibility="gone"/>
             <ImageView
                 android:layout_width="wrap_content"
