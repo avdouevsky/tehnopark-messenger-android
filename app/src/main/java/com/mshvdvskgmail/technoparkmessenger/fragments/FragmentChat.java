@@ -23,6 +23,11 @@ import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import android.webkit.MimeTypeMap;
@@ -257,19 +262,70 @@ public class FragmentChat extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CHOOSE_FILE_REQUESTCODE && null != data)
         {
-            Log.v(TAG, "onActivityResult "+ data.getData() + " | "+ getMimeType(data.getDataString()));
-            String  path = data.getData().getEncodedPath();
-            if(data.getData().getScheme().equals("content")){
-                path = getRealPathFromURI(getActivity(), data.getData());
-            }
-            //File file = new File(URI.create(data.getData().getEncodedPath()).getPath());
-            File file = new File("");
-            try{
-                file = new File(path);
-            } catch (Exception e){
 
+            String filePath = null;
+            Uri _uri = data.getData();
+            Log.d("","URI = "+ _uri);
+            if (_uri != null && "content".equals(_uri.getScheme())) {
+                Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(_uri, new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
+                cursor.moveToFirst();
+                filePath = cursor.getString(0);
+                cursor.close();
+            } else {
+                filePath = _uri.getPath();
             }
-            Log.v(TAG, "file: " + file.isFile());
+            Log.d("","Chosen path = "+ filePath);
+
+            File file = new File("");
+            if(filePath==null){
+                try{
+                    InputStream initialStream = getActivity().getApplicationContext().getContentResolver().openInputStream(_uri);
+                    byte[] buffer = new byte[initialStream.available()];
+                    initialStream.read(buffer);
+
+                    File outputDir = getActivity().getCacheDir(); // context being the Activity pointer
+
+                    file = File.createTempFile("prefix", "extension", outputDir);
+                    OutputStream outStream = new FileOutputStream(file);
+                    outStream.write(buffer);
+                } catch (IOException exception){
+                    Log.d("","IOException exception caught");
+                }
+            } else {
+                try{
+                    file = new File(filePath);
+                } catch (Exception e){
+
+                }
+                Log.v(TAG, "file: " + file.isFile());
+            }
+
+//            File targetFile = new File("");
+//            try{
+//                InputStream initialStream = getActivity().getApplicationContext().getContentResolver().openInputStream(_uri);
+//                byte[] buffer = new byte[initialStream.available()];
+//                initialStream.read(buffer);
+//
+//                File outputDir = getActivity().getCacheDir(); // context being the Activity pointer
+//
+//                targetFile = File.createTempFile("prefix", "extension", outputDir);
+//                OutputStream outStream = new FileOutputStream(targetFile);
+//                outStream.write(buffer);
+//            } catch (IOException exception){
+//                Log.d("","IOException exception caught");
+//            }
+
+
+
+//            Log.v(TAG, "onActivityResult "+ data.getData() + " | "+ getMimeType(data.getDataString()));
+//            String  path = data.getData().getEncodedPath();
+//            if(data.getData().getScheme().equals("content")){
+//                path = getRealPathFromURI(getActivity(), data.getData());
+//            }
+////            File file = new File(URI.create(data.getData().getEncodedPath()).getPath());
+
+
+            Log.d("","file = "+ file + " getMimeType(file.getAbsolutePath()) = "+getMimeType(file.getAbsolutePath()));
 
             sendFile(file, getMimeType(file.getAbsolutePath()));
         }

@@ -4,6 +4,8 @@ package com.mshvdvskgmail.technoparkmessenger.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -67,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initRoute();
+        if(shouldAskPermission()){
+            String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE"};
+
+            int permsRequestCode = 200;
+
+            requestPermissions(perms, permsRequestCode);
+        }
 
         navigator.forwardTo(Fragments.AUTHORIZATION);
     }
@@ -102,6 +111,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private boolean shouldAskPermission(){
+
+        return(Build.VERSION.SDK_INT> Build.VERSION_CODES.LOLLIPOP_MR1);
+
     }
 
     public void setFragment(Fragment frag){
@@ -278,4 +293,20 @@ public class MainActivity extends AppCompatActivity {
 //            toggle.setDrawerIndicatorEnabled(false);
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
+
+        switch(permsRequestCode){
+
+            case 200:
+
+                boolean writeAccepted = grantResults[0]== PackageManager.PERMISSION_GRANTED;
+
+                break;
+
+        }
+
+    }
+
 }
