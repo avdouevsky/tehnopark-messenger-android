@@ -1,56 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="60dp"
+    android:layout_height="70dp"
+    android:gravity="center">
 
     <FrameLayout
-        android:orientation="vertical"
-        android:layout_width="60dp"
-        android:layout_height="70dp"
-        android:gravity="center">
-
-        <FrameLayout
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="2dp">
+        <ImageView
+            android:src="@drawable/icon_user"
             android:layout_width="43dp"
             android:layout_height="43dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="2dp">
-            <ImageView
-                android:src="@drawable/icon_user"
-                android:layout_width="43dp"
-                android:layout_height="43dp"
-                android:layout_gravity="center"
-                android:id="@+id/recycler_item_contacts_selected_image_picture"/>
-        </FrameLayout>
+            android:id="@+id/recycler_item_contacts_selected_image_picture"/>
+    </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="right"
-            android:id="@+id/recycler_item_contacts_selected_fl_cancel">
+    <FrameLayout
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right"
+        android:id="@+id/recycler_item_contacts_selected_fl_cancel">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_selected_contact_delete"
-                android:layout_gravity="center"
-                android:layout_marginLeft="0dp"
-                android:layout_marginBottom="0dp"/>
-
-        </FrameLayout>
-
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Александр11"
-            android:id="@+id/recycler_item_contacts_selected_tv_name"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textColor="#10b4fa"
-            android:textSize="9sp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:textAppearance="@style/TextAppearance.Gotham.Bold"/>
+            android:src="@drawable/ic_selected_contact_delete"
+            android:layout_gravity="center"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="0dp"/>
 
     </FrameLayout>
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Александр11"
+        android:id="@+id/recycler_item_contacts_selected_tv_name"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="#10b4fa"
+        android:textSize="9sp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:textAppearance="@style/TextAppearance.Gotham.Bold"/>
+
+</FrameLayout>

@@ -1,52 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="75dp"
+    android:layout_height="106dp"
+    android:layout_marginRight="14dp"
+    android:layout_marginEnd="14dp">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="75dp"
-        android:layout_height="106dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginEnd="14dp">
-
-        <FrameLayout
-            android:layout_width="66dp"
-            android:layout_height="66dp"
-            android:orientation="horizontal"
-            android:background="@color/colorWhiteTransparent">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="37dp"
-                android:src="@drawable/ic_message_file"
-                android:layout_gravity="center"
-                android:id="@+id/recycler_item_profile_attached_file_image_file"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="PDF"
-                android:id="@+id/recycler_item_profile_attached_file_tv_type"
-                android:textSize="8sp"
-                android:textColor="#5a9dc8"
-                android:textAppearance="@style/TextAppearance.Gotham.Bold"
-                android:layout_marginTop="10dp"/>
-
-        </FrameLayout>
+    <FrameLayout
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:orientation="horizontal"
+        android:background="@color/colorWhiteTransparent">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="37dp"
+            android:src="@drawable/ic_message_file"
+            android:layout_gravity="center"
+            android:id="@+id/recycler_item_profile_attached_file_image_file"/>
 
         <TextView
-            android:layout_width="75dp"
-            android:layout_height="25dp"
-            android:text="шизофрениямагнитского"
-            android:textSize="10sp"
-            android:maxLines="2"
-            android:textColor="@color/colorWhiteText"
-            android:ellipsize="end"
-            android:layout_marginTop="7dp"
-            android:lineSpacingExtra="4dp"
-            android:textAppearance="@style/TextAppearance.Gotham"
-            android:id="@+id/recycler_item_profile_attached_file_tv_name"/>
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="PDF"
+            android:id="@+id/recycler_item_profile_attached_file_tv_type"
+            android:textSize="8sp"
+            android:textColor="#5a9dc8"
+            android:textAppearance="@style/TextAppearance.Gotham.Bold"
+            android:layout_marginTop="10dp"/>
 
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="75dp"
+        android:layout_height="25dp"
+        android:text="шизофрениямагнитского"
+        android:textSize="10sp"
+        android:maxLines="2"
+        android:textColor="@color/colorWhiteText"
+        android:ellipsize="end"
+        android:layout_marginTop="7dp"
+        android:lineSpacingExtra="4dp"
+        android:textAppearance="@style/TextAppearance.Gotham"
+        android:id="@+id/recycler_item_profile_attached_file_tv_name"/>
 </LinearLayout>
