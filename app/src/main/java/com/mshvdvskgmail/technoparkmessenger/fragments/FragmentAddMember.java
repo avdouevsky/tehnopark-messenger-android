@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.adapters.AddMemberListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.adapters.SelectedContactsItemAdapter;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.network.model.ChatUser;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Result;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
+
+import org.greenrobot.eventbus.EventBus;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -132,33 +136,26 @@ public class FragmentAddMember extends BaseFragment {
                 if(chat == null){
                     //create new
                     REST.getInstance().chat(Controller.getInstance().getAuth().getUser().token, adapterSelected.getData(), "Новый чат")
-                        .subscribe(new REST.DataSubscriber<Chat>(){
-                            @Override
-                            public void onData(Chat data) {
-                                if(isAdded()) getActivity().onBackPressed();
-                            }
-                        });
-                }else{
-                    REST.getInstance().group_add(Controller.getInstance().getAuth().getUser().token, chat, adapterSelected.getData())
-                            .subscribe(new REST.DataSubscriber<Chat>() {
+                            .subscribe(new REST.DataSubscriber<Chat>(){
                                 @Override
                                 public void onData(Chat data) {
                                     if(isAdded()) getActivity().onBackPressed();
                                 }
                             });
-                    /* //была идея динамической выборки
+                }else{
                     REST.getInstance().group_add(Controller.getInstance().getAuth().getUser().token, chat, adapterSelected.getData())
-                        .flatMap(new Func1<Result<Chat>, Observable<Result<Chat>>>() {
-                            @Override
-                            public Observable<Result<Chat>> call(Result<Chat> chatResult) {
-                                return REST.getInstance().group_remove(Controller.getInstance().getAuth().getUser().token, chat, adapterSelected.getData());
-                            }
-                        }).subscribe(new REST.DataSubscriber<Chat>() {
+                            .flatMap(new Func1<Result<Chat>, Observable<Result<Chat>>>() {
+                                @Override
+                                public Observable<Result<Chat>> call(Result<Chat> chatResult) {
+                                    return REST.getInstance().group_remove(Controller.getInstance().getAuth().getUser().token, chat, adapterSelected.getData());
+                                }
+                            }).subscribe(new REST.DataSubscriber<Chat>() {
                         @Override
                         public void onData(Chat data) {
+                            Chat a = data;
                             if(isAdded()) getActivity().onBackPressed();
                         }
-                    });*/
+                    });
                 }
             }
         });
@@ -177,26 +174,21 @@ public class FragmentAddMember extends BaseFragment {
                 .subscribe(new REST.DataSubscriber<List<User>>() {
                     @Override
                     public void onData(List<User> data) {
-                        if(chat != null){
-                            List<User> users = new ArrayList<>();
-                            for (ChatUser cu: chat.users) if(cu.user != null) users.add(cu.user);
-                            data.removeAll(users);
-                        }
                         adapterUsers.setData(data);
-//                        setAdapterContent(data);
+                        setAdapterContent(data);
                         reCalcCounters();
                     }
                 });
     }
 
-//    private void setAdapterContent(List<User> contacts) {
-//        if(chat != null){
-//            List<User> users = new ArrayList<>();
-//            for (ChatUser cu: chat.users) if(cu.user != null) users.add(cu.user);
-//            for(User u : contacts) if(users.contains(u)) u.uiSelected = true;
-//            users.clear();
-//            for(User u : contacts) if(u.uiSelected) users.add(u);
-//            adapterSelected.setData(users);
-//        }
-//    }
+    private void setAdapterContent(List<User> contacts) {
+        if(chat != null){
+            List<User> users = new ArrayList<>();
+            for (ChatUser cu: chat.users) if(cu.user != null) users.add(cu.user);
+            for(User u : contacts) if(users.contains(u)) u.uiSelected = true;
+            users.clear();
+            for(User u : contacts) if(u.uiSelected) users.add(u);
+            adapterSelected.setData(users);
+        }
+    }
 }

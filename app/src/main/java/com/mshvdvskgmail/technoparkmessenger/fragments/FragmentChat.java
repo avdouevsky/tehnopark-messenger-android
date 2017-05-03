@@ -167,7 +167,7 @@ public class FragmentChat extends BaseFragment {
         flBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                if(isAdded()) getActivity().onBackPressed();
             }
         });
 

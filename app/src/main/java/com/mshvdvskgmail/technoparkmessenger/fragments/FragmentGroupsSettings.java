@@ -175,7 +175,15 @@ public class FragmentGroupsSettings extends BaseFragment {
         tvGroupStatus.setText(isAdmin ? "Вы администратор" : "");
     }
 
-//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        Log.d(TAG, "onResume");
+//        chat = ArgsBuilder.create().chat();
+//        loadData();
+//    }
+
+    //
 //        flAddMember.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
