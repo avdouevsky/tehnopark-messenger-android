@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -46,8 +47,12 @@ import static com.mshvdvskgmail.technoparkmessenger.R.id.*;
  */
 
 public class FragmentProfile extends BaseFragment {
+
+    private final static String TAG = FragmentProfile.class.toString();
+
     private View mRootView;
     private RecyclerView mRecyclerView;
+    private LinearLayout llMedia;
     private LinearLayoutManager mLayoutManager;
     private ProfileFilesAdapter mAdapter;
     private TextView tvCount;
@@ -110,6 +115,7 @@ public class FragmentProfile extends BaseFragment {
     }
 
     private void setAdapterContent(View mRootView) {
+        llMedia = (LinearLayout) mRootView.findViewById(R.id.fragment_profile_ll_media);
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.fragment_profile_rv_files);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
@@ -119,10 +125,21 @@ public class FragmentProfile extends BaseFragment {
                 .subscribe(new REST.DataSubscriber<List<Attachment>>() {
                     @Override
                     public void onData(List<Attachment> data) {
-                        mAdapter.setData(data);
-                        tvCount.setText(""+ mAdapter.getItemCount());
+                        if (mAdapter.getItemCount()!=0){
+                            mAdapter.setData(data);
+                            tvCount.setText(""+ mAdapter.getItemCount());
+                            setVisible();
+                        }
                     }
                 });
+
+        Log.d(TAG, "tvCount.getText() " + tvCount.getText());
+
+//        if(tvCount.getText().equals("0")){
+//            llMedia.setVisibility(View.GONE);
+//        } else {
+//            llMedia.setVisibility(View.VISIBLE);
+//        }
 
         mAdapter = new ProfileFilesAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
@@ -152,6 +169,10 @@ public class FragmentProfile extends BaseFragment {
                         });
             }
         });
+    }
+
+    private void setVisible(){
+        llMedia.setVisibility(View.VISIBLE);
     }
 
     private void setIconsTouchListeners(View mRootView) {

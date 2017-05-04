@@ -184,59 +184,67 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                >
-                <TextView
+                android:orientation="vertical"
+                android:id="@+id/fragment_profile_ll_media"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="МЕДИА"
+                        android:letterSpacing="0.07"
+                        android:textSize="10sp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="37dp"
+                        android:textColor="@color/colorBlueLightButDarkerText"
+                        android:textAppearance="@style/TextAppearance.Gotham.Bold"
+
+                        />
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:textColor="@color/colorWhiteTransparent40"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/fragment_profile_tv_items_count"
+                        android:textAppearance="@style/TextAppearance.Gotham.Bold"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_chevron_right"
+                        android:layout_marginRight="37dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="1dp"/>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="МЕДИА"
-                    android:letterSpacing="0.07"
-                    android:textSize="10sp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="37dp"
-                    android:textColor="@color/colorBlueLightButDarkerText"
-                    android:textAppearance="@style/TextAppearance.Gotham.Bold"
-
-                    />
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                </FrameLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5"
-                    android:textSize="10sp"
-                    android:textColor="@color/colorWhiteTransparent40"
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/fragment_profile_tv_items_count"
-                    android:textAppearance="@style/TextAppearance.Gotham.Bold"
-                    />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_chevron_right"
-                    android:layout_marginRight="37dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="1dp"/>
+                    android:id="@+id/fragment_profile_rv_files"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginBottom="22dp"
+                    fontPath="fonts/GothamProBold.ttf"
+                    >
+                </android.support.v7.widget.RecyclerView>
 
             </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fragment_profile_rv_files"
-                android:layout_marginTop="23dp"
-                android:layout_marginBottom="22dp"
-                fontPath="fonts/GothamProBold.ttf"
-                >
-            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 

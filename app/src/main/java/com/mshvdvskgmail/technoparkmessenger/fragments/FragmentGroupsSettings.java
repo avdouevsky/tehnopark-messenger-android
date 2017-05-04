@@ -42,6 +42,7 @@ public class FragmentGroupsSettings extends BaseFragment {
     private TextView tvGroupStatus;
     private EditText editView;
     private LinearLayout frameInfo;
+    private  View root;
 
     private ImageView imageViewEdit;
 
@@ -58,7 +59,7 @@ public class FragmentGroupsSettings extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_group_settings, container, false);
+        root = inflater.inflate(R.layout.fragment_group_settings, container, false);
 
         viewMediaList = (MediaListView) root.findViewById(R.id.viewMediaList);
         viewMemberList = (MemberListView) root.findViewById(R.id.viewMemberList);
@@ -115,6 +116,8 @@ public class FragmentGroupsSettings extends BaseFragment {
             }
         });
 
+        Log.d("wow", "chat.date = "+chat.date + "chat.getTimeAsString()" + chat.getTimeAsString());
+
 //        imageViewEdit.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -166,6 +169,13 @@ public class FragmentGroupsSettings extends BaseFragment {
                         viewMediaList.setData(data);
                     }
                 });
+    }
+
+    private void setDate(){
+        TextView tvDateCreated = (TextView) root.findViewById(R.id.fragment_group_settings_tv_date);
+        String date = new String();
+
+        tvDateCreated.setText("ДАТА СОЗДАНИЯ: "+ chat.date);
     }
 
     private void setChatInfo(){
