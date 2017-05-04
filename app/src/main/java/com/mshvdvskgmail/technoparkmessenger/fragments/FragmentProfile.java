@@ -132,7 +132,7 @@ public class FragmentProfile extends BaseFragment {
         if(user.avatar != null)
             Picasso.with(getContext())
                     .load(user.avatar)
-                    .resizeDimen(R.dimen.chat_item_avatar_size,R.dimen.chat_item_avatar_size)
+                    .resizeDimen(R.dimen.chat_item_avatar_medium,R.dimen.chat_item_avatar_medium)
                     .centerCrop()
                     .placeholder(R.drawable.icon_user)
                     .error(R.drawable.icon_user).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
@@ -192,6 +192,10 @@ public class FragmentProfile extends BaseFragment {
 
         final FragmentProfile a = this;
         final FragmentProfilePicture b = new FragmentProfilePicture();
+        Bundle bundle = new Bundle();
+        bundle.putString("user.avatar", user.avatar);
+        bundle.putString("user.cn", user.cn);
+        b.setArguments(bundle);
 
         mImage = (ImageView) mRootView.findViewById(R.id.fragment_profile_image_profile_picture);
 

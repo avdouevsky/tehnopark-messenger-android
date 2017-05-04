@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 
 public class FragmentMainFourTabScreen extends BaseFragment{
-    private final static int ICON_PLUS = R.drawable.icon_plus;
+    private final static int ICON_WRITE = R.drawable.icon_write;
     private final static int ICON_SEARCH = R.drawable.icon_search;
 
     private View mRootView;
@@ -112,10 +112,10 @@ public class FragmentMainFourTabScreen extends BaseFragment{
     private void updateUI(){
         switch (viewPager.getCurrentItem()){
             case 0:
-                imageActionIcon.setImageResource(ICON_PLUS);
+                imageActionIcon.setImageResource(ICON_WRITE);
                 break;
             case 1:
-                imageActionIcon.setImageResource(ICON_PLUS);
+                imageActionIcon.setImageResource(ICON_WRITE);
                 break;
             case 2:
                 imageActionIcon.setImageResource(ICON_SEARCH);

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.squareup.picasso.Picasso;
 
@@ -36,8 +38,24 @@ public class FragmentProfilePicture extends BaseFragment {
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_profile_picture, container, false);
 
+        Bundle bundle = getArguments();
+        String userAvatar = bundle.getString("user.avatar");
+        String userName = bundle.getString("user.cn");
+
+        TextView tvProfileName = (TextView) mRootView.findViewById(R.id.fragment_profile_picture_tv_name);
+        tvProfileName.setText(userName);
+
         ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.fragment_profile_picture_image_picture);
-        Picasso.with(getContext()).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
+        if(userAvatar != null)
+            Picasso.with(getContext())
+                    .load(userAvatar)
+                    .resizeDimen(R.dimen.chat_item_avatar_medium,R.dimen.chat_item_avatar_medium)
+                    .centerCrop()
+                    .placeholder(R.drawable.icon_user)
+                    .error(R.drawable.icon_user).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
+//
+//        ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.fragment_profile_picture_image_picture);
+//        Picasso.with(getContext()).load(R.drawable.pushkin).transform(new RoundedCornersTransformation(360,0)).into(profileIcon);
 
 //        handler = new Handler();
 //

@@ -51,7 +51,6 @@
         <ImageView
             android:layout_width="330dp"
             android:layout_height="330dp"
-            android:src="@drawable/pushkin"
             android:id="@+id/fragment_profile_picture_image_picture"
             android:background="@drawable/ic_circle_shadow"
             android:layout_gravity="center"
