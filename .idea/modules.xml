@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/flowcontrol/flowcontrol.iml" filepath="$PROJECT_DIR$/flowcontrol/flowcontrol.iml" />
       <module fileurl="file://$PROJECT_DIR$/tehnopark-messenger-android.iml" filepath="$PROJECT_DIR$/tehnopark-messenger-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tehnopark-messenger-android2.iml" filepath="$PROJECT_DIR$/tehnopark-messenger-android2.iml" />
     </modules>
   </component>
 </project>

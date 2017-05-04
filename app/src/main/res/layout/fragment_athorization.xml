@@ -62,14 +62,15 @@
                     android:cursorVisible="false"
                     android:layout_marginStart="15dp"
                     android:layout_marginLeft="15dp"
-                    android:maxLines="1"
+                    android:singleLine="true"
                     android:textSize="13sp"
                     android:textColor="@color/colorWhiteText"
-                    android:inputType="textCapCharacters"
                     android:letterSpacing="0.09"
                     android:nextFocusDown="@+id/fragment_authorization_et_password"
                     android:textAppearance="@style/TextAppearance.Gotham.Bold"
-                    android:id="@+id/fragment_authorization_et_email"/>
+                    android:id="@+id/fragment_authorization_et_email"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginEnd="30dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -113,12 +114,16 @@
                     android:background="@android:color/transparent"
                     android:cursorVisible="false"
                     android:textSize="13sp"
+                    android:singleLine="true"
                     android:textColor="@color/colorWhiteText"
                     android:letterSpacing="0.19"
                     android:inputType="textPassword"
                     android:textAppearance="@style/TextAppearance.Gotham.Bold"
                     android:layout_marginLeft="15dp"
-                    android:id="@+id/fragment_authorization_et_password"/>
+                    android:layout_marginStart="15dp"
+                    android:id="@+id/fragment_authorization_et_password"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginEnd="30dp"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -143,8 +148,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/footerLayout">
+            android:id="@+id/footerLayout"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
             <LinearLayout
                 android:layout_width="match_parent"

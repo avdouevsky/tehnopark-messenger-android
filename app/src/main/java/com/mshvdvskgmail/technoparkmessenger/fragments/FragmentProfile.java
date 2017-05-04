@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
@@ -70,27 +71,42 @@ public class FragmentProfile extends BaseFragment {
 
         mRootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        setProfileContent();
+        setAdapterContent(mRootView);
+        setIconsTouchListeners(mRootView);
+        return mRootView;
+    }
+
+    private void setProfileContent() {
         tvCount = (TextView) mRootView.findViewById(R.id.fragment_profile_tv_items_count);
 
         TextView name = (TextView)mRootView.findViewById(fragment_profile_tv_name);
         name.setText(user.cn);
 
-        TextView phone = (TextView)mRootView.findViewById(R.id.fragment_profile_tv_phone);
-        phone.setText(user.mobile + " " + user.mail);
-        phone.setText(user.mobile);
-
-        TextView mail = (TextView)mRootView.findViewById(R.id.fragment_profile_tv_mail);
-        mail.setText(user.mail);
-
         TextView title = (TextView)mRootView.findViewById(fragment_profile_tv_title);
         title.setText(user.description);
 
+        TextView phone = (TextView)mRootView.findViewById(R.id.fragment_profile_tv_phone);
+        LinearLayout llPhone = (LinearLayout) mRootView.findViewById(R.id.fragment_profile_ll_phone);
+        ImageView imagePhone = (ImageView) mRootView.findViewById(R.id.fragment_profile_image_call);
+
+        if(user.mobile==null){
+            llPhone.setVisibility(View.GONE);
+            imagePhone.setVisibility(View.GONE);
+        } else phone.setText(user.mobile);
+
+        TextView mail = (TextView)mRootView.findViewById(R.id.fragment_profile_tv_mail);
+        LinearLayout llMail = (LinearLayout) mRootView.findViewById(R.id.fragment_profile_ll_email);
+        FrameLayout flMail = (FrameLayout) mRootView.findViewById(R.id.fragment_profile_fl_answer);
+
+        if (user.mail==null){
+            llMail.setVisibility(View.GONE);
+            flMail.setVisibility(View.GONE);
+        } else mail.setText(user.mail);
+
+
         imOnline = (ImageView) mRootView.findViewById(R.id.imOnline);
         imOnline.setVisibility(user.online == 1 ? View.VISIBLE : View.GONE);
-
-        setAdapterContent(mRootView);
-        setIconsTouchListeners(mRootView);
-        return mRootView;
     }
 
     private void setAdapterContent(View mRootView) {
