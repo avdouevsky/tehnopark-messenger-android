@@ -48,28 +48,7 @@ public class FragmentResetPassword extends BaseFragment{
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*  show toast reaction */
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-                alertDialog.setTitle("ОК, СПАСИБО");
-                alertDialog.setMessage("Все работает ок, не так ли?");
-                alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.setNegativeButton("Не знаю", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert = alertDialog.create();
-                alert.show();
-//                Intent myIntent = new Intent(MainActivity.this, ActivityProfile.class);
-//                startActivity(myIntent);
+                getActivity().onBackPressed();
             }
         });
 
