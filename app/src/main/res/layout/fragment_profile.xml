@@ -89,14 +89,16 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/btn_message"
                     android:id="@+id/fragment_profile_image_message"
-                    android:layout_marginRight="42dp"/>
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginRight="21dp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/btn_phone"
                     android:id="@+id/fragment_profile_image_call"
-                    android:layout_marginRight="42dp"/>
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginRight="21dp"/>
 
                 <FrameLayout
                     android:layout_width="47dp"
@@ -104,6 +106,8 @@
                     android:background="@drawable/call_button_background"
                     android:layout_gravity="center"
                     android:id="@+id/fragment_profile_fl_answer"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginRight="21dp"
                     >
 
                     <ImageView
