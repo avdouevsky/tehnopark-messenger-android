@@ -118,4 +118,8 @@ public class MessageView extends FrameLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
+
+    public void setBottomMargin(){
+
+    }
 }

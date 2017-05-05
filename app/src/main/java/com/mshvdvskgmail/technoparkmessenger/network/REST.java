@@ -401,14 +401,16 @@ public class REST implements IService {
     private Picasso picasso;
 
     public void createSecurePicasso(Context context, final Token token){
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor())
-                .build();
+        if (context!=null){
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(new HttpLoggingInterceptor())
+                    .build();
 
-        picasso = new Picasso.Builder(context)
-                .downloader(new OkHttp3Downloader(client))
-                .indicatorsEnabled(BuildConfig.DEBUG)
-                .build();
+            picasso = new Picasso.Builder(context)
+                    .downloader(new OkHttp3Downloader(client))
+                    .indicatorsEnabled(BuildConfig.DEBUG)
+                    .build();
+        }
     }
 
     public Picasso getPicasso() {
