@@ -5,7 +5,9 @@
     android:orientation="vertical"
     android:layout_width="60dp"
     android:layout_height="70dp"
-    android:gravity="center">
+    android:gravity="center"
+    android:layout_marginRight="7dp"
+    android:layout_marginBottom="14dp">
 
     <FrameLayout
         android:layout_width="43dp"

@@ -26,6 +26,8 @@ public class MediaListView extends FrameLayout {
 
     private GroupFilesAdapter adapter;
 
+    private int fileCounter;
+
     private ICommand<Void> countClickListener;
 
     public MediaListView(Context context) {
@@ -64,10 +66,15 @@ public class MediaListView extends FrameLayout {
 
     public void setData(@NonNull List<Attachment> attachments){
         adapter.setData(attachments);
+        fileCounter = attachments.size();
         tvFilesCount.setText(String.format("%d", attachments.size()));
     }
 
     public void setCountClickListener(ICommand<Void> countClickListener) {
         this.countClickListener = countClickListener;
+    }
+
+    public int getFileCounter(){
+        return fileCounter;
     }
 }

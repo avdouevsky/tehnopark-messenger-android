@@ -125,21 +125,16 @@ public class FragmentProfile extends BaseFragment {
                 .subscribe(new REST.DataSubscriber<List<Attachment>>() {
                     @Override
                     public void onData(List<Attachment> data) {
-                        if (mAdapter.getItemCount()!=0){
-                            mAdapter.setData(data);
+                        mAdapter.setData(data);
+                        if (mAdapter.getItemCount()==0){
+                            llMedia.setVisibility(View.GONE);
+                        } else{
                             tvCount.setText(""+ mAdapter.getItemCount());
-                            setVisible();
+                            llMedia.setVisibility(View.VISIBLE);
                         }
                     }
                 });
 
-        Log.d(TAG, "tvCount.getText() " + tvCount.getText());
-
-//        if(tvCount.getText().equals("0")){
-//            llMedia.setVisibility(View.GONE);
-//        } else {
-//            llMedia.setVisibility(View.VISIBLE);
-//        }
 
         mAdapter = new ProfileFilesAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
@@ -169,10 +164,6 @@ public class FragmentProfile extends BaseFragment {
                         });
             }
         });
-    }
-
-    private void setVisible(){
-        llMedia.setVisibility(View.VISIBLE);
     }
 
     private void setIconsTouchListeners(View mRootView) {

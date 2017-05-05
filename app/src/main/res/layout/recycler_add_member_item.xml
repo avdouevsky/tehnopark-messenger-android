@@ -34,12 +34,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Константин Константинопольский"
-                    android:textStyle="bold"
                     android:textSize="12sp"
                     android:layout_marginTop="23dp"
                     android:textColor="#10b4fa"
                     android:textAppearance="@style/TextAppearance.Gotham.Bold"
-                    android:id="@+id/recycler_item_add_member_tv_name" />
+                    android:id="@+id/recycler_item_add_member_tv_name"
+                    android:paddingRight="44dp"
+                    android:paddingEnd="44dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -52,7 +53,9 @@
                     android:id="@+id/recycler_item_add_member_tv_position"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.Gotham.Bold"
-                    android:ellipsize="end"/>
+                    android:ellipsize="end"
+                    android:paddingRight="44dp"
+                    android:paddingEnd="44dp"/>
             </LinearLayout>
 
             <FrameLayout

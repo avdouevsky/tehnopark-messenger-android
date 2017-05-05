@@ -42,6 +42,7 @@ public class FragmentGroupsSettings extends BaseFragment {
     private TextView tvGroupStatus;
     private EditText editView;
     private LinearLayout frameInfo;
+    private FrameLayout flMediaSeparator;
     private  View root;
 
     private ImageView imageViewEdit;
@@ -68,6 +69,7 @@ public class FragmentGroupsSettings extends BaseFragment {
         tvGroupStatus = (TextView) root.findViewById(R.id.fragment_group_settings_status);
         editView = (EditText) root.findViewById(R.id.fragment_group_settings_name_edit_container_et);
         FrameLayout frameBack = (FrameLayout)root.findViewById(R.id.fragment_group_settings_fl_back);
+        flMediaSeparator = (FrameLayout)root.findViewById(R.id.fragment_group_settings_fl_media_separator);
         frameInfo = (LinearLayout)root.findViewById(R.id.fragment_group_settings_name_container);
 
         imageViewEdit = (ImageView) root.findViewById(R.id.imageViewEdit);
@@ -167,6 +169,13 @@ public class FragmentGroupsSettings extends BaseFragment {
                     @Override
                     public void onData(List<Attachment> data) {
                         viewMediaList.setData(data);
+                        if (viewMediaList.getFileCounter()==0){
+                            viewMediaList.setVisibility(View.GONE);
+                            flMediaSeparator.setVisibility(View.GONE);
+                        } else{
+                            viewMediaList.setVisibility(View.VISIBLE);
+                            flMediaSeparator.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
     }

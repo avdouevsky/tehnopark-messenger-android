@@ -72,6 +72,8 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="17dp"
+        android:paddingStart="17dp"
         android:id="@+id/fragment_add_member_rv_selected_contacts"/>
 
     <FrameLayout

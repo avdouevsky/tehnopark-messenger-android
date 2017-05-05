@@ -81,6 +81,7 @@ public class FragmentChat extends BaseFragment {
     private int timeout = 2;
 
     private Chat chat;
+    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -121,7 +122,7 @@ public class FragmentChat extends BaseFragment {
             call.setVisibility(View.GONE);
         }else{
             //одиночный
-            User user = usersList.get(0).user;
+            user = usersList.get(0).user;
             if(user.id.equals(Controller.getInstance().getAuth().getUser().id)) {
                 user = usersList.get(1).user;
             }
@@ -184,8 +185,16 @@ public class FragmentChat extends BaseFragment {
             fragment_chat_iv_profile.setOnClickListener(groupSettings);
             layoutToolbarHeader.setOnClickListener(groupSettings);
         }else{
-            //TODO set user avatar
-            fragment_chat_iv_profile.setImageResource(R.drawable.icon_user);
+//            //TODO set user avatar
+//            fragment_chat_iv_profile.setImageResource(R.drawable.icon_user);
+            View.OnClickListener profile = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.PROFILE, ArgsBuilder.create().user(user).bundle()));
+                }
+            };
+            fragment_chat_iv_profile.setOnClickListener(profile);
+            layoutToolbarHeader.setOnClickListener(profile);
         }
 
 
