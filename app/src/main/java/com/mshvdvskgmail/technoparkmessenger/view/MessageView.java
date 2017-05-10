@@ -3,6 +3,7 @@ package com.mshvdvskgmail.technoparkmessenger.view;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -12,12 +13,15 @@ import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 
 /**
  * Created by andrey on 20.04.2017.
  */
 public class MessageView extends FrameLayout {
+    private final static String TAG = MessageView.class.toString();
+
     private FrameLayout frameContent;
     private TextView tvName;
     private TextView tvText;
@@ -83,6 +87,7 @@ public class MessageView extends FrameLayout {
             tvTime.setVisibility(VISIBLE);
             imStatus.setVisibility(VISIBLE);
             frameContent.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+
         }
         else{
             viewAttachment.setData(data.attachments.get(0));
@@ -119,7 +124,15 @@ public class MessageView extends FrameLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public void setBottomMargin(){
-
+    public void setBottomMarginSmall(){
+        ((LayoutParams) frameContent.getLayoutParams()).bottomMargin =
+                Math.round(getResources().getDimension(R.dimen.message_item_bottom_small));
     }
+
+    public void setBottomMarginBig(){
+        ((LayoutParams) frameContent.getLayoutParams()).bottomMargin =
+                Math.round(getResources().getDimension(R.dimen.message_item_bottom_big));
+    }
+
+
 }

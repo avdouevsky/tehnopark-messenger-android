@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -76,29 +77,16 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.Messag
     @Override
     public void onBindViewHolder(MessageViewHolder holder, int position) {
         Message message = messages.get(position);
-//        View a = holder.getView();
-////        params = (ViewGroup.MarginLayoutParams) a.getLayoutParams();
-//        LayoutParams lp = (LayoutParams) a.getLayoutParams();
 
-//        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.test.getLayoutParams();
+        /* setting margin between messages */
+        if (position!=messages.size()-1){
+            if (!messages.get(position).sender.equals(messages.get(position+1).sender)){
+                holder.getView().setBottomMarginBig();
+            } else {
+                holder.getView().setBottomMarginSmall();
+            }
+        }
 
-//        params
-
-//        try{
-//            params = (ViewGroup.MarginLayoutParams) holder.getView().getLayoutParams();
-//            Log.d("wow", "message.user_token " + message.user_token);
-//
-//            if (messages.get(position).sender!=messages.get(position+1).sender){
-//                params.bottomMargin = (int)context.getResources().getDimension(R.dimen.message_item_bottom_big);
-//            } else {
-//                params.bottomMargin = (int)context.getResources().getDimension(R.dimen.message_item_bottom_small);
-//            }
-//        } catch (Exception e){
-////            params.bottomMargin = (int)context.getResources().getDimension(R.dimen.message_item_bottom_big);
-//        }
-
-
-        Log.d("wowchick", "params" + params);
         holder.getView().setData(message, chat.peer2peer == 1);
         if(message.getStatus() != Message.Status.READ) {
             ChatController.getInstance().r.sendMessageStatus(
