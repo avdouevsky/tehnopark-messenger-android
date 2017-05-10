@@ -3,6 +3,7 @@ package com.mshvdvskgmail.technoparkmessenger.view;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,6 +13,7 @@ import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -20,6 +22,8 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  */
 
 public class AttachmentView extends FrameLayout {
+    private final static String TAG = AttachmentView.class.toString();
+
     private FrameLayout frameMime;
     private ImageView imFile;
     private TextView tvMime;
@@ -80,6 +84,23 @@ public class AttachmentView extends FrameLayout {
 
         }
 
+        tvFileName.setText(attachment.name);
+        tvMime.setText(attachment.name.substring(attachment.name.length() - 3));
+        if(attachment.size!=null){
+            tvFileSize.setText(humanReadableByteCount(Long.parseLong(attachment.size), true));
+        }
+
+
         //todo other
+    }
+
+    private String humanReadableByteCount(long bytes, boolean si) {
+        int unit = si ? 1000 : 1024;
+        if (bytes < unit) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = (si ? "KMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+        Log.w("kek", ""+bytes / Math.pow(unit, exp));
+
+        return String.format("%.0f %sB", bytes / Math.pow(unit, exp), pre);
     }
 }

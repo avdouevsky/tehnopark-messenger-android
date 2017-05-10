@@ -7,7 +7,10 @@
         android:id="@+id/frameMime"
         android:orientation="vertical"
         android:layout_width="30dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="5dp">
         <ImageView
             android:id="@+id/imFile"
             android:layout_width="30dp"
@@ -30,6 +33,7 @@
     <LinearLayout
         android:id="@+id/layoutInfo"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="7dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -41,6 +45,7 @@
             android:textColor="#0f2745"
             android:layout_marginTop="-1dp"
             android:maxLines="1"
+            android:ellipsize="end"
             android:id="@+id/tvFileName"
             android:textAppearance="@style/TextAppearance.Gotham"
             />
@@ -48,8 +53,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvFileSize"
+            android:layout_marginTop="2dp"
             android:text="27 KB"
-            android:textAppearance="@style/TextAppearance.Gotham" />
+            android:textAppearance="@style/TextAppearance.Gotham"
+            android:textColor="@color/tranparent40"/>
     </LinearLayout>
     <ImageView
         android:maxWidth="@dimen/chat_item_image_width_max"

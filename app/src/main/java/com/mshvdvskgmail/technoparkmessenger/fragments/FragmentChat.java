@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -76,6 +77,7 @@ public class FragmentChat extends BaseFragment {
     private RecyclerView recyclerView;
     private ChatListAdapter mAdapter;
     private MessageEditView messageEditView;
+
 
     private long startTime;
     private int timeout = 2;
@@ -274,7 +276,11 @@ public class FragmentChat extends BaseFragment {
 
             String filePath = null;
             Uri _uri = data.getData();
-            Log.d("","URI = "+ _uri);
+            String temp = _uri.getPath();
+            String temp2 = getFileName(_uri);
+            String temp3 = getImagePath(_uri);
+
+            Log.d("","URI path = "+ _uri.getPath());
             if (_uri != null && "content".equals(_uri.getScheme())) {
                 Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(_uri, new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
                 cursor.moveToFirst();
@@ -284,6 +290,8 @@ public class FragmentChat extends BaseFragment {
                 filePath = _uri.getPath();
             }
             Log.d("","Chosen path = "+ filePath);
+
+            filePath = temp3;
 
             File file = new File("");
             if(filePath==null){
@@ -358,7 +366,8 @@ public class FragmentChat extends BaseFragment {
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
 
-            return cursor.getString(column_index);
+            String result = cursor.getString(column_index);
+            return result;
         } catch (Exception e){
             Log.w(TAG, e);
             return null;
@@ -368,6 +377,45 @@ public class FragmentChat extends BaseFragment {
                 cursor.close();
             }
         }
+    }
+
+    public String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
+    public String getImagePath(Uri uri){
+        Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":")+1);
+        cursor.close();
+
+        cursor = getContext().getContentResolver().query(
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        cursor.close();
+
+        return path;
     }
 
 //    @Override

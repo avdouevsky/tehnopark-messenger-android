@@ -87,7 +87,6 @@ public class MessageView extends FrameLayout {
             tvTime.setVisibility(VISIBLE);
             imStatus.setVisibility(VISIBLE);
             frameContent.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
-
         }
         else{
             viewAttachment.setData(data.attachments.get(0));
@@ -96,9 +95,16 @@ public class MessageView extends FrameLayout {
                     + getResources().getDimension(R.dimen.chat_item_image_padding) * 2
             );
 //            frameContent.getLayoutParams().width = Math.round((float)getLayoutParams().width * 0.8f); //TODO!!
-            tvText.setVisibility(GONE);
-            tvTime.setVisibility(GONE);
-            imStatus.setVisibility(GONE);
+
+            if (data.attachments.get(0).mime.startsWith("image/")){
+                tvText.setVisibility(GONE);
+                tvTime.setVisibility(GONE);
+                imStatus.setVisibility(GONE);
+            } else {
+                tvText.setVisibility(GONE);
+                tvTime.setVisibility(VISIBLE);
+                imStatus.setVisibility(VISIBLE);
+            }
         }
         tvName.setVisibility(!p2p && !out ? VISIBLE : GONE);
         if(!p2p) tvName.setText(data.sender.getName());

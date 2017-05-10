@@ -8,4 +8,5 @@ public class Attachment  {
     public String url;
     public String uuid;
     public String name;
+    public String size;
 }
