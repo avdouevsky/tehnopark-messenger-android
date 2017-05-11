@@ -61,6 +61,7 @@ public class FragmentGroupsSettings extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_group_settings, container, false);
+        Log.d(TAG, "onCreateView");
 
         viewMediaList = (MediaListView) root.findViewById(R.id.viewMediaList);
         viewMemberList = (MemberListView) root.findViewById(R.id.viewMemberList);
@@ -193,12 +194,6 @@ public class FragmentGroupsSettings extends BaseFragment {
         tvGroupStatus.setText(isAdmin ? "Вы администратор" : "");
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        loadData();
-//    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -210,93 +205,13 @@ public class FragmentGroupsSettings extends BaseFragment {
                     public void onData(List<Chat> data) {
                         for (Chat chat : data){
                             if (chat.id.equals(clone.id)&&chat.getUsers().size()!=clone.getUsers().size()){
-                                updateCurrentChat(chat);
+                                ArgsBuilder.create().chat(chat);
+                                viewMemberList.setData(chat);
+                                break;
                             }
                         }
                     }
                 });
         loadData();
     }
-
-    private void updateCurrentChat(Chat chat){
-        this.chat = chat;
-    }
-
-    //
-//        flAddMember.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.ADD_MEMBER, null));
-//                //TODO FragmentAddMember addMember = new FragmentAddMember();
-////                getFragmentManager()
-////                        .beginTransaction()
-////                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-////                        .replace(R.id.container, addMember)
-////                        .addToBackStack(null)
-////                        .commit();
-//            }
-//        });
-//
-//
-//        llMedia.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MEDIA, null));
-//                //TODO FragmentMedia addMember = new FragmentMedia();
-////                getFragmentManager()
-////                        .beginTransaction()
-////                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-////                        .replace(R.id.container, addMember)
-////                        .addToBackStack(null)
-////                        .commit();
-////                alert.show();
-//            }
-//        });
-//    }
-
-//    private void setOnClickListener(RecyclerView mRecyclerView){
-//        final GestureDetector mGestureDetector =
-//                new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener(){
-//                    @Override
-//                    public boolean onSingleTapUp(MotionEvent e) {
-//                        return true;
-//                    }
-//                });
-//
-//        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-//            @Override
-//            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-//                View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-//
-//                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
-//                    int position = recyclerView.getChildLayoutPosition(child); // пока не нужно, но
-//                    // потом поможет определить выбранный элемент
-////                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-////                    alertDialog.setTitle("Фокус");
-////                    alertDialog.setMessage("Ты выбрал номер " + (position+1) + ", верно?");
-////                    alertDialog.setPositiveButton("Но как?!", new DialogInterface.OnClickListener() {
-////                        @Override
-////                        public void onClick(DialogInterface dialog, int which) {
-////
-////                        }
-////                    });
-////                    alertDialog.setNegativeButton("Не может быть!", new DialogInterface.OnClickListener() {
-////                        @Override
-////                        public void onClick(DialogInterface dialog, int which) {
-////
-////                        }
-////                    });
-////                    alert = alertDialog.create();
-////                    alert.show();
-//                }
-//                return false;
-//            }
-//
-//            @Override
-//            public void onTouchEvent(RecyclerView rv, MotionEvent e) {}
-//
-//            @Override
-//            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
-//        });
-//    }
 }
