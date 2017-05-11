@@ -118,7 +118,6 @@ public class FragmentGroupsSettings extends BaseFragment {
             }
         });
 
-        Log.d("wow", "chat.date = "+chat.date + "chat.getTimeAsString()" + chat.getTimeAsString());
 
 //        imageViewEdit.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -197,10 +196,31 @@ public class FragmentGroupsSettings extends BaseFragment {
 //    @Override
 //    public void onResume() {
 //        super.onResume();
-//        Log.d(TAG, "onResume");
-//        chat = ArgsBuilder.create().chat();
 //        loadData();
 //    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+        final Chat clone = this.chat;
+        REST.getInstance().groups(Controller.getInstance().getAuth().getUser().token)
+                .subscribe(new REST.DataSubscriber<List<Chat>>() {
+                    @Override
+                    public void onData(List<Chat> data) {
+                        for (Chat chat : data){
+                            if (chat.id.equals(clone.id)&&chat.getUsers().size()!=clone.getUsers().size()){
+                                updateCurrentChat(chat);
+                            }
+                        }
+                    }
+                });
+        loadData();
+    }
+
+    private void updateCurrentChat(Chat chat){
+        this.chat = chat;
+    }
 
     //
 //        flAddMember.setOnClickListener(new View.OnClickListener() {
