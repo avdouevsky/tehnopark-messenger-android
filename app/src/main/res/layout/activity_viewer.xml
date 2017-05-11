@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentInsetLeft="3dp"
+        app:contentInsetStart="3dp"
+        android:background="@color/backGroundDarkBlue">
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_gravity="left"
+            android:id="@+id/activity_viewer_fl_back">
+            <ImageView
+                android:scaleType="center"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/ic_back_arrow"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/viewer_title"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:textColor="@color/colorBlueTextPrimary"
+            android:textAppearance="@style/TextAppearance.Gotham.Bold"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_viewer_image_picture"/>
+
+</LinearLayout>

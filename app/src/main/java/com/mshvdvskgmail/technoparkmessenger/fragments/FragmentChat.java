@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.activities.ViewerActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
 
 import java.io.FileInputStream;
@@ -73,6 +74,7 @@ public class FragmentChat extends BaseFragment {
 
     private ImageView fragment_chat_iv_profile;
     private LinearLayout layoutToolbarHeader;
+
 
     private RecyclerView recyclerView;
     private ChatListAdapter mAdapter;
@@ -199,6 +201,34 @@ public class FragmentChat extends BaseFragment {
             layoutToolbarHeader.setOnClickListener(profile);
         }
 
+        mAdapter.setClickListener(new ICommand<Message>() {
+            @Override
+            public void exec(Message message) {
+                final Attachment data = message.attachments.get(0);
+                REST.getInstance().get_attachment(Controller.getInstance().getAuth().getUser().token, data)
+                        .subscribe(new REST.DataSubscriber<Attachment>() {
+                            @Override
+                            public void onData(Attachment data) {
+                                if(data.url != null){
+                                    if(data.mime.equals("image/jpeg")){
+                                        Intent viewerIntent = new Intent(getActivity(), ViewerActivity.class);
+                                        viewerIntent.putExtra("url", data.url);
+                                        startActivity(viewerIntent);
+                                    } else {
+                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.url));
+                                        startActivity(browserIntent);
+                                    }
+
+                                    // old version, opens a browser
+//                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.url));
+//                                    startActivity(browserIntent);
+                                }
+                            }
+                        });
+            }
+        });
+
+
 
         loadData();
 
@@ -273,77 +303,25 @@ public class FragmentChat extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CHOOSE_FILE_REQUESTCODE && null != data)
         {
-
-            String filePath = null;
-            Uri _uri = data.getData();
-            String temp = _uri.getPath();
-            String temp2 = getFileName(_uri);
-            String temp3 = getImagePath(_uri);
-
-            Log.d("","URI path = "+ _uri.getPath());
-            if (_uri != null && "content".equals(_uri.getScheme())) {
-                Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(_uri, new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
-                cursor.moveToFirst();
-                filePath = cursor.getString(0);
-                cursor.close();
-            } else {
-                filePath = _uri.getPath();
-            }
-            Log.d("","Chosen path = "+ filePath);
-
-            filePath = temp3;
-
+            String filePath;
+            Uri uri = data.getData();
+            String fileName = getFileName(uri);
             File file = new File("");
-            if(filePath==null){
-                try{
-                    InputStream initialStream = getActivity().getApplicationContext().getContentResolver().openInputStream(_uri);
-                    byte[] buffer = new byte[initialStream.available()];
-                    initialStream.read(buffer);
 
-                    File outputDir = getActivity().getCacheDir(); // context being the Activity pointer
+            try{
+                InputStream initialStream = getActivity().getApplicationContext().getContentResolver().openInputStream(uri);
+                byte[] buffer = new byte[initialStream.available()];
+                initialStream.read(buffer);
 
-                    file = File.createTempFile("prefix", "extension", outputDir);
-                    OutputStream outStream = new FileOutputStream(file);
-                    outStream.write(buffer);
-                } catch (IOException exception){
-                    Log.d("","IOException exception caught");
-                }
-            } else {
-                try{
-                    file = new File(filePath);
-                } catch (Exception e){
+                File outputDir = getActivity().getCacheDir(); // context being the Activity pointer
+                file = new File(outputDir, fileName);
 
-                }
-                Log.v(TAG, "file: " + file.isFile());
+                OutputStream outStream = new FileOutputStream(file);
+                outStream.write(buffer);
+                outStream.close();
+            } catch (IOException exception){
+                Log.d("","IOException exception caught");
             }
-
-//            File targetFile = new File("");
-//            try{
-//                InputStream initialStream = getActivity().getApplicationContext().getContentResolver().openInputStream(_uri);
-//                byte[] buffer = new byte[initialStream.available()];
-//                initialStream.read(buffer);
-//
-//                File outputDir = getActivity().getCacheDir(); // context being the Activity pointer
-//
-//                targetFile = File.createTempFile("prefix", "extension", outputDir);
-//                OutputStream outStream = new FileOutputStream(targetFile);
-//                outStream.write(buffer);
-//            } catch (IOException exception){
-//                Log.d("","IOException exception caught");
-//            }
-
-
-
-//            Log.v(TAG, "onActivityResult "+ data.getData() + " | "+ getMimeType(data.getDataString()));
-//            String  path = data.getData().getEncodedPath();
-//            if(data.getData().getScheme().equals("content")){
-//                path = getRealPathFromURI(getActivity(), data.getData());
-//            }
-////            File file = new File(URI.create(data.getData().getEncodedPath()).getPath());
-
-
-            Log.d("","file = "+ file + " getMimeType(file.getAbsolutePath()) = "+getMimeType(file.getAbsolutePath()));
-
             sendFile(file, getMimeType(file.getAbsolutePath()));
         }
     }
@@ -417,58 +395,4 @@ public class FragmentChat extends BaseFragment {
 
         return path;
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == CHOOSE_FILE_REQUESTCODE && null != data)
-//        {
-//            Log.v(TAG, "onActivityResult "+ data.getData() + " | "+ getMimeType(data.getDataString()));
-//            File file = new File(URI.create(data.getData().getEncodedPath()).getPath());
-//            Log.v(TAG, "file: " + file.isFile());
-//
-//            sendFile(file, getMimeType(data.getDataString()));
-//        }
-//    }
-//
-//    public static String getMimeType(String url) {
-//        String type = null;
-//        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-//        if (extension != null) {
-//            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-//        }
-//        return type;
-//    }
-
-//    public String getRealPathFromURI(Context context, Uri contentUri) {
-//        Cursor cursor = null;
-//        try {
-//            String[] proj = { MediaStore.Images.Media.DATA };
-//            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
-//            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//            cursor.moveToFirst();
-//
-//            return cursor.getString(column_index);
-//        } catch (Exception e){
-//            Log.w(TAG, e);
-//            return null;
-//        }
-//        finally {
-//            if (cursor != null) {
-//                cursor.close();
-//            }
-//        }
-//    }
-
-
-//    private String getRealPathFromURI(Uri contentUri) {
-//        String[] proj = { MediaStore.Images.Media.DATA };
-//        CursorLoader loader = new CursorLoader(this.getContext(), contentUri, proj, null, null, null);
-//        Cursor cursor = loader.loadInBackground();
-//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//        cursor.moveToFirst();
-//        String result = cursor.getString(column_index);
-//        cursor.close();
-//        return result;
-//    }
 }

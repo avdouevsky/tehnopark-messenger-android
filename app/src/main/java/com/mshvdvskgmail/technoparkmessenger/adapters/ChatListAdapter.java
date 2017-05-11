@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.ChatController;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 import com.mshvdvskgmail.technoparkmessenger.view.MessageView;
@@ -30,21 +32,16 @@ import java.util.List;
 
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MessageViewHolder> {
     private final static String TAG = ChatListAdapter.class.toString();
-//    @IdRes
-//    private final static int MARGIN_BOTTOM_BIG = R.dimen.message_item_bottom_big;
-//    @IdRes
-//    private final static int MARGIN_BOTTOM_SMALL = R.dimen.message_item_bottom_small;
 
+    private ICommand<Message> clickListener;
     private Context context;
     private List<Message> messages = new ArrayList<>();
     private ViewGroup.MarginLayoutParams params;
-
     private Chat chat;
 
     public ChatListAdapter(Context context, Chat chat) {
         this.context = context;
         this.chat = chat;
-
     }
 
     public void setData(List<Message> messages){
@@ -75,7 +72,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.Messag
     }
 
     @Override
-    public void onBindViewHolder(MessageViewHolder holder, int position) {
+    public void onBindViewHolder(final ChatListAdapter.MessageViewHolder holder, int position) {
         Message message = messages.get(position);
 
         /* setting margin between messages */
@@ -92,6 +89,12 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.Messag
             ChatController.getInstance().r.sendMessageStatus(
                     Controller.getInstance().getAuth().user.token, Controller.getInstance().getAuth().user.id, chat.uuid, message.uuid, message.local_id, Message.Status.DELIVERED);
         }
+        holder.getView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(clickListener != null) clickListener.exec(messages.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -100,14 +103,15 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.Messag
     }
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
-        MessageView test;
         public MessageViewHolder(View itemView) {
             super(itemView);
-            test = (MessageView)itemView;
         }
 
         public MessageView getView(){
             return (MessageView) itemView;
         }
+    }
+    public void setClickListener(ICommand<Message> clickListener) {
+        this.clickListener = clickListener;
     }
 }

@@ -42,12 +42,17 @@
             </intent-filter>
         </activity>
 
+    <activity android:name=".activities.ViewerActivity"
+        android:screenOrientation="portrait">
+    </activity>
+
         <!--activity android:name=".activities.CallActivity" android:label="call_activity"/>
         <receiver android:name=".activities.IncomingCallReceiver" android:label="Call Receiver"/-->
         <service
             android:exported="false"
             android:name=".services.RabbitMQService"
             />
+
     </application>
 
 </manifest>
