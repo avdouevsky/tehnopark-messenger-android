@@ -207,26 +207,27 @@
                 android:background="#C2C2C2"
                 android:layout_marginTop="22dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"/>
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="29dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Группа создана вами."
                 android:textSize="12sp"
                 android:textColor="#B0B4BA"
-                android:layout_marginTop="29dp"
                 android:layout_marginStart="29dp"
                 android:layout_marginLeft="29dp"
+                android:layout_marginBottom="5dp"
                 android:textAllCaps="true"
                 android:textAppearance="@style/TextAppearance.Gotham.Bold"
-                android:id="@+id/fragment_group_settings_creator"/>
+                android:id="@+id/fragment_group_settings_creator"
+                android:visibility="gone"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Дата создания: 10 февраля 2017 г."
                 android:textSize="12sp"
                 android:textColor="#B0B4BA"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="19dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"

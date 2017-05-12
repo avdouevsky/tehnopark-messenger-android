@@ -5,6 +5,8 @@
     <string name="edittext_hint"><font size="13">Напишите сообщение...</font></string>
     <string name="searchtext_hint"><font size="11">Поиск</font></string>
     <string name="viewer_title">Просмотр изображения</string>
+    <string name="date_created">ДАТА СОЗДАНИЯ:</string>
+
 
     <string name="restore_password">ВОССТАНОВЛЕНИЕ ПАРОЛЯ<u></u></string>
     <string name="restore_password_title">Восстановление пароля<u></u></string>

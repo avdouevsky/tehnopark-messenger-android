@@ -81,4 +81,5 @@ public class MemberListView extends FrameLayout {
     public void setAddListener(ICommand<Void> addListener) {
         this.addListener = addListener;
     }
+
 }

@@ -65,7 +65,6 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Chat chat = ArgsBuilder.create().chat();    //TODO не красиво :(
         holder.getView().setData(members.get(position), chat != null && chat.admin.equals(members.get(position).id));
-
         holder.getView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +96,5 @@ public class GroupMembersAdapter extends RecyclerView.Adapter<GroupMembersAdapte
             return (MemberItemView) itemView;
         }
     }
-
 
 }

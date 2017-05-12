@@ -85,7 +85,9 @@ public class AttachmentView extends FrameLayout {
         }
 
         tvFileName.setText(attachment.name);
-        tvMime.setText(attachment.name.substring(attachment.name.length() - 3));
+        if(attachment.name!=null){
+            tvMime.setText(attachment.name.substring(attachment.name.length() - 3));
+        }
         if(attachment.size!=null){
             tvFileSize.setText(humanReadableByteCount(Long.parseLong(attachment.size), true));
         }

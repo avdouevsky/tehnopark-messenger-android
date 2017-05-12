@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
@@ -26,7 +27,14 @@ import com.mshvdvskgmail.technoparkmessenger.view.MemberListView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 /**
  * Created by mshvdvsk on 29/03/2017.
@@ -40,6 +48,8 @@ public class FragmentGroupsSettings extends BaseFragment {
 
     private TextView tvGroupName;
     private TextView tvGroupStatus;
+    private TextView tvGroupCreator;
+    private TextView tvGroupCreated;
     private EditText editView;
     private LinearLayout frameInfo;
     private FrameLayout flMediaSeparator;
@@ -61,13 +71,16 @@ public class FragmentGroupsSettings extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_group_settings, container, false);
-        Log.d(TAG, "onCreateView");
+        Log.d(TAG, "onCreateView ");
 
         viewMediaList = (MediaListView) root.findViewById(R.id.viewMediaList);
         viewMemberList = (MemberListView) root.findViewById(R.id.viewMemberList);
 
         tvGroupName = (TextView) root.findViewById(R.id.fragment_group_settings_name);
         tvGroupStatus = (TextView) root.findViewById(R.id.fragment_group_settings_status);
+        tvGroupCreator = (TextView) root.findViewById(R.id.fragment_group_settings_creator);
+        tvGroupCreated = (TextView) root.findViewById(R.id.fragment_group_settings_tv_date);
+
         editView = (EditText) root.findViewById(R.id.fragment_group_settings_name_edit_container_et);
         FrameLayout frameBack = (FrameLayout)root.findViewById(R.id.fragment_group_settings_fl_back);
         flMediaSeparator = (FrameLayout)root.findViewById(R.id.fragment_group_settings_fl_media_separator);
@@ -81,9 +94,9 @@ public class FragmentGroupsSettings extends BaseFragment {
         frameBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(frameInfo.getVisibility() != View.VISIBLE){
-                    frameInfo.setVisibility(View.VISIBLE);
-                    editView.setVisibility(View.GONE);
+                if(frameInfo.getVisibility() != VISIBLE){
+                    frameInfo.setVisibility(VISIBLE);
+                    editView.setVisibility(GONE);
                 }else{
                     if(isAdded()) getActivity().onBackPressed();
                 }
@@ -96,17 +109,17 @@ public class FragmentGroupsSettings extends BaseFragment {
             return root;
         }
 
-        imageViewEdit.setVisibility(chat != null && chat.admin.equals(Controller.getInstance().getAuth().getUser().id) ? View.VISIBLE : View.GONE);
+        imageViewEdit.setVisibility(chat != null && chat.admin.equals(Controller.getInstance().getAuth().getUser().id) ? VISIBLE : GONE);
         imageViewEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(frameInfo.getVisibility() == View.VISIBLE){
-                    frameInfo.setVisibility(View.GONE);
-                    editView.setVisibility(View.VISIBLE);
+                if(frameInfo.getVisibility() == VISIBLE){
+                    frameInfo.setVisibility(GONE);
+                    editView.setVisibility(VISIBLE);
                     editView.setText(chat.name);
                 }else{
-                    frameInfo.setVisibility(View.VISIBLE);
-                    editView.setVisibility(View.GONE);
+                    frameInfo.setVisibility(VISIBLE);
+                    editView.setVisibility(GONE);
                     if(chat != null) REST.getInstance().chatName(Controller.getInstance().getAuth().getUser().token, chat.uuid, editView.getText().toString())
                             .subscribe(new REST.DataSubscriber<Chat>() {
                                 @Override
@@ -170,11 +183,11 @@ public class FragmentGroupsSettings extends BaseFragment {
                     public void onData(List<Attachment> data) {
                         viewMediaList.setData(data);
                         if (viewMediaList.getFileCounter()==0){
-                            viewMediaList.setVisibility(View.GONE);
-                            flMediaSeparator.setVisibility(View.GONE);
+                            viewMediaList.setVisibility(GONE);
+                            flMediaSeparator.setVisibility(GONE);
                         } else{
-                            viewMediaList.setVisibility(View.VISIBLE);
-                            flMediaSeparator.setVisibility(View.VISIBLE);
+                            viewMediaList.setVisibility(VISIBLE);
+                            flMediaSeparator.setVisibility(VISIBLE);
                         }
                     }
                 });
@@ -187,12 +200,26 @@ public class FragmentGroupsSettings extends BaseFragment {
         tvDateCreated.setText("ДАТА СОЗДАНИЯ: "+ chat.date);
     }
 
-    private void setChatInfo(){
+    private void setChatInfo() {
         tvGroupName.setText(chat.name);
-
         boolean isAdmin = chat.admin.equals(Controller.getInstance().getAuth().getUser().id);
         tvGroupStatus.setText(isAdmin ? "Вы администратор" : "");
+        tvGroupCreator.setVisibility(isAdmin ? VISIBLE : GONE);
+
+        Locale russianLocale = new Locale("ru","RU");
+        SimpleDateFormat dateFormatFromServer = new SimpleDateFormat("yyyy-M-dd HH:mm", russianLocale);
+        Date dateFromServer = null;
+        try {
+            dateFromServer = dateFormatFromServer.parse(chat.date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat dateFormatRequired = new SimpleDateFormat("dd MMMM yyyy", russianLocale);
+        String sCertDate = dateFormatRequired.format(dateFromServer);
+        String dateCreatetPrefix = getContext().getString(R.string.date_created);
+        tvGroupCreated.setText(dateCreatetPrefix + " " + sCertDate + " Г.");
     }
+
 
     @Override
     public void onResume() {
