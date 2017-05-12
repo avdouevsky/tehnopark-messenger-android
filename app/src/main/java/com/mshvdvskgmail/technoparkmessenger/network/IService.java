@@ -66,6 +66,16 @@ public interface IService {
     public Observable<Result<List<Chat>>> groups(@Header("session-id") int session_id,
                                            @Header("token") String token);
 
+    @GET("?r=messages/json/group-leave")
+    public Observable<Result<Chat>> groups_leave(@Header("session-id") int session_id,
+                                                       @Header("token") String token,
+                                                       @Query("room_uuid") String room_uuid);
+    @GET("?r=messages/json/chat-dnd")
+    public Observable<Result<Chat>> groups_mute(@Header("session-id") int session_id,
+                                                 @Header("token") String token,
+                                                 @Query("room_uuid") String room_uuid,
+                                                @Header("dnd") int isMuted);
+
     @POST("?r=messages/json/chat")
     @FormUrlEncoded
     public Observable<Result<Chat>> chat(@Header("session-id") int session_id,

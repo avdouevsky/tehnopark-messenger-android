@@ -246,7 +246,15 @@ public class MainActivity extends AppCompatActivity {
             case REPLACE:
                 navigator.replaceTo(event.getStates(), event.getBundle());
                 break;
-            case FROWARD:
+            case FORWARD:
+                navigator.forwardTo(event.getStates(), event.getBundle());
+                break;
+            case BACKTO:
+                navigator.backTo(event.getStates());
+                break;
+            case BACK:
+                navigator.back();
+                break;
             default:
                 navigator.forwardTo(event.getStates(), event.getBundle());
         }

@@ -191,8 +191,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="13dp"
                     android:orientation="horizontal"
+                    android:id="@+id/fragment_profile_ll_media_link"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -235,10 +237,10 @@
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/fragment_profile_rv_files"
-                    android:layout_marginTop="23dp"
+                    android:layout_marginTop="7dp"
                     android:layout_marginBottom="22dp"
                     fontPath="fonts/GothamProBold.ttf"
                     >

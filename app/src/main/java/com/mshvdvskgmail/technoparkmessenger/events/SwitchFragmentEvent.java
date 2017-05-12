@@ -20,7 +20,7 @@ public class SwitchFragmentEvent {
     }
 
     public SwitchFragmentEvent(Fragments states, Bundle bundle) {
-        this(states, bundle, Direction.FROWARD);
+        this(states, bundle, Direction.FORWARD);
     }
 
     public Fragments getStates() {
@@ -36,7 +36,9 @@ public class SwitchFragmentEvent {
     }
 
     public enum Direction{
-        FROWARD,
-        REPLACE
+        FORWARD,
+        BACK,
+        REPLACE,
+        BACKTO
     }
 }

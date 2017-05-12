@@ -268,6 +268,36 @@ public class REST implements IService {
     }
 
     @Override
+    @Deprecated
+    public Observable<Result<Chat>> groups_leave(@Header("session-id") int session_id,
+                                                       @Header("token") String token,
+                                                       @Query("room_uuid") String room_uuid){
+        return service.groups_leave(session_id, token, room_uuid).compose(this.<Result<Chat>>setup());
+    }
+
+    public Observable<Result<Chat>> groups_leave(Token token, Chat chat){
+        return groups_leave(token.session_id, token.token, chat.uuid);
+    }
+
+
+    @Override
+    @Deprecated
+    public Observable<Result<Chat>> groups_mute(@Header("session-id") int session_id,
+                                                 @Header("token") String token,
+                                                 @Query("room_uuid") String room_uuid,
+                                                @Header("token") int isMuted){
+        return service.groups_mute(session_id, token, room_uuid, isMuted).compose(this.<Result<Chat>>setup());
+    }
+
+    public Observable<Result<Chat>> groups_mute(Token token, Chat chat, boolean isMuted){
+        int intIsMuted;
+        if(isMuted)intIsMuted = 1; else intIsMuted = 0;
+        return groups_mute(token.session_id, token.token, chat.uuid, intIsMuted);
+    }
+
+
+
+    @Override
     public Observable<Result<Chat>> chat(@Header("session-id") int session_id,
                                          @Header("token") String token,
                                          @Field("users") String users,

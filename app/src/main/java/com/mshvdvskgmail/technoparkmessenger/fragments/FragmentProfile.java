@@ -53,6 +53,7 @@ public class FragmentProfile extends BaseFragment {
     private View mRootView;
     private RecyclerView mRecyclerView;
     private LinearLayout llMedia;
+    private LinearLayout llMediaLink;
     private LinearLayoutManager mLayoutManager;
     private ProfileFilesAdapter mAdapter;
     private TextView tvCount;
@@ -93,6 +94,7 @@ public class FragmentProfile extends BaseFragment {
 
         TextView phone = (TextView)mRootView.findViewById(R.id.fragment_profile_tv_phone);
         LinearLayout llPhone = (LinearLayout) mRootView.findViewById(R.id.fragment_profile_ll_phone);
+        llMediaLink = (LinearLayout) mRootView.findViewById(R.id.fragment_profile_ll_media_link);
         ImageView imagePhone = (ImageView) mRootView.findViewById(R.id.fragment_profile_image_call);
 
         if(user.mobile==null){
@@ -278,6 +280,13 @@ public class FragmentProfile extends BaseFragment {
 
             @Override
             public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {}
+        });
+
+        llMediaLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MEDIA, null));
+            }
         });
     }
 

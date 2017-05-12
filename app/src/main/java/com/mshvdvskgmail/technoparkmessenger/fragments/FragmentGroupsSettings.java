@@ -2,10 +2,12 @@ package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
@@ -50,6 +53,8 @@ public class FragmentGroupsSettings extends BaseFragment {
     private TextView tvGroupStatus;
     private TextView tvGroupCreator;
     private TextView tvGroupCreated;
+    private TextView tvLeave;
+    private SwitchCompat switchDnd;
     private EditText editView;
     private LinearLayout frameInfo;
     private FrameLayout flMediaSeparator;
@@ -80,6 +85,8 @@ public class FragmentGroupsSettings extends BaseFragment {
         tvGroupStatus = (TextView) root.findViewById(R.id.fragment_group_settings_status);
         tvGroupCreator = (TextView) root.findViewById(R.id.fragment_group_settings_creator);
         tvGroupCreated = (TextView) root.findViewById(R.id.fragment_group_settings_tv_date);
+        switchDnd = (SwitchCompat) root.findViewById(R.id.fragment_group_settings_sc_switch);
+        tvLeave = (TextView) root.findViewById(R.id.fragment_group_settings_tv_leave);
 
         editView = (EditText) root.findViewById(R.id.fragment_group_settings_name_edit_container_et);
         FrameLayout frameBack = (FrameLayout)root.findViewById(R.id.fragment_group_settings_fl_back);
@@ -168,6 +175,34 @@ public class FragmentGroupsSettings extends BaseFragment {
             }
         });
 
+        tvLeave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                REST.getInstance().groups_leave(Controller.getInstance().getAuth().getUser().token, chat)
+                        .subscribe(new REST.DataSubscriber<Chat>(){
+                        @Override
+                        public void onData(Chat data){
+                            Log.d("so much wow", "data:" + data);
+                        }
+                        });
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MAIN_FOUR_TAB_SCREEN,
+                        ArgsBuilder.create().user(Controller.getInstance().getAuth().getUser()).bundle(), SwitchFragmentEvent.Direction.BACKTO));
+            }
+        });
+
+        switchDnd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                REST.getInstance().groups_mute(Controller.getInstance().getAuth().getUser().token, chat, isChecked)
+                        .subscribe(new REST.DataSubscriber<Chat>(){
+                            @Override
+                            public void onData(Chat data){
+                                Log.d("so much wow", "data:" + data);
+                            }
+                        });
+            }
+        });
+
         loadData();
 //        setMembersAdapterContent();
 //        setIconsTouchListeners();
@@ -191,13 +226,6 @@ public class FragmentGroupsSettings extends BaseFragment {
                         }
                     }
                 });
-    }
-
-    private void setDate(){
-        TextView tvDateCreated = (TextView) root.findViewById(R.id.fragment_group_settings_tv_date);
-        String date = new String();
-
-        tvDateCreated.setText("ДАТА СОЗДАНИЯ: "+ chat.date);
     }
 
     private void setChatInfo() {
