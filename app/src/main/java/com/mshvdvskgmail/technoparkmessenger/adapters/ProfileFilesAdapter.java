@@ -62,8 +62,9 @@ public class ProfileFilesAdapter extends RecyclerView.Adapter<ProfileFilesAdapte
 
         String mime = "FILE";
 
-        holder.type.setText(/*files.get(position).mime*/ mime);
-        if(files.get(position).name != null) holder.name.setText(files.get(position).name);
+        holder.type.setText(files.get(position).mime.substring(files.get(position).mime.length() - 3));
+        holder.name.setText(files.get(position).name);
+//        if(files.get(position).name != null) holder.name.setText(files.get(position).name);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +92,6 @@ public class ProfileFilesAdapter extends RecyclerView.Adapter<ProfileFilesAdapte
         public ViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-
             name = (TextView) itemView.findViewById(R.id.recycler_item_profile_attached_file_tv_name);
             type = (TextView) itemView.findViewById(R.id.recycler_item_profile_attached_file_tv_type);
         }

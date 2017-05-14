@@ -20,15 +20,15 @@
             android:id="@+id/recycler_item_profile_attached_file_image_file"/>
 
         <TextView
+            android:id="@+id/recycler_item_profile_attached_file_tv_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:text="PDF"
-            android:id="@+id/recycler_item_profile_attached_file_tv_type"
-            android:textSize="8sp"
-            android:textColor="#5a9dc8"
             android:textAppearance="@style/TextAppearance.Gotham.Bold"
-            android:layout_marginTop="10dp"/>
+            android:textColor="#5a9dc8"
+            android:textSize="8sp" />
 
     </FrameLayout>
 

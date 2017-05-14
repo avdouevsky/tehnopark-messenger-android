@@ -50,10 +50,10 @@
                 android:textAppearance="@style/TextAppearance.Gotham"/>
 
             <com.mshvdvskgmail.technoparkmessenger.view.AttachmentView
-                android:padding="@dimen/chat_item_image_padding"
                 android:id="@+id/viewAttachment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:padding="@dimen/chat_item_image_padding" />
         </LinearLayout>
         <TextView
             android:layout_marginRight="20dp"
