@@ -83,6 +83,10 @@ public class BaseFragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        // is it the proper way to do it?
+//        if (!EventBus.getDefault().isRegistered(this)) {
+//            EventBus.getDefault().register(this);
+//        }
     }
 
     @Override
@@ -94,7 +98,6 @@ public class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
 
         if(ArgsBuilder.create(getArguments()).title() != null){
             EventBus.getDefault().post(new SetTitleEvent(ArgsBuilder.create(getArguments()).title()));

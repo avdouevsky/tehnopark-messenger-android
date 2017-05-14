@@ -52,9 +52,12 @@ public class MessageEditView extends FrameLayout {
             }
         });
 
+
+
         imageAttach.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(command != null) command.exec(Action.ATTACH);
             }
         });

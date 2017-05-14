@@ -43,9 +43,9 @@ public class FragmentMediaList extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.recycler_view_basic, container, false);
 
-        try{
-            EventBus.getDefault().register(this);
-        } catch (Exception e){}
+//        try{
+//            EventBus.getDefault().register(this);
+//        } catch (Exception e){}
 
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recycler_view_all);
         mRecyclerView.setHasFixedSize(true);

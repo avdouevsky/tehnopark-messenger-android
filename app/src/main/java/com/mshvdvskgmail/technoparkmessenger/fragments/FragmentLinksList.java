@@ -42,10 +42,6 @@ public class FragmentLinksList extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.recycler_view_basic, container, false);
 
-        try{
-            EventBus.getDefault().register(this);
-        } catch (Exception e){}
-
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_all);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);

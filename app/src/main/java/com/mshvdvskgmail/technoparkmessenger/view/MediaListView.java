@@ -7,12 +7,18 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.adapters.GroupFilesAdapter;
+import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -23,6 +29,7 @@ import java.util.List;
 public class MediaListView extends FrameLayout {
     private TextView tvFilesCount;
     private RecyclerView recyclerView;
+    private LinearLayout llMediaLink;
 
     private GroupFilesAdapter adapter;
 
@@ -49,6 +56,7 @@ public class MediaListView extends FrameLayout {
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         tvFilesCount = (TextView) findViewById(R.id.tvFilesCount);
+        llMediaLink = (LinearLayout) findViewById(R.id.ll_media_link);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager lm = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -56,12 +64,19 @@ public class MediaListView extends FrameLayout {
         adapter = new GroupFilesAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
-        tvFilesCount.setOnClickListener(new OnClickListener() {
+        llMediaLink.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(countClickListener != null) countClickListener.exec(null);
             }
         });
+
+//        llMediaLink.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MEDIA, ArgsBuilder.create().chat(chat).bundle()));
+//            }
+//        });
     }
 
     public void setData(@NonNull List<Attachment> attachments){
