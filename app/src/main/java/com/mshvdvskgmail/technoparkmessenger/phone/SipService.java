@@ -106,6 +106,7 @@ public class SipService extends Service {
 
     public void connect(String user, String secret){
         SipPhoneRx.getInstance().connect("213.247.249.83", 25060, user, secret, false, false, false)
+        //SipPhoneRx.getInstance().connect("213.247.249.83", 25061, user, secret, false, true, true)
                 .subscribe(new SipPhoneRx.SipSubscriber<SipPhoneRx>() {
                     @Override
                     public void onNext(SipPhoneRx sipPhoneRx) {

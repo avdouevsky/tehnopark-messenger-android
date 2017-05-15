@@ -1,8 +1,10 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.graphics.drawable.TransitionDrawable;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
 import com.mshvdvskgmail.technoparkmessenger.events.SipServiceEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
@@ -49,12 +52,12 @@ public class FragmentOutgoingCall extends BaseFragment {
     private ImageView mIconLoudspeaker;
     private ImageView mIconMute;
     private TextView mMuteText;
-    private boolean frameLoudspeakersPressed;
-    private boolean frameMutePressed;
     private Handler handler;
     private int animationStatus = 0;
 
     private TextView tvName;
+
+    private AudioManager audioManager;
 
     private User user;
 
@@ -96,6 +99,13 @@ public class FragmentOutgoingCall extends BaseFragment {
 
 //        tvName.setText(user.cn);
 
+
+        audioManager = (AudioManager) TechnoparkApp.getContext().getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setMode(AudioManager.MODE_IN_CALL);
+
+        audioManager.setMicrophoneMute(false);
+        audioManager.setSpeakerphoneOn(false);
+
         return root;
     }
 
@@ -112,22 +122,20 @@ public class FragmentOutgoingCall extends BaseFragment {
     }
 
     private void addListeners(final View mRootView) {
-
         frameLoudspeakers = (FrameLayout) mRootView.findViewById(R.id.fragment_call_outgoing_fl_loudspeaker);
+        mIconLoudspeaker = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_loudspeaker);
+        mIconMute = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_mute);
+        mMuteText = (TextView) mRootView.findViewById(R.id.fragment_call_outgoing_tv_mute);
+
         frameLoudspeakers.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
             public void onClick(View v) {
-                if(!frameLoudspeakersPressed) {
-                    mIconLoudspeaker = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_loudspeaker);
-                    mIconLoudspeaker.setImageResource(R.drawable.loudspeaker_no_sound);
-                    frameLoudspeakersPressed = true;
-                } else if (frameLoudspeakersPressed) {
-                    mIconLoudspeaker = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_loudspeaker);
-                    mIconLoudspeaker.setImageResource(R.drawable.loudspeaker);
-                    frameLoudspeakersPressed = false;
-                }
+                //TODO проверить логику, что то где то напутано
+
+                audioManager.setSpeakerphoneOn(!audioManager.isSpeakerphoneOn());
+                mIconLoudspeaker.setImageResource(audioManager.isSpeakerphoneOn() ? R.drawable.loudspeaker : R.drawable.loudspeaker_no_sound);
             }
         });
 
@@ -146,19 +154,11 @@ public class FragmentOutgoingCall extends BaseFragment {
         frameMute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!frameMutePressed) {
-                    mIconMute = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_mute);
-                    mMuteText = (TextView) mRootView.findViewById(R.id.fragment_call_outgoing_tv_mute);
-                    mMuteText.setText(R.string.incoming_call_third_icon_on);
-                    mIconMute.setImageResource(R.drawable.unmute);
-                    frameMutePressed = true;
-                } else if (frameMutePressed) {
-                    mIconMute = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_mute);
-                    mMuteText = (TextView) mRootView.findViewById(R.id.fragment_call_outgoing_tv_mute);
-                    mMuteText.setText(R.string.incoming_call_third_icon);
-                    mIconMute.setImageResource(R.drawable.mute);
-                    frameMutePressed = false;
-                }
+                //TODO проверить логику, что то где то напутано
+                audioManager.setMicrophoneMute(!audioManager.isMicrophoneMute());
+
+                mMuteText.setText(audioManager.isMicrophoneMute() ? R.string.incoming_call_third_icon_on : R.string.incoming_call_third_icon);
+                mIconMute.setImageResource(audioManager.isMicrophoneMute() ? R.drawable.unmute : R.drawable.mute);
             }
         });
 

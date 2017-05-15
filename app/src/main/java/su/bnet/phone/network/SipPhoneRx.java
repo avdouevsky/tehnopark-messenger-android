@@ -91,7 +91,7 @@ public class SipPhoneRx {
         return loaded;
     }
 
-    public Observable<SipPhoneRx> connect(final String server, final int port, final String number, final String secret, final boolean tcp, boolean tls, boolean srtp){
+    public Observable<SipPhoneRx> connect(final String server, final int port, final String number, final String secret, final boolean tcp, final boolean tls, boolean srtp){
         return Observable.create(new Observable.OnSubscribe<SipPhoneRx>() {
             @Override
             public void call(Subscriber<? super SipPhoneRx> subscriber) {
@@ -114,9 +114,16 @@ public class SipPhoneRx {
                     //sipTpConfig.setPort(port);
                     long port2 = Math.round(Math.random() * 20000) + 20000;
                     sipTpConfig.setPort(port2);
-                    endpoint.transportCreate(
-                            tcp ? pjsip_transport_type_e.PJSIP_TRANSPORT_TCP: pjsip_transport_type_e.PJSIP_TRANSPORT_UDP,
-                            sipTpConfig);
+                    if(tls){
+                        endpoint.transportCreate(
+                                pjsip_transport_type_e.PJSIP_TRANSPORT_TLS,
+                                sipTpConfig);
+                    }else{
+                        endpoint.transportCreate(
+                                tcp ? pjsip_transport_type_e.PJSIP_TRANSPORT_TCP: pjsip_transport_type_e.PJSIP_TRANSPORT_UDP,
+                                sipTpConfig);
+                    }
+
                     // Start the library
                     endpoint.libStart();
 
