@@ -49,7 +49,6 @@ public class ViewerActivity extends AppCompatActivity {
             Picasso.with(this)
                     .load(url)
                     .fit()
-                    .centerCrop()
                     .into(imagePicture);
         }
     }
