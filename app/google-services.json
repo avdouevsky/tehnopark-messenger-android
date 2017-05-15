@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "967137423541",
+    "firebase_url": "https://tehnopark-messenger.firebaseio.com",
+    "project_id": "tehnopark-messenger",
+    "storage_bucket": "tehnopark-messenger.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967137423541:android:0698abcdbf5c5bad",
+        "android_client_info": {
+          "package_name": "su.bnet.technoparkmessenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967137423541-9237i8d8jqboi7ap9ve9nov9t0634mce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGc08lNXvFayg3Bf_1JeSM62vl7QKyvRo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967137423541:android:f3c624cb5869c236",
+        "android_client_info": {
+          "package_name": "su.bnet.technoparkmessenger.auto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967137423541-9237i8d8jqboi7ap9ve9nov9t0634mce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGc08lNXvFayg3Bf_1JeSM62vl7QKyvRo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
