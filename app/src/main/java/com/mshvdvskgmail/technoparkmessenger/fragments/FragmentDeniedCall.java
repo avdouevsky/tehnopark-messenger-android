@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.events.SipServiceEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.squareup.picasso.Picasso;
 
@@ -59,13 +60,8 @@ public class FragmentDeniedCall extends BaseFragment {
         frameCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MAIN_FOUR_TAB_SCREEN, null));
-                //TODO FragmentMainFourTabScreen mainScreen = new FragmentMainFourTabScreen();
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                        .replace(R.id.container, mainScreen)
-//                        .addToBackStack(null)
-//                        .commit();
+                //EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MAIN_FOUR_TAB_SCREEN, null));
+                getActivity().finish();
             }
         });
 
@@ -73,7 +69,8 @@ public class FragmentDeniedCall extends BaseFragment {
         frameCallback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.OUTGOING_CALL, null));
+                //EventBus.getDefault().postSticky(new SipServiceEvent(SipServiceEvent.Type.CALL, "arman_dev")); //TODO
+                //EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.OUTGOING_CALL, null));
                 //TODO FragmentOutgoingCall outgoingCall = new FragmentOutgoingCall();
 //                getFragmentManager()
 //                        .beginTransaction()
@@ -88,28 +85,7 @@ public class FragmentDeniedCall extends BaseFragment {
         frameMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*  show toast reaction */
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                alertDialog.setTitle("ОК, СПАСИБО");
-                alertDialog.setMessage("Все работает ок, не так ли?");
-                alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.setNegativeButton("Не знаю", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert = alertDialog.create();
-                alert.show();
-//                Intent myIntent = new Intent(MainActivity.this, ActivityProfile.class);
-//                startActivity(myIntent);
+            //TODO
             }
         });
 

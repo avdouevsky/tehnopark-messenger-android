@@ -241,6 +241,18 @@ public class REST implements IService {
     }
 
     @Override
+    public Observable<Result<List<User>>> get_by_sip(@Header("session-id") int session_id, @Header("token") String token, @Query("search") String sip) {
+        return service.get_by_sip(session_id, token, sip).compose(this.<Result<List<User>>>setup());
+    }
+
+    public Observable<Result<List<User>>> get_by_sip(Token token,
+                                                   @Nullable String sip){
+        return get_by_sip(token.session_id, token.token, sip);
+    }
+
+
+
+    @Override
     public Observable<Result<User>> avatar(@Header("session-id") int session_id,
                                            @Header("token") String token,
                                            @Query("name") String name){

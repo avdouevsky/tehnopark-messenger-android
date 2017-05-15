@@ -1,5 +1,6 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
@@ -19,12 +20,14 @@ import com.mshvdvskgmail.technoparkmessenger.Consts;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.RMQChat;
 import com.mshvdvskgmail.technoparkmessenger.network.RabbitMQ;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Result;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
+import com.mshvdvskgmail.technoparkmessenger.phone.SipService;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -97,12 +100,13 @@ public class FragmentAuthorization extends BaseFragment{
                             @Override
                             public void onCompleted() {
                                 Log.d(TAG, "onCompleted");
-                                //вся щепочка выполнена успешно
+                                //вся цепочка выполнена успешно
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 Log.d(TAG, "onError " + e.getMessage());
+                                Log.w(TAG, e);
                                 e.printStackTrace();
                                 //где то произошел косяк, либо сайт, илбо реббит, либо интернет
                                 Toast.makeText(getActivity(), "Ошибка авторизации", Toast.LENGTH_LONG);
@@ -126,6 +130,11 @@ public class FragmentAuthorization extends BaseFragment{
 //                                        .replace(R.id.container, mainScreen)
 ////                                        .addToBackStack(null)
 //                                        .commit();
+//                                Intent intent = new Intent(TechnoparkApp.getContext(), SipService.class);
+//                                intent.putExtra(SipService.COMMAND, SipService.Commands.CONNECT);
+//                                intent.putExtra(SipService.USER, Controller.getInstance().getAuth().getUser());
+//                                TechnoparkApp.getContext().startService(intent);
+                                SipService.command(SipService.Commands.CONNECT, Controller.getInstance().getAuth().getUser());
                             }
                         });
 //

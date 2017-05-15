@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.events.SipServiceEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
@@ -70,7 +71,11 @@ public class FragmentOutgoingCall extends BaseFragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_call_outgoing, container, false);
 
-        user = ArgsBuilder.create(getArguments()).user();
+        //user = ArgsBuilder.create(getArguments()).user();
+        if(getArguments() != null){
+            user = (User)getArguments().getSerializable("user");
+        }
+
         if(user == null){
             Log.w(TAG, "user is null");
             if(isAdded()) getActivity().onBackPressed();
@@ -83,13 +88,13 @@ public class FragmentOutgoingCall extends BaseFragment {
         dotFive = (FrameLayout) root.findViewById(R.id.fragment_call_outgoing_fl_dot_five);
         dotSix = (FrameLayout) root.findViewById(R.id.fragment_call_outgoing_fl_dot_six);
 
-        tvName = (TextView) root.findViewById(R.id.tvName);
+//        tvName = (TextView) root.findViewById(R.id.tvName);
 
         inflatePicture(root);
         addListeners(root);
         animateDots();
 
-        tvName.setText(user.cn);
+//        tvName.setText(user.cn);
 
         return root;
     }
@@ -97,7 +102,7 @@ public class FragmentOutgoingCall extends BaseFragment {
     private void inflatePicture(View mRootView) {
         //todo refactor!
         ImageView profileIcon = (ImageView) mRootView.findViewById(R.id.fragment_call_outgoing_image_picture);
-        if(user.avatar != null)
+        if(user != null && user.avatar != null)
             Picasso.with(getContext())
                     .load(user.avatar)
                     .resizeDimen(R.dimen.chat_item_avatar_size,R.dimen.chat_item_avatar_size)
@@ -162,7 +167,7 @@ public class FragmentOutgoingCall extends BaseFragment {
         frameEndCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.DENIED_CALL, null));
+                EventBus.getDefault().postSticky(new SipServiceEvent(SipServiceEvent.Type.HANGUP));
                 //TODO FragmentDeniedCall call = new FragmentDeniedCall();
 //                getActivity().getSupportFragmentManager().beginTransaction()
 //                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

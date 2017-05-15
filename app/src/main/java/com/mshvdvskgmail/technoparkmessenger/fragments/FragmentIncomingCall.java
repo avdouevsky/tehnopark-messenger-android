@@ -1,23 +1,17 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
-import android.content.DialogInterface;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
-import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
+import com.mshvdvskgmail.technoparkmessenger.events.SipServiceEvent;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,14 +65,8 @@ public class FragmentIncomingCall extends BaseFragment {
         frameDeny.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.DENIED_CALL, null));
-                //TODO FragmentDeniedCall deniedCall = new FragmentDeniedCall();
-//                getFragmentManager()
-//                        .beginTransaction()
-//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                        .replace(R.id.container, deniedCall)
-//                        .addToBackStack(null)
-//                        .commit();
+                //EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.DENIED_CALL, null));
+                EventBus.getDefault().postSticky(new SipServiceEvent(SipServiceEvent.Type.HANGUP));
             }
         });
 
@@ -87,27 +75,6 @@ public class FragmentIncomingCall extends BaseFragment {
             @Override
             public void onClick(View v) {
 
-                /*  show toast reaction */
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                alertDialog.setTitle("ОК, СПАСИБО");
-                alertDialog.setMessage("Все работает ок, не так ли?");
-                alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.setNegativeButton("Не знаю", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert = alertDialog.create();
-                alert.show();
-//                Intent myIntent = new Intent(MainActivity.this, ActivityProfile.class);
-//                startActivity(myIntent);
             }
         });
 
@@ -115,28 +82,7 @@ public class FragmentIncomingCall extends BaseFragment {
         frameAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*  show toast reaction */
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                alertDialog.setTitle("ОК, СПАСИБО");
-                alertDialog.setMessage("Все работает ок, не так ли?");
-                alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.setNegativeButton("Не знаю", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert = alertDialog.create();
-                alert.show();
-//                Intent myIntent = new Intent(MainActivity.this, ActivityProfile.class);
-//                startActivity(myIntent);
+                EventBus.getDefault().postSticky(new SipServiceEvent(SipServiceEvent.Type.ANSWER));
             }
         });
     }
