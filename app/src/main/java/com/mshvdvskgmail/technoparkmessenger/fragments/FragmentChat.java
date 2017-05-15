@@ -210,7 +210,7 @@ public class FragmentChat extends BaseFragment {
                             @Override
                             public void onData(Attachment data) {
                                 if(data.url != null){
-                                    if(data.mime.equals("image/jpeg")){
+                                    if(data.mime.equals("image/jpeg")||data.mime.equals("image/png")){
                                         Intent viewerIntent = new Intent(getActivity(), ViewerActivity.class);
                                         viewerIntent.putExtra("url", data.url);
                                         startActivity(viewerIntent);

@@ -62,7 +62,8 @@ public class ProfileFilesAdapter extends RecyclerView.Adapter<ProfileFilesAdapte
 
         String mime = "FILE";
 
-        holder.type.setText(files.get(position).mime.substring(files.get(position).mime.length() - 3));
+//        substring(filename.lastIndexOf('.') + 1)
+        holder.type.setText(files.get(position).mime.substring(files.get(position).mime.lastIndexOf('/') + 1));
         holder.name.setText(files.get(position).name);
 //        if(files.get(position).name != null) holder.name.setText(files.get(position).name);
 

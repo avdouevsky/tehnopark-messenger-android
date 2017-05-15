@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.activities.ViewerActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ProfileFilesAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
@@ -159,8 +160,14 @@ public class FragmentProfile extends BaseFragment {
                             @Override
                             public void onData(Attachment data) {
                                 if(data.url != null){
-                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.url));
-                                    startActivity(browserIntent);
+                                    if(data.mime.equals("image/jpeg")||data.mime.equals("image/png")){
+                                        Intent viewerIntent = new Intent(getActivity(), ViewerActivity.class);
+                                        viewerIntent.putExtra("url", data.url);
+                                        startActivity(viewerIntent);
+                                    } else {
+                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.url));
+                                        startActivity(browserIntent);
+                                    }
                                 }
                             }
                         });
