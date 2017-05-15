@@ -71,3 +71,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //    compile project(':sipservice')
 }
+apply plugin: 'com.google.gms.google-services'

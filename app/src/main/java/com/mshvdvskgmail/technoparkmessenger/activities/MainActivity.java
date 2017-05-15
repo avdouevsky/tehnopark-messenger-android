@@ -3,6 +3,7 @@ package com.mshvdvskgmail.technoparkmessenger.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -23,6 +24,8 @@ import com.mshvdvskgmail.technoparkmessenger.fragments.BaseFragment;
 import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.fragments.FragmentMainFourTabScreen;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
+import com.mshvdvskgmail.technoparkmessenger.services.MyFirebaseInstanceIDService;
+import com.mshvdvskgmail.technoparkmessenger.services.MyFirebaseMessagingService;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -76,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
             requestPermissions(perms, permsRequestCode);
         }
+
+
 
         navigator.forwardTo(Fragments.AUTHORIZATION);
     }

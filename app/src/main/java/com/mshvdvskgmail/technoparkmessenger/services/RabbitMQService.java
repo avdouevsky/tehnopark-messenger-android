@@ -70,7 +70,8 @@ import static android.R.attr.data;
 /**
  * Created by andrey on 06.02.2017.
  */
-public class RabbitMQService extends Service {
+public class
+RabbitMQService extends Service {
     private final static String TAG = RabbitMQService.class.toString();
 
     private final IBinder mBinder = new ServiceBinder();

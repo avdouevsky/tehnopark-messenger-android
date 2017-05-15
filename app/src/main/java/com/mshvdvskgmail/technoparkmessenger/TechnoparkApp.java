@@ -62,6 +62,8 @@ public class TechnoparkApp extends Application {
 
 //        startService(new Intent(this, RabbitMQService.class));
 
+        startService(new Intent(this, MyFirebaseInstanceIDService.class));
+        startService(new Intent(this, MyFirebaseMessagingService.class));
     }
 
     public static TechnoparkApp getInstance() {

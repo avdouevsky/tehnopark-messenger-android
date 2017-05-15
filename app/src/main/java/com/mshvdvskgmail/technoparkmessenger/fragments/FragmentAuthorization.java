@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mshvdvskgmail.technoparkmessenger.BuildConfig;
 import com.mshvdvskgmail.technoparkmessenger.ChatController;
 import com.mshvdvskgmail.technoparkmessenger.Consts;
@@ -56,6 +58,7 @@ public class FragmentAuthorization extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mRootView = inflater.inflate(R.layout.fragment_athorization, container, false);
+        FirebaseApp.initializeApp(getActivity());
 
         cancelCross1 = (ImageView) mRootView.findViewById(R.id.fragment_authorization_image_cancel_cross_first);
         cancelCross2 = (ImageView) mRootView.findViewById(R.id.fragment_authorization_image_cancel_cross_second);
@@ -83,7 +86,7 @@ public class FragmentAuthorization extends BaseFragment{
             @Override
             public void onClick(View v) {
                 String stringTrimmer = emailField.getText().toString().trim();
-                REST.getInstance().login(stringTrimmer, passwordField.getText().toString(), Controller.getInstance().deviceType(), Controller.getInstance().deviceId(), "")
+                REST.getInstance().login(stringTrimmer, passwordField.getText().toString(), Controller.getInstance().deviceType(), Controller.getInstance().deviceId(), FirebaseInstanceId.getInstance().getToken())
                         .flatMap(new Func1<Result<User>, Observable<RabbitMQ>>() {
                             @Override
                             public Observable<RabbitMQ> call(Result<User> userResult) {

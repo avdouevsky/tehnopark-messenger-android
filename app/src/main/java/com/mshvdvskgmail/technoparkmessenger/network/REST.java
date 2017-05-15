@@ -428,6 +428,15 @@ public class REST implements IService {
         return get_attachment(token.session_id, token.token, attachment.uuid);
     }
 
+    @Override
+    @Deprecated
+    public void push_test(@Header("session-id") int session_id, @Header("token") String token, @Query("uuid") String uuid) {
+//        return service.push_test(session_id, token, uuid).compose(this.<Result<Attachment>>setup());
+        service.push_test(session_id, token, uuid);
+    }
+
+
+
     private Picasso picasso;
 
     public void createSecurePicasso(Context context, final Token token){
@@ -455,6 +464,7 @@ public class REST implements IService {
                                              @Query("limit") int limit){
         return service.messages(session_id, token, room_uuid, offset, limit).compose(this.<Result<List<Message>>>setup());
     }
+
 
     public Observable<Result<List<Message>>> messages(Token token,
                                                       String room_uuid,

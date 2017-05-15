@@ -140,6 +140,12 @@ public interface IService {
                                              @Query("offset") int offset,
                                              @Query("limit") int limit);
 
+    @GET("?r=messages/json/push-test")
+    public void push_test(@Header("session-id") int session_id,
+                          @Header("token") String token,
+                          @Query("uuid") String uuid);
+
+
 
 
 
