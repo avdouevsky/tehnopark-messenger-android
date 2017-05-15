@@ -53,6 +53,11 @@ public interface IService {
                                              @Header("token") String token,
                                              @Query("search") String search);
 
+    @GET("?r=messages/json/contacts&sip=1")
+    public Observable<Result<List<User>>> get_by_sip(@Header("session-id") int session_id,
+                                                   @Header("token") String token,
+                                                   @Query("search") String sip);
+
     @GET("?r=messages/json/avatar")
     public Observable<Result<User>> avatar(@Header("session-id") int session_id,
                                            @Header("token") String token,

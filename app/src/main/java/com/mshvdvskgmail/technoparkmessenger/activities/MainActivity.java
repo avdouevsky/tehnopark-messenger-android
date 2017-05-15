@@ -1,6 +1,7 @@
 package com.mshvdvskgmail.technoparkmessenger.activities;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,7 +37,7 @@ import su.bnet.flowcontrol.FragmentNavigator;
 import su.bnet.flowcontrol.Router;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private final static String TAG = MainActivity.class.toString();
 
     private Router<Fragments, BundleCommand> router;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,11 +87,11 @@ public class MainActivity extends AppCompatActivity {
         navigator.forwardTo(Fragments.AUTHORIZATION);
     }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
+//    @Override
+//    protected void onStart(){
+//        super.onStart();
+//        EventBus.getDefault().register(this);
+//    }
 
     @Override
     public void onResume(){
@@ -102,16 +104,16 @@ public class MainActivity extends AppCompatActivity {
         }*/
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-//        if (service != null) {
-//            unbindService(mConnection);
-//            service = null;
-//        }
-//        super.onPause();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        EventBus.getDefault().unregister(this);
+////        if (service != null) {
+////            unbindService(mConnection);
+////            service = null;
+////        }
+////        super.onPause();
+//    }
 
     @Override
     protected void attachBaseContext(Context newBase) {

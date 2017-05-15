@@ -7,7 +7,6 @@ import com.mshvdvskgmail.technoparkmessenger.Fragments;
 /**
  * Created by andrey on 16.12.2016.
  */
-
 public class SwitchFragmentEvent {
     private Fragments states;
     private Bundle bundle;

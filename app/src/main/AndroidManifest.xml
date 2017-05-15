@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mshvdvskgmail.technoparkmessenger">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <!-- pjsip -->
-    <!--<uses-permission android:name="android.permission.CAMERA" />
+    <!--
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
@@ -17,22 +21,29 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_LOGS" />-->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    -->
     <!-- /pjsip -->
 
-    <uses-feature android:name="android.hardware.sip.voip" android:required="true" />
-    <uses-feature android:name="android.hardware.wifi" android:required="true" />
-    <uses-feature android:name="android.hardware.microphone" android:required="true" />
-
+    <uses-feature
+        android:name="android.hardware.sip.voip"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="true" />
 
     <application
+        android:name=".TechnoparkApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".TechnoparkApp">
-        <activity android:name=".activities.MainActivity"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -41,17 +52,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.ViewerActivity"
+            android:screenOrientation="portrait" />
 
-    <activity android:name=".activities.ViewerActivity"
-        android:screenOrientation="portrait">
-    </activity>
-
-        <!--activity android:name=".activities.CallActivity" android:label="call_activity"/>
-        <receiver android:name=".activities.IncomingCallReceiver" android:label="Call Receiver"/-->
+        <!--
+        activity android:name=".activities.CallActivity" android:label="call_activity"/>
+        <receiver android:name=".activities.IncomingCallReceiver" android:label="Call Receiver"/
+        -->
         <service
-            android:exported="false"
             android:name=".services.RabbitMQService"
-            />
+            android:exported="false" />
 
         <service
             android:exported="false"
@@ -67,5 +78,16 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".phone.CallActivity"
+            android:launchMode="singleInstance" />
+
+        <service
+            android:name=".phone.SipService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
+    </application>
+
 </manifest>

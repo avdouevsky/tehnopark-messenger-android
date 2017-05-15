@@ -34,7 +34,7 @@ public class Navigator<T extends Enum<?>, E extends Command>{
             commands.getLast().rollback();
         }
         commands.add(command);
-        commands.getLast().forward(null);
+        commands.getLast().forward(bundle);
         Log.v(TAG, "stack: " + commands.size());
     }
 

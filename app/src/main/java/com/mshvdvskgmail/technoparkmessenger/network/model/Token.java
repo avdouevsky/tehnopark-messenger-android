@@ -1,10 +1,12 @@
 package com.mshvdvskgmail.technoparkmessenger.network.model;
 
+import java.io.Serializable;
+
 /**
  * Created by andrey on 23.01.2017.
  */
 
-public class Token {
+public class Token implements Serializable {
     public int ttl = 0;
     public String user_id = "";
     public String unique_id = "";

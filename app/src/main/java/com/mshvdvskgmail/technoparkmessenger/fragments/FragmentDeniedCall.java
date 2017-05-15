@@ -1,6 +1,7 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,7 +14,11 @@ import android.widget.ImageView;
 
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
+import com.mshvdvskgmail.technoparkmessenger.events.SipServiceEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
+import com.mshvdvskgmail.technoparkmessenger.phone.CallActivity;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,12 +30,15 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  */
 
 public class FragmentDeniedCall extends BaseFragment {
+    private final static String USER = "user";
+
     private View mRootView;
     private AlertDialog alert;
     private FrameLayout frameCancel;
     private FrameLayout frameCallback;
     private FrameLayout frameMessage;
 
+    private User user;
 
     public FragmentDeniedCall() {}
 
@@ -44,6 +52,19 @@ public class FragmentDeniedCall extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.fragment_call_denied, container, false);
+
+        frameCancel = (FrameLayout) mRootView.findViewById(R.id.fragment_call_denied_fl_cancel);
+        frameCallback = (FrameLayout) mRootView.findViewById(R.id.fragment_call_denied_fl_callback);
+        frameMessage = (FrameLayout) mRootView.findViewById(R.id.fragment_call_denied_fl_message);
+
+        Bundle args = getArguments();
+        if(args != null){
+            user = (User)args.getSerializable(USER);
+        }
+
+        frameCallback.setVisibility(user == null ? View.INVISIBLE : View.VISIBLE);
+        frameMessage.setVisibility(user == null ? View.INVISIBLE : View.VISIBLE);
+
         inflatePicture(mRootView);
         addListeners(mRootView);
         return mRootView;
@@ -55,64 +76,35 @@ public class FragmentDeniedCall extends BaseFragment {
     }
 
     private void addListeners(View mRootView) {
-        frameCancel = (FrameLayout) mRootView.findViewById(R.id.fragment_call_denied_fl_cancel);
+
         frameCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MAIN_FOUR_TAB_SCREEN, null));
-                //TODO FragmentMainFourTabScreen mainScreen = new FragmentMainFourTabScreen();
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                        .replace(R.id.container, mainScreen)
-//                        .addToBackStack(null)
-//                        .commit();
+                //EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MAIN_FOUR_TAB_SCREEN, null));
+                getActivity().finish();
             }
         });
 
-        frameCallback = (FrameLayout) mRootView.findViewById(R.id.fragment_call_denied_fl_callback);
+
         frameCallback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.OUTGOING_CALL, null));
-                //TODO FragmentOutgoingCall outgoingCall = new FragmentOutgoingCall();
-//                getFragmentManager()
-//                        .beginTransaction()
-//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                        .replace(R.id.container, outgoingCall)
-//                        .addToBackStack(null)
-//                        .commit();
+                //TODO доделать логику получения пользовател
+                Intent intent = new Intent(TechnoparkApp.getContext(), CallActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(CallActivity.ACTION, CallActivity.Action.OUTGOING);
+                intent.putExtra(CallActivity.USER, user);
+//                TechnoparkApp.getContext().startActivity(intent);
             }
         });
 
-        frameMessage = (FrameLayout) mRootView.findViewById(R.id.fragment_call_denied_fl_message);
+
         frameMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*  show toast reaction */
-
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                alertDialog.setTitle("ОК, СПАСИБО");
-                alertDialog.setMessage("Все работает ок, не так ли?");
-                alertDialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialog.setNegativeButton("Не знаю", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alert = alertDialog.create();
-                alert.show();
-//                Intent myIntent = new Intent(MainActivity.this, ActivityProfile.class);
-//                startActivity(myIntent);
+                //TODO
             }
         });
 
     }
-
 }
