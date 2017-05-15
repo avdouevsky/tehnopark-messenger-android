@@ -1,5 +1,7 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
@@ -18,6 +20,7 @@ import android.widget.TextView;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
+import com.mshvdvskgmail.technoparkmessenger.activities.ViewerActivity;
 import com.mshvdvskgmail.technoparkmessenger.events.DataLoadEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
@@ -168,10 +171,34 @@ public class FragmentGroupsSettings extends BaseFragment {
             }
         });
 
+
+
         viewMediaList.setCountClickListener(new ICommand<Void>() {
             @Override
             public void exec(Void data) {
                 EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MEDIA, ArgsBuilder.create().chat(chat).bundle()));
+            }
+        });
+
+        viewMediaList.setClickListener(new ICommand<Attachment>() {
+            @Override
+            public void exec(Attachment data) {
+                REST.getInstance().get_attachment(Controller.getInstance().getAuth().getUser().token, data)
+                        .subscribe(new REST.DataSubscriber<Attachment>() {
+                            @Override
+                            public void onData(Attachment data) {
+                                if(data.url != null){
+                                    if(data.mime.equals("image/jpeg")||data.mime.equals("image/png")){
+                                        Intent viewerIntent = new Intent(getActivity(), ViewerActivity.class);
+                                        viewerIntent.putExtra("url", data.url);
+                                        startActivity(viewerIntent);
+                                    } else {
+                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.url));
+                                        startActivity(browserIntent);
+                                    }
+                                }
+                            }
+                        });
             }
         });
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
 import com.mshvdvskgmail.technoparkmessenger.models.ProfileAttachment;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 
@@ -23,6 +24,9 @@ import static com.mshvdvskgmail.technoparkmessenger.R.id.tvMime;
 public class GroupFilesAdapter extends RecyclerView.Adapter<GroupFilesAdapter.ViewHolder> {
     private Context context;
     private List<Attachment> files = new ArrayList<>();
+
+    private ICommand<Attachment> clickListener;
+
 
     public GroupFilesAdapter(Context context) {
         this.context = context;
@@ -66,9 +70,10 @@ public class GroupFilesAdapter extends RecyclerView.Adapter<GroupFilesAdapter.Vi
         }
 
 
-        if(files.get(position).mime != null) {
-            holder.type.setText(files.get(position).mime);
-        } else holder.type.setText(files.get(position).name.substring(files.get(position).name.length() - 3));
+        holder.type.setText(files.get(position).name.substring(files.get(position).name.lastIndexOf('.') + 1));
+        if(holder.type.getText().equals("")||holder.type.getText().length()>4) {
+            holder.type.setText("file");
+        }
 
         if(files.get(position).name != null) holder.name.setText(files.get(position).name);
 
@@ -79,11 +84,21 @@ public class GroupFilesAdapter extends RecyclerView.Adapter<GroupFilesAdapter.Vi
 //            }
 //        });
 
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(clickListener != null) clickListener.exec(files.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return files.size();
+    }
+
+    public void setClickListener(ICommand<Attachment> clickListener) {
+        this.clickListener = clickListener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

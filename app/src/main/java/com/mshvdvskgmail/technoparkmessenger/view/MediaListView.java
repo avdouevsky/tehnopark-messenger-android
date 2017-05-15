@@ -1,6 +1,8 @@
 package com.mshvdvskgmail.technoparkmessenger.view;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +12,15 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.activities.ViewerActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.GroupFilesAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
 import com.mshvdvskgmail.technoparkmessenger.helpers.ICommand;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,7 +52,6 @@ public class MediaListView extends FrameLayout {
 
     public MediaListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
         buildUI();
     }
 
@@ -71,6 +75,7 @@ public class MediaListView extends FrameLayout {
             }
         });
 
+
 //        llMediaLink.setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -89,7 +94,13 @@ public class MediaListView extends FrameLayout {
         this.countClickListener = countClickListener;
     }
 
+    public void setClickListener(ICommand<Attachment> clickListener){
+        adapter.setClickListener(clickListener);
+    }
+
     public int getFileCounter(){
         return fileCounter;
     }
+
+
 }
