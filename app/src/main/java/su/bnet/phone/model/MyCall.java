@@ -86,6 +86,7 @@ public class MyCall extends Call {
             ci = getInfo();
             if(ci.getState() == pjsip_inv_state.PJSIP_INV_STATE_DISCONNECTED){
                 Log.d(TAG, "terminate call");
+                SipPhoneRx.observer.notifyCallTerminate();
                 delete();
             }
         } catch (Exception e) {

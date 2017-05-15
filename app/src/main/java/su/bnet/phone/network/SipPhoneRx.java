@@ -222,7 +222,7 @@ public class SipPhoneRx {
                 } catch (Exception e) {
                     Log.w(TAG, e);
                 }
-                // TODO: set status code
+
                 call.delete();
             }
             else{
@@ -258,6 +258,10 @@ public class SipPhoneRx {
             }
         }
 
+        @Override
+        public void notifyCallTerminate() {
+            if(instance.observer2 != null) instance.observer2.notifyCallTerminate();
+        }
 
         @Override
         public void notifyCallMediaState(MyCall call) {

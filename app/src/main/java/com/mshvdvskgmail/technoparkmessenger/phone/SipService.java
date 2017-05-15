@@ -219,7 +219,7 @@ public class SipService extends Service {
             Intent intent = new Intent(SipService.this, CallActivity.class);
             //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra("type", Fragments.INCOMING_CALL);
+            intent.putExtra(CallActivity.ACTION, CallActivity.Action.INCOMING);
             startActivity(intent);
         }
 
@@ -235,6 +235,15 @@ public class SipService extends Service {
             }
 
             EventBus.getDefault().postSticky(new CallActivity.CallStateEvent(ci));
+        }
+
+        @Override
+        public void notifyCallTerminate() {
+            Log.v(TAG, "notifyCallTerminate");
+            Intent intent = new Intent(SipService.this, CallActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(CallActivity.ACTION, CallActivity.Action.TERMINATE);
+            startActivity(intent);
         }
 
         @Override

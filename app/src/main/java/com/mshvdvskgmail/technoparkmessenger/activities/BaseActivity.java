@@ -18,7 +18,12 @@ import org.greenrobot.eventbus.EventBus;
 public class BaseActivity extends AppCompatActivity {
     private final static String TAG = BaseActivity.class.toString();
 
+    /**
+     * @deprecated do not use. Use Intern or SipService.command(...)
+     */
+    @Deprecated
     protected SipService service = null;
+    @Deprecated
     private ServiceConnection mConnection = new BaseActivity.MyServiceConnection();
 
     @Override

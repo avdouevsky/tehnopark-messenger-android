@@ -17,12 +17,14 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.activities.BaseActivity;
 import com.mshvdvskgmail.technoparkmessenger.activities.MainActivity;
 import com.mshvdvskgmail.technoparkmessenger.events.SipServiceEvent;
 import com.mshvdvskgmail.technoparkmessenger.fragments.BaseFragment;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,6 +36,8 @@ import org.pjsip.pjsua2.pjsip_inv_state;
 import org.pjsip.pjsua2.pjsip_role_e;
 import org.pjsip.pjsua2.pjsip_status_code;
 
+import java.util.List;
+
 import su.bnet.flowcontrol.BundleCommand;
 import su.bnet.flowcontrol.FragmentNavigator;
 import su.bnet.flowcontrol.Router;
@@ -41,6 +45,9 @@ import su.bnet.phone.network.SipPhoneRx;
 
 public class CallActivity extends BaseActivity {
     private final static String TAG = CallActivity.class.toString();
+
+    public final static String ACTION = "action";
+    public final static String USER = "user";
 
     private FrameLayout frame;
 
@@ -88,18 +95,22 @@ public class CallActivity extends BaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        Fragments f = (Fragments)intent.getSerializableExtra("type");
-        User user = (User) intent.getSerializableExtra("user");
-        //Fragments f = Fragments.valueOf(type);
-        navigator.replaceTo(f, intent.getExtras());
-        switch (f){
-            case OUTGOING_CALL:
+        //Fragments f = (Fragments)intent.getSerializableExtra("type");
+        Action action = (Action)intent.getSerializableExtra(ACTION);
+        User user = (User) intent.getSerializableExtra(USER);
+
+
+        switch (action){
+            case OUTGOING:
                 SipService.command(SipService.Commands.CALL, user);
+                navigator.replaceTo(Fragments.OUTGOING_CALL, intent.getExtras());
                 break;
-//            case INCOMING_CALL:
-//                break;
-//            case DENIED_CALL:
-//                break;
+            case INCOMING:
+                navigator.replaceTo(Fragments.INCOMING_CALL, intent.getExtras());
+                break;
+            case TERMINATE:
+                navigator.replaceTo(Fragments.DENIED_CALL, intent.getExtras());
+                break;
         }
 
         if (SipPhoneRx.currentCall != null) {
@@ -218,6 +229,45 @@ public class CallActivity extends BaseActivity {
             case ANSWER:
                 Log.d(TAG, "ANSWER");
                 service.acceptCall();
+                navigator.replaceTo(Fragments.OUTGOING_CALL); //change face
+                //TODO костыль, большой костыль
+//                String usr = null;
+//                if(SipPhoneRx.currentCall != null){
+//                    try {
+//                        CallInfo ci = null;
+//                        ci = SipPhoneRx.currentCall.getInfo();
+//                        usr = ci.getRemoteUri();
+//                        if(usr != null){
+//                            String s[] = usr.split(" ");
+//                            if(s.length>0){
+//                                usr = s[0].trim();
+//                            }
+//
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                if(usr == null){
+//                    navigator.replaceTo(Fragments.OUTGOING_CALL); //change face
+//                }else{
+//                    REST.getInstance().get_by_sip(Controller.getInstance().getAuth().getUser().token, usr)
+//                            .subscribe(new REST.DataSubscriber<List<User>>() {
+//                                @Override
+//                                public void onData(List<User> data) {
+//                                    if(data.size() != 0){
+//                                        Bundle b = new Bundle();
+//                                        b.putSerializable(CallActivity.USER, data.get(0));
+//                                        navigator.replaceTo(Fragments.OUTGOING_CALL); //change face
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+//                                    navigator.replaceTo(Fragments.OUTGOING_CALL); //change face
+//                                }
+//                            });
+//                }
                 break;
             case HANGUP:
                 Log.d(TAG, "DENIED_CALL");
@@ -244,5 +294,7 @@ public class CallActivity extends BaseActivity {
         }
     }
 
-
+    public enum Action{
+        INCOMING, OUTGOING, TERMINATE;
+    }
 }

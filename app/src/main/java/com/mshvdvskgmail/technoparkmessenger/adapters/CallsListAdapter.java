@@ -79,8 +79,8 @@ public class CallsListAdapter extends RecyclerView.Adapter<CallsListAdapter.View
                     Intent intent = new Intent(TechnoparkApp.getContext(), CallActivity.class);
                     //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra("type", Fragments.OUTGOING_CALL);
-                    intent.putExtra("user", other);
+                    intent.putExtra(CallActivity.ACTION, CallActivity.Action.OUTGOING);
+                    intent.putExtra(CallActivity.USER, other);
                     TechnoparkApp.getContext().startActivity(intent);
                 }
             });

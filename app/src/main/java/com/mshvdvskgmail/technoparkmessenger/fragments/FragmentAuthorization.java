@@ -68,7 +68,7 @@ public class FragmentAuthorization extends BaseFragment{
 
 //        mAuthorizationButton.setEnabled(false);
         if(BuildConfig.DEBUG){
-            emailField.setText("testme1");
+            emailField.setText("phone2");
             passwordField.setText("Hello123test");
 //            mAuthorizationButton.setEnabled(true);
         }

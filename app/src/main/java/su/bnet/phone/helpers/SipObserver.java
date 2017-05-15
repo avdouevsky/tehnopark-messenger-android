@@ -18,6 +18,8 @@ public interface SipObserver {
 
     abstract void notifyCallState(MyCall call);
 
+    abstract void notifyCallTerminate();
+
     abstract void notifyCallMediaState(MyCall call);
 
     abstract void notifyBuddyState(MyBuddy buddy);
