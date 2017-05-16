@@ -2,6 +2,7 @@
   <dictionary name="andrey">
     <words>
       <w>amqp</w>
+      <w>voip</w>
     </words>
   </dictionary>
 </component>

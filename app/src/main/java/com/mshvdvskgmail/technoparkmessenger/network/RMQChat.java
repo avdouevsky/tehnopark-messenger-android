@@ -195,6 +195,20 @@ public class RMQChat {
         //basicPublish(, message);
     }
 
+    public Observable<RabbitMQ> sendCall(Token token, String meId, String user_id, String localId){
+        Message message = new Message();
+        message.type = "voip";
+        message.user_token = token;
+        message.local_id = localId;
+        message.message = user_id;
+
+        String route = "dialog." + meId + "." + user_id;
+        String json = gson.toJson(message);
+
+        return rabbitMQ.basicPublish("conversation.call", route, json, queue).compose(this.<RabbitMQ>setup()).compose(this.<RabbitMQ>checkConnection());
+        //basicPublish(, message);
+    }
+
     /**
      * Отправить статус по сообщению
      * @param token

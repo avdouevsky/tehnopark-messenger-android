@@ -150,9 +150,11 @@ public interface IService {
                           @Header("token") String token,
                           @Query("uuid") String uuid);
 
-
-
-
+    @POST("?r=messages/json/register-voip")
+    @FormUrlEncoded
+    public Observable<Result<Void>> register_voip(@Header("session-id") int session_id,
+                          @Header("token") String token,
+                          @Field("push") String push);
 
     /////////////////////////////////////////////////
 //    @POST("?r=json/logout")

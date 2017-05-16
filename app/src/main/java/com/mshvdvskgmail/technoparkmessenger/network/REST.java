@@ -447,7 +447,15 @@ public class REST implements IService {
         service.push_test(session_id, token, uuid);
     }
 
+    @Override
+    @Deprecated
+    public Observable<Result<Void>> register_voip(int session_id, String token, String push) {
+        return service.register_voip(session_id, token, push).compose(this.<Result<Void>>setup());
+    }
 
+    public Observable<Result<Void>> register_voip(Token token, String push) {
+        return register_voip(token.session_id, token.token, push);
+    }
 
     private Picasso picasso;
 
