@@ -321,7 +321,8 @@ public class REST implements IService {
                                          List<User> users,
                                          String name){
         String uu = TextUtils.join(",", users);
-        return chat(token.session_id, token.token, uu, name).compose(this.<Result<Chat>>setup());
+        String tempChatName = TextUtils.join(", ", users);
+        return chat(token.session_id, token.token, uu, tempChatName).compose(this.<Result<Chat>>setup());
     }
 
     @Override

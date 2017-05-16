@@ -14,6 +14,8 @@ import com.mshvdvskgmail.technoparkmessenger.view.ChatItemView;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -40,7 +42,14 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
         notifyDataSetChanged();
     }
 
-    private void sort(){/*do nothing*/}
+    private void sort(){
+        Collections.sort(chatsList, new Comparator<Chat>() {
+            public int compare(Chat chat1, Chat chat2) {
+
+                return chat1.date.compareTo(chat2.date);
+            }
+        });
+    }
 
     public void setClickListener(ICommand<Chat> clickListener) {
         this.clickListener = clickListener;
@@ -68,6 +77,7 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         public ViewHolder(ChatItemView itemView) {
             super(itemView);
         }

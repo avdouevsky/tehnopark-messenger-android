@@ -43,6 +43,7 @@
 
     <android.support.design.widget.TabLayout
         android:id="@+id/fragment_main_four_tab_tl_tabs"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/backGroundDarkBlue"
