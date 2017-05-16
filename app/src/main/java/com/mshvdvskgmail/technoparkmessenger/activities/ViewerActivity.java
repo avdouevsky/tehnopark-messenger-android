@@ -48,7 +48,7 @@ public class ViewerActivity extends AppCompatActivity {
             Log.d(TAG, "wow url =  " + url);
             Picasso.with(this)
                     .load(url)
-                    .fit()
+//                    .fit()
                     .into(imagePicture);
         }
     }

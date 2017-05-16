@@ -260,6 +260,7 @@ public class FragmentGroupsSettings extends BaseFragment {
         boolean isAdmin = chat.admin.equals(Controller.getInstance().getAuth().getUser().id);
         tvGroupStatus.setText(isAdmin ? "Вы администратор" : "");
         tvGroupCreator.setVisibility(isAdmin ? VISIBLE : GONE);
+        viewMemberList.setAddMemberFunction(isAdmin);
 
         Locale russianLocale = new Locale("ru","RU");
         SimpleDateFormat dateFormatFromServer = new SimpleDateFormat("yyyy-M-dd HH:mm", russianLocale);
@@ -296,4 +297,5 @@ public class FragmentGroupsSettings extends BaseFragment {
                 });
         loadData();
     }
+
 }

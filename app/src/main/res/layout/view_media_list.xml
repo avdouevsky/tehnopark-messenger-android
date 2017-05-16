@@ -28,7 +28,7 @@
             android:layout_height="20dp"
             android:id="@+id/fragment_group_settings_ll_media">
             <TextView
-                android:drawablePadding="3dp"
+                android:drawablePadding="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"

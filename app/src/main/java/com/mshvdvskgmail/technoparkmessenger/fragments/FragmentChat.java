@@ -54,12 +54,14 @@ import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Result;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.mshvdvskgmail.technoparkmessenger.view.MessageEditView;
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
@@ -140,12 +142,21 @@ public class FragmentChat extends BaseFragment {
                     //TODO ((MainActivity) getContext()).executeAction("showProfile", finalUser);
                 }
             });
+
             call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
+
+            if(user.avatar != null) Picasso.with(getContext())
+                    .load(user.avatar)
+                    .placeholder(R.drawable.icon_user)
+                    .error(R.drawable.icon_user)
+                    .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+                    .centerCrop().transform(new RoundedCornersTransformation(360,0))
+                    .into(ivProfile);
         }
 
         messageEditView = (MessageEditView) root.findViewById(R.id.viewMessageEdit);

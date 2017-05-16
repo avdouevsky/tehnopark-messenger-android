@@ -49,6 +49,7 @@
         android:textSize="15sp"
         android:textColor="@color/colorBlueLightText"
         android:textAppearance="@style/TextAppearance.Gotham.Bold"
+        android:visibility="gone"
         />
 
     <android.support.v7.widget.RecyclerView

@@ -56,21 +56,23 @@ public class SipService extends Service {
         Log.d(TAG, "onStartCommand");
 
         //String command = intent.getStringExtra("command");
-        Commands command = (Commands)intent.getSerializableExtra(COMMAND);
-        User user = (User)intent.getSerializableExtra(USER);
+        if(intent!=null){
+            Commands command = (Commands)intent.getSerializableExtra(COMMAND);
+            User user = (User)intent.getSerializableExtra(USER);
 
-        if(command != null){
-            switch (command){
-                case CONNECT:
-                    String ipphone = user.ipphone;
-                    String s[] = ipphone.split(":");
-                    String number = s[0];
-                    String secret = s[1];
-                    connect(number, secret);
-                    break;
-                case CALL:
-                    makeCall(user.id);
-                    break;
+            if(command != null){
+                switch (command){
+                    case CONNECT:
+                        String ipphone = user.ipphone;
+                        String s[] = ipphone.split(":");
+                        String number = s[0];
+                        String secret = s[1];
+                        connect(number, secret);
+                        break;
+                    case CALL:
+                        makeCall(user.id);
+                        break;
+                }
             }
         }
 

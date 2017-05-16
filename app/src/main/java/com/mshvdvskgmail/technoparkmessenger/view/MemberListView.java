@@ -82,4 +82,8 @@ public class MemberListView extends FrameLayout {
         this.addListener = addListener;
     }
 
+    public void setAddMemberFunction(boolean isVisible){
+        tvMemberAdd.setVisibility(isVisible ? VISIBLE : GONE);
+    }
+
 }
