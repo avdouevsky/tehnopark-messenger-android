@@ -117,9 +117,10 @@ public class FragmentChat extends BaseFragment {
             //групповой чат
             tvContact.setText(chat.name);
             if(chat.admin.equals(Controller.getInstance().getAuth().getUser().unique_id)) {
+                tvStatus.setVisibility(View.VISIBLE);
                 tvStatus.setText("Вы администратор");
             }else{
-                tvStatus.setText("");
+                tvStatus.setVisibility(View.GONE);
             }
             ivProfile.setOnClickListener(new View.OnClickListener() {
                 @Override

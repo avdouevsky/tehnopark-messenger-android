@@ -110,7 +110,31 @@ public class FragmentProfile extends BaseFragment {
         if (user.mail==null){
             llMail.setVisibility(View.GONE);
             flMail.setVisibility(View.GONE);
-        } else mail.setText(user.mail);
+        } else {
+            mail.setText(user.mail);
+
+            flMail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL  ,new String[] { user.mail } );
+                    emailIntent.setType("application/octet-stream"); // <-- HERE
+                    startActivity(emailIntent); // <-- AND HERE
+                }
+            });
+
+            mail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL  ,new String[] { user.mail } );
+                    emailIntent.setType("application/octet-stream"); // <-- HERE
+                    startActivity(emailIntent); // <-- AND HERE
+                }
+            });
+
+
+        }
 
 
         imOnline = (ImageView) mRootView.findViewById(R.id.imOnline);

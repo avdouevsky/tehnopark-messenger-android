@@ -258,7 +258,12 @@ public class FragmentGroupsSettings extends BaseFragment {
     private void setChatInfo() {
         tvGroupName.setText(chat.name);
         boolean isAdmin = chat.admin.equals(Controller.getInstance().getAuth().getUser().id);
-        tvGroupStatus.setText(isAdmin ? "Вы администратор" : "");
+        if(isAdmin){
+            tvGroupStatus.setVisibility(VISIBLE);
+            tvGroupStatus.setText("Вы администратор");
+        } else {
+            tvGroupStatus.setVisibility(GONE);
+        }
         tvGroupCreator.setVisibility(isAdmin ? VISIBLE : GONE);
         viewMemberList.setAddMemberFunction(isAdmin);
 

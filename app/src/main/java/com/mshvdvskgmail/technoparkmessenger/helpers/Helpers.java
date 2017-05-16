@@ -10,7 +10,7 @@ import java.util.Date;
 public class Helpers {
     public static String timeToString(int time){
         SimpleDateFormat out_format = new SimpleDateFormat("HH:mm");
-        Date date = new Date(time * 1000);
+        Date date = new Date(time * 1000L);
         return out_format.format(date);
     }
 }

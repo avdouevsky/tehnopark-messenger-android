@@ -166,7 +166,8 @@
                     android:textSize="13sp"
                     android:textColor="@color/colorBlueLightText"
                     android:layout_gravity="center"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="12dp"
+                    android:padding="10dp"
                     android:letterSpacing="0.09"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.Gotham.Bold"
@@ -177,7 +178,7 @@
                     android:layout_height="1dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@color/colorWhiteTransparent20"
-                    android:layout_marginTop="18dp"/>
+                    android:layout_marginTop="8dp"/>
 
             </LinearLayout>
 

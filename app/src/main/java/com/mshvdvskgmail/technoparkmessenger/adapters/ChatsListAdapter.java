@@ -33,6 +33,7 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
     public void setData(List<Chat> chats){
         chatsList = chats;
         sort();
+        Collections.reverse(chatsList);
         notifyDataSetChanged();
     }
 
@@ -45,7 +46,6 @@ public class ChatsListAdapter extends RecyclerView.Adapter<ChatsListAdapter.View
     private void sort(){
         Collections.sort(chatsList, new Comparator<Chat>() {
             public int compare(Chat chat1, Chat chat2) {
-
                 return chat1.date.compareTo(chat2.date);
             }
         });

@@ -6,8 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="37dp"
-        android:paddingRight="37dp"
-        android:layout_marginBottom="35dp"
+        android:paddingRight="30dp"
+        android:layout_marginBottom="23dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -50,13 +50,14 @@
         android:textColor="@color/colorBlueLightText"
         android:textAppearance="@style/TextAppearance.Gotham.Bold"
         android:visibility="gone"
+        android:layout_marginBottom="18dp"
         />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"
-        android:layout_marginTop="18dp"
+
         android:id="@+id/recyclerView"
         android:textAppearance="@style/TextAppearance.Gotham.Bold">
     </android.support.v7.widget.RecyclerView>
