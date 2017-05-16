@@ -10,10 +10,15 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 
+import com.mshvdvskgmail.technoparkmessenger.ChatController;
 import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.RMQChat;
+import com.mshvdvskgmail.technoparkmessenger.network.RabbitMQ;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Result;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,6 +27,10 @@ import org.pjsip.pjsua2.CallOpParam;
 import org.pjsip.pjsua2.pjsip_status_code;
 import org.pjsip.pjsua2.pjsip_transport_state;
 
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.functions.Func1;
 import su.bnet.flowcontrol.Command;
 import su.bnet.phone.helpers.SipObserver;
 import su.bnet.phone.model.MyBuddy;
@@ -108,17 +117,29 @@ public class SipService extends Service {
 
     public void connect(String user, String secret){
         SipPhoneRx.getInstance().connect("213.247.249.83", 25060, user, secret, false, false, false)
-        //SipPhoneRx.getInstance().connect("213.247.249.83", 25061, user, secret, false, true, true)
-                .subscribe(new SipPhoneRx.SipSubscriber<SipPhoneRx>() {
+                .flatMap(new Func1<SipPhoneRx, Observable<Result<Void>>>() {
                     @Override
-                    public void onNext(SipPhoneRx sipPhoneRx) {
+                    public Observable<Result<Void>> call(SipPhoneRx sipPhoneRx) {
+                        return REST.getInstance().register_voip(Controller.getInstance().getAuth().getUser().token, "empty");
+                    }
+                })
+                .subscribe(new REST.DataSubscriber<Void>() {
+                    @Override
+                    public void onData(Void data) {
                         Log.d(TAG, "connected");
-
-                        //textView.setText("Connected");
-                        //layoutConnect.setVisibility(View.GONE);
-                        //buttonDisconnect.setVisibility(View.VISIBLE);
                     }
                 });
+        //SipPhoneRx.getInstance().connect("213.247.249.83", 25061, user, secret, false, true, true)
+//                .subscribe(new SipPhoneRx.SipSubscriber<SipPhoneRx>() {
+//                    @Override
+//                    public void onNext(SipPhoneRx sipPhoneRx) {
+//                        Log.d(TAG, "connected");
+//
+//                        //textView.setText("Connected");
+//                        //layoutConnect.setVisibility(View.GONE);
+//                        //buttonDisconnect.setVisibility(View.VISIBLE);
+//                    }
+//                });
     }
 
     public void disconnect(){
@@ -131,14 +152,30 @@ public class SipService extends Service {
         });
     }
 
-    public void makeCall(String number){
-        SipPhoneRx.getInstance().call(number)
+    public void makeCall(final String number){
+        ChatController.getInstance().r.sendCall(Controller.getInstance().getAuth().user.token,
+                Controller.getInstance().getAuth().user.id, number, "call")
+                .delay(5, TimeUnit.SECONDS)
+                .flatMap(new Func1<RabbitMQ, Observable<MyCall>>() {
+                    @Override
+                    public Observable<MyCall> call(RabbitMQ rabbitMQ) {
+                        Log.d(TAG, "call to rabbit");
+                        return SipPhoneRx.getInstance().call(number);
+                    }
+                })
                 .subscribe(new SipPhoneRx.SipSubscriber<MyCall>() {
                     @Override
                     public void onNext(MyCall myCall) {
                         Log.d(TAG, "Call in progress");
                     }
                 });
+//        SipPhoneRx.getInstance().call(number)
+//                .subscribe(new SipPhoneRx.SipSubscriber<MyCall>() {
+//                    @Override
+//                    public void onNext(MyCall myCall) {
+//                        Log.d(TAG, "Call in progress");
+//                    }
+//                });
     }
 
     public void acceptCall() {

@@ -50,12 +50,32 @@ public class SipPhoneRx {
 
     private Subscriber<MyCall> callSubscriber;
 
-    static {
+//    static {
+//        try {
+//            Log.d(TAG, "load library");
+//            System.loadLibrary("pjsua2");
+//            loaded = true;
+//
+//        }catch (Exception e){
+//            Log.w(TAG, e);
+//        }
+//    }
+
+    public synchronized static void init(){
+        if(loaded) return;
         try {
             Log.d(TAG, "load library");
             System.loadLibrary("pjsua2");
             loaded = true;
+            instance.endpoint = new MyEndpoint();
+            instance.endpoint.libCreate();   //TODO ?? надо ли это выносить отдельно?
 
+            instance.epConfig = new EpConfig();
+            instance.epConfig.getLogConfig().setConsoleLevel(5);
+            instance.epConfig.getLogConfig().setMsgLogging(5);
+            instance.epConfig.getLogConfig().setLevel(5);
+            //epConfig.getLogConfig().setWriter();
+            instance.endpoint.libInit( instance.epConfig );
         }catch (Exception e){
             Log.w(TAG, e);
         }
@@ -98,15 +118,15 @@ public class SipPhoneRx {
                 try{
                     // Create endpoint
                     Log.d(TAG, "Create endpoint");
-                    endpoint = new MyEndpoint();
-                    endpoint.libCreate();   //TODO ?? надо ли это выносить отдельно?
+//                    endpoint = new MyEndpoint();
+//                    endpoint.libCreate();   //TODO ?? надо ли это выносить отдельно?
                     // Initialize endpoint
-                    epConfig = new EpConfig();
-                    epConfig.getLogConfig().setConsoleLevel(5);
-                    epConfig.getLogConfig().setMsgLogging(5);
-                    epConfig.getLogConfig().setLevel(5);
-                    //epConfig.getLogConfig().setWriter();
-                    endpoint.libInit( epConfig );
+//                    epConfig = new EpConfig();
+//                    epConfig.getLogConfig().setConsoleLevel(5);
+//                    epConfig.getLogConfig().setMsgLogging(5);
+//                    epConfig.getLogConfig().setLevel(5);
+//                    //epConfig.getLogConfig().setWriter();
+//                    endpoint.libInit( epConfig );
                     endpoint.codecSetPriority("PCMU/8000/1", (short) 250);
                     // Create SIP transport. Error handling sample is shown
                     Log.d(TAG, "Create SIP transport.");

@@ -19,7 +19,7 @@ public class Message {
 
     //public static String DIALOG = "dialog";
 
-    protected String type;
+    public String type;
     public String room;
     public int date;
     public int version = 1;

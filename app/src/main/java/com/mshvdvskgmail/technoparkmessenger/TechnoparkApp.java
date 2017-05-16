@@ -20,6 +20,8 @@ import org.acra.annotation.ReportsCrashes;
 import com.mshvdvskgmail.technoparkmessenger.network.RabbitMQ;
 import com.mshvdvskgmail.technoparkmessenger.services.MyFirebaseInstanceIDService;
 import com.mshvdvskgmail.technoparkmessenger.services.MyFirebaseMessagingService;
+
+import su.bnet.phone.network.SipPhoneRx;
 //import com.mshvdvskgmail.technoparkmessenger.services.RabbitMQService;
 
 /**
@@ -46,6 +48,7 @@ public class TechnoparkApp extends Application {
 
         if(!BuildConfig.DEBUG) ACRA.init(this);
 
+        SipPhoneRx.init();
 
         instance = this;
         context = getApplicationContext();

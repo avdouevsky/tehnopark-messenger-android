@@ -88,6 +88,7 @@ public class FragmentAuthorization extends BaseFragment{
         mAuthorizationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mAuthorizationButton.setEnabled(false);
                 String stringTrimmer = emailField.getText().toString().trim();
                 REST.getInstance().login(stringTrimmer, passwordField.getText().toString(), Controller.getInstance().deviceType(), Controller.getInstance().deviceId(), FirebaseInstanceId.getInstance().getToken())
                         .flatMap(new Func1<Result<User>, Observable<RabbitMQ>>() {
@@ -113,6 +114,7 @@ public class FragmentAuthorization extends BaseFragment{
                                 e.printStackTrace();
                                 //где то произошел косяк, либо сайт, илбо реббит, либо интернет
                                 Toast.makeText(getActivity(), "Ошибка авторизации", Toast.LENGTH_LONG);
+                                mAuthorizationButton.setEnabled(true);
                             }
 
                             @Override

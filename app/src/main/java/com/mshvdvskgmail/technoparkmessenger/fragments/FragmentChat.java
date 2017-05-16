@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
 import com.mshvdvskgmail.technoparkmessenger.activities.ViewerActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.ChatListAdapter;
 
@@ -53,6 +54,7 @@ import com.mshvdvskgmail.technoparkmessenger.network.model.ChatUser;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Message;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Result;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
+import com.mshvdvskgmail.technoparkmessenger.phone.CallActivity;
 import com.mshvdvskgmail.technoparkmessenger.view.MessageEditView;
 import com.squareup.picasso.Picasso;
 
@@ -146,7 +148,11 @@ public class FragmentChat extends BaseFragment {
             call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(TechnoparkApp.getContext(), CallActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(CallActivity.ACTION, CallActivity.Action.OUTGOING);
+                    intent.putExtra(CallActivity.USER, user);
+                    startActivity(intent);
                 }
             });
 
