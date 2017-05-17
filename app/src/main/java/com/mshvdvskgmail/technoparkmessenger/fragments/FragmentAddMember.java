@@ -113,6 +113,7 @@ public class FragmentAddMember extends BaseFragment {
             }
         });
 
+
         adapterUsers.setClickListener(new ICommand<User>() {
             @Override
             public void exec(User data) {
