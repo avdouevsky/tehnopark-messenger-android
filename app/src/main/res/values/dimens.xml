@@ -6,6 +6,8 @@
     <dimen name="chat_item_image_width_max">250dp</dimen>
     <dimen name="chat_item_image_height_max">140dp</dimen>
     <dimen name="chat_item_image_padding">4dp</dimen>
+    <dimen name="media_picture">85dp</dimen>
+
 
     <dimen name="chat_item_avatar_size">43dp</dimen>
     <dimen name="chat_item_avatar_medium">143dp</dimen>

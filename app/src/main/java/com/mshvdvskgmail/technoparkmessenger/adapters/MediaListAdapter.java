@@ -3,6 +3,7 @@ package com.mshvdvskgmail.technoparkmessenger.adapters;
 import android.content.Context;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import ca.barrenechea.widget.recyclerview.decoration.*;
 
 public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.ViewHolder>
         implements StickyHeaderAdapter<MediaListAdapter.HeaderHolder> {
+    private final static String TAG = MediaListAdapter.class.toString();
 
     private List<Attachment> attachments;
     private Context context;
@@ -78,15 +80,20 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
         pictureSelectorForth = holder.pictureSelectorForth;
 
         int i = position*4;
+        Log.d(TAG, "i=" + i);
         if (attachments.size()>i){
+            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i).uuid);
             pictureFirst.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
                     .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i).uuid)
 //                    .fit()
+                    .centerInside()
+                    .resize(100, 100)
                     .into(pictureFirst);
         }
 
         if (attachments.size()>i+1){
+            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+1).uuid);
             pictureSecond.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
                     .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+1).uuid)
@@ -94,6 +101,7 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
                     .into(pictureSecond);
         }
         if (attachments.size()>i+2) {
+            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+2).uuid);
             pictureThird.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
                     .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+2).uuid)
@@ -102,6 +110,7 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
         }
 
         if (attachments.size()>i+3) {
+            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+3).uuid);
             pictureForth.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
                     .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+3).uuid)
