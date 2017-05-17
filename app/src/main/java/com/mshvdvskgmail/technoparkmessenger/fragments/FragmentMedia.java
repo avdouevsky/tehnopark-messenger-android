@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class FragmentMedia extends BaseFragment {
     private LinearLayout linearBottomBar;
     private TabLayout tabLayout;
     private TextView tvSelectButton;
+    private FrameLayout flBack;
     private AlertDialog alert;
     private boolean isSelected;
 
@@ -48,6 +50,7 @@ public class FragmentMedia extends BaseFragment {
 
         tabLayout = (TabLayout) mRootView.findViewById(R.id.fragment_media_tl_tabs);
         linearBottomBar = (LinearLayout) mRootView.findViewById(R.id.fragment_media_ll_bottom_bar);
+        flBack =(FrameLayout) mRootView.findViewById(R.id.fragment_media_fl_back);
 
 
 
@@ -90,6 +93,13 @@ public class FragmentMedia extends BaseFragment {
     }
 
     private void addListeners() {
+
+        flBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isAdded()) getActivity().onBackPressed();
+            }
+        });
 
         tvSelectButton = (TextView) mRootView.findViewById(R.id.fragment_media_tv_select);
         tvSelectButton.setOnClickListener(new View.OnClickListener(){
@@ -156,6 +166,8 @@ public class FragmentMedia extends BaseFragment {
                 alert.show();
             }
         });
+
+
     }
 
 }

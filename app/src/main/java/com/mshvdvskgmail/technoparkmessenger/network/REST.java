@@ -321,11 +321,15 @@ public class REST implements IService {
                                          List<User> users,
                                          String name){
         String uu = TextUtils.join(",", users);
+        String chatName;
+        StringBuilder sb = new StringBuilder();
+        for (User a : users){
+            sb.append(a.name).append(", ");
+        }
+        chatName = sb.toString().substring(0, sb.toString().length()-2);
 
-
-
-        String tempChatName = TextUtils.join(", ", users);
-        return chat(token.session_id, token.token, uu, tempChatName).compose(this.<Result<Chat>>setup());
+//        String tempChatName = TextUtils.join(", ", users);
+        return chat(token.session_id, token.token, uu, chatName).compose(this.<Result<Chat>>setup());
     }
 
     @Override

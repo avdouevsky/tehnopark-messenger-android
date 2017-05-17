@@ -8,9 +8,23 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="10dp"
+        app:contentInsetLeft="13dp"
+        app:contentInsetStart="13dp"
         android:background="@color/backGroundDarkBlue">
+
+        <FrameLayout
+            android:clickable="true"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/ripple_effect_transparent"
+            android:id="@+id/fragment_media_fl_back"
+            android:onClick="take_me_back">
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:src="@drawable/ic_back_arrow"
+                android:layout_gravity="center"/>
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"

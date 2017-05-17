@@ -5,8 +5,8 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentInsetLeft="3dp"
-        app:contentInsetStart="3dp"
+        app:contentInsetLeft="13dp"
+        app:contentInsetStart="13dp"
         android:background="@color/backGroundDarkBlue">
         <FrameLayout
             android:layout_width="44dp"
@@ -26,9 +26,9 @@
             android:layout_height="43dp"
             android:src="@drawable/ic_group_icon"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="13dp"
+            android:layout_marginStart="22dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="13dp"
+            android:layout_marginLeft="22dp"
             android:id="@+id/fragment_chat_iv_profile"
             />
 
@@ -38,8 +38,8 @@
             android:layout_height="40dp"
             android:paddingRight="44dp"
             android:orientation="vertical"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginLeft="13dp"
             android:layout_marginBottom="10dp"
 
             >
