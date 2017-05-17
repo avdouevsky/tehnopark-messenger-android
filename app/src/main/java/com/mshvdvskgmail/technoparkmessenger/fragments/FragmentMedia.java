@@ -1,6 +1,8 @@
 package com.mshvdvskgmail.technoparkmessenger.fragments;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,11 +16,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.R;
+import com.mshvdvskgmail.technoparkmessenger.activities.ViewerActivity;
 import com.mshvdvskgmail.technoparkmessenger.adapters.MediaTabAdapter;
 import com.mshvdvskgmail.technoparkmessenger.events.MessageEvent;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
 
 /**
  * Created by mshvdvsk on 21/03/2017.
@@ -34,6 +44,7 @@ public class FragmentMedia extends BaseFragment {
     private FrameLayout flBack;
     private AlertDialog alert;
     private boolean isSelected;
+    private User user;
 
     public FragmentMedia() {}
 
@@ -46,6 +57,18 @@ public class FragmentMedia extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        user = ArgsBuilder.create(getArguments()).user();
+        REST.getInstance().get_user_pictures(Controller.getInstance().getAuth().getUser().token, user)
+                .subscribe(new REST.DataSubscriber<List<Attachment>>() {
+                    @Override
+                    public void onData(List<Attachment> data) {
+                        if (data!=null){
+                            Attachment a = data.get(0);
+                        }
+                    }
+                });
+
         mRootView = inflater.inflate(R.layout.fragment_media, container, false);
 
         tabLayout = (TabLayout) mRootView.findViewById(R.id.fragment_media_tl_tabs);
@@ -106,12 +129,12 @@ public class FragmentMedia extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (!isSelected){
-//                    EventBus.getDefault().post(new MessageEvent(true));
+                    EventBus.getDefault().post(new MessageEvent(true));
                     linearBottomBar.setVisibility(View.VISIBLE);
                     tvSelectButton.setText("Отменить");
                     isSelected = true;
                 } else {
-//                    EventBus.getDefault().post(new MessageEvent(false));
+                    EventBus.getDefault().post(new MessageEvent(false));
                     linearBottomBar.setVisibility(View.GONE);
                     tvSelectButton.setText("Выбрать");
                     isSelected = false;

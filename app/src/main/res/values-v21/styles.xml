@@ -3,7 +3,8 @@
     <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/colorBlueTextPrimary</item>
-        <item name="android:letterSpacing">0.12</item>
+        <item name="android:letterSpacing">0.09</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.Gotham.Bold</item>
     </style>
 </resources>

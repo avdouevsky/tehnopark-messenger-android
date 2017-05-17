@@ -440,6 +440,17 @@ public class REST implements IService {
 
     @Override
     @Deprecated
+    public Observable<Result<List<Attachment>>> get_user_pictures(@Header("session-id") int session_id, @Header("token") String token, @Query("user_id") String user_id) {
+        return service.get_user_pictures(session_id, token, user_id).compose(this.<Result<List<Attachment>>>setup());
+    }
+
+
+    public Observable<Result<List<Attachment>>> get_user_pictures(Token token, User user) {
+        return get_user_pictures(token.session_id, token.token, user.id);
+    }
+
+    @Override
+    @Deprecated
     public Observable<Result<Attachment>> get_attachment(@Header("session-id") int session_id, @Header("token") String token, @Query("uuid") String uuid) {
         return service.get_attachment(session_id, token, uuid).compose(this.<Result<Attachment>>setup());
     }

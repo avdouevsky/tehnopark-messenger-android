@@ -309,7 +309,10 @@ public class FragmentProfile extends BaseFragment {
         llMediaLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MEDIA, null));
+                // attempt to pass attachments from profile to media
+//                Bundle bundle = new Bundle();
+//                bundle.putSt();
+                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.MEDIA, ArgsBuilder.create().chat(null).bundle()));
             }
         });
     }

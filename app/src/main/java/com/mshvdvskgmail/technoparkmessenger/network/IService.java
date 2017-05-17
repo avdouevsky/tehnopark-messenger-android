@@ -133,6 +133,12 @@ public interface IService {
                                                                      @Header("token") String token,
                                                                      @Query("user_id") String user_id);
 
+    @GET("?r=messages/attach/index/&mime=")
+    public Observable<Result<List<Attachment>>> get_user_pictures(@Header("session-id") int session_id,
+                                                                     @Header("token") String token,
+                                                                     @Query("user_id") String user_id);
+
+
     @GET("?r=messages/attach/get&view=0")
     public Observable<Result<Attachment>> get_attachment(@Header("session-id") int session_id,
                                                                      @Header("token") String token,

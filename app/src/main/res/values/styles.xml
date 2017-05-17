@@ -9,7 +9,8 @@
     <style name="TabTextStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/colorBlueTextPrimary</item>
-        <item name="android:textStyle">bold</item>
+        <!--<item name="android:textAppearance">@style/TextAppearance.Gotham.Bold</item>-->
+        <!--<item name="android:textStyle">bold</item>-->
     </style>
 
     <style name="Color1SwitchStyle" parent="Theme.AppCompat.Light">
