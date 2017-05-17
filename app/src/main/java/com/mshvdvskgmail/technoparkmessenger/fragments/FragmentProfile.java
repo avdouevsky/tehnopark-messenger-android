@@ -213,14 +213,7 @@ public class FragmentProfile extends BaseFragment {
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                REST.getInstance().chat(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, user.id, "")
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new REST.DataSubscriber<Chat>(){
-                            @Override
-                            public void onData(Chat data) {
-                                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.CHAT, ArgsBuilder.create().chat(data).bundle(), SwitchFragmentEvent.Direction.REPLACE));
-                            }
-                        });
+
             }
         });
 

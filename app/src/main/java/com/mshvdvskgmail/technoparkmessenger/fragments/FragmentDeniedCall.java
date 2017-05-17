@@ -12,11 +12,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.mshvdvskgmail.technoparkmessenger.Controller;
 import com.mshvdvskgmail.technoparkmessenger.Fragments;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.TechnoparkApp;
 import com.mshvdvskgmail.technoparkmessenger.events.SipServiceEvent;
 import com.mshvdvskgmail.technoparkmessenger.events.SwitchFragmentEvent;
+import com.mshvdvskgmail.technoparkmessenger.helpers.ArgsBuilder;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Chat;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 import com.mshvdvskgmail.technoparkmessenger.phone.CallActivity;
 import com.squareup.picasso.Picasso;
@@ -24,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import org.greenrobot.eventbus.EventBus;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by mshvdvsk on 09/03/2017.
@@ -62,8 +67,8 @@ public class FragmentDeniedCall extends BaseFragment {
             user = (User)args.getSerializable(USER);
         }
 
-        frameCallback.setVisibility(user == null ? View.INVISIBLE : View.VISIBLE);
-        frameMessage.setVisibility(user == null ? View.INVISIBLE : View.VISIBLE);
+//        frameCallback.setVisibility(user == null ? View.INVISIBLE : View.VISIBLE);
+//        frameMessage.setVisibility(user == null ? View.INVISIBLE : View.VISIBLE);
 
         inflatePicture(mRootView);
         addListeners(mRootView);
@@ -102,7 +107,14 @@ public class FragmentDeniedCall extends BaseFragment {
         frameMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                REST.getInstance().chat(Controller.getInstance().getAuth().getUser().token.session_id, Controller.getInstance().getAuth().getUser().token.token, user.id, "")
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new REST.DataSubscriber<Chat>(){
+                            @Override
+                            public void onData(Chat data) {
+                                EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.CHAT, ArgsBuilder.create().chat(data).bundle(), SwitchFragmentEvent.Direction.REPLACE));
+                            }
+                        });
             }
         });
 

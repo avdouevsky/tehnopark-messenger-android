@@ -295,12 +295,20 @@ public class FragmentGroupsSettings extends BaseFragment {
                             if (chat.id.equals(clone.id)&&chat.getUsers().size()!=clone.getUsers().size()){
                                 ArgsBuilder.create().chat(chat);
                                 viewMemberList.setData(chat);
+                                final Chat updatedChat = chat;
+                                viewMemberList.setAddListener(new ICommand<Void>() {
+                                    @Override
+                                    public void exec(Void data) {
+                                        EventBus.getDefault().postSticky(new SwitchFragmentEvent(Fragments.ADD_MEMBER, ArgsBuilder.create().chat(updatedChat).bundle()));
+                                    }
+                                });
                                 break;
                             }
                         }
                     }
                 });
         loadData();
+
     }
 
 }

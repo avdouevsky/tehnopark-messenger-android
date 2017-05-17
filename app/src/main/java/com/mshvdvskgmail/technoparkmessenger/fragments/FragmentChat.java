@@ -110,61 +110,68 @@ public class FragmentChat extends BaseFragment {
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
 
-        List<ChatUser> usersList = chat.users;
-
-        if(chat.peer2peer == 0){
-            Log.w("chat", "status: "+ chat.admin + " v. "+Controller.getInstance().getAuth().getUser().unique_id);
-            //групповой чат
-            tvContact.setText(chat.name);
-            if(chat.admin.equals(Controller.getInstance().getAuth().getUser().unique_id)) {
-                tvStatus.setVisibility(View.VISIBLE);
-                tvStatus.setText("Вы администратор");
-            }else{
-                tvStatus.setVisibility(View.GONE);
-            }
-            ivProfile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO ((MainActivity) getContext()).executeAction("showGroupSettings", chat);
-                }
-            });
-            call.setVisibility(View.GONE);
-        }else{
-            //одиночный
-            user = usersList.get(0).user;
-            if(user.id.equals(Controller.getInstance().getAuth().getUser().id)) {
-                user = usersList.get(1).user;
-            }
-            tvContact.setText(user.cn);
-            tvStatus.setText(user.online == 1 ? "ОНЛАЙН" : "ОФФЛАЙН");
-
-            final User finalUser = user;
-            ivProfile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO ((MainActivity) getContext()).executeAction("showProfile", finalUser);
-                }
-            });
-
-            call.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(TechnoparkApp.getContext(), CallActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(CallActivity.ACTION, CallActivity.Action.OUTGOING);
-                    intent.putExtra(CallActivity.USER, user);
-                    startActivity(intent);
-                }
-            });
-
-            if(user.avatar != null) Picasso.with(getContext())
-                    .load(user.avatar)
-                    .placeholder(R.drawable.icon_user)
-                    .error(R.drawable.icon_user)
-                    .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
-                    .centerCrop().transform(new RoundedCornersTransformation(360,0))
-                    .into(ivProfile);
+        if (chat==null){
+            return root;
         }
+
+        if (chat!=null){
+            List<ChatUser> usersList = chat.users;
+
+            if(chat.peer2peer == 0){
+                Log.w("chat", "status: "+ chat.admin + " v. "+Controller.getInstance().getAuth().getUser().unique_id);
+                //групповой чат
+                tvContact.setText(chat.name);
+                if(chat.admin.equals(Controller.getInstance().getAuth().getUser().unique_id)) {
+                    tvStatus.setVisibility(View.VISIBLE);
+                    tvStatus.setText("Вы администратор");
+                }else{
+                    tvStatus.setVisibility(View.GONE);
+                }
+                ivProfile.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO ((MainActivity) getContext()).executeAction("showGroupSettings", chat);
+                    }
+                });
+                call.setVisibility(View.GONE);
+            }else{
+                //одиночный
+                user = usersList.get(0).user;
+                if(user.id.equals(Controller.getInstance().getAuth().getUser().id)) {
+                    user = usersList.get(1).user;
+                }
+                tvContact.setText(user.cn);
+                tvStatus.setText(user.online == 1 ? "ОНЛАЙН" : "ОФФЛАЙН");
+
+                final User finalUser = user;
+                ivProfile.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //TODO ((MainActivity) getContext()).executeAction("showProfile", finalUser);
+                    }
+                });
+
+                call.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(TechnoparkApp.getContext(), CallActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(CallActivity.ACTION, CallActivity.Action.OUTGOING);
+                        intent.putExtra(CallActivity.USER, user);
+                        startActivity(intent);
+                    }
+                });
+
+                if(user.avatar != null) Picasso.with(getContext())
+                        .load(user.avatar)
+                        .placeholder(R.drawable.icon_user)
+                        .error(R.drawable.icon_user)
+                        .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+                        .centerCrop().transform(new RoundedCornersTransformation(360,0))
+                        .into(ivProfile);
+            }
+        }
+
 
         messageEditView = (MessageEditView) root.findViewById(R.id.viewMessageEdit);
 

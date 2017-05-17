@@ -321,6 +321,9 @@ public class REST implements IService {
                                          List<User> users,
                                          String name){
         String uu = TextUtils.join(",", users);
+
+
+
         String tempChatName = TextUtils.join(", ", users);
         return chat(token.session_id, token.token, uu, tempChatName).compose(this.<Result<Chat>>setup());
     }

@@ -44,7 +44,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1 / 253"
                 android:id="@+id/fragment_add_member_tv_selected_counter"
                 android:textColor="@color/colorWhiteText"
                 android:layout_gravity="center_horizontal"
