@@ -277,7 +277,7 @@ public class FragmentChat extends BaseFragment {
     }
 
     private void sendFile(File file, String mime){
-        REST.getInstance().upload_attach(Controller.getInstance().getAuth().getUser().token, file, mime)
+        REST.getInstance().upload_attach(Controller.getInstance().getAuth().getUser().token, file, String.valueOf(System.currentTimeMillis()), mime)
                 .subscribe(new REST.DataSubscriber<Attachment>() {
                     @Override
                     public void onData(Attachment data) {

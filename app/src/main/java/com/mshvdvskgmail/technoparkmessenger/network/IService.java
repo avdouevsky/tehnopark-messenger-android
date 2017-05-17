@@ -119,8 +119,9 @@ public interface IService {
     @Multipart
     @POST("?r=messages/attach/upload")
     public Observable<Result<Attachment>> upload_attach(@Header("session-id") int session_id,
-                                                    @Header("token") String token,
-                                                    @Part MultipartBody.Part file);
+                                                        @Header("token") String token,
+                                                        @Header("time") String time,
+                                                        @Part MultipartBody.Part file);
 
     //http://t-mes.xsrv.ru/basic/web/?r=messages/attach/index&debug=1&room_uuid=blablabla
     @GET("?r=messages/attach/index/&mime=*/*")

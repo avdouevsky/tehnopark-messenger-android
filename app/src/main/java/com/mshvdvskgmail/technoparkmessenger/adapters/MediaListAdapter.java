@@ -20,8 +20,12 @@ import com.squareup.picasso.Picasso;
 
 import org.pjsip.pjsua2.VideoWindow;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import ca.barrenechea.widget.recyclerview.decoration.*;
 
@@ -80,6 +84,7 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
         pictureSelectorForth = holder.pictureSelectorForth;
 
         int i = position*4;
+        boolean sameMothe = true;
         Log.d(TAG, "i=" + i);
         if (attachments.size()>i){
             Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i).uuid);
@@ -87,8 +92,8 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
             REST.getInstance().getPicasso()
                     .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i).uuid)
 //                    .fit()
-                    .centerInside()
-                    .resize(100, 100)
+                    .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+                    .centerCrop()
                     .into(pictureFirst);
         }
 
@@ -97,7 +102,8 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
             pictureSecond.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
                     .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+1).uuid)
-//                    .fit()
+                    .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+                    .centerCrop()
                     .into(pictureSecond);
         }
         if (attachments.size()>i+2) {
@@ -105,7 +111,8 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
             pictureThird.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
                     .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+2).uuid)
-//                    .fit()
+                    .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+                    .centerCrop()
                     .into(pictureThird);
         }
 
@@ -114,7 +121,8 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
             pictureForth.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
                     .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+3).uuid)
-//                    .fit()
+                    .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+                    .centerCrop()
                     .into(pictureForth);
         }
 
@@ -245,7 +253,7 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
 
     @Override
     public long getHeaderId(int position) {
-        return 0;//attachments.get(position).getDate().subSequence(0, 1).charAt(0);
+        return attachments.get(position).size.subSequence(0, 1).charAt(0);
     }
 
     @Override
@@ -257,7 +265,11 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
     @Override
     public void onBindHeaderViewHolder(MediaListAdapter.HeaderHolder viewHolder, int position) {
 //        viewHolder.header.setText(""+media.get(position).getDate());
-        viewHolder.header.setText("January");
+        if(position<4){
+            viewHolder.header.setText("<4");
+        } else if (position==5){
+            viewHolder.header.setText("5");
+        } else  viewHolder.header.setText("January");
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -305,6 +317,15 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
 //            a.setPressedThird(false);
 //            a.setPressedForth(false);
 //        }
+    }
+
+    private String convertIntoMonth(String date){
+        long dateLong = Long.parseLong(date);
+        Date dateDate = new Date(dateLong * 1000);
+        Locale russianLocale = new Locale("ru","RU");
+        SimpleDateFormat dateFormatRequired = new SimpleDateFormat("MMMM", russianLocale);
+        String monthName = dateFormatRequired.format(dateDate);
+        return monthName;
     }
 
 }

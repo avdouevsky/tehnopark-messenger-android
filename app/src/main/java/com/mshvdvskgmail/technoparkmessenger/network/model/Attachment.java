@@ -9,4 +9,5 @@ public class Attachment  {
     public String uuid;
     public String name;
     public String size;
+    public String time;
 }

@@ -408,15 +408,16 @@ public class REST implements IService {
 
     @Override
     public Observable<Result<Attachment>> upload_attach(@Header("session-id") int session_id,
-                                                    @Header("token") String token,
-                                                    @Part MultipartBody.Part file){
-        return service2.upload_attach(session_id, token, file).compose(this.<Result<Attachment>>setup());
+                                                        @Header("token") String token,
+                                                        @Header("time") String time,
+                                                        @Part MultipartBody.Part file){
+        return service2.upload_attach(session_id, token, time, file).compose(this.<Result<Attachment>>setup());
     }
 
-    public Observable<Result<Attachment>> upload_attach(Token token, File file, String mime) {
+    public Observable<Result<Attachment>> upload_attach(Token token, File file, String time, String mime) {
         RequestBody requestFile = RequestBody.create(MediaType.parse(mime), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-        return upload_attach(token.session_id, token.token, body);
+        return upload_attach(token.session_id, token.token, time, body);
     }
 
     @Override
