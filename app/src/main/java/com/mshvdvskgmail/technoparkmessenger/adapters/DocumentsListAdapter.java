@@ -18,8 +18,11 @@ import com.mshvdvskgmail.technoparkmessenger.models.DocumentsListItem;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
 
@@ -48,6 +51,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
     private LayoutInflater inflater;
     public boolean isAnimated;
     public boolean isPressed;
+    String mimeType  = "application";
 
     public DocumentsListAdapter(List<Attachment> files, Context context) {
         this.files = files;
@@ -104,16 +108,21 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         }
 
 
-        holder.tvType.setText(files.get(position).name.substring(files.get(position).name.lastIndexOf('.') + 1));
-        if(holder.tvType.getText().equals("")||holder.tvType.getText().length()>4){
-            holder.tvType.setText("file");
+        if((files.get(position).mime.indexOf(mimeType)!=-1)){
+            holder.mView.setVisibility(View.VISIBLE);
+            holder.tvType.setText(files.get(position).name.substring(files.get(position).name.lastIndexOf('.') + 1));
+            if(holder.tvType.getText().equals("")||holder.tvType.getText().length()>4){
+                holder.tvType.setText("file");
+            }
+            holder.tvIconType.setText(files.get(position).name.substring(files.get(position).name.lastIndexOf('.') + 1));
+            if(holder.tvIconType.getText().equals("")||holder.tvIconType.getText().length()>4){
+                holder.tvIconType.setText("file");
+            }
+            holder.tvName.setText(files.get(position).name);
+            holder.tvSize.setText(humanReadableByteCount(Long.parseLong(files.get(position).size), true));
+        } else {
+            holder.mView.setVisibility(View.GONE);
         }
-        holder.tvIconType.setText(files.get(position).name.substring(files.get(position).name.lastIndexOf('.') + 1));
-        if(holder.tvIconType.getText().equals("")||holder.tvIconType.getText().length()>4){
-            holder.tvIconType.setText("file");
-        }
-        holder.tvName.setText(files.get(position).name);
-        holder.tvSize.setText(humanReadableByteCount(Long.parseLong(files.get(position).size), true));
 
 
 //
@@ -212,7 +221,9 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
     @Override
     public long getHeaderId(int position) {
-        return 0;//documents.get(position).getDataSent().subSequence(0, 1).charAt(0);
+        return convertIntoMonth(files.get(position).time).subSequence(0, 1).charAt(0);
+
+        //documents.get(position).getDataSent().subSequence(0, 1).charAt(0);
     }
 
     @Override
@@ -223,7 +234,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
     @Override
     public void onBindHeaderViewHolder(DocumentsListAdapter.HeaderHolder viewHolder, int position) {
-        viewHolder.header.setText("hey");//+documents.get(position).getDataSent());
+        viewHolder.header.setText(convertIntoMin(files.get(position).time));//+documents.get(position).getDataSent());
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -279,5 +290,23 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         Log.w("kek", ""+bytes / Math.pow(unit, exp));
 
         return String.format("%.0f %sB", bytes / Math.pow(unit, exp), pre);
+    }
+
+    private String convertIntoMonth(String date){
+        long dateLong = Long.parseLong(date);
+        Date dateDate = new Date(dateLong * 1000);
+        Locale russianLocale = new Locale("ru","RU");
+        SimpleDateFormat dateFormatRequired = new SimpleDateFormat("mm", russianLocale);
+        String monthName = dateFormatRequired.format(dateDate);
+        return monthName;
+    }
+
+    private String convertIntoMin(String date){
+        long dateLong = Long.parseLong(date);
+        Date dateDate = new Date(dateLong * 1000);
+        Locale russianLocale = new Locale("ru","RU");
+        SimpleDateFormat dateFormatRequired = new SimpleDateFormat("hh:mm", russianLocale);
+        String monthName = dateFormatRequired.format(dateDate);
+        return monthName;
     }
 }

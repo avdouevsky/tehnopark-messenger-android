@@ -29,6 +29,8 @@ import java.util.List;
 
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderDecoration;
 
+import static android.R.attr.mimeType;
+
 /**
  * Created by mshvdvsk on 22/03/2017.
  */
@@ -66,7 +68,12 @@ public class FragmentDocumentsList extends Fragment {
                     public void onData(List<Attachment> data) {
                         if (data!=null){
                             Log.d(TAG, "onData");
-//                            adapter.setData(data);
+                            List<Attachment> searchedDate = new ArrayList<Attachment>();
+                          for (Attachment a : data){
+                              if((a.mime.indexOf("application")!=-1)){
+                                  searchedDate.add(a);
+                              }
+                            }
                             adapter.setData(data);
                             decor = new StickyHeaderDecoration(adapter);
                             recyclerView.addItemDecoration(decor, 0);
