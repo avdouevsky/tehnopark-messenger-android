@@ -2,6 +2,7 @@ package com.mshvdvskgmail.technoparkmessenger.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,18 @@ import android.widget.TextView;
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.models.DocumentsListItem;
 import com.mshvdvskgmail.technoparkmessenger.models.LinksItem;
+import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
+import static com.mshvdvskgmail.technoparkmessenger.R.id.imPreview;
+import static com.mshvdvskgmail.technoparkmessenger.R.id.recycler_item_links_image_icon;
 
 /**
  * Created by mshvdvsk on 23/03/2017.
@@ -29,7 +36,9 @@ import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
 public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.ViewHolder>
         implements StickyHeaderAdapter<LinksListAdapter.HeaderHolder> {
 
-//    private ArrayList<LinksItem> links;
+    private final static String TAG = LinksListAdapter.class.toString();
+
+    //    private ArrayList<LinksItem> links;
     private List<Attachment> files;
     private Context context;
     private FrameLayout frameBottom;
@@ -78,6 +87,19 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
 
         if(files!=null){
             holder.tvLink.setText(files.get(position).name);
+//            holder.imageLinkLogo;
+            Log.d(TAG, "wow link =  " + (files.get(position).icon+files.get(position).uuid));
+            REST.getInstance().getPicasso()
+                    .load((files.get(position).icon+files.get(position).uuid))
+                    .into(holder.imageLinkLogo);
+
+//            REST.getInstance().getPicasso()
+//                    .load((files.get(position).icon)
+//                    .resizeDimen(R.dimen.chat_item_image_width_max, R.dimen.chat_item_image_height_max)
+//                    .centerCrop()
+//                    .transform(new RoundedCornersTransformation(Math.round(getResources().getDimension(R.dimen.chat_image_inner_corner)),0))
+//                    .into(holder.imageLinkLogo);
+
         }
 
 
@@ -231,6 +253,7 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
         ImageView imageCheckMarkIcon;
         TextView tvTitle;
         TextView tvLink;
+        ImageView imageLinkLogo;
 
 
         public ViewHolder(View itemView) {
@@ -245,6 +268,8 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
             linearLinkInfo = (LinearLayout) itemView.findViewById(R.id.recycler_item_links_ll_link_info);
             tvTitle = (TextView) itemView.findViewById(R.id.recycler_item_links_tv_title);
             tvLink = (TextView) itemView.findViewById(R.id.recycler_item_links_tv_link);
+            tvLink = (TextView) itemView.findViewById(R.id.recycler_item_links_tv_link);
+            imageLinkLogo = (ImageView) itemView.findViewById(R.id.recycler_item_links_image_icon);
         }
     }
 

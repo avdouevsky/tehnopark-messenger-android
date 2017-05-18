@@ -70,12 +70,21 @@ public class FragmentLinksList extends BaseFragment {
                     public void onData(List<Attachment> data) {
                         if (data!=null){
                             Log.d(TAG, "onData");
-                            List<Attachment> searchedDate = new ArrayList<Attachment>();
-                            for (Attachment a : data){
-                                if((a.mime.indexOf("message/http")!=-1)){
+                            List<Attachment> searchedDate = new ArrayList<>();
+                            for (int i = 0; i < data.size(); i++){
+                                Attachment a = data.get(i);
+                                if((a.mime.indexOf("text/url")!=-1)){
+                                    a.icon = data.get(i).icon;
                                     searchedDate.add(a);
                                 }
                             }
+
+//                            for (Attachment a : data){
+//                                if((a.mime.indexOf("message/http")!=-1)){
+//                                    a.icon = data.get()
+//                                    searchedDate.add(a);
+//                                }
+//                            }
                             adapter.setData(searchedDate);
                             decor = new StickyHeaderDecoration(adapter);
                             recyclerView.addItemDecoration(decor, 0);

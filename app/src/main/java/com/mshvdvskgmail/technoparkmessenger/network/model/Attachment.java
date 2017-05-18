@@ -10,4 +10,5 @@ public class Attachment  {
     public String name;
     public String size;
     public String time;
+    public String icon;
 }
