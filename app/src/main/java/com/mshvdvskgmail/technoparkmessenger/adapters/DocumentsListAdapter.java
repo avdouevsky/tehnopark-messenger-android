@@ -49,14 +49,14 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
     public boolean isAnimated;
     public boolean isPressed;
 
-    public DocumentsListAdapter(Context context) {
+    public DocumentsListAdapter(List<Attachment> files, Context context) {
         this.files = files;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
-    public void setData(List<Attachment> attachments){
-        files = attachments;
+    public void setData(List<Attachment> files){
+        this.files = files;
         sort();
         notifyDataSetChanged();
     }

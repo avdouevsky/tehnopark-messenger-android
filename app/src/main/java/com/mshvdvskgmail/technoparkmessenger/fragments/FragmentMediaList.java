@@ -51,10 +51,6 @@ public class FragmentMediaList extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = inflater.inflate(R.layout.recycler_view_basic, container, false);
 
-//        try{
-//            EventBus.getDefault().register(this);
-//        } catch (Exception e){}
-
         user = ArgsBuilder.create(getArguments()).user();
         REST.getInstance().get_user_pictures(Controller.getInstance().getAuth().getUser().token, user)
                 .subscribe(new REST.DataSubscriber<List<Attachment>>() {

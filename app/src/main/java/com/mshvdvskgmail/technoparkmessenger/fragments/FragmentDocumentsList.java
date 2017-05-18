@@ -52,10 +52,12 @@ public class FragmentDocumentsList extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new DocumentsListAdapter(getContext());
-        decor = new StickyHeaderDecoration(adapter);
-        recyclerView.addItemDecoration(decor, 0);
+        adapter = new DocumentsListAdapter(null, getContext());
         recyclerView.setAdapter(adapter);
+//        adapter = new DocumentsListAdapter(getContext());
+//        decor = new StickyHeaderDecoration(adapter);
+//        recyclerView.addItemDecoration(decor, 0);
+//        recyclerView.setAdapter(adapter);
 
         user = ArgsBuilder.create(getArguments()).user();
         REST.getInstance().get_user_attachments(Controller.getInstance().getAuth().getUser().token, user)
@@ -64,7 +66,11 @@ public class FragmentDocumentsList extends Fragment {
                     public void onData(List<Attachment> data) {
                         if (data!=null){
                             Log.d(TAG, "onData");
+//                            adapter.setData(data);
                             adapter.setData(data);
+                            decor = new StickyHeaderDecoration(adapter);
+                            recyclerView.addItemDecoration(decor, 0);
+                            recyclerView.setAdapter(adapter);
                         }
                     }
                 });
