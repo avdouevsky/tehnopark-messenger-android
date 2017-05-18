@@ -74,43 +74,7 @@ public class FragmentMediaList extends BaseFragment {
         mLayoutManager = new GridLayoutManager(getActivity(), 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        media = new ArrayList<>();
 
-        MediaList a = new MediaList();
-        a.setDate("ЯНВАРЬ");
-        media.add(a);
-
-        MediaList b = new MediaList();
-        b.setDate("ФЕВРАЛЬ");
-        b.setEmptyForth(true);
-        media.add(b);
-
-        MediaList c = new MediaList();
-        c.setDate("МАРТ");
-        c.setEmptyForth(true);
-        media.add(c);
-
-        MediaList d = new MediaList();
-        d.setDate("АПРЕЛЬ");
-        d.setEmptyForth(true);
-        c.setEmptyForth(true);
-        media.add(d);
-
-        MediaList e = new MediaList();
-        e.setDate("ЯНВАРЬ");
-        media.add(e);
-
-        MediaList f = new MediaList();
-        f.setDate("ИЮНЬ");
-        media.add(f);
-
-        MediaList g = new MediaList();
-        g.setDate("АВГУСТ");
-        media.add(g);
-
-        MediaList h = new MediaList();
-        h.setDate("СЕНТЯБРЬ");
-        media.add(h);
 
 
 //        adapter = new MediaListAdapter(media, getContext());

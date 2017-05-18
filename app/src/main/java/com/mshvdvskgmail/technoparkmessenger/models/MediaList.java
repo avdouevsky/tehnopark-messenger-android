@@ -4,6 +4,7 @@ import com.mshvdvskgmail.technoparkmessenger.helpers.MediaListHelper;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -23,24 +24,30 @@ public class MediaList {
     public MediaList(List<Attachment> attachments){
         this.attachments = attachments;
         helperUnit = new MediaListHelper();
+        rowList = new ArrayList<>();
         counter = 0;
+        fillRowList();
+        int a = 5;
     }
 
     private void fillRowList(){
 
-
         for (int i = 0; i < attachments.size(); i++){
             if (i==0) {
-                helperUnit.putUuid(p, null);
-                helperUnit.uuid1 = attachments.get(i).uuid;
+                helperUnit.putUuid(counter, attachments.get(i).uuid);
                 counter++;
             } else {
-                if (!attachments.get(i).time.equals(attachments.get(i-1).time)){
+                if (attachments.get(i).time==null||!convertIntoMonth(attachments.get(i).time).equals(convertIntoMonth(attachments.get(i-1).time))){
                     for (int p = counter; p < 4; p++){
                         helperUnit.putUuid(p, null);
-                    } rowList.add(helperUnit);
-                } {
-
+                    }
+                    rowList.add(helperUnit);
+                    counter = 0;
+                } else {
+                    helperUnit.putUuid(counter, attachments.get(i).uuid);
+                    if(counter==3){
+                        counter=0;
+                    } else counter++;
                 }
             }
         }

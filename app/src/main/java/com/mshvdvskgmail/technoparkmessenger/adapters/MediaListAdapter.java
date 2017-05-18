@@ -55,6 +55,7 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
 
     public boolean isSelecting;
     private int currentItem;
+    private MediaList mediaList;
 
 
     public MediaListAdapter(List<Attachment> attachments, Context context) {
@@ -62,6 +63,7 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
         this.context = context;
         currentItem = 0;
         mInflater = LayoutInflater.from(context);
+        mediaList = new MediaList(attachments);
     }
 
     @Override
@@ -85,120 +87,90 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
         pictureSelectorThird = holder.pictureSelectorThird;
         pictureSelectorForth = holder.pictureSelectorForth;
 
-        boolean isSameMonth = true;
         Log.d(TAG, "i=" + currentItem);
-//        for (int i = 0; i <4; i++){
-//            if (attachments.size()>currentItem){
-//                Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid);
-//                pictureFirst.setVisibility(View.VISIBLE);
-//                switch (i){
-//                    case 0:
-//                        REST.getInstance().getPicasso()
-//                                .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid)
-//                                .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
-//                                .centerCrop()
-//                                .into(pictureFirst);
-//                        break;
-//                    case 1:
-//                        REST.getInstance().getPicasso()
-//                                .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid)
-//                                .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
-//                                .centerCrop()
-//                                .into(pictureSecond);
-//                        break;
-//                    case 2:
-//                        REST.getInstance().getPicasso()
-//                                .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid)
-//                                .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
-//                                .centerCrop()
-//                                .into(pictureThird);
-//                        break;
-//                    case 3:
-//                        REST.getInstance().getPicasso()
-//                                .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid)
-//                                .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
-//                                .centerCrop()
-//                                .into(pictureForth);
-//                        break;
-//
-//                }
-//                currentItem++;
-//            } else {
-//
-//            }
-//        }
-
-//
-
-        if (attachments.size()>currentItem){
-            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid);
-            pictureSecond.setVisibility(View.VISIBLE);
+        int i = position*4;
+        boolean sameMothe = true;
+        Log.d(TAG, "i=" + i);
+        if (attachments.size()>i){
+            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i).uuid);
+            pictureFirst.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
-                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid)
+                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i).uuid)
+//                    .fit()
                     .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
                     .centerCrop()
                     .into(pictureFirst);
-            if(attachments.size()-1!=currentItem){
-                currentItem++;
-            }
+        } else {
+            pictureFirst.setVisibility(View.GONE);
         }
 
-        if (!convertIntoMonth(attachments.get(currentItem).time).equals(convertIntoMonth(attachments.get(currentItem-1).time))){
-            isSameMonth = false;
-        }
-
-        if (isSameMonth&&attachments.size()>currentItem){
-            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid);
+        if (attachments.size()>i+1){
+            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+1).uuid);
             pictureSecond.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
-                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid)
+                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+1).uuid)
                     .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
                     .centerCrop()
                     .into(pictureSecond);
-            if(attachments.size()-1!=currentItem){
-                currentItem++;
-            }
         } else {
             pictureSecond.setVisibility(View.GONE);
         }
-
-        if (isSameMonth&&!convertIntoMonth(attachments.get(currentItem).time).equals(convertIntoMonth(attachments.get(currentItem-1).time))){
-            isSameMonth = false;
-        }
-
-        if (isSameMonth&&attachments.size()>currentItem) {
-            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid);
+        if (attachments.size()>i+2) {
+            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+2).uuid);
             pictureThird.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
-                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid)
+                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+2).uuid)
                     .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
                     .centerCrop()
                     .into(pictureThird);
-            if(attachments.size()-1!=currentItem){
-                currentItem++;
-            }
         } else {
             pictureThird.setVisibility(View.GONE);
         }
 
-        if (isSameMonth&&!convertIntoMonth(attachments.get(currentItem).time).equals(convertIntoMonth(attachments.get(currentItem-1).time))){
-            isSameMonth = false;
-        }
-
-        if (isSameMonth&&attachments.size()>currentItem) {
-            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid);
+        if (attachments.size()>i+3) {
+            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+3).uuid);
             pictureForth.setVisibility(View.VISIBLE);
             REST.getInstance().getPicasso()
-                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid)
+                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+3).uuid)
                     .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
                     .centerCrop()
                     .into(pictureForth);
-            if(attachments.size()-1!=currentItem){
-                currentItem++;
-            }
         } else {
             pictureForth.setVisibility(View.GONE);
         }
+
+//
+//        if (attachments.size()>currentItem){
+//            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid);
+//            pictureSecond.setVisibility(View.VISIBLE);
+//            REST.getInstance().getPicasso()
+//                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid)
+//                    .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+//                    .centerCrop()
+//                    .into(pictureSecond);
+//            currentItem++;
+//        }
+//        if (attachments.size()>currentItem) {
+//            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid);
+//            pictureThird.setVisibility(View.VISIBLE);
+//            REST.getInstance().getPicasso()
+//                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid)
+//                    .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+//                    .centerCrop()
+//                    .into(pictureThird);
+//            currentItem++;
+//        }
+//
+//        if (attachments.size()>i+3) {
+//            Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+3).uuid);
+//            pictureForth.setVisibility(View.VISIBLE);
+//            REST.getInstance().getPicasso()
+//                    .load("http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(i+3).uuid)
+//                    .resizeDimen(R.dimen.chat_item_avatar_size, R.dimen.chat_item_avatar_size)
+//                    .centerCrop()
+//                    .into(pictureForth);
+//            currentItem++;
+//        }
 
 
 
@@ -327,7 +299,7 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
 
     @Override
     public long getHeaderId(int position) {
-        return attachments.get(position).size.subSequence(0, 1).charAt(0);
+        return 0; //attachments.get(position).size.subSequence(0, 1).charAt(0);
     }
 
     @Override
@@ -338,12 +310,14 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
 
     @Override
     public void onBindHeaderViewHolder(MediaListAdapter.HeaderHolder viewHolder, int position) {
+        viewHolder.header.setText("Май");
+
 //        viewHolder.header.setText(""+media.get(position).getDate());
-        if(position<4){
-            viewHolder.header.setText("<4");
-        } else if (position==5){
-            viewHolder.header.setText("5");
-        } else  viewHolder.header.setText("January");
+//        if(position<4){
+//            viewHolder.header.setText("<4");
+//        } else if (position==5){
+//            viewHolder.header.setText("5");
+//        } else  viewHolder.header.setText("January");
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
