@@ -15,10 +15,17 @@ import android.widget.TextView;
 
 import com.mshvdvskgmail.technoparkmessenger.R;
 import com.mshvdvskgmail.technoparkmessenger.models.DocumentsListItem;
+import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
+import com.mshvdvskgmail.technoparkmessenger.network.model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ca.barrenechea.widget.recyclerview.decoration.StickyHeaderAdapter;
+
+import static android.R.attr.data;
+import static com.mshvdvskgmail.technoparkmessenger.R.id.recycler_item_documents_tv_name;
+import static com.mshvdvskgmail.technoparkmessenger.R.id.recycler_item_documents_tv_size;
 
 /**
  * Created by mshvdvsk on 22/03/2017
@@ -30,6 +37,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
     private final static String TAG = DocumentsListAdapter.class.toString();
 
     private ArrayList<DocumentsListItem> documents = new ArrayList<>();
+    private List<Attachment> files;
     private Context context;
     private FrameLayout frameDocType;
     private FrameLayout frameBottom;
@@ -41,11 +49,19 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
     public boolean isAnimated;
     public boolean isPressed;
 
-    public DocumentsListAdapter(ArrayList <DocumentsListItem> documents, Context context) {
-        this.documents = documents;
+    public DocumentsListAdapter(Context context) {
+        this.files = files;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
+
+    public void setData(List<Attachment> attachments){
+        files = attachments;
+        sort();
+        notifyDataSetChanged();
+    }
+
+    private void sort(){}
 
     @Override
     public DocumentsListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -86,6 +102,20 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
             params.topMargin = 0;
             params.bottomMargin = 0;
         }
+
+
+        holder.tvType.setText(files.get(position).name.substring(files.get(position).name.lastIndexOf('.') + 1));
+        if(holder.tvType.getText().equals("")||holder.tvType.getText().length()>4){
+            holder.tvType.setText("file");
+        }
+        holder.tvIconType.setText(files.get(position).name.substring(files.get(position).name.lastIndexOf('.') + 1));
+        if(holder.tvIconType.getText().equals("")||holder.tvIconType.getText().length()>4){
+            holder.tvIconType.setText("file");
+        }
+        holder.tvName.setText(files.get(position).name);
+        holder.tvSize.setText(humanReadableByteCount(Long.parseLong(files.get(position).size), true));
+
+
 
         if (isPressed){
             params2.leftMargin = leftMarginChanged;
@@ -166,6 +196,9 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
             imageSelectIcon.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_unchecked));
             imageCheckMarkIcon.setVisibility(View.INVISIBLE);
         }
+
+
+
     }
 
     @Override
@@ -197,6 +230,11 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         LinearLayout linearDocInfo;
         ImageView imageSelectIcon;
         ImageView imageCheckMarkIcon;
+        TextView tvIconType;
+        TextView tvName;
+        TextView tvSize;
+        TextView tvType;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -207,6 +245,10 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
             imageSelectIcon = (ImageView) itemView.findViewById(R.id.recycler_item_documents_image_unchecked);
             imageCheckMarkIcon = (ImageView) itemView.findViewById(R.id.recycler_item_documents_image_checked);
             frameSelectItem = (FrameLayout) itemView.findViewById(R.id.recycler_item_documents_fl_selector);
+            tvIconType = (TextView) itemView.findViewById(R.id.recycler_item_documents_tv_type_icon);
+            tvName = (TextView) itemView.findViewById(R.id.recycler_item_documents_tv_name);
+            tvSize = (TextView) itemView.findViewById(R.id.recycler_item_documents_tv_size);
+            tvType = (TextView) itemView.findViewById(R.id.recycler_item_documents_tv_type);
         }
     }
 
@@ -223,5 +265,15 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         for (DocumentsListItem a : documents){
             a.setPressed(false);
         }
+    }
+
+    private String humanReadableByteCount(long bytes, boolean si) {
+        int unit = si ? 1000 : 1024;
+        if (bytes < unit) return bytes + " B";
+        int exp = (int) (Math.log(bytes) / Math.log(unit));
+        String pre = (si ? "KMGTPE" : "KMGTPE").charAt(exp-1) + (si ? "" : "i");
+        Log.w("kek", ""+bytes / Math.pow(unit, exp));
+
+        return String.format("%.0f %sB", bytes / Math.pow(unit, exp), pre);
     }
 }

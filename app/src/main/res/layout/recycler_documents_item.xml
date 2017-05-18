@@ -55,15 +55,15 @@
                 android:id="@+id/recycler_item_documents_image_file"/>
 
             <TextView
+                android:id="@+id/recycler_item_documents_tv_type_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:text="LSD"
-                android:id="@+id/recycler_item_documents_tv_type_icon"
-                android:textSize="8sp"
-                android:textColor="#5a9dc8"
                 android:textAppearance="@style/TextAppearance.Gotham.Bold"
-                android:layout_marginTop="10dp"/>
+                android:textColor="#5a9dc8"
+                android:textSize="8sp" />
 
 
         </FrameLayout>
@@ -80,14 +80,14 @@
             android:layout_marginRight="30dp">
 
             <TextView
+                android:id="@+id/recycler_item_documents_tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="ДокументДокументДокументДокументДокументДокумент.pdf"
                 android:textAppearance="@style/TextAppearance.Gotham"
-                android:maxLines="1"
-                android:textColor="#0f2745"
-                android:ellipsize="end"
-                android:id="@+id/recycler_item_documents_tv_name"/>
+                android:textColor="#0f2745" />
 
             <LinearLayout
                 android:layout_width="match_parent"
