@@ -36,7 +36,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
     private final static String TAG = DocumentsListAdapter.class.toString();
 
-    private ArrayList<DocumentsListItem> documents = new ArrayList<>();
+//    private ArrayList<DocumentsListItem> documents = new ArrayList<>();
     private List<Attachment> files;
     private Context context;
     private FrameLayout frameDocType;
@@ -95,7 +95,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         if (position == 0){
             params.topMargin = topMargin;
             params.bottomMargin = 0;
-        } else if (position == documents.size()-1){
+        } else if (position == files.size()-1){
             params.topMargin = 0;
             params.bottomMargin = bottomMargin;
         } else {
@@ -116,86 +116,86 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         holder.tvSize.setText(humanReadableByteCount(Long.parseLong(files.get(position).size), true));
 
 
-
-        if (isPressed){
-            params2.leftMargin = leftMarginChanged;
-            imageSelectIcon.setVisibility(View.VISIBLE);
-
-            if(isAnimated){
-                final Animation slideToLeft = AnimationUtils.loadAnimation(context, R.anim.icon_slide_to_left);
-                final Animation fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
-                slideToLeft.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        isAnimated = false;
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        isPressed = false;
-                        clearSelected();
-                        notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-                frameDocType.startAnimation(slideToLeft);
-                imageSelectIcon.startAnimation(fadeOut);
-                linearDocInfo.startAnimation(slideToLeft);
-            }
-
-        } else {
-            params2.leftMargin = leftMarginBasic;
-            imageSelectIcon.setVisibility(View.INVISIBLE);
-
-            if(isAnimated){
-                final Animation slideToRight = AnimationUtils.loadAnimation(context, R.anim.icon_slide_to_right);
-                final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
-
-                slideToRight.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        isAnimated = false;
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        isPressed = true;
-                        notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {}
-                });
-                frameDocType.startAnimation(slideToRight);
-                imageSelectIcon.startAnimation(fadeIn);
-                linearDocInfo.startAnimation(slideToRight);
-            }
-        }
-
-        frameDocType.requestLayout();
-
-
-
-
-        frameSelectItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                documents.get(position).setPressed(!documents.get(position).isPressed());
-                notifyDataSetChanged();
-            }
-        });
-
-        if (documents.get(position).isPressed()){
-            imageSelectIcon.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_checked));
-            imageCheckMarkIcon.setVisibility(View.VISIBLE);
-        } else {
-            imageSelectIcon.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_unchecked));
-            imageCheckMarkIcon.setVisibility(View.INVISIBLE);
-        }
+//
+//        if (isPressed){
+//            params2.leftMargin = leftMarginChanged;
+//            imageSelectIcon.setVisibility(View.VISIBLE);
+//
+//            if(isAnimated){
+//                final Animation slideToLeft = AnimationUtils.loadAnimation(context, R.anim.icon_slide_to_left);
+//                final Animation fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+//                slideToLeft.setAnimationListener(new Animation.AnimationListener() {
+//                    @Override
+//                    public void onAnimationStart(Animation animation) {
+//                        isAnimated = false;
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animation animation) {
+//                        isPressed = false;
+//                        clearSelected();
+//                        notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animation animation) {
+//
+//                    }
+//                });
+//                frameDocType.startAnimation(slideToLeft);
+//                imageSelectIcon.startAnimation(fadeOut);
+//                linearDocInfo.startAnimation(slideToLeft);
+//            }
+//
+//        } else {
+//            params2.leftMargin = leftMarginBasic;
+//            imageSelectIcon.setVisibility(View.INVISIBLE);
+//
+//            if(isAnimated){
+//                final Animation slideToRight = AnimationUtils.loadAnimation(context, R.anim.icon_slide_to_right);
+//                final Animation fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
+//
+//                slideToRight.setAnimationListener(new Animation.AnimationListener() {
+//                    @Override
+//                    public void onAnimationStart(Animation animation) {
+//                        isAnimated = false;
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animation animation) {
+//                        isPressed = true;
+//                        notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animation animation) {}
+//                });
+//                frameDocType.startAnimation(slideToRight);
+//                imageSelectIcon.startAnimation(fadeIn);
+//                linearDocInfo.startAnimation(slideToRight);
+//            }
+//        }
+//
+//        frameDocType.requestLayout();
+//
+//
+//
+//
+//        frameSelectItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                documents.get(position).setPressed(!documents.get(position).isPressed());
+//                notifyDataSetChanged();
+//            }
+//        });
+//
+//        if (documents.get(position).isPressed()){
+//            imageSelectIcon.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_checked));
+//            imageCheckMarkIcon.setVisibility(View.VISIBLE);
+//        } else {
+//            imageSelectIcon.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_unchecked));
+//            imageCheckMarkIcon.setVisibility(View.INVISIBLE);
+//        }
 
 
 
@@ -203,12 +203,16 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
     @Override
     public int getItemCount() {
-        return documents.size();
+        if (files!=null){
+            return files.size();
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public long getHeaderId(int position) {
-        return documents.get(position).getDataSent().subSequence(0, 1).charAt(0);
+        return 0;//documents.get(position).getDataSent().subSequence(0, 1).charAt(0);
     }
 
     @Override
@@ -219,7 +223,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
     @Override
     public void onBindHeaderViewHolder(DocumentsListAdapter.HeaderHolder viewHolder, int position) {
-        viewHolder.header.setText(""+documents.get(position).getDataSent());
+        viewHolder.header.setText("hey");//+documents.get(position).getDataSent());
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -262,9 +266,9 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
     }
 
     public void clearSelected(){
-        for (DocumentsListItem a : documents){
-            a.setPressed(false);
-        }
+//        for (DocumentsListItem a : documents){
+//            a.setPressed(false);
+//        }
     }
 
     private String humanReadableByteCount(long bytes, boolean si) {
