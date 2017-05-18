@@ -127,6 +127,8 @@ public interface IService {
     @POST("?r=messages/attach/upload")
     public Observable<Result<Attachment>> upload_link(@Header("session-id") int session_id,
                                                         @Header("token") String token,
+                                                        @Header("text") String text,
+                                                        @Header("name") String name,
                                                         @Header("time") String time,
                                                         @Part MultipartBody.Part file);
 

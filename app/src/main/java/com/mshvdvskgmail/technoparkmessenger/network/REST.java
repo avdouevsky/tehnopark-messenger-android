@@ -423,15 +423,17 @@ public class REST implements IService {
     @Override
     public Observable<Result<Attachment>> upload_link(@Header("session-id") int session_id,
                                                         @Header("token") String token,
+                                                        @Header("text") String text,
+                                                        @Header("name") String name,
                                                         @Header("time") String time,
                                                         @Part MultipartBody.Part file){
-        return service2.upload_link(session_id, token, time, file).compose(this.<Result<Attachment>>setup());
+        return service2.upload_link(session_id, token, text, name, time, file).compose(this.<Result<Attachment>>setup());
     }
 
-    public Observable<Result<Attachment>> upload_link(Token token, String linkAdress, String time, String mime) {
+    public Observable<Result<Attachment>> upload_link(Token token, String linkAdress, String text, String name, String time, String mime) {
         RequestBody requestLink = RequestBody.create(MediaType.parse(mime), linkAdress);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", linkAdress, requestLink);
-        return upload_link(token.session_id, token.token, time, body);
+        return upload_link(token.session_id, token.token, text, name, time, body);
     }
 
     @Override

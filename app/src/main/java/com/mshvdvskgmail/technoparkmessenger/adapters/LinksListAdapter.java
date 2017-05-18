@@ -91,6 +91,8 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
             Log.d(TAG, "wow link =  " + (files.get(position).icon+files.get(position).uuid));
             REST.getInstance().getPicasso()
                     .load((files.get(position).icon+files.get(position).uuid))
+                    .resizeDimen(R.dimen.media_picture, R.dimen.media_picture)
+                    .centerCrop()
                     .into(holder.imageLinkLogo);
 
 //            REST.getInstance().getPicasso()
