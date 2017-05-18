@@ -14,9 +14,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
@@ -271,6 +273,9 @@ public class FragmentChat extends BaseFragment {
     }
 
     private void sendMessage(@Nullable List<Attachment> attachments) {
+        if(Patterns.WEB_URL.matcher(messageEditView.getText()).matches()){
+            sendLink(messageEditView.getText());
+        }
         ChatController.getInstance().r.sendMessage(Controller.getInstance().getAuth().user.token,
                 Controller.getInstance().getAuth().user.id, chat.uuid, messageEditView.getText(), "no local id", attachments).subscribe(new RMQChat.LogSubscriber<RabbitMQ>("sendMessage"));
         messageEditView.clear();
@@ -278,6 +283,18 @@ public class FragmentChat extends BaseFragment {
 
     private void sendFile(File file, String mime){
         REST.getInstance().upload_attach(Controller.getInstance().getAuth().getUser().token, file, String.valueOf(System.currentTimeMillis()), mime)
+                .subscribe(new REST.DataSubscriber<Attachment>() {
+                    @Override
+                    public void onData(Attachment data) {
+                        List<Attachment> attachments = new ArrayList<Attachment>();
+                        attachments.add(data);
+                        sendMessage(attachments);
+                    }
+                });
+    }
+
+    private void sendLink(String linkAdress){
+        REST.getInstance().upload_link(Controller.getInstance().getAuth().getUser().token, linkAdress, String.valueOf(System.currentTimeMillis()), "message/http")
                 .subscribe(new REST.DataSubscriber<Attachment>() {
                     @Override
                     public void onData(Attachment data) {
