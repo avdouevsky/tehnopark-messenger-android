@@ -125,6 +125,8 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         }
 
 
+
+
 //
 //        if (isPressed){
 //            params2.leftMargin = leftMarginChanged;
@@ -205,9 +207,6 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 //            imageSelectIcon.setBackground(context.getResources().getDrawable(R.drawable.ic_select_dot_unchecked));
 //            imageCheckMarkIcon.setVisibility(View.INVISIBLE);
 //        }
-
-
-
     }
 
     @Override

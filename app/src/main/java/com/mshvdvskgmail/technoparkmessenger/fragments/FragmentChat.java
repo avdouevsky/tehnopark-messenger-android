@@ -293,8 +293,8 @@ public class FragmentChat extends BaseFragment {
                 });
     }
 
-    private void sendLink(String linkAdress){
-        REST.getInstance().upload_link(Controller.getInstance().getAuth().getUser().token, linkAdress, String.valueOf(System.currentTimeMillis()), "message/http")
+    private void sendLink(String linkAddress){
+        REST.getInstance().upload_link(Controller.getInstance().getAuth().getUser().token, linkAddress, String.valueOf(System.currentTimeMillis()), "text/url")
                 .subscribe(new REST.DataSubscriber<Attachment>() {
                     @Override
                     public void onData(Attachment data) {
