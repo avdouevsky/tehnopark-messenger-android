@@ -129,6 +129,7 @@ public class MediaListAdapter extends RecyclerView.Adapter<MediaListAdapter.View
 //        }
 
 //
+
         if (attachments.size()>currentItem){
             Log.d(TAG, "http://t-mes.xsrv.ru/basic/web/?r=messages/attach/get&debug=1&view=1&uuid="+attachments.get(currentItem).uuid);
             pictureSecond.setVisibility(View.VISIBLE);
