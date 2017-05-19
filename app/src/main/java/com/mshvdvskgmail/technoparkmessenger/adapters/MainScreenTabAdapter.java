@@ -60,7 +60,7 @@ public class MainScreenTabAdapter extends FragmentPagerAdapter {
 
     public View getTabView(int position) {
         View v;
-        /*switch (position) {
+        switch (position) {
             case 0:
                 v = LayoutInflater.from(context).inflate(R.layout.contacts_custom_tab_1, null);
                 return v;
@@ -73,28 +73,29 @@ public class MainScreenTabAdapter extends FragmentPagerAdapter {
             case 3:
                 v = LayoutInflater.from(context).inflate(R.layout.contacts_custom_tab_4, null);
                 return v;
-        }*/
-        v = LayoutInflater.from(context).inflate(R.layout.contacts_custom_tab_1, null);
-        TextView title = (TextView)v.findViewById(R.id.custom_tab_view);
-        switch (position) {
-            case 0:
-                title.setText("ЧАТЫ");
-                break;
-            case 1:
-                title.setText("ГРУППЫ");
-                break;
-            case 2:
-                title.setText("КОНТАКТЫ");
-                break;
-            case 3:
-                title.setText("ВЫЗОВЫ");
-                break;
         }
+        return null;
+//        v = LayoutInflater.from(context).inflate(R.layout.contacts_custom_tab_1, null);
+//        TextView title = (TextView)v.findViewById(R.id.custom_tab_view);
+//        switch (position) {
+//            case 0:
+//                title.setText("ЧАТЫ");
+//                break;
+//            case 1:
+//                title.setText("ГРУППЫ");
+//                break;
+//            case 2:
+//                title.setText("КОНТАКТЫ");
+//                break;
+//            case 3:
+//                title.setText("ВЫЗОВЫ");
+//                break;
+//        }
+//
+//        FrameLayout badge = (FrameLayout)v.findViewById(R.id.fl_badge);
+//        badge.setVisibility(View.GONE);
 
-        FrameLayout badge = (FrameLayout)v.findViewById(R.id.fl_badge);
-        badge.setVisibility(View.GONE);
-
-        return v;
+//        return v;
 //        return null;
     }
 }

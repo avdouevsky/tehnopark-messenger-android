@@ -12,24 +12,25 @@
         android:id="@+id/custom_tab_view"
         android:maxLines="1"
         android:textColor="@color/colorWhiteText"
-        android:text="КОНТАКТЫ"
+        android:text="ЧАТЫ"
         android:textAppearance="@style/TextAppearance.Gotham.Bold"
         android:background="@color/backgroundGrey"
         android:gravity="center"
-        android:paddingLeft="14dp"
-        android:paddingRight="14dp"
         android:layout_marginTop="4dp"
-        android:textSize="14.3sp"
+        android:textSize="12sp"
+        android:letterSpacing="0.08"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
         />
+    <!--android:textSize="14.3sp"-->
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/notification_background_dot"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="1dp"
-        android:layout_gravity="right"
-        android:id="@+id/fl_badge">
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="15dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,8 +38,7 @@
             android:text="1"
             android:textSize="7dp"
             android:textColor="@color/colorWhiteText"
-            android:layout_gravity="center"
-            android:id="@+id/tv_badge_count"/>
+            android:layout_gravity="center"/>
 
     </FrameLayout>
 
