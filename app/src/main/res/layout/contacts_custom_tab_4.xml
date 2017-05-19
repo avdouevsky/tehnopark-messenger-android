@@ -7,7 +7,7 @@
     android:gravity="center">
 
     <TextView
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:id="@+id/custom_tab_view"
         android:maxLines="1"
@@ -17,8 +17,10 @@
         android:background="@color/backgroundGrey"
         android:gravity="center"
         android:layout_marginTop="4dp"
-        android:textSize="12sp"
+        android:textSize="@dimen/tab_item_text_size"
         android:letterSpacing="0.08"
+        android:paddingRight="@dimen/tab_item_padding"
+        android:paddingLeft="@dimen/tab_item_padding"
         />
 
     <FrameLayout
@@ -27,7 +29,7 @@
         android:background="@drawable/notification_background_dot"
         android:layout_gravity="center"
         android:id="@+id/fl_badge"
-        android:layout_marginLeft="35dp"
+        android:layout_marginLeft="@dimen/tab_item_notification_margin_left_tab_4"
         android:layout_marginBottom="15dp">
 
 

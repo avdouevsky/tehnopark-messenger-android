@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="tab_item_padding">12dp</dimen>
+
+    <dimen name="tab_item_notification_margin_bottom_tab">15dp</dimen>
+
+    <dimen name="tab_item_notification_margin_left_tab_1">21dp</dimen>
+    <dimen name="tab_item_notification_margin_left_tab_2">28dp</dimen>
+    <dimen name="tab_item_notification_margin_left_tab_3">39dp</dimen>
+    <dimen name="tab_item_notification_margin_left_tab_4">31dp</dimen>
+    <dimen name="tab_item_text_size">12sp</dimen>
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="tab_item_padding">15dp</dimen>
+    <dimen name="tab_item_notification_margin_bottom_tab">15dp</dimen>
+
+    <dimen name="tab_item_notification_margin_left_tab_1">25dp</dimen>
+    <dimen name="tab_item_notification_margin_left_tab_2">32dp</dimen>
+    <dimen name="tab_item_notification_margin_left_tab_3">43dp</dimen>
+    <dimen name="tab_item_notification_margin_left_tab_4">35dp</dimen>
+    <dimen name="tab_item_text_size">12sp</dimen>
+
+</resources>

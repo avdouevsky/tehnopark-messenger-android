@@ -16,9 +16,11 @@
         android:textAppearance="@style/TextAppearance.Gotham.Bold"
         android:background="@color/backgroundGrey"
         android:gravity="center"
+        android:textSize="@dimen/tab_item_text_size"
         android:layout_marginTop="4dp"
-        android:textSize="12sp"
         android:letterSpacing="0.08"
+        android:paddingRight="@dimen/tab_item_padding"
+        android:paddingLeft="@dimen/tab_item_padding"
         />
 
     <FrameLayout
@@ -26,7 +28,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/notification_background_dot"
         android:layout_gravity="center"
-        android:layout_marginLeft="35dp"
+        android:layout_marginLeft="@dimen/tab_item_notification_margin_left_tab_2"
         android:layout_marginBottom="15dp"
         android:id="@+id/fl_badge">
 
