@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="tab_item_padding">15dp</dimen>
+    <dimen name="tab_item_padding">16dp</dimen>
     <dimen name="tab_item_notification_margin_bottom_tab">15dp</dimen>
 
     <dimen name="tab_item_notification_margin_left_tab_1">25dp</dimen>

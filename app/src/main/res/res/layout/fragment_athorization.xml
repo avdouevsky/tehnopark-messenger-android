@@ -1,166 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backGroundDarkBlue"
-    tools:ignore="MissingPrefix">
+    android:fillViewport="true"
+    android:background="@color/backGroundDarkBlue">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/logo_icon"
-            android:src="@drawable/icon_just_logo"
-            android:layout_gravity="center"
-            android:layout_marginTop="100dp"/>
-
-        <LinearLayout
-            android:layout_width="285dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="139dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_auth_profile"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:hint="@string/corporate_email_hint"
-                android:textColorHint="#9096A0"
-                android:background="@android:color/transparent"
-                android:cursorVisible="false"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:textSize="13sp"
-                android:textColor="@color/colorWhiteText"
-                android:letterSpacing="0.09"
-                fontPath="fonts/GothamProBold.ttf"
-                android:id="@+id/fragment_authorization_et_email"/>
-
-
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-40dp"
-                android:layout_marginLeft="-40dp"
-                android:layout_marginTop="2dp"
-                android:visibility="gone"
-                android:id="@+id/fragment_authorization_image_cancel_cross_first"
-                android:padding="15dp"
-                android:src="@drawable/icon_cancel_cross"/>
-        </LinearLayout>
+        android:padding="10dp">
 
         <FrameLayout
-            android:layout_width="285dp"
-            android:layout_height="1dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/colorWhiteTransparent40"
-            android:layout_marginTop="-4dp"></FrameLayout>
-
-        <LinearLayout
-            android:layout_width="285dp"
-            android:layout_height="44dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_auth_password"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:hint="@string/corporate_email_password_hint"
-                android:textColorHint="#9096A0"
-                android:background="@android:color/transparent"
-                android:cursorVisible="false"
-                android:textSize="13sp"
-                android:textColor="@color/colorWhiteText"
-                android:letterSpacing="0.19"
-                android:inputType="textPassword"
-                fontPath="fonts/GothamProBold.ttf"
-                android:layout_marginLeft="15dp"
-                android:id="@+id/fragment_authorization_et_password"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="-40dp"
-                android:layout_marginLeft="-40dp"
-                android:layout_marginTop="2dp"
-                android:padding="15dp"
-                android:src="@drawable/icon_cancel_cross"
-                android:visibility="gone"
-                android:id="@+id/fragment_authorization_image_cancel_cross_second"/>
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="285dp"
-            android:layout_height="1dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/colorWhiteTransparent40"
-            android:layout_marginTop="-4dp"></FrameLayout>
-
-        <TextView
-            android:layout_width="286dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="45dp"
-            android:text="ВОЙТИ"
-            android:textColor="@drawable/selector_white_gray"
-            android:layout_gravity="center"
-            android:gravity="center"
-            fontPath="fonts/GothamProBold.ttf"
-            android:id="@+id/fragment_authorization_tv_enter"
-            android:background="@drawable/ripple_effect"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/mainLayout"
+            android:layout_alignParentTop="true"
+            android:id="@+id/headerLayout"
+            android:layout_marginBottom="0dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/logo_icon"
+                android:src="@drawable/icon_just_logo"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="116dp"/>
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/mainLayout"
             android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="25dp"
-            android:paddingRight="5dp"
-            android:paddingLeft="5dp">
-            <TextView
-                android:layout_width="175dp"
-                android:layout_height="45dp"
-                android:text="@string/restore_password"
-                android:textSize="10sp"
-                android:textColor="#10b4fa"
-                android:letterSpacing="0.09"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                fontPath="fonts/GothamProBold.ttf"
-                android:id="@+id/fragment_authorization_tv_reset"/>
+            android:layout_marginBottom="150dp">
+
+            <LinearLayout
+                android:layout_width="285dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="0dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:focusableInTouchMode="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_auth_profile"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:hint="@string/corporate_email_hint"
+                    android:textColorHint="#9096A0"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="false"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:singleLine="true"
+                    android:textSize="13sp"
+                    android:textColor="@color/colorWhiteText"
+                    android:letterSpacing="0.09"
+                    android:nextFocusDown="@+id/fragment_authorization_et_password"
+                    android:textAppearance="@style/TextAppearance.Gotham.Bold"
+                    android:id="@+id/fragment_authorization_et_email"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:inputType="textVisiblePassword"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-40dp"
+                    android:layout_marginLeft="-40dp"
+                    android:layout_marginTop="2dp"
+                    android:visibility="gone"
+                    android:id="@+id/fragment_authorization_image_cancel_cross_first"
+                    android:padding="15dp"
+                    android:src="@drawable/icon_cancel_cross"/>
+            </LinearLayout>
+
             <FrameLayout
-                android:layout_width="match_parent"
+                android:layout_width="285dp"
                 android:layout_height="1dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/colorBlueTextTransparent30"
-                android:layout_marginTop="-15dp">
-            </FrameLayout>
+                android:background="@color/colorWhiteTransparent40"
+                android:layout_marginTop="-4dp"></FrameLayout>
+
+            <LinearLayout
+                android:layout_width="285dp"
+                android:layout_height="44dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_auth_password"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:hint="@string/corporate_email_password_hint"
+                    android:textColorHint="#9096A0"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="false"
+                    android:textSize="13sp"
+                    android:singleLine="true"
+                    android:textColor="@color/colorWhiteText"
+                    android:letterSpacing="0.19"
+                    android:inputType="textPassword"
+                    android:textAppearance="@style/TextAppearance.Gotham.Bold"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:id="@+id/fragment_authorization_et_password"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginEnd="30dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-40dp"
+                    android:layout_marginLeft="-40dp"
+                    android:layout_marginTop="2dp"
+                    android:padding="15dp"
+                    android:src="@drawable/icon_cancel_cross"
+                    android:visibility="gone"
+                    android:id="@+id/fragment_authorization_image_cancel_cross_second"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="285dp"
+                android:layout_height="1dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorWhiteTransparent40"
+                android:layout_marginTop="-4dp"></FrameLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/footerLayout"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="286dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="0dp"
+                    android:text="ВОЙТИ"
+                    android:textColor="@drawable/selector_white_gray"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.Gotham.Bold"
+                    android:id="@+id/fragment_authorization_tv_enter"
+                    android:background="@drawable/ripple_effect"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="1dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp">
+                    <TextView
+                        android:layout_width="175dp"
+                        android:layout_height="45dp"
+                        android:text="@string/restore_password"
+                        android:textSize="10sp"
+                        android:textColor="#10b4fa"
+                        android:letterSpacing="0.09"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:textAppearance="@style/TextAppearance.Gotham.Bold"
+                        android:id="@+id/fragment_authorization_tv_reset"/>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@color/colorBlueTextTransparent30"
+                        android:layout_marginTop="-15dp">
+                    </FrameLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 </ScrollView>

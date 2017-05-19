@@ -30,7 +30,8 @@
         android:layout_gravity="center"
         android:id="@+id/fl_badge"
         android:layout_marginLeft="@dimen/tab_item_notification_margin_left_tab_3"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="15dp"
+        android:visibility="invisible">
 
 
         <TextView
