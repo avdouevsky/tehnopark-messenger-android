@@ -54,10 +54,6 @@ public class BaseFragment extends Fragment {
                 fragment = new FragmentProfile();
                 fragment.setArguments(data);
                 return fragment;
-//            case OUTGOING_CALL:
-//                fragment = new FragmentOutgoingCall();
-//                fragment.setArguments(data);
-//                return fragment;
             case GROUPS_SETTINGS:
                 fragment = new FragmentGroupsSettings();
                 fragment.setArguments(data);
@@ -70,8 +66,6 @@ public class BaseFragment extends Fragment {
                 fragment = new FragmentMedia();
                 fragment.setArguments(data);
                 return fragment;
-
-            //PHONE
             case INCOMING_CALL:
                 fragment = new FragmentIncomingCall();
                 fragment.setArguments(data);

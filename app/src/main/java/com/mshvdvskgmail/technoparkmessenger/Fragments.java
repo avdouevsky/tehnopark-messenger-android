@@ -14,7 +14,7 @@ public enum Fragments {
     CHATS_LIST,
     CONTACTS_LIST,
     CONTACTS_TAB_FILTER,
-    DENIED_CALL,
+    DENIED_CALL, //+
 
     DOCUMENTS_LIST,
     GROUPS_LIST,

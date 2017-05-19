@@ -275,9 +275,9 @@ public class FragmentChat extends BaseFragment {
     }
 
     private void sendMessage(@Nullable List<Attachment> attachments) {
-        if(Patterns.WEB_URL.matcher(messageEditView.getText()).matches()){
-            sendLink(messageEditView.getText());
-        }
+//        if(Patterns.WEB_URL.matcher(messageEditView.getText()).matches()){
+//            sendLink(messageEditView.getText());
+//        }
         ChatController.getInstance().r.sendMessage(Controller.getInstance().getAuth().user.token,
                 Controller.getInstance().getAuth().user.id, chat.uuid, messageEditView.getText(), "no local id", attachments).subscribe(new RMQChat.LogSubscriber<RabbitMQ>("sendMessage"));
         messageEditView.clear();

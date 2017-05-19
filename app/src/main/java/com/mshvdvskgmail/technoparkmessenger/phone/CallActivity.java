@@ -109,6 +109,7 @@ public class CallActivity extends BaseActivity {
                 navigator.replaceTo(Fragments.INCOMING_CALL, intent.getExtras());
                 break;
             case TERMINATE:
+                Bundle args = intent.getExtras();
                 navigator.replaceTo(Fragments.DENIED_CALL, intent.getExtras());
                 break;
         }
