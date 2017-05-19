@@ -130,7 +130,8 @@ public interface IService {
                                                         @Header("text") String text,
                                                         @Header("name") String name,
                                                         @Header("time") String time,
-                                                        @Part MultipartBody.Part file);
+                                                      @Header("longurl") String url,
+                                                      @Part MultipartBody.Part file);
 
     //http://t-mes.xsrv.ru/basic/web/?r=messages/attach/index&debug=1&room_uuid=blablabla
     @GET("?r=messages/attach/index&mime=*/*")

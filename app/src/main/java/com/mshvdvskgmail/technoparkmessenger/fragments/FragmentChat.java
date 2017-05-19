@@ -231,27 +231,29 @@ public class FragmentChat extends BaseFragment {
         mAdapter.setClickListener(new ICommand<Message>() {
             @Override
             public void exec(Message message) {
-                final Attachment data = message.attachments.get(0);
-                REST.getInstance().get_attachment(Controller.getInstance().getAuth().getUser().token, data)
-                        .subscribe(new REST.DataSubscriber<Attachment>() {
-                            @Override
-                            public void onData(Attachment data) {
-                                if(data.url != null){
-                                    if(data.mime.equals("image/jpeg")||data.mime.equals("image/png")){
-                                        Intent viewerIntent = new Intent(getActivity(), ViewerActivity.class);
-                                        viewerIntent.putExtra("url", data.url);
-                                        startActivity(viewerIntent);
-                                    } else {
-                                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.url));
-                                        startActivity(browserIntent);
-                                    }
+                if(message.attachments.size()!=0){
+                    final Attachment data = message.attachments.get(0);
+                    REST.getInstance().get_attachment(Controller.getInstance().getAuth().getUser().token, data)
+                            .subscribe(new REST.DataSubscriber<Attachment>() {
+                                @Override
+                                public void onData(Attachment data) {
+                                    if(data.url != null){
+                                        if(data.mime.equals("image/jpeg")||data.mime.equals("image/png")){
+                                            Intent viewerIntent = new Intent(getActivity(), ViewerActivity.class);
+                                            viewerIntent.putExtra("url", data.url);
+                                            startActivity(viewerIntent);
+                                        } else {
+                                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.url));
+                                            startActivity(browserIntent);
+                                        }
 
-                                    // old version, opens a browser
+                                        // old version, opens a browser
 //                                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data.url));
 //                                    startActivity(browserIntent);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
 
@@ -294,7 +296,7 @@ public class FragmentChat extends BaseFragment {
     }
 
     private void sendLink(String linkAddress){
-        REST.getInstance().upload_link(Controller.getInstance().getAuth().getUser().token, "https://"+linkAddress, linkAddress,linkAddress, String.valueOf(System.currentTimeMillis()), "text/url")
+        REST.getInstance().upload_link(Controller.getInstance().getAuth().getUser().token, linkAddress, "https://"+linkAddress, linkAddress, String.valueOf(System.currentTimeMillis()), "text/url")
                 .subscribe(new REST.DataSubscriber<Attachment>() {
                     @Override
                     public void onData(Attachment data) {

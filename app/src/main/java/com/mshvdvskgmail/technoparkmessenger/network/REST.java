@@ -426,14 +426,15 @@ public class REST implements IService {
                                                         @Header("text") String text,
                                                         @Header("name") String name,
                                                         @Header("time") String time,
+                                                        @Header("longurl") String url,
                                                         @Part MultipartBody.Part file){
-        return service2.upload_link(session_id, token, text, name, time, file).compose(this.<Result<Attachment>>setup());
+        return service2.upload_link(session_id, token, text, name, time, url, file).compose(this.<Result<Attachment>>setup());
     }
 
     public Observable<Result<Attachment>> upload_link(Token token, String linkAdress, String text, String name, String time, String mime) {
         RequestBody requestLink = RequestBody.create(MediaType.parse(mime), linkAdress);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", linkAdress, requestLink);
-        return upload_link(token.session_id, token.token, text, name, time, body);
+        return upload_link(token.session_id, token.token, text, name, time, linkAdress , body);
     }
 
     @Override

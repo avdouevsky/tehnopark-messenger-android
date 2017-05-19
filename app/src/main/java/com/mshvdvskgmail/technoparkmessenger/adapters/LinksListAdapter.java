@@ -20,6 +20,7 @@ import com.mshvdvskgmail.technoparkmessenger.network.REST;
 import com.mshvdvskgmail.technoparkmessenger.network.model.Attachment;
 import com.squareup.picasso.Picasso;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,11 +87,12 @@ public class LinksListAdapter extends RecyclerView.Adapter<LinksListAdapter.View
         imageCheckMarkIcon = holder.imageCheckMarkIcon;
 
         if(files!=null){
-            holder.tvLink.setText(files.get(position).name);
+            holder.tvLink.setText("www."+files.get(position).name);
 //            holder.imageLinkLogo;
-            Log.d(TAG, "wow link =  " + (files.get(position).icon+files.get(position).uuid));
+//            URI uri = files.get(position).uuid;
+            Log.d(TAG, "wow link =  " + (files.get(position).icon+files.get(position).name));
             REST.getInstance().getPicasso()
-                    .load((files.get(position).icon+files.get(position).uuid))
+                    .load((files.get(position).icon+files.get(position).name))
                     .resizeDimen(R.dimen.media_picture, R.dimen.media_picture)
                     .centerCrop()
                     .into(holder.imageLinkLogo);

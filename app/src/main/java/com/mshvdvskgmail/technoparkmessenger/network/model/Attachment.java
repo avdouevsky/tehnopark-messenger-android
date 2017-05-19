@@ -11,4 +11,5 @@ public class Attachment  {
     public String size;
     public String time;
     public String icon;
+    public String text;
 }
